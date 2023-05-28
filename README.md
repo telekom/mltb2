@@ -55,7 +55,15 @@ hyperparameter set. Those pruners work on the basis of intermediate results. For
 epoch. In contrast, this pruner does not work on intermediate results but on the results of a
 cross validation or more precisely the results of the individual folds.
 
-Our experiments have shown that an `aplha` value between 0.3 and 0.4 is reasonable.
+- `alpha`: The alpha level for the statistical significance test.
+  The larger this value is, the more aggressively this pruner works.
+  The smaller this value is, the stronger the statistical difference between the two
+  distributions must be for Optuna to prune.
+  Our experiments have shown that an `aplha` value between 0.3 and 0.4 is reasonable.
+  It must be `0 < alpha < 1`.
+- `n_warmup_steps`: Pruning is disabled until the trial reaches or exceeds the given number
+  of steps.
+
 Below is a minimalist example:
 
 ```python
