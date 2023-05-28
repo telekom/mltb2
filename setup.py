@@ -24,7 +24,7 @@ extras_require = {
         "pylint",
         "pylintfileheader",
     ],
-    "optional": ["optuna", "SoMaJo", "transformers"],
+    "optional": ["optuna", "SoMaJo", "transformers", "torch", "scikit-learn"],
     "testing": ["pytest", "packaging"],
     "doc": ["sphinx", "sphinx_rtd_theme", "myst_parser", "sphinx_copybutton"],
 }
