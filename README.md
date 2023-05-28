@@ -12,6 +12,7 @@ Count tokens made by a Transformers tokenizer.
 
 [`from mltb2.somajo_transformers import TextSplitter`](https://github.com/telekom/mltb2/blob/main/mltb2/somajo_transformers.py)\
 Split the text into sections with a specified maximum token length.
+Does not divide words, but always whole sentences.
 
 [`from mltb2.optuna import SignificanceRepeatedTrainingPruner`](https://github.com/telekom/mltb2/blob/main/mltb2/optuna.py)\
 An [Optuna pruner](https://optuna.readthedocs.io/en/stable/reference/pruners.html)

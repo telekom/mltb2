@@ -14,7 +14,10 @@ from mltb2.transformers import TransformersTokenCounter
 
 @dataclass
 class TextSplitter:
-    """Split the text into sections with a specified maximum token length."""
+    """Split the text into sections with a specified maximum token length.
+
+    Does not divide words, but always whole sentences.
+    """
 
     max_token: int
     somajo_sentence_splitter: SoMaJoSentenceSplitter
