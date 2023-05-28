@@ -1,4 +1,13 @@
-# MLTB2
+# Machine Learning Toolbox 2 - MLTB2
+
+A box of machine learning tools.
+
+The main components are:
+
+- [`mltb2.optuna.SignificanceRepeatedTrainingPruner`](https://github.com/telekom/mltb2/blob/main/mltb2/optuna.py):\
+  An [Optuna pruner](https://optuna.readthedocs.io/en/stable/reference/pruners.html)
+  to use statistical significance (a t-test which serves as a heuristic) to stop
+  unpromising trials early, avoiding unnecessary repeated training during cross validation.
 
 ## Licensing
 
