@@ -1,5 +1,13 @@
 # Machine Learning Toolbox 2 - MLTB2
 
+[![MIT License](https://img.shields.io/github/license/telekom/mltb2)](https://github.com/telekom/mltb2/blob/main/LICENSE)
+[![Python Version](https://img.shields.io/pypi/pyversions/mltb2)](https://www.python.org)
+[![pypi](https://img.shields.io/pypi/v/mltb2.svg)](https://pypi.python.org/pypi/mltb2)
+<br/>
+[![pytest](https://github.com/telekom/mltb2/actions/workflows/pytest.yml/badge.svg)](https://github.com/telekom/mltb2/actions/workflows/pytest.yml)
+[![Static Code Checks](https://github.com/telekom/mltb2/actions/workflows/static_checks.yml/badge.svg)](https://github.com/telekom/mltb2/actions/workflows/static_checks.yml)
+[![GitHub issues](https://img.shields.io/github/issues-raw/telekom/mltb2)](https://github.com/telekom/mltb2/issues)
+
 A box of machine learning tools.
 
 The main components are:
