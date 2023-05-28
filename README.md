@@ -6,9 +6,10 @@ The main components are:
 
 [`from mltb2.somajo import SoMaJoSentenceSplitter`](https://github.com/telekom/mltb2/blob/main/mltb2/somajo.py)\
 Split texts into sentences. For German and English language.
+This is done with the [SoMaJo](https://github.com/tsproisl/SoMaJo) tool.
 
 [`from mltb2.transformers import TransformersTokenCounter`](https://github.com/telekom/mltb2/blob/main/mltb2/transformers.py)\
-Count tokens made by a Transformers tokenizer.
+Count tokens made by a [Transformers](https://github.com/huggingface/transformers) tokenizer.
 
 [`from mltb2.somajo_transformers import TextSplitter`](https://github.com/telekom/mltb2/blob/main/mltb2/somajo_transformers.py)\
 Split the text into sections with a specified maximum token length.
