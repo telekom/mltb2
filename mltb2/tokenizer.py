@@ -13,7 +13,11 @@ from somajo import SoMaJo
 
 @dataclass
 class SoMaJoSentenceSplitter:
-    """Use SoMaJo to split text into sentences."""
+    """Use SoMaJo to split text into sentences.
+
+    Args:
+        language: The language. ``de_CMC`` for German or ``en_PTB`` for English.
+    """
 
     language: str
     somajo: SoMaJo = field(init=False, repr=False)
