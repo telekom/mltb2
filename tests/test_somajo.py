@@ -2,7 +2,7 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-from mltb2.tokenizer import SoMaJoSentenceSplitter
+from mltb2.somajo import SoMaJoSentenceSplitter
 
 
 def test_SoMaJoSentenceSplitter_call() -> None:
