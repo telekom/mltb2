@@ -19,6 +19,21 @@ An [Optuna pruner](https://optuna.readthedocs.io/en/stable/reference/pruners.htm
 to use statistical significance (a t-test which serves as a heuristic) to stop
 unpromising trials early, avoiding unnecessary repeated training during cross validation.
 
+## Installation
+
+MLTB2 is available at [the Python Package Index (PyPI)](https://pypi.org/project/mltb2/).
+It can be installed with pip:
+
+```bash
+pip install mltb2
+```
+
+Some optional dependencies might be necessary. You can install all of them with:
+
+```bash
+pip install mltb2[optional]
+```
+
 ## Licensing
 
 Copyright (c) 2023 Philip May\
