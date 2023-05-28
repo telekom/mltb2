@@ -10,7 +10,7 @@
 
 A box of machine learning tools.
 
-The main components are:
+## Main Components
 
 [`from mltb2.somajo import SoMaJoSentenceSplitter`](https://github.com/telekom/mltb2/blob/main/mltb2/somajo.py)\
 Split texts into sentences. For German and English language.
