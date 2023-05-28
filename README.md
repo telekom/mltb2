@@ -4,10 +4,16 @@ A box of machine learning tools.
 
 The main components are:
 
-- [`mltb2.optuna.SignificanceRepeatedTrainingPruner`](https://github.com/telekom/mltb2/blob/main/mltb2/optuna.py):\
-  An [Optuna pruner](https://optuna.readthedocs.io/en/stable/reference/pruners.html)
-  to use statistical significance (a t-test which serves as a heuristic) to stop
-  unpromising trials early, avoiding unnecessary repeated training during cross validation.
+[`from mltb2.somajo import SoMaJoSentenceSplitter`](https://github.com/telekom/mltb2/blob/main/mltb2/somajo.py)\
+Split texts into sentences. For German and English language.
+
+[`from mltb2.transformers import TransformersTokenCounter`](https://github.com/telekom/mltb2/blob/main/mltb2/transformers.py)\
+Count tokens made by a Transformers tokenizer.
+
+[`from mltb2.optuna import SignificanceRepeatedTrainingPruner`](https://github.com/telekom/mltb2/blob/main/mltb2/optuna.py)\
+An [Optuna pruner](https://optuna.readthedocs.io/en/stable/reference/pruners.html)
+to use statistical significance (a t-test which serves as a heuristic) to stop
+unpromising trials early, avoiding unnecessary repeated training during cross validation.
 
 ## Licensing
 
