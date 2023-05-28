@@ -45,12 +45,12 @@ class LabeledDataset(torch.utils.data.Dataset):
         self.encodings = encodings
         self.labels = labels
 
-    def __getitem__(self, idx):
+    def __getitem__(self, idx):  # noqa: D105
         item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
         item["labels"] = torch.tensor(self.labels[idx])
         return item
 
-    def __len__(self):
+    def __len__(self):  # noqa: D105
         return len(self.labels)
 
 

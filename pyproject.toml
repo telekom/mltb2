@@ -24,4 +24,5 @@ disable = [
     "arguments-differ",
     "consider-using-f-string",
     "no-else-return",
+    "no-member",
 ]
