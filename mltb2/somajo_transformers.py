@@ -28,6 +28,8 @@ class TextSplitter:
         sentences = self.somajo_sentence_splitter(text)
         counts = self.transformers_token_counter(sentences)
 
+        assert len(sentences) == len(counts)
+
         result_splits: List[str] = []
         current_sentences: List[str] = []
         current_count: int = 0
