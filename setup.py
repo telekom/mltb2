@@ -12,7 +12,7 @@ import setuptools
 project_name = "mltb2"
 source_code = "https://github.com/telekom/mltb2"
 keywords = "optuna deep-learning ml ai machine-learning hyperparameter-optimization"
-install_requires = ["numpy", "scipy"]
+install_requires = ["numpy", "scipy", "tqdm"]
 extras_require = {
     "checking": [
         "black",

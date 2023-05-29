@@ -8,6 +8,8 @@
 from dataclasses import dataclass
 from typing import List
 
+from tqdm.auto import tqdm
+
 from mltb2.somajo import SoMaJoSentenceSplitter
 from mltb2.transformers import TransformersTokenCounter
 
@@ -22,18 +24,21 @@ class TextSplitter:
     max_token: int
     somajo_sentence_splitter: SoMaJoSentenceSplitter
     transformers_token_counter: TransformersTokenCounter
+    show_progress_bar: bool = True
 
     def __call__(self, text: str) -> List[str]:
         """Split the text into sections."""
         sentences = self.somajo_sentence_splitter(text)
         counts = self.transformers_token_counter(sentences)
 
-        assert len(sentences) == len(counts)
+        assert len(sentences) == len(counts)  # type: ignore
 
         result_splits: List[str] = []
         current_sentences: List[str] = []
         current_count: int = 0
-        for sentence, count in zip(sentences, counts):  # type: ignore
+        for sentence, count in zip(
+            tqdm(sentences, disable=not self.show_progress_bar), counts  # type: ignore
+        ):
             if count > self.max_token:
                 raise ValueError("No sentence may be longer than 'max_token'.")
             if current_count + count <= self.max_token:

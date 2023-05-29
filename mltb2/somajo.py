@@ -9,6 +9,7 @@ from dataclasses import dataclass, field
 from typing import List
 
 from somajo import SoMaJo
+from tqdm.auto import tqdm
 
 
 @dataclass
@@ -21,6 +22,7 @@ class SoMaJoSentenceSplitter:
 
     language: str
     somajo: SoMaJo = field(init=False, repr=False)
+    show_progress_bar: bool = True
 
     def __post_init__(self):
         """Do post init."""
@@ -49,7 +51,7 @@ class SoMaJoSentenceSplitter:
 
         result = []
 
-        for sentence in sentences:
+        for sentence in tqdm(sentences, disable=not self.show_progress_bar):
             sentence_string = self.detokenize(sentence)
             result.append(sentence_string)
 
