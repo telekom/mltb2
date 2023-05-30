@@ -1,0 +1,36 @@
+MLTB2 Documentation
+===================
+
+.. todo::
+   - add content
+
+Installation
+------------
+
+MLTB2 is available at the `Python Package Index (PyPI) <https://pypi.org/project/mltb2/>`__.
+It can be installed with pip:
+
+.. code-block:: bash
+
+   $ pip install mltb2
+
+Content
+-------
+
+.. toctree::
+   :glob:
+   :maxdepth: 2
+
+   doc
+   code-doc
+   License <https://github.com/telekom/mltb2/blob/main/LICENSE>
+   GitHub Repository <https://github.com/telekom/mltb2>
+   Imprint <https://www.telekom.com/imprint>
+
+
+Indices and Tables
+------------------
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
