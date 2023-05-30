@@ -17,7 +17,14 @@ from transformers.tokenization_utils import PreTrainedTokenizerBase
 
 @dataclass
 class TransformersTokenCounter:
-    """Count Transformers tokenizer tokens."""
+    """Count Transformers tokenizer tokens.
+
+    Args:
+        pretrained_model_name_or_path:
+            The *model id* of a tokenizer hosted inside a model repo on huggingface.co or
+            a path to a *directory* containing a tokenizer.
+        show_progress_bar: Show a progressbar during processing.
+    """
 
     pretrained_model_name_or_path: Union[str, os.PathLike]
     tokenizer: PreTrainedTokenizerBase = field(init=False, repr=False)
