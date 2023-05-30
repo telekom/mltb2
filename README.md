@@ -67,7 +67,7 @@ cross validation or more precisely the results of the individual folds.
 Below is a minimalist example:
 
 ```python
-from hpoflow import SignificanceRepeatedTrainingPruner
+from mltb2.optuna import SignificanceRepeatedTrainingPruner
 import logging
 import numpy as np
 import optuna
@@ -78,7 +78,7 @@ from sklearn.metrics import accuracy_score
 
 # configure the logger to see the debug output from the pruner
 logging.getLogger().addHandler(logging.StreamHandler())
-logging.getLogger("hpoflow.optuna").setLevel(logging.DEBUG)
+logging.getLogger("mltb2.optuna").setLevel(logging.DEBUG)
 
 dataset = load_iris()
 
