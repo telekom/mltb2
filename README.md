@@ -1,4 +1,4 @@
-# Machine Learning Toolbox 2 - MLTB2
+# Machine Learning Toolbox 2 - MLTB2 - [Sphinx DOC](https://telekom.github.io/mltb2/)
 
 [![MIT License](https://img.shields.io/github/license/telekom/mltb2)](https://github.com/telekom/mltb2/blob/main/LICENSE)
 [![Python Version](https://img.shields.io/pypi/pyversions/mltb2)](https://www.python.org)
