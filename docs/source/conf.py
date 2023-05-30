@@ -101,7 +101,7 @@ source_suffix = [".rst", ".md"]
 # -- autosummary config -------------------------------------------------
 # This value controls how to represent typehints.
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_typehints
-autodoc_typehints = "description"
+autodoc_typehints = "both"
 
 # This value selects what content will be inserted into the main body of an autoclass directive.
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autoclass_content
