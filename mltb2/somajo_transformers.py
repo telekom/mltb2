@@ -16,9 +16,15 @@ from mltb2.transformers import TransformersTokenCounter
 
 @dataclass
 class TextSplitter:
-    """Split the text into sections with a specified maximum token length.
+    """Split the text into sections with a specified maximum token number.
 
     Does not divide words, but always whole sentences.
+
+    Args:
+        max_token: Maximum number of tokens per text section.
+        somajo_sentence_splitter: The sentence splitter to be used.
+        transformers_token_counter: The token counter to be used.
+        show_progress_bar: Show a progressbar during processing.
     """
 
     max_token: int
@@ -27,7 +33,13 @@ class TextSplitter:
     show_progress_bar: bool = True
 
     def __call__(self, text: str) -> List[str]:
-        """Split the text into sections."""
+        """Split the text into sections.
+
+        Args:
+            text: The text to be split.
+        Returns:
+            The list of section splits.
+        """
         sentences = self.somajo_sentence_splitter(text)
         counts = self.transformers_token_counter(sentences)
 
