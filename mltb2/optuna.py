@@ -22,20 +22,18 @@ class SignificanceRepeatedTrainingPruner(BasePruner):
     Pruner to use statistical significance to prune repeated trainings like in a cross validation.
     As the test method a t-test is used. Our experiments have shown that an ``aplha`` value
     between 0.3 and 0.4 is reasonable.
+
+    Args:
+        alpha: The alpha level for the statistical significance test.
+            The larger this value is, the more aggressively this pruner works.
+            The smaller this value is, the stronger the statistical difference between the two
+            distributions must be for Optuna to prune.
+            ``alpha`` must be ``0 < alpha < 1``.
+        n_warmup_steps: Pruning is disabled until the trial reaches or exceeds the given number
+            of steps.
     """
 
     def __init__(self, alpha: float = 0.1, n_warmup_steps: int = 4) -> None:
-        """Constructor.
-
-        Args:
-            alpha: The alpha level for the statistical significance test.
-                The larger this value is, the more aggressively this pruner works.
-                The smaller this value is, the stronger the statistical difference between the two
-                distributions must be for Optuna to prune.
-                ``alpha`` must be ``0 < alpha < 1``.
-            n_warmup_steps: Pruning is disabled until the trial reaches or exceeds the given number
-                of steps.
-        """
         # input value check
         if n_warmup_steps < 0:
             raise ValueError(
