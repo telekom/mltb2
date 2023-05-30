@@ -52,6 +52,11 @@
 <li class="toctree-l2"><a class="reference internal" href="optuna.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">plot</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.somajo.JaccardSimilarity"><code class="docutils literal notranslate"><span class="pre">JaccardSimilarity</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.somajo.JaccardSimilarity.__call__"><code class="docutils literal notranslate"><span class="pre">JaccardSimilarity.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.somajo.JaccardSimilarity.get_token_set"><code class="docutils literal notranslate"><span class="pre">JaccardSimilarity.get_token_set()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.somajo.SoMaJoSentenceSplitter"><code class="docutils literal notranslate"><span class="pre">SoMaJoSentenceSplitter</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mltb2.somajo.SoMaJoSentenceSplitter.__call__"><code class="docutils literal notranslate"><span class="pre">SoMaJoSentenceSplitter.__call__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mltb2.somajo.SoMaJoSentenceSplitter.detokenize"><code class="docutils literal notranslate"><span class="pre">SoMaJoSentenceSplitter.detokenize()</span></code></a></li>
@@ -96,6 +101,55 @@
   <section id="module-mltb2.somajo">
 <span id="somajo"></span><span id="somajo-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.somajo" title="mltb2.somajo"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo</span></code></a><a class="headerlink" href="#module-mltb2.somajo" title="Permalink to this heading"></a></h1>
 <p>SoMaJo tools.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mltb2.somajo.JaccardSimilarity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.somajo.</span></span><span class="sig-name descname"><span class="pre">JaccardSimilarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/somajo.html#JaccardSimilarity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.JaccardSimilarity" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Calculate the <a class="reference external" href="https://en.wikipedia.org/wiki/Jaccard_index">jaccard similarity</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>language</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The language. <code class="docutils literal notranslate"><span class="pre">de_CMC</span></code> for German or <code class="docutils literal notranslate"><span class="pre">en_PTB</span></code> for English.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.somajo.JaccardSimilarity.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">text2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/mltb2/somajo.html#JaccardSimilarity.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.JaccardSimilarity.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the jaccard similarity for two texts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text1</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Text one.</p></li>
+<li><p><strong>text2</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Text two.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The jaccard similarity.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.somajo.JaccardSimilarity.get_token_set">
+<span class="sig-name descname"><span class="pre">get_token_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.11)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/somajo.html#JaccardSimilarity.get_token_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.JaccardSimilarity.get_token_set" title="Permalink to this definition"></a></dt>
+<dd><p>Get token set for text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The text to be tokenized into a set.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The set of tokens (words).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.11)"><em>Set</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="mltb2.somajo.SoMaJoSentenceSplitter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.somajo.</span></span><span class="sig-name descname"><span class="pre">SoMaJoSentenceSplitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress_bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/somajo.html#SoMaJoSentenceSplitter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.SoMaJoSentenceSplitter" title="Permalink to this definition"></a></dt>
