@@ -35,7 +35,14 @@ class TransformersTokenCounter:
         self.tokenizer = AutoTokenizer.from_pretrained(self.pretrained_model_name_or_path)
 
     def __call__(self, text: Union[str, Iterable]) -> Union[int, List[int]]:
-        """Count tokens for text."""
+        """Count tokens for text.
+
+        Args:
+            text: The text for which the tokens are to be counted.
+        Returns:
+            The number of tokens if text was just a ``str``.
+            If text is an ``Iterable`` then a ``list`` of number of tokens.
+        """
         if isinstance(text, str):
             tokenized_text = self.tokenizer.tokenize(text)
             return len(tokenized_text)
