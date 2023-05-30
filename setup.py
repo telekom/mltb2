@@ -61,7 +61,7 @@ setuptools.setup(
     url=source_code,
     project_urls={
         "Bug Tracker": source_code + "/issues",
-        # "Documentation": "https://telekom.github.io/mltb2/",
+        "Documentation": "https://telekom.github.io/mltb2/",
         "Source Code": source_code,
         # "Contributing": source_code + "/blob/main/CONTRIBUTING.md",
         # "Code of Conduct": source_code + "/blob/main/CODE_OF_CONDUCT.md",
