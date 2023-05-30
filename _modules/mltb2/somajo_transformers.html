@@ -94,9 +94,15 @@
 
 <div class="viewcode-block" id="TextSplitter"><a class="viewcode-back" href="../../code-doc/somajo_transformers.html#mltb2.somajo_transformers.TextSplitter">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">TextSplitter</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Split the text into sections with a specified maximum token length.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Split the text into sections with a specified maximum token number.</span>
 
 <span class="sd">    Does not divide words, but always whole sentences.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        max_token: Maximum number of tokens per text section.</span>
+<span class="sd">        somajo_sentence_splitter: The sentence splitter to be used.</span>
+<span class="sd">        transformers_token_counter: The token counter to be used.</span>
+<span class="sd">        show_progress_bar: Show a progressbar during processing.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">max_token</span><span class="p">:</span> <span class="nb">int</span>
@@ -105,7 +111,13 @@
     <span class="n">show_progress_bar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 
 <div class="viewcode-block" id="TextSplitter.__call__"><a class="viewcode-back" href="../../code-doc/somajo_transformers.html#mltb2.somajo_transformers.TextSplitter.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Split the text into sections.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Split the text into sections.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text: The text to be split.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The list of section splits.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">sentences</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">somajo_sentence_splitter</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
         <span class="n">counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformers_token_counter</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
 
