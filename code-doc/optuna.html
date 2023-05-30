@@ -111,8 +111,13 @@ between 0.3 and 0.4 is reasonable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – </p></li>
-<li><p><strong>n_warmup_steps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – </p></li>
+<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – The alpha level for the statistical significance test.
+The larger this value is, the more aggressively this pruner works.
+The smaller this value is, the stronger the statistical difference between the two
+distributions must be for Optuna to prune.
+<code class="docutils literal notranslate"><span class="pre">alpha</span></code> must be <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">alpha</span> <span class="pre">&lt;</span> <span class="pre">1</span></code>.</p></li>
+<li><p><strong>n_warmup_steps</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Pruning is disabled until the trial reaches or exceeds the given number
+of steps.</p></li>
 </ul>
 </dd>
 </dl>
