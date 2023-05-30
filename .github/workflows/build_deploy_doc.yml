@@ -9,6 +9,12 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
+    # avoid failure on git push
+    # see https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-first-deployment-with-github_token
+    #permissions:
+    #  contents: write
+
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
