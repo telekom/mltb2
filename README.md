@@ -6,6 +6,7 @@
 <br/>
 [![pytest](https://github.com/telekom/mltb2/actions/workflows/pytest.yml/badge.svg)](https://github.com/telekom/mltb2/actions/workflows/pytest.yml)
 [![Static Code Checks](https://github.com/telekom/mltb2/actions/workflows/static_checks.yml/badge.svg)](https://github.com/telekom/mltb2/actions/workflows/static_checks.yml)
+[![Build & Deploy Doc](https://github.com/telekom/mltb2/actions/workflows/build_deploy_doc.yml/badge.svg)](https://github.com/telekom/mltb2/actions/workflows/build_deploy_doc.yml)
 [![GitHub issues](https://img.shields.io/github/issues-raw/telekom/mltb2)](https://github.com/telekom/mltb2/issues)
 
 📦 A box of machine learning tools. 📦
