@@ -15,6 +15,8 @@ hyperparameter set. Those pruners work on the basis of intermediate results. For
 epoch. In contrast, this pruner does not work on intermediate results but on the results of a
 cross validation or more precisely the results of the individual folds.
 
+Below is a minimalist example:
+
 .. code-block:: python
 
     from mltb2.optuna import SignificanceRepeatedTrainingPruner

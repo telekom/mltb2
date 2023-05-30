@@ -29,6 +29,7 @@ class SignificanceRepeatedTrainingPruner(BasePruner):
             The smaller this value is, the stronger the statistical difference between the two
             distributions must be for Optuna to prune.
             ``alpha`` must be ``0 < alpha < 1``.
+            Our experiments have shown that an ``aplha`` value between 0.3 and 0.4 is reasonable.
         n_warmup_steps: Pruning is disabled until the trial reaches or exceeds the given number
             of steps.
     """
