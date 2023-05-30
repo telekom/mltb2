@@ -96,6 +96,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        language: The language. ``de_CMC`` for German or ``en_PTB`` for English.</span>
+<span class="sd">        show_progress_bar: Show a progressbar during processing.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">language</span><span class="p">:</span> <span class="nb">str</span>
@@ -109,7 +110,13 @@
     <span class="c1"># see https://github.com/tsproisl/SoMaJo/issues/17</span>
 <div class="viewcode-block" id="SoMaJoSentenceSplitter.detokenize"><a class="viewcode-back" href="../../code-doc/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter.detokenize">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">detokenize</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert SoMaJo tokens to sentence (string).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert SoMaJo tokens to sentence (string).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            tokens: The tokens to be de-tokenized.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The de-tokenized sentence.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">result_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">original_spelling</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -124,7 +131,13 @@
         <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="SoMaJoSentenceSplitter.__call__"><a class="viewcode-back" href="../../code-doc/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Split the test into a list of sentences.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Split the text into a list of sentences.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text: The text to be split.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            The list of sentence splits.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">sentences</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">somajo</span><span class="o">.</span><span class="n">tokenize_text</span><span class="p">([</span><span class="n">text</span><span class="p">])</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
