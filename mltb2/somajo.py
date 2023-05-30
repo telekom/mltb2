@@ -18,6 +18,7 @@ class SoMaJoSentenceSplitter:
 
     Args:
         language: The language. ``de_CMC`` for German or ``en_PTB`` for English.
+        show_progress_bar: Show a progressbar during processing.
     """
 
     language: str
@@ -31,7 +32,13 @@ class SoMaJoSentenceSplitter:
     # see https://github.com/tsproisl/SoMaJo/issues/17
     @staticmethod
     def detokenize(tokens) -> str:
-        """Convert SoMaJo tokens to sentence (string)."""
+        """Convert SoMaJo tokens to sentence (string).
+
+        Args:
+            tokens: The tokens to be de-tokenized.
+        Returns:
+            The de-tokenized sentence.
+        """
         result_list = []
         for token in tokens:
             if token.original_spelling is not None:
@@ -46,7 +53,13 @@ class SoMaJoSentenceSplitter:
         return result
 
     def __call__(self, text: str) -> List[str]:
-        """Split the test into a list of sentences."""
+        """Split the text into a list of sentences.
+
+        Args:
+            text: The text to be split.
+        Returns:
+            The list of sentence splits.
+        """
         sentences = self.somajo.tokenize_text([text])
 
         result = []
