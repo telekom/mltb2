@@ -17,7 +17,7 @@
 Split texts into sentences. For German and English language.
 This is done with the [SoMaJo](https://github.com/tsproisl/SoMaJo) tool.
 
-[from mltb2.somajo import JaccardSimilarity](https://telekom.github.io/mltb2/code-doc/somajo.html#mltb2.somajo.JaccardSimilarity)\
+[`from mltb2.somajo import JaccardSimilarity`](https://telekom.github.io/mltb2/code-doc/somajo.html#mltb2.somajo.JaccardSimilarity)\
 Calculate the [jaccard similarity](https://en.wikipedia.org/wiki/Jaccard_index).
 
 [`from mltb2.transformers import TransformersTokenCounter`](https://telekom.github.io/mltb2/code-doc/transformers.html#mltb2.transformers.TransformersTokenCounter)\
