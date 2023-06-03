@@ -1,8 +1,7 @@
 MLTB2 Documentation
 ===================
 
-.. todo::
-   - add content
+📦 A box of machine learning tools. 📦
 
 Installation
 ------------
