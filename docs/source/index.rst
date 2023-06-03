@@ -1,8 +1,7 @@
 MLTB2 Documentation
 ===================
 
-.. todo::
-   - add content
+📦 A box of machine learning tools. 📦
 
 Installation
 ------------
@@ -21,16 +20,8 @@ Content
    :glob:
    :maxdepth: 2
 
-   doc
-   code-doc
-   License <https://github.com/telekom/mltb2/blob/main/LICENSE>
+   api-reference
+   genindex
    GitHub Repository <https://github.com/telekom/mltb2>
+   License <https://github.com/telekom/mltb2/blob/main/LICENSE>
    Imprint <https://www.telekom.com/imprint>
-
-
-Indices and Tables
-------------------
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

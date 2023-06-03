@@ -1,4 +1,4 @@
-# Machine Learning Toolbox 2 - MLTB2 - [Sphinx DOC](https://telekom.github.io/mltb2/)
+# Machine Learning Toolbox 2 - MLTB2
 
 [![MIT License](https://img.shields.io/github/license/telekom/mltb2)](https://github.com/telekom/mltb2/blob/main/LICENSE)
 [![Python Version](https://img.shields.io/pypi/pyversions/mltb2)](https://www.python.org)
@@ -11,7 +11,9 @@
 
 📦 A box of machine learning tools. 📦
 
-## Main Components
+## Components and Documentation
+
+[Documentation Page](https://telekom.github.io/mltb2/)
 
 [`from mltb2.somajo import SoMaJoSentenceSplitter`](https://telekom.github.io/mltb2/code-doc/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter)\
 Split texts into sentences. For German and English language.

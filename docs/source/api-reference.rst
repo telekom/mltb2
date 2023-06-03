@@ -1,4 +1,4 @@
-Documentation
+API Reference
 =============
 
 .. toctree::
@@ -6,4 +6,4 @@ Documentation
    :titlesonly:
    :maxdepth: 1
 
-   doc/*
+   api-reference/*
