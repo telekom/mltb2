@@ -104,10 +104,10 @@
 an heuristic for decision-making. It prunes repeated trainings like in a cross validation.
 As the test method a <a class="reference external" href="https://en.wikipedia.org/wiki/Student's_t-test">t-test</a> is used.
 Our experiments have shown that an <code class="docutils literal notranslate"><span class="pre">aplha</span></code> value between 0.3 and 0.4 is reasonable.</p>
-<p><a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/pruners.html#module-optuna.pruners" title="(in Optuna v3.2.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Optuna's</span> <span class="pre">standard</span> <span class="pre">pruners</span></code></a> assume that you only adjust the model once per
-hyperparameter set. Those pruners work on the basis of intermediate results. For example, once per
-epoch. In contrast, this pruner does not work on intermediate results but on the results of a
-cross validation or more precisely the results of the individual folds.</p>
+<p><a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/pruners.html#module-optuna.pruners" title="(in Optuna v3.2.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Optuna's</span> <span class="pre">standard</span> <span class="pre">pruners</span></code></a> assume that you only adjust the model once
+per hyperparameter set. Those pruners work on the basis of intermediate results. For example,
+once per epoch. In contrast, this pruner does not work on intermediate results but on the
+results of a cross validation or more precisely the results of the individual folds.</p>
 <p>Below is a minimalist example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mltb2.optuna</span> <span class="kn">import</span> <span class="n">SignificanceRepeatedTrainingPruner</span>
 <span class="kn">import</span> <span class="nn">logging</span>
