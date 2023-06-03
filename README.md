@@ -15,26 +15,24 @@
 
 [Documentation Page](https://telekom.github.io/mltb2/)
 
-[`from mltb2.somajo import SoMaJoSentenceSplitter`](https://telekom.github.io/mltb2/code-doc/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter)\
+[`from mltb2.somajo import SoMaJoSentenceSplitter`](https://telekom.github.io/mltb2/api-reference/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter)\
 Split texts into sentences. For German and English language.
 This is done with the [SoMaJo](https://github.com/tsproisl/SoMaJo) tool.
 
-[`from mltb2.somajo import JaccardSimilarity`](https://telekom.github.io/mltb2/code-doc/somajo.html#mltb2.somajo.JaccardSimilarity)\
+[`from mltb2.somajo import JaccardSimilarity`](https://telekom.github.io/mltb2/api-reference/somajo.html#mltb2.somajo.JaccardSimilarity)\
 Calculate the [jaccard similarity](https://en.wikipedia.org/wiki/Jaccard_index).
 
-[`from mltb2.transformers import TransformersTokenCounter`](https://telekom.github.io/mltb2/code-doc/transformers.html#mltb2.transformers.TransformersTokenCounter)\
+[`from mltb2.transformers import TransformersTokenCounter`](https://telekom.github.io/mltb2/api-reference/transformers.html#mltb2.transformers.TransformersTokenCounter)\
 Count tokens made by a [Transformers](https://github.com/huggingface/transformers) tokenizer.
 
-[`from mltb2.somajo_transformers import TextSplitter`](https://telekom.github.io/mltb2/code-doc/somajo_transformers.html#mltb2.somajo_transformers.TextSplitter)\
+[`from mltb2.somajo_transformers import TextSplitter`](https://telekom.github.io/mltb2/api-reference/somajo_transformers.html#mltb2.somajo_transformers.TextSplitter)\
 Split the text into sections with a specified maximum token length.
 Does not divide words, but always whole sentences.
 
-[`from mltb2.optuna import SignificanceRepeatedTrainingPruner`](https://telekom.github.io/mltb2/code-doc/optuna.html#mltb2.optuna.SignificanceRepeatedTrainingPruner)\
+[`from mltb2.optuna import SignificanceRepeatedTrainingPruner`](https://telekom.github.io/mltb2/api-reference/optuna.html#mltb2.optuna.SignificanceRepeatedTrainingPruner)\
 An [Optuna pruner](https://optuna.readthedocs.io/en/stable/reference/pruners.html)
 to use statistical significance (a t-test which serves as a heuristic) to stop
 unpromising trials early, avoiding unnecessary repeated training during cross validation.
-Furthermore, there is a
-[detailed description and an example of use](https://telekom.github.io/mltb2/doc/SignificanceRepeatedTrainingPruner.html).
 
 ## Installation
 
