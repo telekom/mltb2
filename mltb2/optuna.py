@@ -120,8 +120,9 @@ class SignificanceRepeatedTrainingPruner(BasePruner):
         self.n_warmup_steps = n_warmup_steps
         self.alpha = alpha
 
-    def prune(self, study: optuna.study.Study, trial: optuna.trial.FrozenTrial) -> bool:
-        """Judge whether the trial should be pruned based on the reported values."""
+    def prune(
+        self, study: optuna.study.Study, trial: optuna.trial.FrozenTrial
+    ) -> bool:  # noqa: D102
         # get best tial - best trial is not available for first trial
         best_trial = None
         try:
