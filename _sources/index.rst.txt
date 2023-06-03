@@ -20,7 +20,6 @@ Content
    :glob:
    :maxdepth: 2
 
-   doc
    code-doc
    License <https://github.com/telekom/mltb2/blob/main/LICENSE>
    GitHub Repository <https://github.com/telekom/mltb2>

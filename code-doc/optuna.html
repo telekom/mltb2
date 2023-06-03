@@ -47,7 +47,6 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../doc.html">Documentation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../code-doc.html">Code Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.optuna.SignificanceRepeatedTrainingPruner"><code class="docutils literal notranslate"><span class="pre">SignificanceRepeatedTrainingPruner</span></code></a><ul>
@@ -92,22 +91,86 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="optuna">
-<span id="optuna-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.optuna" title="mltb2.optuna"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna</span></code></a><a class="headerlink" href="#optuna" title="Permalink to this heading"></a></h1>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>Full documentation with examples can be found here:
-<a class="reference internal" href="../doc/SignificanceRepeatedTrainingPruner.html#significancerepeatedtrainingpruner-doc"><span class="std std-ref">documentation page</span></a></p>
-</div>
-<span class="target" id="module-mltb2.optuna"></span><p>Optuna only functionality.</p>
+  <section id="module-mltb2.optuna">
+<span id="optuna"></span><span id="optuna-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.optuna" title="mltb2.optuna"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna</span></code></a><a class="headerlink" href="#module-mltb2.optuna" title="Permalink to this heading"></a></h1>
+<p>Optuna only functionality.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="mltb2.optuna.SignificanceRepeatedTrainingPruner">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.optuna.</span></span><span class="sig-name descname"><span class="pre">SignificanceRepeatedTrainingPruner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_warmup_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/optuna.html#SignificanceRepeatedTrainingPruner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.optuna.SignificanceRepeatedTrainingPruner" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/generated/optuna.pruners.BasePruner.html#optuna.pruners.BasePruner" title="(in Optuna v3.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasePruner</span></code></a></p>
-<p>Pruner which uses statistical significance as an heuristic for decision-making.</p>
-<p>Pruner to use statistical significance to prune repeated trainings like in a cross validation.
-As the test method a t-test is used. Our experiments have shown that an <code class="docutils literal notranslate"><span class="pre">aplha</span></code> value
-between 0.3 and 0.4 is reasonable.</p>
+<p>Optuna pruner which uses statistical significance as an heuristic for decision-making.</p>
+<p>This is an Optuna <a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/pruners.html#module-optuna.pruners" title="(in Optuna v3.2.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Pruner</span></code></a> which uses statistical significance as
+an heuristic for decision-making. It prunes repeated trainings like in a cross validation.
+As the test method a <a class="reference external" href="https://en.wikipedia.org/wiki/Student's_t-test">t-test</a> is used.
+Our experiments have shown that an <code class="docutils literal notranslate"><span class="pre">aplha</span></code> value between 0.3 and 0.4 is reasonable.</p>
+<p><a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/pruners.html#module-optuna.pruners" title="(in Optuna v3.2.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Optuna's</span> <span class="pre">standard</span> <span class="pre">pruners</span></code></a> assume that you only adjust the model once per
+hyperparameter set. Those pruners work on the basis of intermediate results. For example, once per
+epoch. In contrast, this pruner does not work on intermediate results but on the results of a
+cross validation or more precisely the results of the individual folds.</p>
+<p>Below is a minimalist example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mltb2.optuna</span> <span class="kn">import</span> <span class="n">SignificanceRepeatedTrainingPruner</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">optuna</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedKFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="c1"># configure the logger to see the debug output from the pruner</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">())</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;mltb2.optuna&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">trial</span><span class="p">):</span>
+    <span class="n">parameter</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;min_samples_split&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;min_samples_split&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+        <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="n">trial</span><span class="o">.</span><span class="n">suggest_int</span><span class="p">(</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="n">validation_result_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">fold_index</span><span class="p">,</span> <span class="p">(</span><span class="n">train_index</span><span class="p">,</span> <span class="n">val_index</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)):</span>
+        <span class="n">X_train</span><span class="p">,</span> <span class="n">X_val</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">val_index</span><span class="p">]</span>
+        <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">val_index</span><span class="p">]</span>
+
+        <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="o">**</span><span class="n">parameter</span><span class="p">)</span>
+        <span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
+
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+        <span class="n">validation_result_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span>
+
+        <span class="c1"># report result of this fold</span>
+        <span class="n">trial</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">fold_index</span><span class="p">)</span>
+
+        <span class="c1"># check if we should prune</span>
+        <span class="k">if</span> <span class="n">trial</span><span class="o">.</span><span class="n">should_prune</span><span class="p">():</span>
+            <span class="c1"># prune here - we are done with this CV</span>
+            <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">validation_result_list</span><span class="p">)</span>
+
+<span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">(</span>
+    <span class="n">storage</span><span class="o">=</span><span class="s2">&quot;sqlite:///optuna.db&quot;</span><span class="p">,</span>
+    <span class="n">study_name</span><span class="o">=</span><span class="s2">&quot;iris_cv&quot;</span><span class="p">,</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;maximize&quot;</span><span class="p">,</span>
+    <span class="n">load_if_exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">sampler</span><span class="o">=</span><span class="n">optuna</span><span class="o">.</span><span class="n">samplers</span><span class="o">.</span><span class="n">TPESampler</span><span class="p">(</span><span class="n">multivariate</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="c1"># add pruner to optuna</span>
+    <span class="n">pruner</span><span class="o">=</span><span class="n">SignificanceRepeatedTrainingPruner</span><span class="p">(</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+        <span class="n">n_warmup_steps</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

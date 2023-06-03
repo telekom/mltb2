@@ -44,7 +44,6 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../doc.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../code-doc.html">Code Documentation</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/telekom/mltb2/blob/main/LICENSE">License</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/telekom/mltb2">GitHub Repository</a></li>
@@ -95,11 +94,83 @@
 
 
 <div class="viewcode-block" id="SignificanceRepeatedTrainingPruner"><a class="viewcode-back" href="../../code-doc/optuna.html#mltb2.optuna.SignificanceRepeatedTrainingPruner">[docs]</a><span class="k">class</span> <span class="nc">SignificanceRepeatedTrainingPruner</span><span class="p">(</span><span class="n">BasePruner</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pruner which uses statistical significance as an heuristic for decision-making.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Optuna pruner which uses statistical significance as an heuristic for decision-making.</span>
 
-<span class="sd">    Pruner to use statistical significance to prune repeated trainings like in a cross validation.</span>
-<span class="sd">    As the test method a t-test is used. Our experiments have shown that an ``aplha`` value</span>
-<span class="sd">    between 0.3 and 0.4 is reasonable.</span>
+<span class="sd">    This is an Optuna :mod:`Pruner &lt;optuna.pruners&gt;` which uses statistical significance as</span>
+<span class="sd">    an heuristic for decision-making. It prunes repeated trainings like in a cross validation.</span>
+<span class="sd">    As the test method a `t-test &lt;https://en.wikipedia.org/wiki/Student&#39;s_t-test&gt;`_ is used.</span>
+<span class="sd">    Our experiments have shown that an ``aplha`` value between 0.3 and 0.4 is reasonable.</span>
+
+<span class="sd">    :mod:`Optuna&#39;s standard pruners &lt;optuna.pruners&gt;` assume that you only adjust the model once per</span>
+<span class="sd">    hyperparameter set. Those pruners work on the basis of intermediate results. For example, once per</span>
+<span class="sd">    epoch. In contrast, this pruner does not work on intermediate results but on the results of a</span>
+<span class="sd">    cross validation or more precisely the results of the individual folds.</span>
+
+<span class="sd">    Below is a minimalist example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        from mltb2.optuna import SignificanceRepeatedTrainingPruner</span>
+<span class="sd">        import logging</span>
+<span class="sd">        import numpy as np</span>
+<span class="sd">        import optuna</span>
+<span class="sd">        from sklearn.datasets import load_iris</span>
+<span class="sd">        from sklearn.model_selection import StratifiedKFold</span>
+<span class="sd">        from sklearn.ensemble import RandomForestClassifier</span>
+<span class="sd">        from sklearn.metrics import accuracy_score</span>
+
+<span class="sd">        # configure the logger to see the debug output from the pruner</span>
+<span class="sd">        logging.getLogger().addHandler(logging.StreamHandler())</span>
+<span class="sd">        logging.getLogger(&quot;mltb2.optuna&quot;).setLevel(logging.DEBUG)</span>
+
+<span class="sd">        dataset = load_iris()</span>
+
+<span class="sd">        x, y = dataset[&#39;data&#39;], dataset[&#39;target&#39;]</span>
+
+<span class="sd">        def train(trial):</span>
+<span class="sd">            parameter = {</span>
+<span class="sd">                &#39;min_samples_split&#39;: trial.suggest_int(&#39;min_samples_split&#39;, 2, 20),</span>
+<span class="sd">                &#39;n_estimators&#39;: trial.suggest_int(&#39;n_estimators&#39;, 20, 100),</span>
+<span class="sd">            }</span>
+
+<span class="sd">            validation_result_list = []</span>
+
+<span class="sd">            skf = StratifiedKFold(n_splits=10)</span>
+<span class="sd">            for fold_index, (train_index, val_index) in enumerate(skf.split(x, y)):</span>
+<span class="sd">                X_train, X_val = x[train_index], x[val_index]</span>
+<span class="sd">                y_train, y_val = y[train_index], y[val_index]</span>
+
+<span class="sd">                rf = RandomForestClassifier(**parameter)</span>
+<span class="sd">                rf.fit(X_train, y_train)</span>
+<span class="sd">                y_pred = rf.predict(X_val)</span>
+
+<span class="sd">                acc = accuracy_score(y_val, y_pred)</span>
+<span class="sd">                validation_result_list.append(acc)</span>
+
+<span class="sd">                # report result of this fold</span>
+<span class="sd">                trial.report(acc, fold_index)</span>
+
+<span class="sd">                # check if we should prune</span>
+<span class="sd">                if trial.should_prune():</span>
+<span class="sd">                    # prune here - we are done with this CV</span>
+<span class="sd">                    break</span>
+
+<span class="sd">            return np.mean(validation_result_list)</span>
+
+<span class="sd">        study = optuna.create_study(</span>
+<span class="sd">            storage=&quot;sqlite:///optuna.db&quot;,</span>
+<span class="sd">            study_name=&quot;iris_cv&quot;,</span>
+<span class="sd">            direction=&quot;maximize&quot;,</span>
+<span class="sd">            load_if_exists=True,</span>
+<span class="sd">            sampler=optuna.samplers.TPESampler(multivariate=True),</span>
+<span class="sd">            # add pruner to optuna</span>
+<span class="sd">            pruner=SignificanceRepeatedTrainingPruner(</span>
+<span class="sd">                alpha=0.4,</span>
+<span class="sd">                n_warmup_steps=4,</span>
+<span class="sd">            )</span>
+<span class="sd">        )</span>
+
+<span class="sd">        study.optimize(train, n_trials=10)</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        alpha: The alpha level for the statistical significance test.</span>
