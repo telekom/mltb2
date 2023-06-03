@@ -190,15 +190,22 @@ of steps.</p></li>
 <dt class="sig sig-object py" id="mltb2.optuna.SignificanceRepeatedTrainingPruner.prune">
 <span class="sig-name descname"><span class="pre">prune</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">study</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/generated/optuna.study.Study.html#optuna.study.Study" title="(in Optuna v3.2.0)"><span class="pre">Study</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/generated/optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="(in Optuna v3.2.0)"><span class="pre">FrozenTrial</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/mltb2/optuna.html#SignificanceRepeatedTrainingPruner.prune"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.optuna.SignificanceRepeatedTrainingPruner.prune" title="Permalink to this definition"></a></dt>
 <dd><p>Judge whether the trial should be pruned based on the reported values.</p>
+<p>Note that this method is not supposed to be called by library users. Instead,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">optuna.trial.Trial.report()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">optuna.trial.Trial.should_prune()</span></code> provide
+user interfaces to implement pruning mechanism in an objective function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>study</strong> (<a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/generated/optuna.study.Study.html#optuna.study.Study" title="(in Optuna v3.2.0)"><em>Study</em></a>) – </p></li>
-<li><p><strong>trial</strong> (<a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/generated/optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="(in Optuna v3.2.0)"><em>FrozenTrial</em></a>) – </p></li>
+<li><p><strong>study</strong> (<a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/generated/optuna.study.Study.html#optuna.study.Study" title="(in Optuna v3.2.0)"><em>Study</em></a>) – Study object of the target study.</p></li>
+<li><p><strong>trial</strong> (<a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/generated/optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="(in Optuna v3.2.0)"><em>FrozenTrial</em></a>) – FrozenTrial object of the target trial.
+Take a copy before modifying this object.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A boolean value representing whether the trial should be pruned.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
