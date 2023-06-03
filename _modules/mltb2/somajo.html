@@ -44,9 +44,9 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../code-doc.html">Code Documentation</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/telekom/mltb2/blob/main/LICENSE">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/telekom/mltb2">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/telekom/mltb2/blob/main/LICENSE">License</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.telekom.com/imprint">Imprint</a></li>
 </ul>
 
@@ -89,7 +89,7 @@
 <span class="kn">from</span> <span class="nn">tqdm.auto</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
 
-<div class="viewcode-block" id="SoMaJoSentenceSplitter"><a class="viewcode-back" href="../../code-doc/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter">[docs]</a><span class="nd">@dataclass</span>
+<div class="viewcode-block" id="SoMaJoSentenceSplitter"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">SoMaJoSentenceSplitter</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Use SoMaJo to split text into sentences.</span>
 
@@ -107,7 +107,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">somajo</span> <span class="o">=</span> <span class="n">SoMaJo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">language</span><span class="p">)</span>
 
     <span class="c1"># see https://github.com/tsproisl/SoMaJo/issues/17</span>
-<div class="viewcode-block" id="SoMaJoSentenceSplitter.detokenize"><a class="viewcode-back" href="../../code-doc/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter.detokenize">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="SoMaJoSentenceSplitter.detokenize"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter.detokenize">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">detokenize</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert SoMaJo tokens to sentence (string).</span>
 
@@ -129,7 +129,7 @@
         <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="SoMaJoSentenceSplitter.__call__"><a class="viewcode-back" href="../../code-doc/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="SoMaJoSentenceSplitter.__call__"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Split the text into a list of sentences.</span>
 
 <span class="sd">        Args:</span>
@@ -148,7 +148,7 @@
         <span class="k">return</span> <span class="n">result</span></div></div>
 
 
-<div class="viewcode-block" id="JaccardSimilarity"><a class="viewcode-back" href="../../code-doc/somajo.html#mltb2.somajo.JaccardSimilarity">[docs]</a><span class="nd">@dataclass</span>
+<div class="viewcode-block" id="JaccardSimilarity"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.JaccardSimilarity">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">JaccardSimilarity</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the `jaccard similarity &lt;https://en.wikipedia.org/wiki/Jaccard_index&gt;`_.</span>
 
@@ -163,7 +163,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">somajo</span> <span class="o">=</span> <span class="n">SoMaJo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">language</span><span class="p">)</span>
 
-<div class="viewcode-block" id="JaccardSimilarity.get_token_set"><a class="viewcode-back" href="../../code-doc/somajo.html#mltb2.somajo.JaccardSimilarity.get_token_set">[docs]</a>    <span class="k">def</span> <span class="nf">get_token_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="JaccardSimilarity.get_token_set"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.JaccardSimilarity.get_token_set">[docs]</a>    <span class="k">def</span> <span class="nf">get_token_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get token set for text.</span>
 
 <span class="sd">        Args:</span>
@@ -177,7 +177,7 @@
         <span class="n">token_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">token_set</span></div>
 
-<div class="viewcode-block" id="JaccardSimilarity.__call__"><a class="viewcode-back" href="../../code-doc/somajo.html#mltb2.somajo.JaccardSimilarity.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="JaccardSimilarity.__call__"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.JaccardSimilarity.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the jaccard similarity for two texts.</span>
 
 <span class="sd">        Args:</span>

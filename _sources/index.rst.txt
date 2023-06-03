@@ -20,11 +20,10 @@ Content
    :glob:
    :maxdepth: 2
 
-   code-doc
-   License <https://github.com/telekom/mltb2/blob/main/LICENSE>
+   api-reference
    GitHub Repository <https://github.com/telekom/mltb2>
+   License <https://github.com/telekom/mltb2/blob/main/LICENSE>
    Imprint <https://www.telekom.com/imprint>
-
 
 Indices and Tables
 ------------------

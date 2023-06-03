@@ -1,9 +1,9 @@
-Code Documentation
-==================
+API Reference
+=============
 
 .. toctree::
    :glob:
    :titlesonly:
    :maxdepth: 1
 
-   code-doc/*
+   api-reference/*
