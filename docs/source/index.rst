@@ -11,7 +11,13 @@ It can be installed with pip:
 
 .. code-block:: bash
 
-   $ pip install mltb2
+   pip install mltb2
+
+Some optional dependencies might be necessary. You can install all of them with:
+
+.. code-block:: bash
+
+   pip install mltb2[optional]
 
 Content
 -------
