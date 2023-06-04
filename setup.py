@@ -24,7 +24,16 @@ extras_require = {
         "pylint",
         "pylintfileheader",
     ],
-    "optional": ["optuna", "SoMaJo", "transformers", "torch", "scikit-learn", "matplotlib"],
+    "optional": [
+        "optuna",
+        "SoMaJo",
+        "transformers",
+        "torch",
+        "scikit-learn",
+        "matplotlib",
+        "platformdirs",
+        "fasttext",
+    ],
     "testing": ["pytest", "packaging"],
     "doc": ["sphinx", "sphinx_rtd_theme", "myst_parser", "sphinx_copybutton"],
 }
