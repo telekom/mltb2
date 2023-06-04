@@ -4,27 +4,44 @@
 
 """A collection of plot tools."""
 
+from typing import Optional
+
 import matplotlib.pyplot as plt
 
 
 # see https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.twinx.html
 def twin_axes_timeseries_plot(
     values_1,
-    label_1,
+    label_1: str,
     values_2,
-    label_2,
-    start_timestep_number=0,
-    shift_1=0,
-    shift_2=0,
-    title=None,
-    label_x="Step",
-    color_1="tab:red",
-    color_2="tab:blue",
+    label_2: str,
+    start_timestep_number: int = 0,
+    shift_1: int = 0,
+    shift_2: int = 0,
+    title: Optional[str] = None,
+    label_x: str = "Step",
+    color_1: str = "tab:red",
+    color_2: str = "tab:blue",
 ):
     """Create twin axes timeseries plot.
 
     Plots two different timeseries curves in one diagram but two different y-axes.
     This function does not call `matplotlib.pyplot.plot()`.
+
+    Args:
+        values_1: (``array_like``) Values for the first timeseries curve.
+        label_1: Label for the first timeseries curve.
+        values_2: (``array_like``) Values for the second timeseries curve.
+        label_2: Label for the second timeseries curve.
+        start_timestep_number: Number for first point in time. Default is 0.
+        shift_1: Number of timesteps to shift the first timeseries curve.
+            Can be positive or negative. Default is 0.
+        shift_2: Number of timesteps to shift the second timeseries curve.
+            Can be positive or negative. Default is 0.
+        title: Title of the plot.
+        label_x: Label for the x-axis (timeseries axis). Default is 'Step'.
+        color_1: Color of first timeseries curve. Default is 'tab:red'.
+        color_2: Color of second timeseries curve. Default is 'tab:blue'.
     """
     fig, ax1 = plt.subplots()
 
