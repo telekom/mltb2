@@ -1,4 +1,5 @@
 # Copyright (c) 2023 Philip May
+# Copyright (c) 2023 Philip May, Deutsche Telekom AG
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -25,12 +26,16 @@ class TextSplitter:
         somajo_sentence_splitter: The sentence splitter to be used.
         transformers_token_counter: The token counter to be used.
         show_progress_bar: Show a progressbar during processing.
+        ignore_overly_long_sentences: If this is ``False`` an ``ValueError`` exception is
+            raised if a sentence is longer than ``max_token``.
+            If it is true, then the sentence is simply ignored.
     """
 
     max_token: int
     somajo_sentence_splitter: SoMaJoSentenceSplitter
     transformers_token_counter: TransformersTokenCounter
     show_progress_bar: bool = True
+    ignore_overly_long_sentences: bool = False
 
     def __call__(self, text: str) -> List[str]:
         """Split the text into sections.
@@ -52,7 +57,10 @@ class TextSplitter:
             tqdm(sentences, disable=not self.show_progress_bar), counts  # type: ignore
         ):
             if count > self.max_token:
-                raise ValueError("No sentence may be longer than 'max_token'.")
+                if self.ignore_overly_long_sentences:
+                    continue
+                else:
+                    raise ValueError("No sentence may be longer than 'max_token'.")
             if current_count + count <= self.max_token:
                 current_count += count
                 current_sentences.append(sentence)
