@@ -25,4 +25,5 @@ disable = [
     "consider-using-f-string",
     "no-else-return",
     "no-member",
+    "no-else-continue"
 ]

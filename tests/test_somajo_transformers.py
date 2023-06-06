@@ -1,4 +1,5 @@
 # Copyright (c) 2023 Philip May
+# Copyright (c) 2023 Philip May, Deutsche Telekom AG
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -28,7 +29,7 @@ def test_TextSplitter_call():
     assert split_text[2] == "Satz 4 ist das."
 
 
-def test_TextSplitter_call_sentence_too_long():
+def test_TextSplitter_call_sentence_too_long_exception():
     somajo_sentence_splitter = SoMaJoSentenceSplitter("de_CMC")
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
     text_splitter = TextSplitter(
@@ -40,3 +41,21 @@ def test_TextSplitter_call_sentence_too_long():
 
     with pytest.raises(ValueError):
         text_splitter(text)
+
+
+def test_TextSplitter_call_sentence_too_long_no_exception():
+    somajo_sentence_splitter = SoMaJoSentenceSplitter("de_CMC")
+    transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
+    text_splitter = TextSplitter(
+        max_token=3,
+        somajo_sentence_splitter=somajo_sentence_splitter,
+        transformers_token_counter=transformers_token_counter,
+        ignore_overly_long_sentences=True,
+    )
+    text = " ".join([f"Satz {i} ist das." for i in range(5)])
+    text = f"{text} Ja!"
+    split_text = text_splitter(text)
+
+    assert isinstance(split_text, list)
+    assert len(split_text) == 1
+    assert split_text[0] == "Ja!"
