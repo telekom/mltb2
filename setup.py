@@ -33,6 +33,7 @@ extras_require = {
         "matplotlib",
         "platformdirs",
         "fasttext",
+        "pybind11",
     ],
     "testing": ["pytest", "packaging"],
     "doc": ["sphinx", "sphinx_rtd_theme", "myst_parser", "sphinx_copybutton"],
