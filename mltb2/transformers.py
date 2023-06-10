@@ -28,7 +28,7 @@ class TransformersTokenCounter:
 
     pretrained_model_name_or_path: Union[str, os.PathLike]
     tokenizer: PreTrainedTokenizerBase = field(init=False, repr=False)
-    show_progress_bar: bool = True
+    show_progress_bar: bool = False
 
     def __post_init__(self):
         """Do post init."""

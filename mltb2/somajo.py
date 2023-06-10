@@ -23,7 +23,7 @@ class SoMaJoSentenceSplitter:
 
     language: str
     somajo: SoMaJo = field(init=False, repr=False)
-    show_progress_bar: bool = True
+    show_progress_bar: bool = False
 
     def __post_init__(self):
         """Do post init."""
