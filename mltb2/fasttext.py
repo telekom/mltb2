@@ -50,6 +50,9 @@ class FastTextLanguageIdentification:
             num_lang: number of returned languages
         Returns:
             A dict from language to probability.
+            This dict contains no more than ``num_lang`` elements.
+            So it is not guaranteed that the language you want to recognize is
+            included in the dict. This is the case when the probability is very low.
             Possible languages are: ``af als am an ar arz as ast av az azb ba bar
             bcl be bg bh bn bo bpy br bs bxr ca cbk ce ceb ckb co cs cv cy da de
             diq dsb dty dv el eml en eo es et eu fa fi fr frr fy ga gd gl gn gom
