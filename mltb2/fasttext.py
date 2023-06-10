@@ -2,7 +2,10 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""fastText only functionality."""
+"""fastText specific functionality.
+
+This module is based on `fastText <https://fasttext.cc/docs/en/support.html>`_.
+"""
 
 import os
 from dataclasses import dataclass, field

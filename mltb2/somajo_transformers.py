@@ -3,7 +3,12 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""SoMaJo and Transformers tools."""
+"""Hugging Face Transformers and SoMaJo specific functionality.
+
+This module is based on
+`Hugging Face Transformers <https://huggingface.co/docs/transformers/index>`_ and
+`SoMaJo <https://github.com/tsproisl/SoMaJo>`_.
+"""
 
 
 from dataclasses import dataclass

@@ -2,7 +2,11 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""Optuna only functionality."""
+"""Optuna specific functionality.
+
+This module is based on `Optuna <https://optuna.readthedocs.io/en/stable/>`_.
+"""
+
 
 import logging
 

@@ -2,7 +2,10 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""A collection of plot tools."""
+"""A collection of plot tools.
+
+This module is based on `Matplotlib <https://matplotlib.org/>`_.
+"""
 
 from typing import Optional
 

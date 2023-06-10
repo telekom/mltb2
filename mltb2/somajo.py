@@ -2,7 +2,10 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""SoMaJo tools."""
+"""SoMaJo specific functionality.
+
+This module is based on `SoMaJo <https://github.com/tsproisl/SoMaJo>`_.
+"""
 
 
 from dataclasses import dataclass, field
