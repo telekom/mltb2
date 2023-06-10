@@ -13,7 +13,11 @@ from sklearn.datasets._base import RemoteFileMetadata, _fetch_remote
 
 
 def get_and_create_mltb2_data_dir(mltb2_base_data_dir: Optional[str] = None) -> str:
-    """Return and create mltb data dir."""
+    """Return and create mltb data dir.
+
+    Returns:
+        The directory path.
+    """
     if mltb2_base_data_dir is None:
         mltb2_data_dir = user_data_dir(appname="mltb2")
     else:
