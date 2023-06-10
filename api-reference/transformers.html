@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>transformers &mdash; MLTB2  documentation</title>
@@ -13,11 +13,10 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -53,21 +52,9 @@
 <li class="toctree-l2"><a class="reference internal" href="plot.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">plot</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="somajo.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="somajo_transformers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_transformers</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">transformers</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mltb2.transformers.KFoldLabeledDataset"><code class="docutils literal notranslate"><span class="pre">KFoldLabeledDataset</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mltb2.transformers.KFoldLabeledDataset.split"><code class="docutils literal notranslate"><span class="pre">KFoldLabeledDataset.split()</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">transformers</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#mltb2.transformers.LabeledDataset"><code class="docutils literal notranslate"><span class="pre">LabeledDataset</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mltb2.transformers.TransformersTokenCounter"><code class="docutils literal notranslate"><span class="pre">TransformersTokenCounter</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mltb2.transformers.TransformersTokenCounter.__call__"><code class="docutils literal notranslate"><span class="pre">TransformersTokenCounter.__call__()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/telekom/mltb2">GitHub Repository</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/telekom/mltb2/blob/main/LICENSE">License</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://www.telekom.com/imprint">Imprint</a></li>
@@ -99,7 +86,7 @@
            <div itemprop="articleBody">
              
   <section id="module-mltb2.transformers">
-<span id="transformers"></span><span id="transformers-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.transformers" title="mltb2.transformers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">transformers</span></code></a><a class="headerlink" href="#module-mltb2.transformers" title="Permalink to this heading"></a></h1>
+<span id="transformers"></span><span id="transformers-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.transformers" title="mltb2.transformers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">transformers</span></code></a><a class="headerlink" href="#module-mltb2.transformers" title="Permalink to this headline"></a></h1>
 <p>Transformers tools.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="mltb2.transformers.KFoldLabeledDataset">
@@ -117,38 +104,41 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mltb2.transformers.LabeledDataset">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.transformers.</span></span><span class="sig-name descname"><span class="pre">LabeledDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encodings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/transformers.html#LabeledDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.transformers.LabeledDataset" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.dataset.Dataset</span></code></p>
 <p>Dataset with labes.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mltb2.transformers.TransformersTokenCounter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.transformers.</span></span><span class="sig-name descname"><span class="pre">TransformersTokenCounter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pretrained_model_name_or_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress_bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/transformers.html#TransformersTokenCounter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.transformers.TransformersTokenCounter" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.transformers.</span></span><span class="sig-name descname"><span class="pre">TransformersTokenCounter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pretrained_model_name_or_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">os.PathLike</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress_bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/transformers.html#TransformersTokenCounter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.transformers.TransformersTokenCounter" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Count Transformers tokenizer tokens.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>pretrained_model_name_or_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><em>PathLike</em></a>) – The <em>model id</em> of a tokenizer hosted inside a model repo on huggingface.co or
+<li><p><strong>pretrained_model_name_or_path</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><em>os.PathLike</em></a><em>]</em>) – The <em>model id</em> of a tokenizer hosted inside a model repo on huggingface.co or
 a path to a <em>directory</em> containing a tokenizer.</p></li>
 <li><p><strong>show_progress_bar</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Show a progressbar during processing.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)">None</a></p>
+</dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mltb2.transformers.TransformersTokenCounter.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/transformers.html#TransformersTokenCounter.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.transformers.TransformersTokenCounter.__call__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/transformers.html#TransformersTokenCounter.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.transformers.TransformersTokenCounter.__call__" title="Permalink to this definition"></a></dt>
 <dd><p>Count tokens for text.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><em>Iterable</em></a>) – The text for which the tokens are to be counted.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><em>Iterable</em><em>]</em>) – The text for which the tokens are to be counted.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The number of tokens if text was just a <code class="docutils literal notranslate"><span class="pre">str</span></code>.
 If text is an <code class="docutils literal notranslate"><span class="pre">Iterable</span></code> then a <code class="docutils literal notranslate"><span class="pre">list</span></code> of number of tokens.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a> | <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><em>List</em></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a>]</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a>, List[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
