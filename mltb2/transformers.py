@@ -2,7 +2,11 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""Transformers tools."""
+"""Hugging Face Transformers specific functionality.
+
+This module is based on
+`Hugging Face Transformers <https://huggingface.co/docs/transformers/index>`_.
+"""
 
 import os
 from dataclasses import dataclass, field
