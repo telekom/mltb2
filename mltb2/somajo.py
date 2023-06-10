@@ -9,7 +9,7 @@ from dataclasses import dataclass, field
 from typing import List, Set
 
 from somajo import SoMaJo
-from tqdm.auto import tqdm
+from tqdm import tqdm
 
 
 @dataclass

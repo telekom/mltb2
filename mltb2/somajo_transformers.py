@@ -9,7 +9,7 @@
 from dataclasses import dataclass
 from typing import List
 
-from tqdm.auto import tqdm
+from tqdm import tqdm
 
 from mltb2.somajo import SoMaJoSentenceSplitter
 from mltb2.transformers import TransformersTokenCounter

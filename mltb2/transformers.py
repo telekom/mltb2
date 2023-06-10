@@ -10,7 +10,7 @@ from typing import Iterable, List, Union
 
 import sklearn
 import torch
-from tqdm.auto import tqdm
+from tqdm import tqdm
 from transformers import AutoTokenizer
 from transformers.tokenization_utils import PreTrainedTokenizerBase
 
