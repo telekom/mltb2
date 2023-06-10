@@ -10,7 +10,7 @@ from typing import Iterable, List, Union
 
 import sklearn
 import torch
-from tqdm.auto import tqdm
+from tqdm import tqdm
 from transformers import AutoTokenizer
 from transformers.tokenization_utils import PreTrainedTokenizerBase
 
@@ -28,7 +28,7 @@ class TransformersTokenCounter:
 
     pretrained_model_name_or_path: Union[str, os.PathLike]
     tokenizer: PreTrainedTokenizerBase = field(init=False, repr=False)
-    show_progress_bar: bool = True
+    show_progress_bar: bool = False
 
     def __post_init__(self):
         """Do post init."""

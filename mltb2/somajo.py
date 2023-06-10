@@ -9,7 +9,7 @@ from dataclasses import dataclass, field
 from typing import List, Set
 
 from somajo import SoMaJo
-from tqdm.auto import tqdm
+from tqdm import tqdm
 
 
 @dataclass
@@ -23,7 +23,7 @@ class SoMaJoSentenceSplitter:
 
     language: str
     somajo: SoMaJo = field(init=False, repr=False)
-    show_progress_bar: bool = True
+    show_progress_bar: bool = False
 
     def __post_init__(self):
         """Do post init."""

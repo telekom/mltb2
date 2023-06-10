@@ -9,7 +9,7 @@
 from dataclasses import dataclass
 from typing import List
 
-from tqdm.auto import tqdm
+from tqdm import tqdm
 
 from mltb2.somajo import SoMaJoSentenceSplitter
 from mltb2.transformers import TransformersTokenCounter
@@ -34,7 +34,7 @@ class TextSplitter:
     max_token: int
     somajo_sentence_splitter: SoMaJoSentenceSplitter
     transformers_token_counter: TransformersTokenCounter
-    show_progress_bar: bool = True
+    show_progress_bar: bool = False
     ignore_overly_long_sentences: bool = False
 
     def __call__(self, text: str) -> List[str]:
