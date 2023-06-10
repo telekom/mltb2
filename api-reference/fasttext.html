@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fasttext &mdash; MLTB2  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="files" href="files.html" />
+    <link rel="prev" title="API Reference" href="../api-reference.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MLTB2
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api-reference.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fasttext</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.fasttext.FastTextLanguageIdentification"><code class="docutils literal notranslate"><span class="pre">FastTextLanguageIdentification</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.fasttext.FastTextLanguageIdentification.__call__"><code class="docutils literal notranslate"><span class="pre">FastTextLanguageIdentification.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.fasttext.FastTextLanguageIdentification.get_model_path_and_download"><code class="docutils literal notranslate"><span class="pre">FastTextLanguageIdentification.get_model_path_and_download()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="files.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">files</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="optuna.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">plot</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="somajo.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="somajo_transformers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_transformers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="transformers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">transformers</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/telekom/mltb2">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/telekom/mltb2/blob/main/LICENSE">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.telekom.com/imprint">Imprint</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MLTB2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../api-reference.html">API Reference</a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fasttext</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/telekom/mltb2/blob/main/docs/source/api-reference/fasttext.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-mltb2.fasttext">
+<span id="fasttext"></span><span id="fasttext-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.fasttext" title="mltb2.fasttext"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fasttext</span></code></a><a class="headerlink" href="#module-mltb2.fasttext" title="Permalink to this heading"></a></h1>
+<p>fastText only functionality.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mltb2.fasttext.FastTextLanguageIdentification">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.fasttext.</span></span><span class="sig-name descname"><span class="pre">FastTextLanguageIdentification</span></span><a class="reference internal" href="../_modules/mltb2/fasttext.html#FastTextLanguageIdentification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.fasttext.FastTextLanguageIdentification" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Identify languages of a text.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.fasttext.FastTextLanguageIdentification.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_lang</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/fasttext.html#FastTextLanguageIdentification.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.fasttext.FastTextLanguageIdentification.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Identify languages of a given text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> – the text for which the language is to be recognized</p></li>
+<li><p><strong>num_lang</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – number of returned languages</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dict from language to probability.
+This dict contains no more than <code class="docutils literal notranslate"><span class="pre">num_lang</span></code> elements.
+So it is not guaranteed that the language you want to recognize is
+included in the dict. This is the case when the probability is very low.
+Possible languages are: <code class="docutils literal notranslate"><span class="pre">af</span> <span class="pre">als</span> <span class="pre">am</span> <span class="pre">an</span> <span class="pre">ar</span> <span class="pre">arz</span> <span class="pre">as</span> <span class="pre">ast</span> <span class="pre">av</span> <span class="pre">az</span> <span class="pre">azb</span> <span class="pre">ba</span> <span class="pre">bar</span>
+<span class="pre">bcl</span> <span class="pre">be</span> <span class="pre">bg</span> <span class="pre">bh</span> <span class="pre">bn</span> <span class="pre">bo</span> <span class="pre">bpy</span> <span class="pre">br</span> <span class="pre">bs</span> <span class="pre">bxr</span> <span class="pre">ca</span> <span class="pre">cbk</span> <span class="pre">ce</span> <span class="pre">ceb</span> <span class="pre">ckb</span> <span class="pre">co</span> <span class="pre">cs</span> <span class="pre">cv</span> <span class="pre">cy</span> <span class="pre">da</span> <span class="pre">de</span>
+<span class="pre">diq</span> <span class="pre">dsb</span> <span class="pre">dty</span> <span class="pre">dv</span> <span class="pre">el</span> <span class="pre">eml</span> <span class="pre">en</span> <span class="pre">eo</span> <span class="pre">es</span> <span class="pre">et</span> <span class="pre">eu</span> <span class="pre">fa</span> <span class="pre">fi</span> <span class="pre">fr</span> <span class="pre">frr</span> <span class="pre">fy</span> <span class="pre">ga</span> <span class="pre">gd</span> <span class="pre">gl</span> <span class="pre">gn</span> <span class="pre">gom</span>
+<span class="pre">gu</span> <span class="pre">gv</span> <span class="pre">he</span> <span class="pre">hi</span> <span class="pre">hif</span> <span class="pre">hr</span> <span class="pre">hsb</span> <span class="pre">ht</span> <span class="pre">hu</span> <span class="pre">hy</span> <span class="pre">ia</span> <span class="pre">id</span> <span class="pre">ie</span> <span class="pre">ilo</span> <span class="pre">io</span> <span class="pre">is</span> <span class="pre">it</span> <span class="pre">ja</span> <span class="pre">jbo</span> <span class="pre">jv</span> <span class="pre">ka</span> <span class="pre">kk</span>
+<span class="pre">km</span> <span class="pre">kn</span> <span class="pre">ko</span> <span class="pre">krc</span> <span class="pre">ku</span> <span class="pre">kv</span> <span class="pre">kw</span> <span class="pre">ky</span> <span class="pre">la</span> <span class="pre">lb</span> <span class="pre">lez</span> <span class="pre">li</span> <span class="pre">lmo</span> <span class="pre">lo</span> <span class="pre">lrc</span> <span class="pre">lt</span> <span class="pre">lv</span> <span class="pre">mai</span> <span class="pre">mg</span> <span class="pre">mhr</span> <span class="pre">min</span>
+<span class="pre">mk</span> <span class="pre">ml</span> <span class="pre">mn</span> <span class="pre">mr</span> <span class="pre">mrj</span> <span class="pre">ms</span> <span class="pre">mt</span> <span class="pre">mwl</span> <span class="pre">my</span> <span class="pre">myv</span> <span class="pre">mzn</span> <span class="pre">nah</span> <span class="pre">nap</span> <span class="pre">nds</span> <span class="pre">ne</span> <span class="pre">new</span> <span class="pre">nl</span> <span class="pre">nn</span> <span class="pre">no</span> <span class="pre">oc</span> <span class="pre">or</span>
+<span class="pre">os</span> <span class="pre">pa</span> <span class="pre">pam</span> <span class="pre">pfl</span> <span class="pre">pl</span> <span class="pre">pms</span> <span class="pre">pnb</span> <span class="pre">ps</span> <span class="pre">pt</span> <span class="pre">qu</span> <span class="pre">rm</span> <span class="pre">ro</span> <span class="pre">ru</span> <span class="pre">rue</span> <span class="pre">sa</span> <span class="pre">sah</span> <span class="pre">sc</span> <span class="pre">scn</span> <span class="pre">sco</span> <span class="pre">sd</span> <span class="pre">sh</span>
+<span class="pre">si</span> <span class="pre">sk</span> <span class="pre">sl</span> <span class="pre">so</span> <span class="pre">sq</span> <span class="pre">sr</span> <span class="pre">su</span> <span class="pre">sv</span> <span class="pre">sw</span> <span class="pre">ta</span> <span class="pre">te</span> <span class="pre">tg</span> <span class="pre">th</span> <span class="pre">tk</span> <span class="pre">tl</span> <span class="pre">tr</span> <span class="pre">tt</span> <span class="pre">tyv</span> <span class="pre">ug</span> <span class="pre">uk</span> <span class="pre">ur</span> <span class="pre">uz</span> <span class="pre">vec</span>
+<span class="pre">vep</span> <span class="pre">vi</span> <span class="pre">vls</span> <span class="pre">vo</span> <span class="pre">wa</span> <span class="pre">war</span> <span class="pre">wuu</span> <span class="pre">xal</span> <span class="pre">xmf</span> <span class="pre">yi</span> <span class="pre">yo</span> <span class="pre">yue</span> <span class="pre">zh</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.fasttext.FastTextLanguageIdentification.get_model_path_and_download">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_model_path_and_download</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/fasttext.html#FastTextLanguageIdentification.get_model_path_and_download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.fasttext.FastTextLanguageIdentification.get_model_path_and_download" title="Permalink to this definition"></a></dt>
+<dd><p>Get the model path and download it if needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../api-reference.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="files.html" class="btn btn-neutral float-right" title="files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Philip May, Deutsche Telekom AG.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
