@@ -28,7 +28,7 @@ class TextSplitter:
         show_progress_bar: Show a progressbar during processing.
         ignore_overly_long_sentences: If this is ``False`` an ``ValueError`` exception is
             raised if a sentence is longer than ``max_token``.
-            If it is true, then the sentence is simply ignored.
+            If it is ``True``, then the sentence is simply ignored.
     """
 
     max_token: int
