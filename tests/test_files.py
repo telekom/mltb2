@@ -23,7 +23,7 @@ def test_fetch_remote_file(tmpdir):
 def test_fetch_remote_file_wrong_checksum(tmpdir):
     filename = "LICENSE.txt"
     with pytest.raises(IOError):
-        remote_file = fetch_remote_file(
+        _ = fetch_remote_file(
             dirname=tmpdir,
             filename=filename,
             url="https://raw.githubusercontent.com/telekom/mltb2/main/LICENSE",
