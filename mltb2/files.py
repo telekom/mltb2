@@ -24,6 +24,18 @@ def get_and_create_mltb2_data_dir(mltb2_base_data_dir: Optional[str] = None) -> 
 
 
 def fetch_remote_file(dirname, filename, url, sha256_checksum) -> str:
+    """Fetch a file from a remote URL.
+
+    Args:
+        dirname: the directory where the file will be saved
+        filename: the filename under which the file will be saved
+        url: the url of the file
+        sha256_checksum: the sha256 checksum of the file
+    Returns:
+        Full path of the created file.
+    Raises:
+        IOError: if the sha256 checksum is wrong
+    """
     remote = RemoteFileMetadata(filename=filename, url=url, checksum=sha256_checksum)
     fetch_remote_file_path = _fetch_remote(remote, dirname=dirname)
     return fetch_remote_file_path

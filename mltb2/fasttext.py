@@ -6,12 +6,9 @@
 
 import os
 from dataclasses import dataclass, field
-from typing import Any
 
 import fasttext
 from fasttext.FastText import _FastText
-from platformdirs import user_data_dir
-from sklearn.datasets._base import RemoteFileMetadata, _fetch_remote
 
 from mltb2.files import fetch_remote_file, get_and_create_mltb2_data_dir
 
@@ -49,6 +46,7 @@ class FastTextLanguageIdentification:
         """Identify languages of a given text.
 
         Args:
+            text: the text for which the language is to be recognized
             num_lang: number of returned languages
         Returns:
             A dict from language to probability.
@@ -65,5 +63,5 @@ class FastTextLanguageIdentification:
         predictions = self.model.predict(text, k=num_lang)
         languages = predictions[0]
         probabilities = predictions[1]
-        lang_to_prob = {l[9:]: p for l, p in zip(languages, probabilities)}
+        lang_to_prob = {lang[9:]: prob for lang, prob in zip(languages, probabilities)}
         return lang_to_prob
