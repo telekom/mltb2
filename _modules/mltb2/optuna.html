@@ -161,7 +161,7 @@
 <span class="sd">            return np.mean(validation_result_list)</span>
 
 <span class="sd">        study = optuna.create_study(</span>
-<span class="sd">            storage=&quot;sqlite:///optuna.db&quot;,</span>
+<span class="sd">            # storage=&quot;sqlite:///optuna.db&quot;,  # we use in-memory storage here</span>
 <span class="sd">            study_name=&quot;iris_cv&quot;,</span>
 <span class="sd">            direction=&quot;maximize&quot;,</span>
 <span class="sd">            load_if_exists=True,</span>

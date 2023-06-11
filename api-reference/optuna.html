@@ -152,7 +152,7 @@ results of a cross validation or more precisely the results of the individual fo
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">validation_result_list</span><span class="p">)</span>
 
 <span class="n">study</span> <span class="o">=</span> <span class="n">optuna</span><span class="o">.</span><span class="n">create_study</span><span class="p">(</span>
-    <span class="n">storage</span><span class="o">=</span><span class="s2">&quot;sqlite:///optuna.db&quot;</span><span class="p">,</span>
+    <span class="c1"># storage=&quot;sqlite:///optuna.db&quot;,  # we use in-memory storage here</span>
     <span class="n">study_name</span><span class="o">=</span><span class="s2">&quot;iris_cv&quot;</span><span class="p">,</span>
     <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;maximize&quot;</span><span class="p">,</span>
     <span class="n">load_if_exists</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
