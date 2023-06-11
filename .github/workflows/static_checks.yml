@@ -55,3 +55,9 @@ jobs:
 
     - name: Check with pylint
       run: pylint ${{ env.src }}
+
+    - name: Check Sphinx doctest
+      run: |
+        cd docs
+        make doctest
+        cd ..
