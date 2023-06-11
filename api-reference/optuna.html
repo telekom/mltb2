@@ -104,7 +104,7 @@ per hyperparameter set. Those pruners work on the basis of intermediate results.
 once per epoch. In contrast, this pruner does not work on intermediate results but on the
 results of a cross validation or more precisely the results of the individual folds.</p>
 <p>Below is a minimalist example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mltb2.optuna</span> <span class="kn">import</span> <span class="n">SignificanceRepeatedTrainingPruner</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mltb2.optuna</span> <span class="kn">import</span> <span class="n">SignificanceRepeatedTrainingPruner</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">optuna</span>
