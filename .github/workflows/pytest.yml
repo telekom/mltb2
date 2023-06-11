@@ -34,9 +34,9 @@ jobs:
     - uses: actions/cache@v3
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('./setup.py') }}
+        key: cache-2023-06-11-v1
         restore-keys: |
-          ${{ runner.os }}-pip-
+          cache-
 
     - name: Install dependencies
       run: |
