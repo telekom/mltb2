@@ -10,6 +10,7 @@ check:
 	mdformat --check *.md
 	mypy --install-types --non-interactive $(src) $(test-src) $(other-src)
 	pylint $(src)
+	cd docs && $(MAKE) clean doctest && cd ..
 
 format:
 	black $(src) $(test-src) $(other-src)
