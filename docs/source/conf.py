@@ -40,6 +40,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",  # https://github.com/executablebooks/sphinx-copybutton
     "sphinx.ext.todo",  # https://www.sphinx-doc.org/en/master/usage/extensions/todo.html
+    "sphinx.ext.doctest",  # https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html
 ]
 
 # Add any paths that contain templates here, relative to this directory.
