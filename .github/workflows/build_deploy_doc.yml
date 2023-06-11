@@ -3,6 +3,12 @@ name: Build & Deploy Doc
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    # at 4 am
+    - cron:  '0 4 * * *'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -37,6 +43,7 @@ jobs:
         cd ..
 
     - name: Deploy
+      if: ${{ github.ref == 'refs/heads/main' }}
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
