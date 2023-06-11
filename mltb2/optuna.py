@@ -35,7 +35,7 @@ class SignificanceRepeatedTrainingPruner(BasePruner):
 
     Below is a minimalist example:
 
-    .. code-block:: python
+    .. testcode::
 
         from mltb2.optuna import SignificanceRepeatedTrainingPruner
         import logging
