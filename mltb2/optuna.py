@@ -85,7 +85,7 @@ class SignificanceRepeatedTrainingPruner(BasePruner):
             return np.mean(validation_result_list)
 
         study = optuna.create_study(
-            storage="sqlite:///optuna.db",
+            # storage="sqlite:///optuna.db",  # we use in-memory storage here
             study_name="iris_cv",
             direction="maximize",
             load_if_exists=True,
