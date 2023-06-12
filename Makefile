@@ -1,6 +1,6 @@
 src := mltb2
 test-src := tests
-other-src := setup.py
+other-src := setup.py docs
 
 check:
 	pydocstyle --count $(src) $(test-src) $(other-src)

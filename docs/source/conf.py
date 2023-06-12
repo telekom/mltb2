@@ -31,13 +31,13 @@ author = "Philip May"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx_rtd_theme",
-    "sphinx.ext.napoleon",
-    "sphinx.ext.viewcode",
+    "sphinx.ext.autodoc",  # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
+    "sphinx_rtd_theme",  # https://github.com/readthedocs/sphinx_rtd_theme
+    "sphinx.ext.napoleon",  # https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html
+    "sphinx.ext.viewcode",  # https://www.sphinx-doc.org/en/master/usage/extensions/viewcode.html
     # "recommonmark",
-    "myst_parser",  # https://myst-parser.readthedocs.io/
-    "sphinx.ext.intersphinx",
+    # "myst_parser",  # https://myst-parser.readthedocs.io/
+    "sphinx.ext.intersphinx",  # https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html  # noqa: E501
     "sphinx_copybutton",  # https://github.com/executablebooks/sphinx-copybutton
     "sphinx.ext.todo",  # https://www.sphinx-doc.org/en/master/usage/extensions/todo.html
     "sphinx.ext.doctest",  # https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html

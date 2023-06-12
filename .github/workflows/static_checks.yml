@@ -17,7 +17,7 @@ jobs:
   checks:
     env:
       src: "mltb2"
-      other-src: "tests setup.py"
+      other-src: "tests setup.py docs"
 
     runs-on: ubuntu-latest
 
