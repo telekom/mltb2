@@ -8,6 +8,8 @@
 This module is based on
 `Hugging Face Transformers <https://huggingface.co/docs/transformers/index>`_ and
 `SoMaJo <https://github.com/tsproisl/SoMaJo>`_.
+Use pip to install the necessary dependencies for this module:
+``pip install mltb2[somajo_transformers]``
 """
 
 

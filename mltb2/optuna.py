@@ -5,6 +5,8 @@
 """Optuna specific functionality.
 
 This module is based on `Optuna <https://optuna.readthedocs.io/en/stable/>`_.
+Use pip to install the necessary dependencies for this module:
+``pip install mltb2[optuna]``
 """
 
 
