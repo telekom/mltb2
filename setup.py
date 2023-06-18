@@ -9,11 +9,36 @@ import os
 import setuptools
 
 
+files_requires = {"platformdirs", "scikit-learn"}
+fasttext_requires = files_requires | {"fasttext"}
+optuna_requires = {"numpy", "optuna", "scipy"}
+plot_requires = {"matplotlib"}
+somajo_requires = {"SoMaJo", "tqdm"}
+transformers_requires = {"scikit-learn", "torch", "tqdm", "transformers"}
+somajo_transformers_requires = somajo_requires | transformers_requires | {"tqdm"}
+optional_requires = (
+    somajo_transformers_requires
+    | transformers_requires
+    | somajo_requires
+    | plot_requires
+    | optuna_requires
+    | fasttext_requires
+    | files_requires
+)
+
 project_name = "mltb2"
 source_code = "https://github.com/telekom/mltb2"
 keywords = "optuna deep-learning ml ai machine-learning hyperparameter-optimization"
 install_requires = ["numpy", "scipy", "tqdm"]
 extras_require = {
+    "files": files_requires,
+    "fasttext": fasttext_requires,
+    "optuna": optuna_requires,
+    "plot": plot_requires,
+    "somajo": somajo_requires,
+    "transformers": transformers_requires,
+    "somajo_transformers": somajo_transformers_requires,
+    "optional": optional_requires,
     "checking": [
         "black",
         "flake8",
@@ -23,16 +48,6 @@ extras_require = {
         "mypy",
         "pylint",
         "pylintfileheader",
-    ],
-    "optional": [
-        "optuna",
-        "SoMaJo",
-        "transformers",
-        "torch",
-        "scikit-learn",
-        "matplotlib",
-        "platformdirs",
-        "fasttext-wheel",
     ],
     "testing": ["pytest", "packaging"],
     "doc": ["sphinx", "sphinx_rtd_theme", "myst_parser", "sphinx_copybutton"],
