@@ -50,7 +50,7 @@ extras_require = {
         "pylintfileheader",
     ],
     "testing": ["pytest", "packaging"],
-    "doc": ["sphinx", "sphinx_rtd_theme", "myst_parser", "sphinx_copybutton"],
+    "doc": ["sphinx", "sphinx_rtd_theme", "sphinx_copybutton"],
 }
 
 # add "all"
