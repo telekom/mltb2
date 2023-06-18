@@ -10,7 +10,7 @@ import setuptools
 
 
 files_requires = {"platformdirs", "scikit-learn"}
-fasttext_requires = files_requires | {"fasttext"}
+fasttext_requires = files_requires | {"fasttext-wheel"}
 optuna_requires = {"numpy", "optuna", "scipy"}
 plot_requires = {"matplotlib"}
 somajo_requires = {"SoMaJo", "tqdm"}
