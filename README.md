@@ -49,6 +49,8 @@ Some optional dependencies might be necessary. You can install all of them with:
 pip install mltb2[optional]
 ```
 
+If you don't want to install all dependencies, see the description of the individual modules.
+
 ## Licensing
 
 Copyright (c) 2023 Philip May\
