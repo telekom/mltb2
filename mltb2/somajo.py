@@ -120,3 +120,24 @@ class JaccardSimilarity:
         union = token_set1.union(token_set2)
         jaccard_similarity = float(len(intersection)) / len(union)
         return jaccard_similarity
+
+
+@dataclass
+class TokenExtractor:
+    """Extract tokens from text.
+
+    Args:
+        language: The language. ``de_CMC`` for German or ``en_PTB`` for English.
+    """
+
+    language: str
+    somajo: SoMaJo = field(init=False, repr=False)
+
+    def __post_init__(self):
+        """Do post init."""
+        self.somajo = SoMaJo(self.language)
+
+    def extract_url(self, text: str) -> str:
+        sentences = self.somajo.tokenize_text(text)
+        result = {token.text for sentence in sentences for token in sentence if token.token_class == "URL"}
+        return result
