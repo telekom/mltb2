@@ -138,6 +138,13 @@ class TokenExtractor:
         self.somajo = SoMaJo(self.language)
 
     def extract_url_set(self, text: str) -> Set[str]:
+        """Extract tokens from text.
+
+        Args:
+            text: the text
+        Returns:
+            Set of extracted links.
+        """
         sentences = self.somajo.tokenize_text([text])
         result = {token.text for sentence in sentences for token in sentence if token.token_class == "URL"}
         return result
