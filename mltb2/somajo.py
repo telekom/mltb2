@@ -137,7 +137,7 @@ class TokenExtractor:
         """Do post init."""
         self.somajo = SoMaJo(self.language)
 
-    def extract_url(self, text: str) -> str:
-        sentences = self.somajo.tokenize_text(text)
+    def extract_url_set(self, text: str) -> Set[str]:
+        sentences = self.somajo.tokenize_text([text])
         result = {token.text for sentence in sentences for token in sentence if token.token_class == "URL"}
         return result
