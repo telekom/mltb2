@@ -4,7 +4,7 @@
 
 from math import isclose
 
-from mltb2.somajo import JaccardSimilarity, SoMaJoSentenceSplitter
+from mltb2.somajo import JaccardSimilarity, SoMaJoSentenceSplitter, TokenExtractor
 
 
 def test_SoMaJoSentenceSplitter_call() -> None:
@@ -57,3 +57,21 @@ def test_JaccardSimilarity_call_no_overlap():
     result = jaccard_similarity(text1, text2)
 
     assert isclose(result, 0.0)
+
+
+def test_TokenExtractor_call():
+    url1 = "http://may.la"
+    url2 = "github.com"
+    text_with_url = f"{url1} Das ist ein Text. {url2} Er enthält eine URL."
+    token_extractor = TokenExtractor("de_CMC")
+    result = token_extractor.extract_url_set(text_with_url)
+    assert len(result) == 2
+    assert url1 in result
+    assert url2 in result
+
+
+def test_TokenExtractor_call_no_url():
+    text_with_url = "Das ist ein Text. Er enthält keine URLs."
+    token_extractor = TokenExtractor("de_CMC")
+    result = token_extractor.extract_url_set(text_with_url)
+    assert len(result) == 0
