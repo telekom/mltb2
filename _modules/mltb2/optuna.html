@@ -191,9 +191,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">n_warmup_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># input value check</span>
         <span class="k">if</span> <span class="n">n_warmup_steps</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;&#39;n_warmup_steps&#39; must not be negative! n_warmup_steps: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_warmup_steps</span><span class="p">)</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;n_warmup_steps&#39; must not be negative! n_warmup_steps: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_warmup_steps</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">alpha</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;alpha&#39; must be smaller than 1! </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">alpha</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
@@ -202,9 +200,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">n_warmup_steps</span> <span class="o">=</span> <span class="n">n_warmup_steps</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
 
-<div class="viewcode-block" id="SignificanceRepeatedTrainingPruner.prune"><a class="viewcode-back" href="../../api-reference/optuna.html#mltb2.optuna.SignificanceRepeatedTrainingPruner.prune">[docs]</a>    <span class="k">def</span> <span class="nf">prune</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">study</span><span class="p">:</span> <span class="n">optuna</span><span class="o">.</span><span class="n">study</span><span class="o">.</span><span class="n">Study</span><span class="p">,</span> <span class="n">trial</span><span class="p">:</span> <span class="n">optuna</span><span class="o">.</span><span class="n">trial</span><span class="o">.</span><span class="n">FrozenTrial</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1"># noqa: D102</span>
+<div class="viewcode-block" id="SignificanceRepeatedTrainingPruner.prune"><a class="viewcode-back" href="../../api-reference/optuna.html#mltb2.optuna.SignificanceRepeatedTrainingPruner.prune">[docs]</a>    <span class="k">def</span> <span class="nf">prune</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">study</span><span class="p">:</span> <span class="n">optuna</span><span class="o">.</span><span class="n">study</span><span class="o">.</span><span class="n">Study</span><span class="p">,</span> <span class="n">trial</span><span class="p">:</span> <span class="n">optuna</span><span class="o">.</span><span class="n">trial</span><span class="o">.</span><span class="n">FrozenTrial</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1"># noqa: D102</span>
         <span class="c1"># get best tial - best trial is not available for first trial</span>
         <span class="n">best_trial</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">try</span><span class="p">:</span>
@@ -228,9 +224,9 @@
                 <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;best_trial_intermediate_values: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">best_trial_intermediate_values</span><span class="p">)</span>
                 <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;best_trial_mean: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">best_trial_mean</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="p">(</span>
-                    <span class="n">trial_mean</span> <span class="o">&lt;</span> <span class="n">best_trial_mean</span> <span class="ow">and</span> <span class="n">study</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">StudyDirection</span><span class="o">.</span><span class="n">MAXIMIZE</span>
-                <span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">trial_mean</span> <span class="o">&gt;</span> <span class="n">best_trial_mean</span> <span class="ow">and</span> <span class="n">study</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">StudyDirection</span><span class="o">.</span><span class="n">MINIMIZE</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">trial_mean</span> <span class="o">&lt;</span> <span class="n">best_trial_mean</span> <span class="ow">and</span> <span class="n">study</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">StudyDirection</span><span class="o">.</span><span class="n">MAXIMIZE</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+                    <span class="n">trial_mean</span> <span class="o">&gt;</span> <span class="n">best_trial_mean</span> <span class="ow">and</span> <span class="n">study</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">StudyDirection</span><span class="o">.</span><span class="n">MINIMIZE</span>
+                <span class="p">):</span>
                     <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span>
                         <span class="n">trial_intermediate_values</span><span class="p">,</span>
                         <span class="n">best_trial_intermediate_values</span><span class="p">,</span>
@@ -244,9 +240,7 @@
                         <span class="k">return</span> <span class="kc">True</span>
 
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                        <span class="s2">&quot;This trial is better than best trial - we do not check for pruning.&quot;</span>
-                    <span class="p">)</span>
+                    <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;This trial is better than best trial - we do not check for pruning.&quot;</span><span class="p">)</span>
 
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;This trial did not reach n_warmup_steps - we do no checks.&quot;</span><span class="p">)</span>
