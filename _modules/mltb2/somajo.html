@@ -196,6 +196,34 @@
         <span class="n">union</span> <span class="o">=</span> <span class="n">token_set1</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">token_set2</span><span class="p">)</span>
         <span class="n">jaccard_similarity</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">intersection</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">union</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">jaccard_similarity</span></div></div>
+
+
+<div class="viewcode-block" id="TokenExtractor"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.TokenExtractor">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">TokenExtractor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract tokens from text.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        language: The language. ``de_CMC`` for German or ``en_PTB`` for English.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">language</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">somajo</span><span class="p">:</span> <span class="n">SoMaJo</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">somajo</span> <span class="o">=</span> <span class="n">SoMaJo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">language</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TokenExtractor.extract_url_set"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.TokenExtractor.extract_url_set">[docs]</a>    <span class="k">def</span> <span class="nf">extract_url_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract tokens from text.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text: the text</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Set of extracted links.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sentences</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">somajo</span><span class="o">.</span><span class="n">tokenize_text</span><span class="p">([</span><span class="n">text</span><span class="p">])</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="n">token</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence</span> <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">token_class</span> <span class="o">==</span> <span class="s2">&quot;URL&quot;</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
 </pre></div>
 
            </div>
