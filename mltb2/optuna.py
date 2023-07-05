@@ -115,9 +115,7 @@ class SignificanceRepeatedTrainingPruner(BasePruner):
     def __init__(self, alpha: float = 0.1, n_warmup_steps: int = 4) -> None:
         # input value check
         if n_warmup_steps < 0:
-            raise ValueError(
-                "'n_warmup_steps' must not be negative! n_warmup_steps: {}".format(n_warmup_steps)
-            )
+            raise ValueError("'n_warmup_steps' must not be negative! n_warmup_steps: {}".format(n_warmup_steps))
         if alpha >= 1:
             raise ValueError("'alpha' must be smaller than 1! {}".format(alpha))
         if alpha <= 0:
@@ -126,9 +124,7 @@ class SignificanceRepeatedTrainingPruner(BasePruner):
         self.n_warmup_steps = n_warmup_steps
         self.alpha = alpha
 
-    def prune(
-        self, study: optuna.study.Study, trial: optuna.trial.FrozenTrial
-    ) -> bool:  # noqa: D102
+    def prune(self, study: optuna.study.Study, trial: optuna.trial.FrozenTrial) -> bool:  # noqa: D102
         # get best tial - best trial is not available for first trial
         best_trial = None
         try:
@@ -152,9 +148,9 @@ class SignificanceRepeatedTrainingPruner(BasePruner):
                 _logger.debug("best_trial_intermediate_values: %s", best_trial_intermediate_values)
                 _logger.debug("best_trial_mean: %s", best_trial_mean)
 
-                if (
-                    trial_mean < best_trial_mean and study.direction == StudyDirection.MAXIMIZE
-                ) or (trial_mean > best_trial_mean and study.direction == StudyDirection.MINIMIZE):
+                if (trial_mean < best_trial_mean and study.direction == StudyDirection.MAXIMIZE) or (
+                    trial_mean > best_trial_mean and study.direction == StudyDirection.MINIMIZE
+                ):
                     pvalue = stats.ttest_ind(
                         trial_intermediate_values,
                         best_trial_intermediate_values,
@@ -168,9 +164,7 @@ class SignificanceRepeatedTrainingPruner(BasePruner):
                         return True
 
                 else:
-                    _logger.debug(
-                        "This trial is better than best trial - we do not check for pruning."
-                    )
+                    _logger.debug("This trial is better than best trial - we do not check for pruning.")
 
             else:
                 _logger.debug("This trial did not reach n_warmup_steps - we do no checks.")

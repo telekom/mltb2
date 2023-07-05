@@ -60,9 +60,7 @@ class TextSplitter:
         result_splits: List[str] = []
         current_sentences: List[str] = []
         current_count: int = 0
-        for sentence, count in zip(
-            tqdm(sentences, disable=not self.show_progress_bar), counts  # type: ignore
-        ):
+        for sentence, count in zip(tqdm(sentences, disable=not self.show_progress_bar), counts):  # type: ignore
             if count > self.max_token:
                 if self.ignore_overly_long_sentences:
                     continue
