@@ -137,6 +137,15 @@ class JaccardSimilarity(SoMaJoBaseClass):
     def __call__(self, text1: str, text2: str) -> float:
         """Calculate the jaccard similarity for two texts.
 
+        .. testcode::
+
+            1+1         # this will give no output!
+            print(2+2)  # this will give output
+
+        .. testoutput::
+
+           4
+
         Args:
             text1: Text one.
             text2: Text two.
@@ -161,6 +170,22 @@ class TokenExtractor(SoMaJoBaseClass):
 
     def extract_url_set(self, text: str) -> Set[str]:
         """Extract URLs from text.
+
+        Example:
+
+        .. testcode::
+
+            from mltb2.somajo import TokenExtractor
+
+            token_extractor = TokenExtractor("de_CMC")
+            url_set = token_extractor.extract_url_set("Das ist ein Link: http://github.com")
+            print(url_set)
+
+        Example output:
+
+        .. testoutput::
+
+            {'http://github.com'}
 
         Args:
             text: the text
