@@ -4,7 +4,9 @@
 
 from math import isclose
 
-from mltb2.somajo import JaccardSimilarity, SoMaJoSentenceSplitter, TokenExtractor
+from somajo import SoMaJo
+
+from mltb2.somajo import JaccardSimilarity, SoMaJoSentenceSplitter, TokenExtractor, extract_token_class_set
 
 
 def test_SoMaJoSentenceSplitter_call() -> None:
@@ -75,3 +77,23 @@ def test_TokenExtractor_call_no_url():
     token_extractor = TokenExtractor("de_CMC")
     result = token_extractor.extract_url_set(text_with_url)
     assert len(result) == 0
+
+
+def test_extract_token_class_set_symbol():
+    somajo = SoMaJo("de_CMC")
+    sentences = somajo.tokenize_text(["Das ist ein Satz. Das ist ein anderer Satz."])
+    result = extract_token_class_set(sentences, keep_token_classes="symbol")
+
+    assert isinstance(result, set)
+    assert len(result) == 1
+    assert "." in result
+
+
+def test_extract_token_class_set_url():
+    somajo = SoMaJo("de_CMC")
+    sentences = somajo.tokenize_text(["Das ist ein Satz. Das ist ein Link: http://github.com"])
+    result = extract_token_class_set(sentences, keep_token_classes="URL")
+
+    assert isinstance(result, set)
+    assert len(result) == 1
+    assert "http://github.com" in result
