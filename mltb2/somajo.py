@@ -137,15 +137,6 @@ class JaccardSimilarity(SoMaJoBaseClass):
     def __call__(self, text1: str, text2: str) -> float:
         """Calculate the jaccard similarity for two texts.
 
-        .. testcode::
-
-            1+1         # this will give no output!
-            print(2+2)  # this will give output
-
-        .. testoutput::
-
-           4
-
         Args:
             text1: Text one.
             text2: Text two.
