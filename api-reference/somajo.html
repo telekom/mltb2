@@ -95,7 +95,7 @@ Use pip to install the necessary dependencies for this module:
 <dl class="py class">
 <dt class="sig sig-object py" id="mltb2.somajo.JaccardSimilarity">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.somajo.</span></span><span class="sig-name descname"><span class="pre">JaccardSimilarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/somajo.html#JaccardSimilarity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.JaccardSimilarity" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mltb2.somajo.SoMaJoBaseClass" title="mltb2.somajo.SoMaJoBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">mltb2.somajo.SoMaJoBaseClass</span></code></a></p>
 <p>Calculate the <a class="reference external" href="https://en.wikipedia.org/wiki/Jaccard_index">jaccard similarity</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -145,9 +145,28 @@ Use pip to install the necessary dependencies for this module:
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="mltb2.somajo.SoMaJoBaseClass">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.somajo.</span></span><span class="sig-name descname"><span class="pre">SoMaJoBaseClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/somajo.html#SoMaJoBaseClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.SoMaJoBaseClass" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<p>Base Class for SoMaJo tools.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>language</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The language. <code class="docutils literal notranslate"><span class="pre">de_CMC</span></code> for German or <code class="docutils literal notranslate"><span class="pre">en_PTB</span></code> for English.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)">None</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This class is an abstract base class. It should not be used directly.</p>
+</div>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="mltb2.somajo.SoMaJoSentenceSplitter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.somajo.</span></span><span class="sig-name descname"><span class="pre">SoMaJoSentenceSplitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress_bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/somajo.html#SoMaJoSentenceSplitter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.SoMaJoSentenceSplitter" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mltb2.somajo.SoMaJoBaseClass" title="mltb2.somajo.SoMaJoBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">mltb2.somajo.SoMaJoBaseClass</span></code></a></p>
 <p>Use SoMaJo to split text into sentences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -177,29 +196,12 @@ Use pip to install the necessary dependencies for this module:
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="mltb2.somajo.SoMaJoSentenceSplitter.detokenize">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">detokenize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tokens</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/somajo.html#SoMaJoSentenceSplitter.detokenize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.SoMaJoSentenceSplitter.detokenize" title="Permalink to this definition"></a></dt>
-<dd><p>Convert SoMaJo tokens to sentence (string).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>tokens</strong> – The tokens to be de-tokenized.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The de-tokenized sentence.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mltb2.somajo.TokenExtractor">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.somajo.</span></span><span class="sig-name descname"><span class="pre">TokenExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/somajo.html#TokenExtractor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.TokenExtractor" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#mltb2.somajo.SoMaJoBaseClass" title="mltb2.somajo.SoMaJoBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">mltb2.somajo.SoMaJoBaseClass</span></code></a></p>
 <p>Extract tokens from text.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -212,7 +214,7 @@ Use pip to install the necessary dependencies for this module:
 <dl class="py method">
 <dt class="sig sig-object py" id="mltb2.somajo.TokenExtractor.extract_url_set">
 <span class="sig-name descname"><span class="pre">extract_url_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/somajo.html#TokenExtractor.extract_url_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.TokenExtractor.extract_url_set" title="Permalink to this definition"></a></dt>
-<dd><p>Extract tokens from text.</p>
+<dd><p>Extract URLs from text.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – the text</p>
@@ -226,6 +228,47 @@ Use pip to install the necessary dependencies for this module:
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mltb2.somajo.detokenize">
+<span class="sig-prename descclassname"><span class="pre">mltb2.somajo.</span></span><span class="sig-name descname"><span class="pre">detokenize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tokens</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/somajo.html#detokenize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.detokenize" title="Permalink to this definition"></a></dt>
+<dd><p>Convert SoMaJo tokens to sentence (string).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tokens</strong> – The tokens to be de-tokenized.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The de-tokenized sentence.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://github.com/tsproisl/SoMaJo/issues/17">How do I split sentences but not words?</a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mltb2.somajo.extract_token_class_set">
+<span class="sig-prename descclassname"><span class="pre">mltb2.somajo.</span></span><span class="sig-name descname"><span class="pre">extract_token_class_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentences</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_token_classes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Container</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/somajo.html#extract_token_class_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.extract_token_class_set" title="Permalink to this definition"></a></dt>
+<dd><p>Extract token from sentences by token class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sentences</strong> (<em>Iterable</em>) – The sentences from which to extract.</p></li>
+<li><p><strong>keep_token_classes</strong> (<em>Optional</em><em>[</em><em>Container</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em><em>]</em>) – The token classes to keep. If <code class="docutils literal notranslate"><span class="pre">None</span></code> all will be kept.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The set of extracted token texts.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Set[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a>]</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

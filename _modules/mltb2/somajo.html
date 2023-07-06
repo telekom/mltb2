@@ -86,15 +86,80 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Set</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Container</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span>
 
 <span class="kn">from</span> <span class="nn">somajo</span> <span class="kn">import</span> <span class="n">SoMaJo</span>
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
 
+<div class="viewcode-block" id="SoMaJoBaseClass"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.SoMaJoBaseClass">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">SoMaJoBaseClass</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base Class for SoMaJo tools.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        language: The language. ``de_CMC`` for German or ``en_PTB`` for English.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        This class is an abstract base class. It should not be used directly.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">language</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">somajo</span><span class="p">:</span> <span class="n">SoMaJo</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">somajo</span> <span class="o">=</span> <span class="n">SoMaJo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">language</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="detokenize"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.detokenize">[docs]</a><span class="k">def</span> <span class="nf">detokenize</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert SoMaJo tokens to sentence (string).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tokens: The tokens to be de-tokenized.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The de-tokenized sentence.</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        `How do I split sentences but not words? &lt;https://github.com/tsproisl/SoMaJo/issues/17&gt;`_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">original_spelling</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">original_spelling</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">space_after</span><span class="p">:</span>
+            <span class="n">result_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_list</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="extract_token_class_set"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.extract_token_class_set">[docs]</a><span class="k">def</span> <span class="nf">extract_token_class_set</span><span class="p">(</span><span class="n">sentences</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">keep_token_classes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Container</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract token from sentences by token class.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sentences: The sentences from which to extract.</span>
+<span class="sd">        keep_token_classes: The token classes to keep. If ``None`` all will be kept.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The set of extracted token texts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">keep_token_classes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">token</span><span class="o">.</span><span class="n">token_class</span> <span class="ow">in</span> <span class="n">keep_token_classes</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="c1"># else ignore</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
 <div class="viewcode-block" id="SoMaJoSentenceSplitter"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">SoMaJoSentenceSplitter</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">SoMaJoSentenceSplitter</span><span class="p">(</span><span class="n">SoMaJoBaseClass</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Use SoMaJo to split text into sentences.</span>
 
 <span class="sd">    Args:</span>
@@ -102,36 +167,7 @@
 <span class="sd">        show_progress_bar: Show a progressbar during processing.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">language</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">somajo</span><span class="p">:</span> <span class="n">SoMaJo</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">show_progress_bar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">somajo</span> <span class="o">=</span> <span class="n">SoMaJo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">language</span><span class="p">)</span>
-
-    <span class="c1"># see https://github.com/tsproisl/SoMaJo/issues/17</span>
-<div class="viewcode-block" id="SoMaJoSentenceSplitter.detokenize"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter.detokenize">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">detokenize</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert SoMaJo tokens to sentence (string).</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            tokens: The tokens to be de-tokenized.</span>
-<span class="sd">        Returns:</span>
-<span class="sd">            The de-tokenized sentence.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">result_list</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">original_spelling</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">result_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">original_spelling</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">result_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">space_after</span><span class="p">:</span>
-                <span class="n">result_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_list</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">result</span></div>
 
 <div class="viewcode-block" id="SoMaJoSentenceSplitter.__call__"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Split the text into a list of sentences.</span>
@@ -146,26 +182,19 @@
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">sentences</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_progress_bar</span><span class="p">):</span>
-            <span class="n">sentence_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detokenize</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+            <span class="n">sentence_string</span> <span class="o">=</span> <span class="n">detokenize</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
             <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sentence_string</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">result</span></div></div>
 
 
 <div class="viewcode-block" id="JaccardSimilarity"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.JaccardSimilarity">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">JaccardSimilarity</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">JaccardSimilarity</span><span class="p">(</span><span class="n">SoMaJoBaseClass</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the `jaccard similarity &lt;https://en.wikipedia.org/wiki/Jaccard_index&gt;`_.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        language: The language. ``de_CMC`` for German or ``en_PTB`` for English.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">language</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">somajo</span><span class="p">:</span> <span class="n">SoMaJo</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">somajo</span> <span class="o">=</span> <span class="n">SoMaJo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">language</span><span class="p">)</span>
 
 <div class="viewcode-block" id="JaccardSimilarity.get_token_set"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.JaccardSimilarity.get_token_set">[docs]</a>    <span class="k">def</span> <span class="nf">get_token_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get token set for text.</span>
@@ -176,9 +205,9 @@
 <span class="sd">            The set of tokens (words).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">sentences</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">somajo</span><span class="o">.</span><span class="n">tokenize_text</span><span class="p">([</span><span class="n">text</span><span class="p">])</span>
-        <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">]</span>
-        <span class="c1"># TODO: add option to filter tokens</span>
-        <span class="n">token_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+        <span class="n">token_set</span> <span class="o">=</span> <span class="n">extract_token_class_set</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>  <span class="c1"># TODO: filter tokens</span>
+        <span class="n">token_set</span> <span class="o">=</span> <span class="p">{</span><span class="n">t</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">token_set</span><span class="p">}</span>
+
         <span class="k">return</span> <span class="n">token_set</span></div>
 
 <div class="viewcode-block" id="JaccardSimilarity.__call__"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.JaccardSimilarity.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -199,22 +228,15 @@
 
 
 <div class="viewcode-block" id="TokenExtractor"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.TokenExtractor">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">TokenExtractor</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">TokenExtractor</span><span class="p">(</span><span class="n">SoMaJoBaseClass</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract tokens from text.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        language: The language. ``de_CMC`` for German or ``en_PTB`` for English.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">language</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">somajo</span><span class="p">:</span> <span class="n">SoMaJo</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">somajo</span> <span class="o">=</span> <span class="n">SoMaJo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">language</span><span class="p">)</span>
-
 <div class="viewcode-block" id="TokenExtractor.extract_url_set"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.TokenExtractor.extract_url_set">[docs]</a>    <span class="k">def</span> <span class="nf">extract_url_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract tokens from text.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract URLs from text.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            text: the text</span>
@@ -222,7 +244,7 @@
 <span class="sd">            Set of extracted links.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">sentences</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">somajo</span><span class="o">.</span><span class="n">tokenize_text</span><span class="p">([</span><span class="n">text</span><span class="p">])</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="n">token</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence</span> <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">token_class</span> <span class="o">==</span> <span class="s2">&quot;URL&quot;</span><span class="p">}</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">extract_token_class_set</span><span class="p">(</span><span class="n">sentences</span><span class="p">,</span> <span class="n">keep_token_classes</span><span class="o">=</span><span class="s2">&quot;URL&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div></div>
 </pre></div>
 
