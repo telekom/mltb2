@@ -10,6 +10,7 @@ Use pip to install the necessary dependencies for this module:
 """
 
 
+from abc import ABC
 from dataclasses import dataclass, field
 from typing import List, Set
 
@@ -18,7 +19,19 @@ from tqdm import tqdm
 
 
 @dataclass
-class SoMaJoSentenceSplitter:
+class SoMaJoBaseClass(ABC):
+    """Base Class for SoMaJo tools."""
+
+    language: str
+    somajo: SoMaJo = field(init=False, repr=False)
+
+    def __post_init__(self):
+        """Do post init."""
+        self.somajo = SoMaJo(self.language)
+
+
+@dataclass
+class SoMaJoSentenceSplitter(SoMaJoBaseClass):
     """Use SoMaJo to split text into sentences.
 
     Args:
@@ -26,13 +39,7 @@ class SoMaJoSentenceSplitter:
         show_progress_bar: Show a progressbar during processing.
     """
 
-    language: str
-    somajo: SoMaJo = field(init=False, repr=False)
     show_progress_bar: bool = False
-
-    def __post_init__(self):
-        """Do post init."""
-        self.somajo = SoMaJo(self.language)
 
     # see https://github.com/tsproisl/SoMaJo/issues/17
     @staticmethod
@@ -77,19 +84,12 @@ class SoMaJoSentenceSplitter:
 
 
 @dataclass
-class JaccardSimilarity:
+class JaccardSimilarity(SoMaJoBaseClass):
     """Calculate the `jaccard similarity <https://en.wikipedia.org/wiki/Jaccard_index>`_.
 
     Args:
         language: The language. ``de_CMC`` for German or ``en_PTB`` for English.
     """
-
-    language: str
-    somajo: SoMaJo = field(init=False, repr=False)
-
-    def __post_init__(self):
-        """Do post init."""
-        self.somajo = SoMaJo(self.language)
 
     def get_token_set(self, text: str) -> Set[str]:
         """Get token set for text.
@@ -123,19 +123,12 @@ class JaccardSimilarity:
 
 
 @dataclass
-class TokenExtractor:
+class TokenExtractor(SoMaJoBaseClass):
     """Extract tokens from text.
 
     Args:
         language: The language. ``de_CMC`` for German or ``en_PTB`` for English.
     """
-
-    language: str
-    somajo: SoMaJo = field(init=False, repr=False)
-
-    def __post_init__(self):
-        """Do post init."""
-        self.somajo = SoMaJo(self.language)
 
     def extract_url_set(self, text: str) -> Set[str]:
         """Extract tokens from text.
