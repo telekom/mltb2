@@ -12,7 +12,7 @@ Use pip to install the necessary dependencies for this module:
 
 from abc import ABC
 from dataclasses import dataclass, field
-from typing import List, Set
+from typing import Container, Iterable, List, Optional, Set
 
 from somajo import SoMaJo
 from tqdm import tqdm
@@ -20,7 +20,14 @@ from tqdm import tqdm
 
 @dataclass
 class SoMaJoBaseClass(ABC):
-    """Base Class for SoMaJo tools."""
+    """Base Class for SoMaJo tools.
+
+    Args:
+        language: The language. ``de_CMC`` for German or ``en_PTB`` for English.
+
+    Note:
+        This class is an abstract base class. It should not be used directly.
+    """
 
     language: str
     somajo: SoMaJo = field(init=False, repr=False)
@@ -28,6 +35,51 @@ class SoMaJoBaseClass(ABC):
     def __post_init__(self):
         """Do post init."""
         self.somajo = SoMaJo(self.language)
+
+
+def detokenize(tokens) -> str:
+    """Convert SoMaJo tokens to sentence (string).
+
+    Args:
+        tokens: The tokens to be de-tokenized.
+    Returns:
+        The de-tokenized sentence.
+
+    See Also:
+        `How do I split sentences but not words? <https://github.com/tsproisl/SoMaJo/issues/17>`_
+    """
+    result_list = []
+    for token in tokens:
+        if token.original_spelling is not None:
+            result_list.append(token.original_spelling)
+        else:
+            result_list.append(token.text)
+
+        if token.space_after:
+            result_list.append(" ")
+    result = "".join(result_list)
+    result = result.strip()
+    return result
+
+
+def extract_token_class_set(sentences: Iterable, keep_token_classes: Optional[Container[str]] = None) -> Set[str]:
+    """Extract token from sentences by token class.
+
+    Args:
+        sentences: The sentences from which to extract.
+        keep_token_classes: The token classes to keep. If ``None`` all will be kept.
+    Returns:
+        The set of extracted token texts.
+    """
+    result = set()
+    for sentence in sentences:
+        for token in sentence:
+            if keep_token_classes is None:
+                result.add(token.text)
+            elif token.token_class in keep_token_classes:
+                result.add(token.text)
+            # else ignore
+    return result
 
 
 @dataclass
@@ -40,29 +92,6 @@ class SoMaJoSentenceSplitter(SoMaJoBaseClass):
     """
 
     show_progress_bar: bool = False
-
-    # see https://github.com/tsproisl/SoMaJo/issues/17
-    @staticmethod
-    def detokenize(tokens) -> str:
-        """Convert SoMaJo tokens to sentence (string).
-
-        Args:
-            tokens: The tokens to be de-tokenized.
-        Returns:
-            The de-tokenized sentence.
-        """
-        result_list = []
-        for token in tokens:
-            if token.original_spelling is not None:
-                result_list.append(token.original_spelling)
-            else:
-                result_list.append(token.text)
-
-            if token.space_after:
-                result_list.append(" ")
-        result = "".join(result_list)
-        result = result.strip()
-        return result
 
     def __call__(self, text: str) -> List[str]:
         """Split the text into a list of sentences.
@@ -77,7 +106,7 @@ class SoMaJoSentenceSplitter(SoMaJoBaseClass):
         result = []
 
         for sentence in tqdm(sentences, disable=not self.show_progress_bar):
-            sentence_string = self.detokenize(sentence)
+            sentence_string = detokenize(sentence)
             result.append(sentence_string)
 
         return result
@@ -100,9 +129,9 @@ class JaccardSimilarity(SoMaJoBaseClass):
             The set of tokens (words).
         """
         sentences = self.somajo.tokenize_text([text])
-        tokens = [t.text.lower() for sentence in sentences for t in sentence]
-        # TODO: add option to filter tokens
-        token_set = set(tokens)
+        token_set = extract_token_class_set(sentences)  # TODO: filter tokens
+        token_set = {t.lower() for t in token_set}
+
         return token_set
 
     def __call__(self, text1: str, text2: str) -> float:
@@ -139,5 +168,5 @@ class TokenExtractor(SoMaJoBaseClass):
             Set of extracted links.
         """
         sentences = self.somajo.tokenize_text([text])
-        result = {token.text for sentence in sentences for token in sentence if token.token_class == "URL"}
+        result = extract_token_class_set(sentences, keep_token_classes="URL")
         return result
