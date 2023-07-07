@@ -223,6 +223,18 @@ Use pip to install the necessary dependencies for this module:
 <dt class="sig sig-object py" id="mltb2.somajo.TokenExtractor.extract_url_set">
 <span class="sig-name descname"><span class="pre">extract_url_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.11)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/somajo.html#TokenExtractor.extract_url_set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.TokenExtractor.extract_url_set" title="Permalink to this definition"></a></dt>
 <dd><p>Extract URLs from text.</p>
+<p>An example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mltb2.somajo</span> <span class="kn">import</span> <span class="n">TokenExtractor</span>
+
+<span class="n">token_extractor</span> <span class="o">=</span> <span class="n">TokenExtractor</span><span class="p">(</span><span class="s2">&quot;de_CMC&quot;</span><span class="p">)</span>
+<span class="n">url_set</span> <span class="o">=</span> <span class="n">token_extractor</span><span class="o">.</span><span class="n">extract_url_set</span><span class="p">(</span><span class="s2">&quot;Das ist ein Link: http://github.com&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">url_set</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Example output:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;http://github.com&#39;}
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – the text</p>

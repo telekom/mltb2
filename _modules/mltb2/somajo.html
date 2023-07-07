@@ -240,6 +240,22 @@
 <div class="viewcode-block" id="TokenExtractor.extract_url_set"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.TokenExtractor.extract_url_set">[docs]</a>    <span class="k">def</span> <span class="nf">extract_url_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract URLs from text.</span>
 
+<span class="sd">        An example:</span>
+
+<span class="sd">        .. testcode::</span>
+
+<span class="sd">            from mltb2.somajo import TokenExtractor</span>
+
+<span class="sd">            token_extractor = TokenExtractor(&quot;de_CMC&quot;)</span>
+<span class="sd">            url_set = token_extractor.extract_url_set(&quot;Das ist ein Link: http://github.com&quot;)</span>
+<span class="sd">            print(url_set)</span>
+
+<span class="sd">        Example output:</span>
+
+<span class="sd">        .. testoutput::</span>
+
+<span class="sd">            {&#39;http://github.com&#39;}</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            text: the text</span>
 <span class="sd">        Returns:</span>
