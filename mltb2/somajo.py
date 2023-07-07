@@ -162,7 +162,7 @@ class TokenExtractor(SoMaJoBaseClass):
     def extract_url_set(self, text: str) -> Set[str]:
         """Extract URLs from text.
 
-        Example:
+        An example:
 
         .. testcode::
 
