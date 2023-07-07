@@ -162,6 +162,22 @@ class TokenExtractor(SoMaJoBaseClass):
     def extract_url_set(self, text: str) -> Set[str]:
         """Extract URLs from text.
 
+        An example:
+
+        .. testcode::
+
+            from mltb2.somajo import TokenExtractor
+
+            token_extractor = TokenExtractor("de_CMC")
+            url_set = token_extractor.extract_url_set("Das ist ein Link: http://github.com")
+            print(url_set)
+
+        Example output:
+
+        .. testoutput::
+
+            {'http://github.com'}
+
         Args:
             text: the text
         Returns:
