@@ -48,7 +48,7 @@ jobs:
       run: isort ${{ env.src }} ${{ env.other-src }} --check --diff
 
     - name: Check with mdformat
-      run: mdformat --check *.md
+      run: mdformat --number --check *.md
 
     - name: Check with mypy
       run: mypy --install-types --non-interactive ${{ env.src }} ${{ env.other-src }}
