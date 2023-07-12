@@ -6,7 +6,7 @@ from math import isclose
 
 from somajo import SoMaJo
 
-from mltb2.somajo import JaccardSimilarity, SoMaJoSentenceSplitter, TokenExtractor, detokenize, extract_token_class_set
+from mltb2.somajo_tool import JaccardSimilarity, SoMaJoSentenceSplitter, TokenExtractor, detokenize, extract_token_class_set
 
 
 def test_SoMaJoSentenceSplitter_call() -> None:

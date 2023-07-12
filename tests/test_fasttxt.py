@@ -3,7 +3,7 @@
 # which is available at https://opensource.org/licenses/MIT
 
 
-from mltb2.fasttext import FastTextLanguageIdentification
+from mltb2.fasttxt import FastTextLanguageIdentification
 
 
 def test_fasttext_language_identification_get_model_path_and_download():

@@ -3,7 +3,7 @@
 # which is available at https://opensource.org/licenses/MIT
 
 
-from mltb2.transformers import TransformersTokenCounter
+from mltb2.xformer import TransformersTokenCounter
 
 
 def test_TransformersTokenCounter_call_string():

@@ -3,7 +3,7 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""Hugging Face Transformers and SoMaJo specific functionality.
+"""Hugging Face Transformers and SoMaJo specific tools.
 
 This module is based on
 `Hugging Face Transformers <https://huggingface.co/docs/transformers/index>`_ and
@@ -18,8 +18,8 @@ from typing import List
 
 from tqdm import tqdm
 
-from mltb2.somajo import SoMaJoSentenceSplitter
-from mltb2.transformers import TransformersTokenCounter
+from mltb2.somajo_tool import SoMaJoSentenceSplitter
+from mltb2.xformer import TransformersTokenCounter
 
 
 @dataclass
