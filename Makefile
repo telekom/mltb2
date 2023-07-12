@@ -7,7 +7,7 @@ check:
 	black $(src) $(test-src) $(other-src) --check --diff
 	flake8 $(src) $(test-src) $(other-src)
 	isort $(src) $(test-src) $(other-src) --check --diff
-	mdformat --check *.md
+	mdformat --number --check *.md
 	mypy --install-types --non-interactive $(src) $(test-src) $(other-src)
 	pylint $(src)
 	cd docs && $(MAKE) clean doctest && cd ..
@@ -15,7 +15,7 @@ check:
 format:
 	black $(src) $(test-src) $(other-src)
 	isort $(src) $(test-src) $(other-src)
-	mdformat *.md
+	mdformat --number *.md
 
 test:
 	pytest $(test-src)
