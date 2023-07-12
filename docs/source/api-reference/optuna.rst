@@ -1,6 +1,6 @@
-.. _optuna_code_doc:
+.. _optuna_tool_code_doc:
 
-:mod:`~mltb2.optuna`
-====================
+:mod:`~mltb2.optuna_tool`
+=========================
 
-.. automodule:: mltb2.optuna
+.. automodule:: mltb2.optuna_tool

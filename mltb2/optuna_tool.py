@@ -2,7 +2,7 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""Optuna specific functionality.
+"""Optuna specific tools.
 
 This module is based on `Optuna <https://optuna.readthedocs.io/en/stable/>`_.
 Use pip to install the necessary dependencies for this module:
@@ -39,7 +39,7 @@ class SignificanceRepeatedTrainingPruner(BasePruner):
 
     .. testcode::
 
-        from mltb2.optuna import SignificanceRepeatedTrainingPruner
+        from mltb2.optuna_tool import SignificanceRepeatedTrainingPruner
         import logging
         import numpy as np
         import optuna

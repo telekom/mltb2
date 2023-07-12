@@ -2,7 +2,7 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""SoMaJo specific functionality.
+"""SoMaJo specific tools.
 
 This module is based on `SoMaJo <https://github.com/tsproisl/SoMaJo>`_.
 Use pip to install the necessary dependencies for this module:
@@ -166,7 +166,7 @@ class TokenExtractor(SoMaJoBaseClass):
 
         .. testcode::
 
-            from mltb2.somajo import TokenExtractor
+            from mltb2.somajo_tool import TokenExtractor
 
             token_extractor = TokenExtractor("de_CMC")
             url_set = token_extractor.extract_url_set("Das ist ein Link: http://github.com")

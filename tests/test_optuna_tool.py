@@ -4,7 +4,7 @@
 
 import pytest
 
-from mltb2.optuna import SignificanceRepeatedTrainingPruner
+from mltb2.optuna_tool import SignificanceRepeatedTrainingPruner
 
 
 def test_percentile_pruner_n_warmup_steps() -> None:

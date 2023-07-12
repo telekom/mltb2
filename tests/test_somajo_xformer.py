@@ -6,9 +6,9 @@
 
 import pytest
 
-from mltb2.somajo import SoMaJoSentenceSplitter
-from mltb2.somajo_transformers import TextSplitter
-from mltb2.transformers import TransformersTokenCounter
+from mltb2.somajo_tool import SoMaJoSentenceSplitter
+from mltb2.somajo_xformer import TextSplitter
+from mltb2.xformer import TransformersTokenCounter
 
 
 def test_TextSplitter_call():
