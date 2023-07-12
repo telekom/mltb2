@@ -39,7 +39,7 @@ class SignificanceRepeatedTrainingPruner(BasePruner):
 
     .. testcode::
 
-        from mltb2.optuna import SignificanceRepeatedTrainingPruner
+        from mltb2.optuna_tool import SignificanceRepeatedTrainingPruner
         import logging
         import numpy as np
         import optuna

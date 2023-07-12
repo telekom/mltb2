@@ -166,7 +166,7 @@ class TokenExtractor(SoMaJoBaseClass):
 
         .. testcode::
 
-            from mltb2.somajo import TokenExtractor
+            from mltb2.somajo_tool import TokenExtractor
 
             token_extractor = TokenExtractor("de_CMC")
             url_set = token_extractor.extract_url_set("Das ist ein Link: http://github.com")

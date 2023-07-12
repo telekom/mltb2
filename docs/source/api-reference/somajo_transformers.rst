@@ -1,6 +1,6 @@
-.. _somajo_transformers_code_doc:
+.. _somajo_xformer_code_doc:
 
-:mod:`~mltb2.somajo_transformers`
-=================================
+:mod:`~mltb2.somajo_xformer`
+============================
 
-.. automodule:: mltb2.somajo_transformers
+.. automodule:: mltb2.somajo_xformer
