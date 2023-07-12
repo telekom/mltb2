@@ -1,6 +1,6 @@
-.. _transformers_code_doc:
+.. _xformer_code_doc:
 
-:mod:`~mltb2.transformers`
-==========================
+:mod:`~mltb2.xformer`
+=====================
 
-.. automodule:: mltb2.transformers
+.. automodule:: mltb2.xformer

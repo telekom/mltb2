@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>mltb2.transformers &mdash; MLTB2  documentation</title>
+  <title>mltb2.xformer &mdash; MLTB2  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
@@ -66,7 +66,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">mltb2.transformers</li>
+      <li class="breadcrumb-item active">mltb2.xformer</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -75,12 +75,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for mltb2.transformers</h1><div class="highlight"><pre>
+  <h1>Source code for mltb2.xformer</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Copyright (c) 2023 Philip May</span>
 <span class="c1"># This software is distributed under the terms of the MIT license</span>
 <span class="c1"># which is available at https://opensource.org/licenses/MIT</span>
 
-<span class="sd">&quot;&quot;&quot;Hugging Face Transformers specific functionality.</span>
+<span class="sd">&quot;&quot;&quot;Hugging Face Transformers specific tools.</span>
 
 <span class="sd">This module is based on</span>
 <span class="sd">`Hugging Face Transformers &lt;https://huggingface.co/docs/transformers/index&gt;`_.</span>
@@ -99,7 +99,7 @@
 <span class="kn">from</span> <span class="nn">transformers.tokenization_utils</span> <span class="kn">import</span> <span class="n">PreTrainedTokenizerBase</span>
 
 
-<div class="viewcode-block" id="TransformersTokenCounter"><a class="viewcode-back" href="../../api-reference/transformers.html#mltb2.transformers.TransformersTokenCounter">[docs]</a><span class="nd">@dataclass</span>
+<div class="viewcode-block" id="TransformersTokenCounter"><a class="viewcode-back" href="../../api-reference/transformers.html#mltb2.xformer.TransformersTokenCounter">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">TransformersTokenCounter</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Count Transformers tokenizer tokens.</span>
 
@@ -118,7 +118,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pretrained_model_name_or_path</span><span class="p">)</span>
 
-<div class="viewcode-block" id="TransformersTokenCounter.__call__"><a class="viewcode-back" href="../../api-reference/transformers.html#mltb2.transformers.TransformersTokenCounter.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<div class="viewcode-block" id="TransformersTokenCounter.__call__"><a class="viewcode-back" href="../../api-reference/transformers.html#mltb2.xformer.TransformersTokenCounter.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Count tokens for text.</span>
 
 <span class="sd">        Args:</span>
@@ -138,7 +138,7 @@
             <span class="k">return</span> <span class="n">counts</span></div></div>
 
 
-<div class="viewcode-block" id="LabeledDataset"><a class="viewcode-back" href="../../api-reference/transformers.html#mltb2.transformers.LabeledDataset">[docs]</a><span class="k">class</span> <span class="nc">LabeledDataset</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+<div class="viewcode-block" id="LabeledDataset"><a class="viewcode-back" href="../../api-reference/transformers.html#mltb2.xformer.LabeledDataset">[docs]</a><span class="k">class</span> <span class="nc">LabeledDataset</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataset with labes.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encodings</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
@@ -154,7 +154,7 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="KFoldLabeledDataset"><a class="viewcode-back" href="../../api-reference/transformers.html#mltb2.transformers.KFoldLabeledDataset">[docs]</a><span class="k">class</span> <span class="nc">KFoldLabeledDataset</span><span class="p">:</span>
+<div class="viewcode-block" id="KFoldLabeledDataset"><a class="viewcode-back" href="../../api-reference/transformers.html#mltb2.xformer.KFoldLabeledDataset">[docs]</a><span class="k">class</span> <span class="nc">KFoldLabeledDataset</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Utility to do k-fold cross-validation on ``LabeledDataset``.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">n_repeats</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -162,7 +162,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">n_repeats</span> <span class="o">=</span> <span class="n">n_repeats</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
 
-<div class="viewcode-block" id="KFoldLabeledDataset.split"><a class="viewcode-back" href="../../api-reference/transformers.html#mltb2.transformers.KFoldLabeledDataset.split">[docs]</a>    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labeled_dataset</span><span class="p">,</span> <span class="n">stratification_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="KFoldLabeledDataset.split"><a class="viewcode-back" href="../../api-reference/transformers.html#mltb2.xformer.KFoldLabeledDataset.split">[docs]</a>    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labeled_dataset</span><span class="p">,</span> <span class="n">stratification_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates data splits of training and test set.&quot;&quot;&quot;</span>
         <span class="n">idxs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labeled_dataset</span><span class="p">)))</span>
         <span class="k">if</span> <span class="n">stratification_labels</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># no stratification wanted</span>

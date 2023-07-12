@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>somajo_transformers &mdash; MLTB2  documentation</title>
+  <title>somajo_xformer &mdash; MLTB2  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -23,8 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="transformers" href="transformers.html" />
-    <link rel="prev" title="somajo" href="somajo.html" /> 
+    <link rel="next" title="xformer" href="transformers.html" />
+    <link rel="prev" title="somajo_tool" href="somajo.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,19 +48,19 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api-reference.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="fasttext.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fasttext</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fasttxt.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fasttxt</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">files</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="optuna.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="optuna.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna_tool</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">plot</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="somajo.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_transformers</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mltb2.somajo_transformers.TextSplitter"><code class="docutils literal notranslate"><span class="pre">TextSplitter</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mltb2.somajo_transformers.TextSplitter.__call__"><code class="docutils literal notranslate"><span class="pre">TextSplitter.__call__()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="somajo.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_tool</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_xformer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.somajo_xformer.TextSplitter"><code class="docutils literal notranslate"><span class="pre">TextSplitter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.somajo_xformer.TextSplitter.__call__"><code class="docutils literal notranslate"><span class="pre">TextSplitter.__call__()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="transformers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">transformers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="transformers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">xformer</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
@@ -84,7 +84,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api-reference.html">API Reference</a></li>
-      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_transformers</span></code></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_xformer</span></code></li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/telekom/mltb2/blob/main/docs/source/api-reference/somajo_transformers.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -94,17 +94,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-mltb2.somajo_transformers">
-<span id="somajo-transformers"></span><span id="somajo-transformers-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.somajo_transformers" title="mltb2.somajo_transformers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_transformers</span></code></a><a class="headerlink" href="#module-mltb2.somajo_transformers" title="Permalink to this heading"></a></h1>
-<p>Hugging Face Transformers and SoMaJo specific functionality.</p>
+  <section id="module-mltb2.somajo_xformer">
+<span id="somajo-xformer"></span><span id="somajo-xformer-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.somajo_xformer" title="mltb2.somajo_xformer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_xformer</span></code></a><a class="headerlink" href="#module-mltb2.somajo_xformer" title="Permalink to this heading"></a></h1>
+<p>Hugging Face Transformers and SoMaJo specific tools.</p>
 <p>This module is based on
 <a class="reference external" href="https://huggingface.co/docs/transformers/index">Hugging Face Transformers</a> and
 <a class="reference external" href="https://github.com/tsproisl/SoMaJo">SoMaJo</a>.
 Use pip to install the necessary dependencies for this module:
 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">mltb2[somajo_transformers]</span></code></p>
 <dl class="py class">
-<dt class="sig sig-object py" id="mltb2.somajo_transformers.TextSplitter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.somajo_transformers.</span></span><span class="sig-name descname"><span class="pre">TextSplitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">somajo_sentence_splitter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="somajo.html#mltb2.somajo.SoMaJoSentenceSplitter" title="mltb2.somajo.SoMaJoSentenceSplitter"><span class="pre">SoMaJoSentenceSplitter</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformers_token_counter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="transformers.html#mltb2.transformers.TransformersTokenCounter" title="mltb2.transformers.TransformersTokenCounter"><span class="pre">TransformersTokenCounter</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress_bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_overly_long_sentences</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/somajo_transformers.html#TextSplitter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo_transformers.TextSplitter" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mltb2.somajo_xformer.TextSplitter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.somajo_xformer.</span></span><span class="sig-name descname"><span class="pre">TextSplitter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">somajo_sentence_splitter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="somajo.html#mltb2.somajo_tool.SoMaJoSentenceSplitter" title="mltb2.somajo_tool.SoMaJoSentenceSplitter"><span class="pre">SoMaJoSentenceSplitter</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformers_token_counter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="transformers.html#mltb2.xformer.TransformersTokenCounter" title="mltb2.xformer.TransformersTokenCounter"><span class="pre">TransformersTokenCounter</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress_bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_overly_long_sentences</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/somajo_xformer.html#TextSplitter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo_xformer.TextSplitter" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Split the text into sections with a specified maximum token number.</p>
 <p>Does not divide words, but always whole sentences.</p>
@@ -112,8 +112,8 @@ Use pip to install the necessary dependencies for this module:
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>max_token</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Maximum number of tokens per text section.</p></li>
-<li><p><strong>somajo_sentence_splitter</strong> (<a class="reference internal" href="somajo.html#mltb2.somajo.SoMaJoSentenceSplitter" title="mltb2.somajo.SoMaJoSentenceSplitter"><em>SoMaJoSentenceSplitter</em></a>) – The sentence splitter to be used.</p></li>
-<li><p><strong>transformers_token_counter</strong> (<a class="reference internal" href="transformers.html#mltb2.transformers.TransformersTokenCounter" title="mltb2.transformers.TransformersTokenCounter"><em>TransformersTokenCounter</em></a>) – The token counter to be used.</p></li>
+<li><p><strong>somajo_sentence_splitter</strong> (<a class="reference internal" href="somajo.html#mltb2.somajo_tool.SoMaJoSentenceSplitter" title="mltb2.somajo_tool.SoMaJoSentenceSplitter"><em>SoMaJoSentenceSplitter</em></a>) – The sentence splitter to be used.</p></li>
+<li><p><strong>transformers_token_counter</strong> (<a class="reference internal" href="transformers.html#mltb2.xformer.TransformersTokenCounter" title="mltb2.xformer.TransformersTokenCounter"><em>TransformersTokenCounter</em></a>) – The token counter to be used.</p></li>
 <li><p><strong>show_progress_bar</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Show a progressbar during processing.</p></li>
 <li><p><strong>ignore_overly_long_sentences</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If this is <code class="docutils literal notranslate"><span class="pre">False</span></code> an <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> exception is
 raised if a sentence is longer than <code class="docutils literal notranslate"><span class="pre">max_token</span></code>.
@@ -122,8 +122,8 @@ If it is <code class="docutils literal notranslate"><span class="pre">True</span
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="mltb2.somajo_transformers.TextSplitter.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/somajo_transformers.html#TextSplitter.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo_transformers.TextSplitter.__call__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mltb2.somajo_xformer.TextSplitter.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/somajo_xformer.html#TextSplitter.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo_xformer.TextSplitter.__call__" title="Permalink to this definition"></a></dt>
 <dd><p>Split the text into sections.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -146,8 +146,8 @@ If it is <code class="docutils literal notranslate"><span class="pre">True</span
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="somajo.html" class="btn btn-neutral float-left" title="somajo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="transformers.html" class="btn btn-neutral float-right" title="transformers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="somajo.html" class="btn btn-neutral float-left" title="somajo_tool" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="transformers.html" class="btn btn-neutral float-right" title="xformer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>optuna &mdash; MLTB2  documentation</title>
+  <title>optuna_tool &mdash; MLTB2  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -48,19 +48,19 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api-reference.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="fasttext.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fasttext</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fasttxt.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fasttxt</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">files</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mltb2.optuna.SignificanceRepeatedTrainingPruner"><code class="docutils literal notranslate"><span class="pre">SignificanceRepeatedTrainingPruner</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mltb2.optuna.SignificanceRepeatedTrainingPruner.prune"><code class="docutils literal notranslate"><span class="pre">SignificanceRepeatedTrainingPruner.prune()</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna_tool</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.optuna_tool.SignificanceRepeatedTrainingPruner"><code class="docutils literal notranslate"><span class="pre">SignificanceRepeatedTrainingPruner</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.optuna_tool.SignificanceRepeatedTrainingPruner.prune"><code class="docutils literal notranslate"><span class="pre">SignificanceRepeatedTrainingPruner.prune()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="plot.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">plot</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="somajo.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="somajo_transformers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_transformers</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="transformers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">transformers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="somajo.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_tool</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="somajo_transformers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_xformer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="transformers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">xformer</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
@@ -84,7 +84,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api-reference.html">API Reference</a></li>
-      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna</span></code></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna_tool</span></code></li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/telekom/mltb2/blob/main/docs/source/api-reference/optuna.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -94,15 +94,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-mltb2.optuna">
-<span id="optuna"></span><span id="optuna-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.optuna" title="mltb2.optuna"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna</span></code></a><a class="headerlink" href="#module-mltb2.optuna" title="Permalink to this heading"></a></h1>
-<p>Optuna specific functionality.</p>
+  <section id="module-mltb2.optuna_tool">
+<span id="optuna-tool"></span><span id="optuna-tool-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.optuna_tool" title="mltb2.optuna_tool"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna_tool</span></code></a><a class="headerlink" href="#module-mltb2.optuna_tool" title="Permalink to this heading"></a></h1>
+<p>Optuna specific tools.</p>
 <p>This module is based on <a class="reference external" href="https://optuna.readthedocs.io/en/stable/">Optuna</a>.
 Use pip to install the necessary dependencies for this module:
 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">mltb2[optuna]</span></code></p>
 <dl class="py class">
-<dt class="sig sig-object py" id="mltb2.optuna.SignificanceRepeatedTrainingPruner">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.optuna.</span></span><span class="sig-name descname"><span class="pre">SignificanceRepeatedTrainingPruner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_warmup_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/optuna.html#SignificanceRepeatedTrainingPruner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.optuna.SignificanceRepeatedTrainingPruner" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mltb2.optuna_tool.SignificanceRepeatedTrainingPruner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.optuna_tool.</span></span><span class="sig-name descname"><span class="pre">SignificanceRepeatedTrainingPruner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_warmup_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/optuna_tool.html#SignificanceRepeatedTrainingPruner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.optuna_tool.SignificanceRepeatedTrainingPruner" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/generated/optuna.pruners.BasePruner.html#optuna.pruners.BasePruner" title="(in Optuna v3.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasePruner</span></code></a></p>
 <p>Optuna pruner which uses statistical significance as an heuristic for decision-making.</p>
 <p>This is an Optuna <a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/pruners.html#module-optuna.pruners" title="(in Optuna v3.2.0)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Pruner</span></code></a> which uses statistical significance as
@@ -114,7 +114,7 @@ per hyperparameter set. Those pruners work on the basis of intermediate results.
 once per epoch. In contrast, this pruner does not work on intermediate results but on the
 results of a cross validation or more precisely the results of the individual folds.</p>
 <p>Below is a minimalist example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mltb2.optuna</span> <span class="kn">import</span> <span class="n">SignificanceRepeatedTrainingPruner</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mltb2.optuna_tool</span> <span class="kn">import</span> <span class="n">SignificanceRepeatedTrainingPruner</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">optuna</span>
@@ -192,8 +192,8 @@ of steps.</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="mltb2.optuna.SignificanceRepeatedTrainingPruner.prune">
-<span class="sig-name descname"><span class="pre">prune</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">study</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/generated/optuna.study.Study.html#optuna.study.Study" title="(in Optuna v3.2.0)"><span class="pre">Study</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/generated/optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="(in Optuna v3.2.0)"><span class="pre">FrozenTrial</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/mltb2/optuna.html#SignificanceRepeatedTrainingPruner.prune"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.optuna.SignificanceRepeatedTrainingPruner.prune" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mltb2.optuna_tool.SignificanceRepeatedTrainingPruner.prune">
+<span class="sig-name descname"><span class="pre">prune</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">study</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/generated/optuna.study.Study.html#optuna.study.Study" title="(in Optuna v3.2.0)"><span class="pre">Study</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">trial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://optuna.readthedocs.io/en/stable/reference/generated/optuna.trial.FrozenTrial.html#optuna.trial.FrozenTrial" title="(in Optuna v3.2.0)"><span class="pre">FrozenTrial</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/mltb2/optuna_tool.html#SignificanceRepeatedTrainingPruner.prune"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.optuna_tool.SignificanceRepeatedTrainingPruner.prune" title="Permalink to this definition"></a></dt>
 <dd><p>Judge whether the trial should be pruned based on the reported values.</p>
 <p>Note that this method is not supposed to be called by library users. Instead,
 <code class="xref py py-func docutils literal notranslate"><span class="pre">optuna.trial.Trial.report()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">optuna.trial.Trial.should_prune()</span></code> provide

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>transformers &mdash; MLTB2  documentation</title>
+  <title>xformer &mdash; MLTB2  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -23,7 +23,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="somajo_transformers" href="somajo_transformers.html" /> 
+    <link rel="prev" title="somajo_xformer" href="somajo_transformers.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -47,20 +47,20 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../api-reference.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="fasttext.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fasttext</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fasttxt.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fasttxt</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="files.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">files</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="optuna.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="optuna.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna_tool</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">plot</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="somajo.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="somajo_transformers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_transformers</span></code></a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">transformers</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mltb2.transformers.KFoldLabeledDataset"><code class="docutils literal notranslate"><span class="pre">KFoldLabeledDataset</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mltb2.transformers.KFoldLabeledDataset.split"><code class="docutils literal notranslate"><span class="pre">KFoldLabeledDataset.split()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="somajo.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_tool</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="somajo_transformers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_xformer</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">xformer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.xformer.KFoldLabeledDataset"><code class="docutils literal notranslate"><span class="pre">KFoldLabeledDataset</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.xformer.KFoldLabeledDataset.split"><code class="docutils literal notranslate"><span class="pre">KFoldLabeledDataset.split()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#mltb2.transformers.LabeledDataset"><code class="docutils literal notranslate"><span class="pre">LabeledDataset</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mltb2.transformers.TransformersTokenCounter"><code class="docutils literal notranslate"><span class="pre">TransformersTokenCounter</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mltb2.transformers.TransformersTokenCounter.__call__"><code class="docutils literal notranslate"><span class="pre">TransformersTokenCounter.__call__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.xformer.LabeledDataset"><code class="docutils literal notranslate"><span class="pre">LabeledDataset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.xformer.TransformersTokenCounter"><code class="docutils literal notranslate"><span class="pre">TransformersTokenCounter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.xformer.TransformersTokenCounter.__call__"><code class="docutils literal notranslate"><span class="pre">TransformersTokenCounter.__call__()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -88,7 +88,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api-reference.html">API Reference</a></li>
-      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">transformers</span></code></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">xformer</span></code></li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/telekom/mltb2/blob/main/docs/source/api-reference/transformers.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -98,36 +98,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-mltb2.transformers">
-<span id="transformers"></span><span id="transformers-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.transformers" title="mltb2.transformers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">transformers</span></code></a><a class="headerlink" href="#module-mltb2.transformers" title="Permalink to this heading"></a></h1>
-<p>Hugging Face Transformers specific functionality.</p>
+  <section id="module-mltb2.xformer">
+<span id="xformer"></span><span id="xformer-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.xformer" title="mltb2.xformer"><code class="xref py py-mod docutils literal notranslate"><span class="pre">xformer</span></code></a><a class="headerlink" href="#module-mltb2.xformer" title="Permalink to this heading"></a></h1>
+<p>Hugging Face Transformers specific tools.</p>
 <p>This module is based on
 <a class="reference external" href="https://huggingface.co/docs/transformers/index">Hugging Face Transformers</a>.
 Use pip to install the necessary dependencies for this module:
 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">mltb2[transformers]</span></code></p>
 <dl class="py class">
-<dt class="sig sig-object py" id="mltb2.transformers.KFoldLabeledDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.transformers.</span></span><span class="sig-name descname"><span class="pre">KFoldLabeledDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_repeats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/transformers.html#KFoldLabeledDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.transformers.KFoldLabeledDataset" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mltb2.xformer.KFoldLabeledDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.xformer.</span></span><span class="sig-name descname"><span class="pre">KFoldLabeledDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_splits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_repeats</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/xformer.html#KFoldLabeledDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.xformer.KFoldLabeledDataset" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Utility to do k-fold cross-validation on <code class="docutils literal notranslate"><span class="pre">LabeledDataset</span></code>.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="mltb2.transformers.KFoldLabeledDataset.split">
-<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labeled_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stratification_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/transformers.html#KFoldLabeledDataset.split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.transformers.KFoldLabeledDataset.split" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mltb2.xformer.KFoldLabeledDataset.split">
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labeled_dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stratification_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/xformer.html#KFoldLabeledDataset.split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.xformer.KFoldLabeledDataset.split" title="Permalink to this definition"></a></dt>
 <dd><p>Generates data splits of training and test set.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="mltb2.transformers.LabeledDataset">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.transformers.</span></span><span class="sig-name descname"><span class="pre">LabeledDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encodings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/transformers.html#LabeledDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.transformers.LabeledDataset" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mltb2.xformer.LabeledDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.xformer.</span></span><span class="sig-name descname"><span class="pre">LabeledDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encodings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/xformer.html#LabeledDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.xformer.LabeledDataset" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></p>
 <p>Dataset with labes.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="mltb2.transformers.TransformersTokenCounter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.transformers.</span></span><span class="sig-name descname"><span class="pre">TransformersTokenCounter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pretrained_model_name_or_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress_bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/transformers.html#TransformersTokenCounter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.transformers.TransformersTokenCounter" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mltb2.xformer.TransformersTokenCounter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.xformer.</span></span><span class="sig-name descname"><span class="pre">TransformersTokenCounter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pretrained_model_name_or_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.11)"><span class="pre">PathLike</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress_bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/xformer.html#TransformersTokenCounter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.xformer.TransformersTokenCounter" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Count Transformers tokenizer tokens.</p>
 <dl class="field-list simple">
@@ -140,8 +140,8 @@ a path to a <em>directory</em> containing a tokenizer.</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="mltb2.transformers.TransformersTokenCounter.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/transformers.html#TransformersTokenCounter.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.transformers.TransformersTokenCounter.__call__" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mltb2.xformer.TransformersTokenCounter.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/xformer.html#TransformersTokenCounter.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.xformer.TransformersTokenCounter.__call__" title="Permalink to this definition"></a></dt>
 <dd><p>Count tokens for text.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -165,7 +165,7 @@ If text is an <code class="docutils literal notranslate"><span class="pre">Itera
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="somajo_transformers.html" class="btn btn-neutral float-left" title="somajo_transformers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="somajo_transformers.html" class="btn btn-neutral float-left" title="somajo_xformer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
