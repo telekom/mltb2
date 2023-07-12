@@ -12,7 +12,7 @@ Use pip to install the necessary dependencies for this module:
 
 from abc import ABC
 from dataclasses import dataclass, field
-from typing import Container, Iterable, List, Optional, Set
+from typing import Container, Iterable, List, Optional, Set, Union
 
 from somajo import SoMaJo
 from tqdm import tqdm
@@ -159,7 +159,7 @@ class TokenExtractor(SoMaJoBaseClass):
         language: The language. ``de_CMC`` for German or ``en_PTB`` for English.
     """
 
-    def extract_url_set(self, text: str) -> Set[str]:
+    def extract_url_set(self, text: Union[Iterable, str]) -> Set[str]:
         """Extract URLs from text.
 
         An example:
@@ -183,6 +183,8 @@ class TokenExtractor(SoMaJoBaseClass):
         Returns:
             Set of extracted links.
         """
-        sentences = self.somajo.tokenize_text([text])
+        if isinstance(text, str):
+            text = [text]
+        sentences = self.somajo.tokenize_text(text)
         result = extract_token_class_set(sentences, keep_token_classes="URL")
         return result
