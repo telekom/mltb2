@@ -35,26 +35,5 @@ jobs:
         python -m pip install -U pip
         pip install --progress-bar off -U .[checking,optional,doc]
 
-    - name: Check with pydocstyle
-      run: pydocstyle --count ${{ env.src }} ${{ env.other-src }}
-
-    - name: Check with black
-      run: black ${{ env.src }} ${{ env.other-src }} --check --diff
-
-    - name: Check with flake8
-      run: flake8 ${{ env.src }} ${{ env.other-src }}
-
-    - name: Check with isort
-      run: isort ${{ env.src }} ${{ env.other-src }} --check --diff
-
-    - name: Check with mdformat
-      run: mdformat --number --check *.md
-
-    - name: Check with pylint
-      run: pylint ${{ env.src }}
-
-    - name: Check Sphinx doctest
-      run: |
-        cd docs
-        make doctest
-        cd ..
+    - name: Check with mypy
+      run: mypy --install-types --non-interactive ${{ env.src }} ${{ env.other-src }}
