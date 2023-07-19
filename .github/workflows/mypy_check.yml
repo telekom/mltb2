@@ -33,7 +33,7 @@ jobs:
     - name: Install
       run: |
         python -m pip install -U pip
-        pip install --progress-bar off -U .[checking,optional,doc]
+        pip install --progress-bar off -U .[checking,optional]
 
     - name: Check with mypy
       run: mypy --install-types --non-interactive ${{ env.src }} ${{ env.other-src }}
