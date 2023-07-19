@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>mltb2.somajo_tool &mdash; MLTB2  documentation</title>
+  <title>mltb2.somajo &mdash; MLTB2  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
@@ -66,7 +66,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">mltb2.somajo_tool</li>
+      <li class="breadcrumb-item active">mltb2.somajo</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -75,12 +75,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for mltb2.somajo_tool</h1><div class="highlight"><pre>
+  <h1>Source code for mltb2.somajo</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Copyright (c) 2023 Philip May</span>
 <span class="c1"># This software is distributed under the terms of the MIT license</span>
 <span class="c1"># which is available at https://opensource.org/licenses/MIT</span>
 
-<span class="sd">&quot;&quot;&quot;SoMaJo specific tools.</span>
+<span class="sd">&quot;&quot;&quot;SoMaJo specific functionality.</span>
 
 <span class="sd">This module is based on `SoMaJo &lt;https://github.com/tsproisl/SoMaJo&gt;`_.</span>
 <span class="sd">Use pip to install the necessary dependencies for this module:</span>
@@ -96,7 +96,7 @@
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
 
-<div class="viewcode-block" id="SoMaJoBaseClass"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo_tool.SoMaJoBaseClass">[docs]</a><span class="nd">@dataclass</span>
+<div class="viewcode-block" id="SoMaJoBaseClass"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.SoMaJoBaseClass">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">SoMaJoBaseClass</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base Class for SoMaJo tools.</span>
 
@@ -115,7 +115,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">somajo</span> <span class="o">=</span> <span class="n">SoMaJo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">language</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="detokenize"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo_tool.detokenize">[docs]</a><span class="k">def</span> <span class="nf">detokenize</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="detokenize"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.detokenize">[docs]</a><span class="k">def</span> <span class="nf">detokenize</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert SoMaJo tokens to sentence (string).</span>
 
 <span class="sd">    Args:</span>
@@ -140,7 +140,7 @@
     <span class="k">return</span> <span class="n">result</span></div>
 
 
-<div class="viewcode-block" id="extract_token_class_set"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo_tool.extract_token_class_set">[docs]</a><span class="k">def</span> <span class="nf">extract_token_class_set</span><span class="p">(</span><span class="n">sentences</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">keep_token_classes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Container</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="extract_token_class_set"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.extract_token_class_set">[docs]</a><span class="k">def</span> <span class="nf">extract_token_class_set</span><span class="p">(</span><span class="n">sentences</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">keep_token_classes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Container</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract token from sentences by token class.</span>
 
 <span class="sd">    Args:</span>
@@ -160,7 +160,7 @@
     <span class="k">return</span> <span class="n">result</span></div>
 
 
-<div class="viewcode-block" id="SoMaJoSentenceSplitter"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo_tool.SoMaJoSentenceSplitter">[docs]</a><span class="nd">@dataclass</span>
+<div class="viewcode-block" id="SoMaJoSentenceSplitter"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">SoMaJoSentenceSplitter</span><span class="p">(</span><span class="n">SoMaJoBaseClass</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Use SoMaJo to split text into sentences.</span>
 
@@ -171,7 +171,7 @@
 
     <span class="n">show_progress_bar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
-<div class="viewcode-block" id="SoMaJoSentenceSplitter.__call__"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo_tool.SoMaJoSentenceSplitter.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="SoMaJoSentenceSplitter.__call__"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Split the text into a list of sentences.</span>
 
 <span class="sd">        Args:</span>
@@ -190,7 +190,7 @@
         <span class="k">return</span> <span class="n">result</span></div></div>
 
 
-<div class="viewcode-block" id="JaccardSimilarity"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo_tool.JaccardSimilarity">[docs]</a><span class="nd">@dataclass</span>
+<div class="viewcode-block" id="JaccardSimilarity"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.JaccardSimilarity">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">JaccardSimilarity</span><span class="p">(</span><span class="n">SoMaJoBaseClass</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the `jaccard similarity &lt;https://en.wikipedia.org/wiki/Jaccard_index&gt;`_.</span>
 
@@ -198,7 +198,7 @@
 <span class="sd">        language: The language. ``de_CMC`` for German or ``en_PTB`` for English.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="JaccardSimilarity.get_token_set"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo_tool.JaccardSimilarity.get_token_set">[docs]</a>    <span class="k">def</span> <span class="nf">get_token_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="JaccardSimilarity.get_token_set"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.JaccardSimilarity.get_token_set">[docs]</a>    <span class="k">def</span> <span class="nf">get_token_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get token set for text.</span>
 
 <span class="sd">        Args:</span>
@@ -212,7 +212,7 @@
 
         <span class="k">return</span> <span class="n">token_set</span></div>
 
-<div class="viewcode-block" id="JaccardSimilarity.__call__"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo_tool.JaccardSimilarity.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="JaccardSimilarity.__call__"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.JaccardSimilarity.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the jaccard similarity for two texts.</span>
 
 <span class="sd">        Args:</span>
@@ -229,7 +229,7 @@
         <span class="k">return</span> <span class="n">jaccard_similarity</span></div></div>
 
 
-<div class="viewcode-block" id="TokenExtractor"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo_tool.TokenExtractor">[docs]</a><span class="nd">@dataclass</span>
+<div class="viewcode-block" id="TokenExtractor"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.TokenExtractor">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">TokenExtractor</span><span class="p">(</span><span class="n">SoMaJoBaseClass</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract tokens from text.</span>
 
@@ -237,14 +237,14 @@
 <span class="sd">        language: The language. ``de_CMC`` for German or ``en_PTB`` for English.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="TokenExtractor.extract_url_set"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo_tool.TokenExtractor.extract_url_set">[docs]</a>    <span class="k">def</span> <span class="nf">extract_url_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Iterable</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<div class="viewcode-block" id="TokenExtractor.extract_url_set"><a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.TokenExtractor.extract_url_set">[docs]</a>    <span class="k">def</span> <span class="nf">extract_url_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Iterable</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract URLs from text.</span>
 
 <span class="sd">        An example:</span>
 
 <span class="sd">        .. testcode::</span>
 
-<span class="sd">            from mltb2.somajo_tool import TokenExtractor</span>
+<span class="sd">            from mltb2.somajo import TokenExtractor</span>
 
 <span class="sd">            token_extractor = TokenExtractor(&quot;de_CMC&quot;)</span>
 <span class="sd">            url_set = token_extractor.extract_url_set(&quot;Das ist ein Link: http://github.com&quot;)</span>
