@@ -22,7 +22,14 @@ class OpenAiTokenCounter:
     """Count OpenAI tokens.
 
     Args:
-        model_name: The OpenAI model name.
+        model_name:
+            The OpenAI model name. Some examples:
+
+            * ``gpt-4``
+            * ``gpt-3.5-turbo``
+            * ``text-davinci-003``
+            * ``text-embedding-ada-002``
+
         show_progress_bar: Show a progressbar during processing.
     """
 
