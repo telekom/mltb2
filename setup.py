@@ -16,6 +16,7 @@ plot_requires = {"matplotlib"}
 somajo_requires = {"SoMaJo", "tqdm"}
 transformers_requires = {"scikit-learn", "torch", "tqdm", "transformers"}
 somajo_transformers_requires = somajo_requires | transformers_requires | {"tqdm"}
+openai_requires = {"tiktoken"}
 optional_requires = (
     somajo_transformers_requires
     | transformers_requires
@@ -24,6 +25,7 @@ optional_requires = (
     | optuna_requires
     | fasttext_requires
     | files_requires
+    | openai_requires
 )
 
 project_name = "mltb2"
@@ -38,6 +40,7 @@ extras_require = {
     "somajo": somajo_requires,
     "transformers": transformers_requires,
     "somajo_transformers": somajo_transformers_requires,
+    "openai": openai_requires,
     "optional": optional_requires,
     "checking": [
         "black",
