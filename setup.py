@@ -94,6 +94,7 @@ setuptools.setup(
     python_requires=">=3.8",
     install_requires=install_requires,
     extras_require=extras_require,
+    zip_safe=False,
     keywords=keywords,
     classifiers=[
         "Development Status :: 3 - Alpha",
