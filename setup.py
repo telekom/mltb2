@@ -95,6 +95,7 @@ setuptools.setup(
     install_requires=install_requires,
     extras_require=extras_require,
     zip_safe=False,
+    package_data={"mltb2": ["py.typed"]},
     keywords=keywords,
     classifiers=[
         "Development Status :: 3 - Alpha",
