@@ -1,6 +1,61 @@
+[tool.poetry]
+name = "mltb2"
+version = "0.4.4rc1"
+description = ""
+authors = ["PhilipMay <philip@may.la>"]
+readme = "README.md"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "*"
+scipy = "*"
+tqdm = "*"
+platformdirs = {version = "*", optional = true}
+scikit-learn = {version = "*", optional = true}
+fasttext-wheel = {version = "*", optional = true}
+optuna = {version = "*", optional = true}
+matplotlib = {version = "*", optional = true}
+SoMaJo = {version = "*", optional = true}
+torch = {version = "*", optional = true}
+transformers = {version = "*", optional = true}
+tiktoken = {version = "*", optional = true}
+
+[tool.poetry.extras]
+files = ["platformdirs", "scikit-learn"]
+fasttext = ["fasttext-wheel"]
+optuna = ["optuna"]
+plot = ["matplotlib"]
+somajo = ["SoMaJo"]
+transformers = ["scikit-learn", "torch", "transformers"]
+somajo_transformers = ["SoMaJo", "scikit-learn", "torch", "transformers"]
+openai = ["tiktoken"]
+
+[tool.poetry.group.lint.dependencies]
+black = "*"
+ruff = "*"
+mypy = "*"
+mdformat = "*"
+
+[tool.poetry.group.test.dependencies]
+pytest = "*"
+
 [tool.black]
 line-length = 119
-target-version = ["py38"]
+target-versions = ["py38", "py39", "py310", "py311"]
+
+[tool.ruff]
+select = [
+  "E",  # pycodestyle
+  "F",  # pyflakes
+  "I",  # isort
+]
+line-length = 119
+fixable = ["I"]
+target-version = "py38"
 
 [tool.isort]
 profile = "black"
