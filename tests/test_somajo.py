@@ -110,6 +110,16 @@ def test_extract_token_class_set_url():
     assert "http://github.com" in result
 
 
+def test_extract_token_class_set_url__url_with_dot_at_end():
+    somajo = SoMaJo("de_CMC")
+    sentences = somajo.tokenize_text(["Das ist ein Satz mit einem Link: http://github.com."])
+    result = extract_token_class_set(sentences, keep_token_classes="URL")
+
+    assert isinstance(result, set)
+    assert len(result) == 1
+    assert "http://github.com" in result
+
+
 def test_detokenize():
     somajo = SoMaJo("de_CMC")
     sentences = somajo.tokenize_text(["Das ist ein Satz. Das ist ein anderer Satz."])
