@@ -61,7 +61,7 @@ SoMaJo = {version = "*", optional = true}
 torch = {version = "*", optional = true}
 transformers = {version = "*", optional = true}
 tiktoken = {version = "*", optional = true}
-safetensors = {version = "0.3.1", optional = true}
+safetensors = {version = "!= 0.3.2", optional = true}
 
 [tool.poetry.extras]
 files = ["platformdirs", "scikit-learn"]
