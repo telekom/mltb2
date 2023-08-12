@@ -1,11 +1,12 @@
 [tool.poetry]
 name = "mltb2"
 version = "0.4.4rc1"
-description = ""
+description = "Machine Learning Toolbox 2"
 authors = ["PhilipMay <philip@may.la>"]
 readme = "README.md"
 homepage = "https://github.com/telekom/mltb2"
 documentation = "https://telekom.github.io/mltb2/"
+include = ["LICENSE"]
 keywords = [
   "optuna",
   "deep learning",
