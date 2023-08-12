@@ -32,8 +32,9 @@ jobs:
 
     - name: Install
       run: |
-        curl -sSL https://install.python-poetry.org | python3 -
         poetry install --all-extras
 
     - name: Check with mypy
-      run: poetry run mypy --install-types --non-interactive ${{ env.src }} ${{ env.other_src }}
+      run: |
+        mkdir .mypy_cache
+        poetry run mypy --install-types --non-interactive ${{ env.src }} ${{ env.other_src }}
