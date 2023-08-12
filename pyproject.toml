@@ -4,6 +4,16 @@ version = "0.4.4rc1"
 description = ""
 authors = ["PhilipMay <philip@may.la>"]
 readme = "README.md"
+keywords = [
+  "optuna",
+  "deep learning",
+  "ml",
+  "ai",
+  "machine learning",
+  "hyperparameter optimization",
+  "nlp",
+  "natural language processing",
+]
 classifiers = [
   "Development Status :: 3 - Alpha",
   # "Development Status :: 4 - Beta",
