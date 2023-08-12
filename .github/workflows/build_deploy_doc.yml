@@ -33,14 +33,11 @@ jobs:
 
     - name: Install
       run: |
-        python -m pip install -U pip
-        pip install --progress-bar off -U .[all]
+        curl -sSL https://install.python-poetry.org | python3 -
+        poetry install --all-extras --without lint
 
     - name: Make
-      run: |
-        cd docs
-        make html
-        cd ..
+      run: poetry run make -C docs html
 
     - name: Deploy
       if: ${{ github.ref == 'refs/heads/main' }}
