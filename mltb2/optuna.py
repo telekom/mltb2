@@ -18,7 +18,6 @@ from optuna.pruners import BasePruner
 from optuna.study import StudyDirection
 from scipy import stats
 
-
 _logger = logging.getLogger(__name__)
 
 
