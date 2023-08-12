@@ -22,3 +22,6 @@ test:
 
 sphinx:
 	cd docs && $(MAKE) clean html && cd ..
+
+install:
+	poetry lock && poetry install --all-extras
