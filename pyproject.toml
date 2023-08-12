@@ -58,10 +58,10 @@ fasttext-wheel = {version = "*", optional = true}
 optuna = {version = "*", optional = true}
 matplotlib = {version = "*", optional = true}
 SoMaJo = {version = "*", optional = true}
-torch = {version = "*", optional = true}
+torch = {version = "!=2.0.1", optional = true}
 transformers = {version = "*", optional = true}
 tiktoken = {version = "*", optional = true}
-safetensors = {version = "!= 0.3.2", optional = true}
+safetensors = {version = "!=0.3.2", optional = true}  # TODO: remove workaround later
 
 [tool.poetry.extras]
 files = ["platformdirs", "scikit-learn"]
