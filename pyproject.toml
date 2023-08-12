@@ -17,6 +17,7 @@ keywords = [
   "nlp",
   "natural language processing",
 ]
+# all classifiers see https://pypi.org/classifiers/
 classifiers = [
   "Development Status :: 3 - Alpha",
   # "Development Status :: 4 - Beta",
@@ -38,6 +39,8 @@ classifiers = [
   "Topic :: Software Development :: Libraries",
   "Topic :: Software Development :: Libraries :: Python Modules",
   "Operating System :: OS Independent",
+  "Natural Language :: German",
+  "Natural Language :: English",
 ]
 
 [build-system]
