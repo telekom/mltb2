@@ -4,6 +4,8 @@ version = "0.4.4rc1"
 description = ""
 authors = ["PhilipMay <philip@may.la>"]
 readme = "README.md"
+homepage = "https://github.com/telekom/mltb2"
+documentation = "https://telekom.github.io/mltb2/"
 keywords = [
   "optuna",
   "deep learning",
@@ -40,6 +42,9 @@ classifiers = [
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/telekom/mltb2/issues"
 
 [tool.poetry.dependencies]
 python = "^3.8"
