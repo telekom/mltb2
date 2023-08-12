@@ -17,15 +17,13 @@ jobs:
       with:
         python-version: "3.8"
 
-    - name: Install dependencies
+    - name: Install
       run: |
-        python -m pip install --upgrade pip
-        pip install -U setuptools wheel twine
+        curl -sSL https://install.python-poetry.org | python3 -
+        poetry install --all-extras
 
     - name: Build and publish
       env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
       run: |
-        python setup.py sdist bdist_wheel
-        twine upload dist/*
+        poetry publish --build

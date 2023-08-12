@@ -1,4 +1,4 @@
-name: Static Code Checks
+name: Ruff Check
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
   checks:
     env:
       src: "mltb2"
-      other-src: "tests docs"
+      other_src: "tests"
 
     runs-on: ubuntu-latest
 
@@ -33,13 +33,7 @@ jobs:
     - name: Install
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
-        poetry install --all-extras
+        poetry install --all-extras --without doc
 
-    - name: Check with black
-      run: poetry run black ${{ env.src }} ${{ env.other-src }} --check --diff
-
-    - name: Check with mdformat
-      run: poetry run mdformat --check --number .
-
-    - name: Check Sphinx doctest
-      run: poetry run make -C docs doctest
+    - name: Check with Ruff
+      run: poetry run ruff ${{ env.src }} ${{ env.other_src }}

@@ -25,7 +25,7 @@ pip install mltb2
 Some optional dependencies might be necessary. You can install all of them with:
 
 ```bash
-pip install mltb2[optional]
+pip install mltb2[files,fasttext,optuna,plot,somajo,transformers,somajo_transformers,openai]
 ```
 
 If you don't want to install all dependencies, see the description of the individual modules.

@@ -1,29 +1,120 @@
+[tool.poetry]
+name = "mltb2"
+version = "0.4.4rc1"
+description = "Machine Learning Toolbox 2"
+authors = ["PhilipMay <philip@may.la>"]
+readme = "README.md"
+homepage = "https://github.com/telekom/mltb2"
+documentation = "https://telekom.github.io/mltb2/"
+include = ["LICENSE"]
+keywords = [
+  "optuna",
+  "deep learning",
+  "ml",
+  "ai",
+  "machine learning",
+  "hyperparameter optimization",
+  "nlp",
+  "natural language processing",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  # "Development Status :: 4 - Beta",
+  # "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Science/Research",
+  # "Intended Audience :: Education",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Mathematics",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Software Development",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Operating System :: OS Independent",
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/telekom/mltb2/issues"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+numpy = "*"
+scipy = "*"
+tqdm = "*"
+platformdirs = {version = "*", optional = true}
+scikit-learn = {version = "*", optional = true}
+fasttext-wheel = {version = "*", optional = true}
+optuna = {version = "*", optional = true}
+matplotlib = {version = "*", optional = true}
+SoMaJo = {version = "*", optional = true}
+torch = {version = "!=2.0.1", optional = true}
+transformers = {version = "*", optional = true}
+tiktoken = {version = "*", optional = true}
+safetensors = {version = "!=0.3.2", optional = true}  # TODO: remove workaround later
+
+[tool.poetry.extras]
+files = ["platformdirs", "scikit-learn"]
+fasttext = ["fasttext-wheel"]
+optuna = ["optuna"]
+plot = ["matplotlib"]
+somajo = ["SoMaJo"]
+transformers = ["scikit-learn", "torch", "transformers", "safetensors"]
+somajo_transformers = ["SoMaJo", "scikit-learn", "torch", "transformers", "safetensors"]
+openai = ["tiktoken"]
+
+[tool.poetry.group.lint.dependencies]
+black = "*"
+ruff = "*"
+mypy = "*"
+mdformat = "*"
+
+[tool.poetry.group.test.dependencies]
+pytest = "*"
+
+[tool.poetry.group.doc.dependencies]
+sphinx = "*"
+sphinx_rtd_theme = "*"
+sphinx_copybutton = "*"
+
 [tool.black]
 line-length = 119
-target-version = ["py38"]
+target-versions = ["py38", "py39", "py310", "py311"]
 
-[tool.isort]
-profile = "black"
-lines_after_imports = 2
-line_length = 119
-
-[tool.pylint."MASTER"]
-load-plugins = "pylintfileheader"
-file-header = "(# Copyright \\(c\\) \\d{4} .*\\n)*# This software is distributed under the terms of the MIT license\\n# which is available at https://opensource.org/licenses/MIT\\n\\n"
-
-[tool.pylint."MESSAGES CONTROL"]
-disable = [
-    "too-many-arguments",
-    "invalid-name",
-    "line-too-long",  # checked by flake8
-    "fixme",
-    "too-many-instance-attributes",
-    "protected-access",
-    "broad-except",
-    "too-few-public-methods",
-    "arguments-differ",
-    "consider-using-f-string",
-    "no-else-return",
-    "no-member",
-    "no-else-continue"
+[tool.ruff]
+select = [
+  "E",  # pycodestyle
+  "F",  # pyflakes
+  "I",  # isort
+  "D",  # pydocstyle
 ]
+line-length = 119
+fixable = ["I"]
+target-version = "py38"
+ignore = [
+  "D107",  # Missing docstring in `__init__`
+  "D410",  # Missing blank line after section ("Args")
+  "D411",  # Missing blank line before section ("Returns")
+]
+
+[tool.ruff.per-file-ignores]
+"test_*.py" = [
+  "D100",
+  "D103",
+]
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+ignore_missing_imports = true

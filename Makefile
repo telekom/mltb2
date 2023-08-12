@@ -3,22 +3,22 @@ test-src := tests
 other-src := setup.py docs
 
 check:
-	pydocstyle --count $(src) $(test-src) $(other-src)
-	black $(src) $(test-src) $(other-src) --check --diff
-	flake8 $(src) $(test-src) $(other-src)
-	isort $(src) $(test-src) $(other-src) --check --diff
-	mdformat --number --check *.md
-	mypy --install-types --non-interactive $(src) $(test-src) $(other-src)
-	pylint $(src)
-	cd docs && $(MAKE) clean doctest && cd ..
+	poetry run black $(src) $(test-src) --check --diff
+	poetry run mypy --install-types --non-interactive $(src) $(test-src)
+	poetry run ruff $(src) $(test-src)
+	poetry run mdformat --check --number .
+	poetry run make -C docs clean doctest
 
 format:
-	black $(src) $(test-src) $(other-src)
-	isort $(src) $(test-src) $(other-src)
-	mdformat --number *.md
+	poetry run black $(src) $(test-src)
+	poetry run ruff $(src) $(test-src) --fix
+	poetry run mdformat --number .
 
 test:
-	pytest $(test-src)
+	poetry run pytest $(test-src)
 
 sphinx:
-	cd docs && $(MAKE) clean html && cd ..
+	poetry run make -C docs clean html
+
+install:
+	poetry lock && poetry install --all-extras
