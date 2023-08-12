@@ -1,4 +1,4 @@
-name: pytest
+name: Ruff Check
 
 on:
   push:
@@ -14,26 +14,26 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  checks:
+    env:
+      src: "mltb2"
+      other_src: "tests"
+
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
 
     steps:
     # https://github.com/actions/checkout
     - uses: actions/checkout@v3
 
-    - name: Set up Python ${{ matrix.python-version }}
-      # https://github.com/actions/setup-python
-      uses: actions/setup-python@v4
+    # https://github.com/actions/setup-python
+    - uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: "3.8"
 
     - name: Install
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
-        poetry install --all-extras --without lint
+        poetry install --all-extras
 
-    - name: Test with pytest
-      run: poetry run pytest tests
+    - name: Check with Ruff
+      run: poetry run ruff ${{ env.src }} ${{ env.other_src }}
