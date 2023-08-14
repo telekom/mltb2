@@ -67,7 +67,25 @@ class OpenAiTokenCounter:
 
 @dataclass
 class OpenAiCompletionAnswer:
-    """TODO: Add docstring."""
+    """Answer of an OpenAI completion.
+
+    Args:
+        text: the result of the OpenAI completion
+        model: model name which has been used
+        prompt_tokens: number of tokens of the prompt
+        completion_tokens: number of tokens of the completion (``text``)
+        total_tokens: number of total tokens (``prompt_tokens + completion_tokens``)
+        finish_reason: The reason why the completion stopped.
+
+            * ``stop``: Means the API returned the full completion without running into any token limit.
+            * ``length``: Means the API stopped the completion because of running into a token limit.
+            * ``function_call``: When the model called a function.
+
+    See Also:
+
+        * `The chat completion object <https://platform.openai.com/docs/api-reference/chat/object>`_
+        * `The completion object <https://platform.openai.com/docs/api-reference/completions/object>`_
+    """
 
     text: Optional[str] = None
     model: Optional[str] = None
@@ -79,7 +97,7 @@ class OpenAiCompletionAnswer:
 
     @classmethod
     def from_open_ai_object(cls, open_ai_object: OpenAIObject, temperature: Optional[float] = None):
-        """TODO: Add docstring."""
+        """Construct this class from ``OpenAIObject``."""
         result = {}
         result["model"] = open_ai_object.get("model")
         usage = open_ai_object.get("usage")
@@ -102,7 +120,13 @@ class OpenAiCompletionAnswer:
 
 @dataclass
 class OpenAiBaseCompletion(ABC):
-    """Base class for OpenAI completion."""
+    """Abstract base class for OpenAI completion.
+
+    See Also:
+
+        * `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
+        * `Create completion <https://platform.openai.com/docs/api-reference/completions/create>`_
+    """
 
     api_type: str
     api_version: str
@@ -150,7 +174,12 @@ class OpenAiBaseCompletion(ABC):
         pass
 
     def __call__(self, prompt: str, temperature: Optional[float] = None) -> OpenAiCompletionAnswer:
-        """TODO: Add docstring."""
+        """Call the OpenAI completion.
+
+        Args:
+            prompt: the prompt
+            temperature: The temperature which can overwrite the ``base_temperature``.
+        """
         if temperature is None:
             temperature = self.base_temperature
         open_ai_object: OpenAIObject = self._open_ai_completion(prompt, temperature)
@@ -160,7 +189,13 @@ class OpenAiBaseCompletion(ABC):
 
 @dataclass
 class OpenAiChatCompletion(OpenAiBaseCompletion):
-    """OpenAI chat completion."""
+    """OpenAI chat completion.
+
+    Can also be constructed with :meth:`OpenAiBaseCompletion.from_env_file`.
+
+    See Also:
+        `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
+    """
 
     def _open_ai_completion(self, prompt: str, temperature: Optional[float] = None) -> OpenAIObject:
         """Call to the OpenAI chat completion."""
@@ -182,7 +217,13 @@ class OpenAiChatCompletion(OpenAiBaseCompletion):
 
 @dataclass
 class OpenAiCompletion(OpenAiBaseCompletion):
-    """OpenAI (non chat) completion."""
+    """OpenAI (non chat) completion.
+
+    Can also be constructed with :meth:`OpenAiBaseCompletion.from_env_file`.
+
+    See Also:
+        `Create completion <https://platform.openai.com/docs/api-reference/completions/create>`_
+    """
 
     def _open_ai_completion(self, prompt: str, temperature: Optional[float] = None) -> OpenAIObject:
         """Call to the OpenAI (not chat) completion."""
