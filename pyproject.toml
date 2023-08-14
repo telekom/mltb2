@@ -60,6 +60,8 @@ torch = {version = "!=2.0.1", optional = true}  # version 2.0.1 has poetry issue
 transformers = {version = "*", optional = true}
 tiktoken = {version = "*", optional = true}
 safetensors = {version = "!=0.3.2", optional = true}  # version 0.3.2 has poetry issues
+openai = {version = "*", optional = true}
+python-dotenv = {version = "*", optional = true}
 
 [tool.poetry.extras]
 files = ["platformdirs", "scikit-learn"]
@@ -69,7 +71,7 @@ plot = ["matplotlib"]
 somajo = ["SoMaJo"]
 transformers = ["scikit-learn", "torch", "transformers", "safetensors"]
 somajo_transformers = ["SoMaJo", "scikit-learn", "torch", "transformers", "safetensors"]
-openai = ["tiktoken"]
+openai = ["tiktoken", "openai", "python-dotenv"]
 
 [tool.poetry.group.lint.dependencies]
 black = "*"
