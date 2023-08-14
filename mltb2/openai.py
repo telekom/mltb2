@@ -102,7 +102,7 @@ class OpenAiCompletionAnswer:
 
 @dataclass
 class OpenAiBaseCompletion(ABC):
-    """TODO: Add docstring."""
+    """Base class for OpenAI completion."""
 
     api_type: str
     api_version: str
@@ -114,7 +114,21 @@ class OpenAiBaseCompletion(ABC):
 
     @classmethod
     def from_env_file(cls, env_file):
-        """TODO: Add docstring."""
+        """Construct this class from an env. file.
+
+        The following properties must be specified:
+
+        * ``api_type``
+        * ``api_version``
+        * ``api_base``
+        * ``api_key``
+        * ``engine``
+
+        The following properties are optional:
+
+        * ``base_temperature`` with default value of ``0.0``
+        * ``max_tokens``
+        """
         open_ai_chat_completion_config = dotenv_values(env_file)
         if "base_temperature" in open_ai_chat_completion_config:
             try:
@@ -132,7 +146,7 @@ class OpenAiBaseCompletion(ABC):
 
     @abstractmethod
     def _open_ai_completion(self, prompt: str, temperature: Optional[float] = None) -> OpenAIObject:
-        """TODO: Add docstring."""
+        """Abstract method to call the OpenAI completion."""
         pass
 
     def __call__(self, prompt: str, temperature: Optional[float] = None) -> OpenAiCompletionAnswer:
@@ -146,10 +160,10 @@ class OpenAiBaseCompletion(ABC):
 
 @dataclass
 class OpenAiChatCompletion(OpenAiBaseCompletion):
-    """TODO: Add docstring."""
+    """OpenAI chat completion."""
 
     def _open_ai_completion(self, prompt: str, temperature: Optional[float] = None) -> OpenAIObject:
-        """TODO: Add docstring."""
+        """Call to the OpenAI chat completion."""
         additional_completion_args = {}
         if self.max_tokens is not None:
             additional_completion_args["max_tokens"] = self.max_tokens
@@ -168,10 +182,10 @@ class OpenAiChatCompletion(OpenAiBaseCompletion):
 
 @dataclass
 class OpenAiCompletion(OpenAiBaseCompletion):
-    """TODO: Add docstring."""
+    """OpenAI (non chat) completion."""
 
     def _open_ai_completion(self, prompt: str, temperature: Optional[float] = None) -> OpenAIObject:
-        """TODO: Add docstring."""
+        """Call to the OpenAI (not chat) completion."""
         additional_completion_args = {}
         if self.max_tokens is not None:
             additional_completion_args["max_tokens"] = self.max_tokens
