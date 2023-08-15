@@ -11,7 +11,7 @@ Use pip to install the necessary dependencies for this module:
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import Any, Dict, Iterable, List, Optional, Union
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
 
 import tiktoken
 import yaml
@@ -139,7 +139,7 @@ class OpenAiBaseCompletion(ABC):
         return cls(completion_kwargs)
 
     @abstractmethod
-    def _open_ai_completion(self, prompt: str, completion_kwargs_for_this_call: Dict[str, Any]) -> OpenAIObject:
+    def _open_ai_completion(self, prompt: str, completion_kwargs_for_this_call: Mapping[str, Any]) -> OpenAIObject:
         """Abstract method to call the OpenAI completion."""
         pass
 
@@ -173,7 +173,7 @@ class OpenAiChatCompletion(OpenAiBaseCompletion):
         `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
     """
 
-    def _open_ai_completion(self, prompt: str, completion_kwargs_for_this_call: Dict[str, Any]) -> OpenAIObject:
+    def _open_ai_completion(self, prompt: str, completion_kwargs_for_this_call: Mapping[str, Any]) -> OpenAIObject:
         """Call to the OpenAI chat completion."""
         open_ai_object: OpenAIObject = ChatCompletion.create(
             messages=[{"role": "user", "content": prompt}],
@@ -182,7 +182,7 @@ class OpenAiChatCompletion(OpenAiBaseCompletion):
         return open_ai_object
 
 
-def _check_mandatory_azure_completion_kwargs(completion_kwargs: Dict[str, Any]) -> None:
+def _check_mandatory_azure_completion_kwargs(completion_kwargs: Mapping[str, Any]) -> None:
     """Check mandatory Azure ``completion_kwargs``."""
     for mandatory_azure_completion_kwarg in ("api_base", "engine", "api_type", "api_version"):
         if mandatory_azure_completion_kwarg not in completion_kwargs:
@@ -228,7 +228,7 @@ class OpenAiCompletion(OpenAiBaseCompletion):
         `Create completion <https://platform.openai.com/docs/api-reference/completions/create>`_
     """
 
-    def _open_ai_completion(self, prompt: str, completion_kwargs_for_this_call: Dict[str, Any]) -> OpenAIObject:
+    def _open_ai_completion(self, prompt: str, completion_kwargs_for_this_call: Mapping[str, Any]) -> OpenAIObject:
         """Call to the OpenAI (not chat) completion."""
         open_ai_object: OpenAIObject = Completion.create(
             prompt=prompt,
