@@ -139,24 +139,27 @@ class OpenAiBaseCompletion(ABC):
         return cls(completion_kwargs)
 
     @abstractmethod
-    def _open_ai_completion(self, prompt: str, completion_kwargs_for_this_call: Mapping[str, Any]) -> OpenAIObject:
+    def _completion(
+        self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs_for_this_call: Mapping[str, Any]
+    ) -> OpenAIObject:
         """Abstract method to call the OpenAI completion."""
         pass
 
-    def __call__(self, prompt: str, temperature: Optional[float] = None) -> OpenAiCompletionAnswer:
-        """Call the OpenAI completion.
+    def __call__(
+        self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs: Optional[Mapping[str, Any]] = None
+    ) -> OpenAiCompletionAnswer:
+        """Call the OpenAI prompt completion.
 
         Args:
             prompt: the prompt
-            temperature: The temperature to overwrite the ``temperature`` from ``completion_kwargs`` for this call.
+            completion_kwargs: Overwrite the ``completion_kwargs`` for this call.
+                This allows you, for example, to change the temperature for this call only.
         """
         completion_kwargs_for_this_call = self.completion_kwargs.copy()
-        if temperature is not None:
-            completion_kwargs_for_this_call["temperature"] = temperature
-        open_ai_object: OpenAIObject = self._open_ai_completion(prompt, completion_kwargs_for_this_call)
-        open_ai_completion_answer = OpenAiCompletionAnswer.from_open_ai_object(
-            open_ai_object, temperature=completion_kwargs_for_this_call["temperature"]
-        )
+        if completion_kwargs is not None:
+            completion_kwargs_for_this_call.update(completion_kwargs)
+        open_ai_object: OpenAIObject = self._completion(prompt, completion_kwargs_for_this_call)
+        open_ai_completion_answer = OpenAiCompletionAnswer.from_open_ai_object(open_ai_object)
         return open_ai_completion_answer
 
 
@@ -173,10 +176,16 @@ class OpenAiChatCompletion(OpenAiBaseCompletion):
         `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
     """
 
-    def _open_ai_completion(self, prompt: str, completion_kwargs_for_this_call: Mapping[str, Any]) -> OpenAIObject:
+    def _completion(
+        self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs_for_this_call: Mapping[str, Any]
+    ) -> OpenAIObject:
         """Call to the OpenAI chat completion."""
+        if isinstance(prompt, str):
+            messages = [{"role": "user", "content": prompt}]
+        else:
+            messages = prompt
         open_ai_object: OpenAIObject = ChatCompletion.create(
-            messages=[{"role": "user", "content": prompt}],
+            messages=messages,
             **completion_kwargs_for_this_call,
         )
         return open_ai_object
@@ -228,7 +237,9 @@ class OpenAiCompletion(OpenAiBaseCompletion):
         `Create completion <https://platform.openai.com/docs/api-reference/completions/create>`_
     """
 
-    def _open_ai_completion(self, prompt: str, completion_kwargs_for_this_call: Mapping[str, Any]) -> OpenAIObject:
+    def _completion(
+        self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs_for_this_call: Mapping[str, Any]
+    ) -> OpenAIObject:
         """Call to the OpenAI (not chat) completion."""
         open_ai_object: OpenAIObject = Completion.create(
             prompt=prompt,
