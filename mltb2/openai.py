@@ -11,10 +11,10 @@ Use pip to install the necessary dependencies for this module:
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import Iterable, List, Optional, Union
+from typing import Any, Dict, Iterable, List, Optional, Union
 
 import tiktoken
-from dotenv import dotenv_values
+import yaml
 from openai import ChatCompletion, Completion
 from openai.openai_object import OpenAIObject
 from tiktoken.core import Encoding
@@ -82,7 +82,6 @@ class OpenAiCompletionAnswer:
             * ``function_call``: When the model called a function.
 
     See Also:
-
         * `The chat completion object <https://platform.openai.com/docs/api-reference/chat/object>`_
         * `The completion object <https://platform.openai.com/docs/api-reference/completions/object>`_
     """
@@ -122,54 +121,25 @@ class OpenAiCompletionAnswer:
 class OpenAiBaseCompletion(ABC):
     """Abstract base class for OpenAI completion.
 
-    See Also:
+    Args:
+        completion_kwargs: kwargs for the OpenAI completion function
 
+    See Also:
         * `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
         * `Create completion <https://platform.openai.com/docs/api-reference/completions/create>`_
     """
 
-    api_type: str
-    api_version: str
-    api_base: str
-    api_key: str
-    engine: str
-    base_temperature: float = 0.0
-    max_tokens: Optional[int] = None
+    completion_kwargs: Dict[str, Any]
 
     @classmethod
-    def from_env_file(cls, env_file):
-        """Construct this class from an env. file.
-
-        The following properties must be specified:
-
-        * ``api_type``
-        * ``api_version``
-        * ``api_base``
-        * ``api_key``
-        * ``engine``
-
-        The following properties are optional:
-
-        * ``base_temperature`` with default value of ``0.0``
-        * ``max_tokens``
-        """
-        open_ai_chat_completion_config = dotenv_values(env_file)
-        if "base_temperature" in open_ai_chat_completion_config:
-            try:
-                open_ai_chat_completion_config["base_temperature"] = float(
-                    open_ai_chat_completion_config["base_temperature"]
-                )
-            except ValueError as ve:
-                raise ValueError("Can not convert 'base_temperature' to float.") from ve
-        if "max_tokens" in open_ai_chat_completion_config:
-            try:
-                open_ai_chat_completion_config["max_tokens"] = int(open_ai_chat_completion_config["max_tokens"])
-            except ValueError as ve:
-                raise ValueError("Can not convert 'max_tokens' to int.") from ve
-        return cls(**open_ai_chat_completion_config)
+    def from_yaml(cls, yaml_file):
+        """Construct this class from a yaml file."""
+        with open(yaml_file, "r") as file:
+            completion_kwargs = yaml.safe_load(file)
+        return cls(completion_kwargs)
 
     @abstractmethod
-    def _open_ai_completion(self, prompt: str, temperature: Optional[float] = None) -> OpenAIObject:
+    def _open_ai_completion(self, prompt: str, completion_kwargs_for_this_call: Dict[str, Any]) -> OpenAIObject:
         """Abstract method to call the OpenAI completion."""
         pass
 
@@ -178,12 +148,15 @@ class OpenAiBaseCompletion(ABC):
 
         Args:
             prompt: the prompt
-            temperature: The temperature which can overwrite the ``base_temperature``.
+            temperature: The temperature to overwrite the ``temperature`` from ``completion_kwargs`` for this call.
         """
-        if temperature is None:
-            temperature = self.base_temperature
-        open_ai_object: OpenAIObject = self._open_ai_completion(prompt, temperature)
-        open_ai_completion_answer = OpenAiCompletionAnswer.from_open_ai_object(open_ai_object, temperature=temperature)
+        completion_kwargs_for_this_call = self.completion_kwargs.copy()
+        if temperature is not None:
+            completion_kwargs_for_this_call["temperature"] = temperature
+        open_ai_object: OpenAIObject = self._open_ai_completion(prompt, completion_kwargs_for_this_call)
+        open_ai_completion_answer = OpenAiCompletionAnswer.from_open_ai_object(
+            open_ai_object, temperature=completion_kwargs_for_this_call["temperature"]
+        )
         return open_ai_completion_answer
 
 
@@ -191,53 +164,98 @@ class OpenAiBaseCompletion(ABC):
 class OpenAiChatCompletion(OpenAiBaseCompletion):
     """OpenAI chat completion.
 
-    Can also be constructed with :meth:`OpenAiBaseCompletion.from_env_file`.
+    This also be constructed with :meth:`OpenAiBaseCompletion.from_env_file`.
+
+    Args:
+        completion_kwargs: The kwargs for the OpenAI completion function.
 
     See Also:
         `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
     """
 
-    def _open_ai_completion(self, prompt: str, temperature: Optional[float] = None) -> OpenAIObject:
+    def _open_ai_completion(self, prompt: str, completion_kwargs_for_this_call: Dict[str, Any]) -> OpenAIObject:
         """Call to the OpenAI chat completion."""
-        additional_completion_args = {}
-        if self.max_tokens is not None:
-            additional_completion_args["max_tokens"] = self.max_tokens
         open_ai_object: OpenAIObject = ChatCompletion.create(
-            api_type=self.api_type,
-            api_version=self.api_version,
-            api_base=self.api_base,
-            api_key=self.api_key,
-            engine=self.engine,
             messages=[{"role": "user", "content": prompt}],
-            temperature=temperature,
-            **additional_completion_args,
+            **completion_kwargs_for_this_call,
         )
         return open_ai_object
+
+
+def _check_mandatory_azure_completion_kwargs(completion_kwargs: Dict[str, Any]) -> None:
+    """Check mandatory Azure ``completion_kwargs``."""
+    for mandatory_azure_completion_kwarg in ("api_base", "engine", "api_type", "api_version"):
+        if mandatory_azure_completion_kwarg not in completion_kwargs:
+            raise ValueError(f"You must set '{mandatory_azure_completion_kwarg}' for Azure completion!")
+    if completion_kwargs["api_type"] != "azure":
+        raise ValueError("You must set 'api_type' to 'azure' for Azure completion!")
+
+
+@dataclass
+class OpenAiAzureChatCompletion(OpenAiChatCompletion):
+    """OpenAI Azure chat completion.
+
+    This also be constructed with :meth:`OpenAiBaseCompletion.from_env_file`.
+
+    Args:
+        completion_kwargs: The kwargs for the OpenAI completion function.
+            The following Azure specific properties must be specified:
+
+                * ``api_type``
+                * ``api_version``
+                * ``api_base``
+                * ``engine``
+
+    See Also:
+        `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
+    """
+
+    def __post_init__(self):
+        """Do post init."""
+        _check_mandatory_azure_completion_kwargs(self.completion_kwargs)
 
 
 @dataclass
 class OpenAiCompletion(OpenAiBaseCompletion):
     """OpenAI (non chat) completion.
 
-    Can also be constructed with :meth:`OpenAiBaseCompletion.from_env_file`.
+    This also be constructed with :meth:`OpenAiBaseCompletion.from_env_file`.
+
+    Args:
+        completion_kwargs: The kwargs for the OpenAI completion function.
 
     See Also:
         `Create completion <https://platform.openai.com/docs/api-reference/completions/create>`_
     """
 
-    def _open_ai_completion(self, prompt: str, temperature: Optional[float] = None) -> OpenAIObject:
+    def _open_ai_completion(self, prompt: str, completion_kwargs_for_this_call: Dict[str, Any]) -> OpenAIObject:
         """Call to the OpenAI (not chat) completion."""
-        additional_completion_args = {}
-        if self.max_tokens is not None:
-            additional_completion_args["max_tokens"] = self.max_tokens
         open_ai_object: OpenAIObject = Completion.create(
-            api_type=self.api_type,
-            api_version=self.api_version,
-            api_base=self.api_base,
-            api_key=self.api_key,
-            engine=self.engine,
             prompt=prompt,
-            temperature=temperature,
-            **additional_completion_args,
+            **completion_kwargs_for_this_call,
         )
         return open_ai_object
+
+
+@dataclass
+class OpenAiAzureCompletion(OpenAiCompletion):
+    """OpenAI Azure (non chat) completion.
+
+    This also be constructed with :meth:`OpenAiBaseCompletion.from_env_file`.
+
+    Args:
+        completion_kwargs: The kwargs for the OpenAI completion function.
+            The following Azure specific properties must be specified:
+
+                * ``api_type``
+                * ``api_version``
+                * ``api_base``
+                * ``engine``
+
+    See Also:
+        `Create completion <https://platform.openai.com/docs/api-reference/completions/create>`_
+    """
+
+    def __post_init__(self):
+        """Do post init."""
+        _check_mandatory_azure_completion_kwargs(self.completion_kwargs)
