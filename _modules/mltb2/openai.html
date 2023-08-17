@@ -87,10 +87,14 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">tiktoken</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">ChatCompletion</span><span class="p">,</span> <span class="n">Completion</span>
+<span class="kn">from</span> <span class="nn">openai.openai_object</span> <span class="kn">import</span> <span class="n">OpenAIObject</span>
 <span class="kn">from</span> <span class="nn">tiktoken.core</span> <span class="kn">import</span> <span class="n">Encoding</span>
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
@@ -115,7 +119,7 @@
     <span class="n">encoding</span><span class="p">:</span> <span class="n">Encoding</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">show_progress_bar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">encoding_for_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="p">)</span>
 
@@ -137,6 +141,216 @@
                 <span class="n">tokenized_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
                 <span class="n">counts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tokenized_text</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">counts</span></div></div>
+
+
+<div class="viewcode-block" id="OpenAiCompletionAnswer"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiCompletionAnswer">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">OpenAiCompletionAnswer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Answer of an OpenAI completion.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text: the result of the OpenAI completion</span>
+<span class="sd">        model: model name which has been used</span>
+<span class="sd">        prompt_tokens: number of tokens of the prompt</span>
+<span class="sd">        completion_tokens: number of tokens of the completion (``text``)</span>
+<span class="sd">        total_tokens: number of total tokens (``prompt_tokens + completion_tokens``)</span>
+<span class="sd">        finish_reason: The reason why the completion stopped.</span>
+
+<span class="sd">            * ``stop``: Means the API returned the full completion without running into any token limit.</span>
+<span class="sd">            * ``length``: Means the API stopped the completion because of running into a token limit.</span>
+<span class="sd">            * ``function_call``: When the model called a function.</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        * `The chat completion object &lt;https://platform.openai.com/docs/api-reference/chat/object&gt;`_</span>
+<span class="sd">        * `The completion object &lt;https://platform.openai.com/docs/api-reference/completions/object&gt;`_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">text</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">prompt_tokens</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">completion_tokens</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">total_tokens</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">finish_reason</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="OpenAiCompletionAnswer.from_open_ai_object"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiCompletionAnswer.from_open_ai_object">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_open_ai_object</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">open_ai_object</span><span class="p">:</span> <span class="n">OpenAIObject</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct this class from ``OpenAIObject``.&quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">result</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">open_ai_object</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;model&quot;</span><span class="p">)</span>
+        <span class="n">usage</span> <span class="o">=</span> <span class="n">open_ai_object</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;usage&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">usage</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;prompt_tokens&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">usage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;prompt_tokens&quot;</span><span class="p">)</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;completion_tokens&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">usage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;completion_tokens&quot;</span><span class="p">)</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;total_tokens&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">usage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;total_tokens&quot;</span><span class="p">)</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="n">open_ai_object</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;choices&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">choices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">choice</span> <span class="o">=</span> <span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;finish_reason&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">choice</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;finish_reason&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;text&quot;</span> <span class="ow">in</span> <span class="n">choice</span><span class="p">:</span>  <span class="c1"># non chat models</span>
+                <span class="n">result</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">choice</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s2">&quot;message&quot;</span> <span class="ow">in</span> <span class="n">choice</span><span class="p">:</span>  <span class="c1"># chat models</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="n">choice</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="OpenAiBaseCompletion"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiBaseCompletion">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">OpenAiBaseCompletion</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract base class for OpenAI completion.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        completion_kwargs: kwargs for the OpenAI completion function</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        * `Create chat completion &lt;https://platform.openai.com/docs/api-reference/chat/create&gt;`_</span>
+<span class="sd">        * `Create completion &lt;https://platform.openai.com/docs/api-reference/completions/create&gt;`_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+
+<div class="viewcode-block" id="OpenAiBaseCompletion.from_yaml"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiBaseCompletion.from_yaml">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">yaml_file</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct this class from a yaml file.&quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">yaml_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">completion_kwargs</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">completion_kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenAiBaseCompletion._completion"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiBaseCompletion._completion">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_completion</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span> <span class="n">completion_kwargs_for_this_call</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenAIObject</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Abstract method to call the OpenAI completion.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="OpenAiBaseCompletion.__call__"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiBaseCompletion.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span> <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenAiCompletionAnswer</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Call the OpenAI prompt completion.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            prompt: The prompt to be completed by the LLM.</span>
+<span class="sd">                In case of chat models this can be a string or a list.</span>
+<span class="sd">                In case of &quot;non chat&quot; models only a string is allowed.</span>
+<span class="sd">            completion_kwargs: Overwrite the ``completion_kwargs`` for this call.</span>
+<span class="sd">                This allows you, for example, to change the temperature for this call only.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">completion_kwargs_for_this_call</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">completion_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">completion_kwargs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">completion_kwargs_for_this_call</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">completion_kwargs</span><span class="p">)</span>
+        <span class="n">open_ai_object</span><span class="p">:</span> <span class="n">OpenAIObject</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_completion</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">completion_kwargs_for_this_call</span><span class="p">)</span>
+        <span class="n">open_ai_completion_answer</span> <span class="o">=</span> <span class="n">OpenAiCompletionAnswer</span><span class="o">.</span><span class="n">from_open_ai_object</span><span class="p">(</span><span class="n">open_ai_object</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">open_ai_completion_answer</span></div></div>
+
+
+<div class="viewcode-block" id="OpenAiChatCompletion"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChatCompletion">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">OpenAiChatCompletion</span><span class="p">(</span><span class="n">OpenAiBaseCompletion</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;OpenAI chat completion.</span>
+
+<span class="sd">    This also be constructed with :meth:`OpenAiBaseCompletion.from_yaml`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        completion_kwargs: The kwargs for the OpenAI completion function.</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        `Create chat completion &lt;https://platform.openai.com/docs/api-reference/chat/create&gt;`_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="OpenAiChatCompletion._completion"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChatCompletion._completion">[docs]</a>    <span class="k">def</span> <span class="nf">_completion</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span> <span class="n">completion_kwargs_for_this_call</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenAIObject</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Call to the OpenAI chat completion.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">messages</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">messages</span> <span class="o">=</span> <span class="n">prompt</span>
+        <span class="n">open_ai_object</span><span class="p">:</span> <span class="n">OpenAIObject</span> <span class="o">=</span> <span class="n">ChatCompletion</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">completion_kwargs_for_this_call</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">open_ai_object</span></div></div>
+
+
+<div class="viewcode-block" id="_check_mandatory_azure_completion_kwargs"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai._check_mandatory_azure_completion_kwargs">[docs]</a><span class="k">def</span> <span class="nf">_check_mandatory_azure_completion_kwargs</span><span class="p">(</span><span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check mandatory Azure ``completion_kwargs``.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">mandatory_azure_completion_kwarg</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;api_base&quot;</span><span class="p">,</span> <span class="s2">&quot;engine&quot;</span><span class="p">,</span> <span class="s2">&quot;api_type&quot;</span><span class="p">,</span> <span class="s2">&quot;api_version&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mandatory_azure_completion_kwarg</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">completion_kwargs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;You must set &#39;</span><span class="si">{</span><span class="n">mandatory_azure_completion_kwarg</span><span class="si">}</span><span class="s2">&#39; for Azure completion!&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">completion_kwargs</span><span class="p">[</span><span class="s2">&quot;api_type&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;azure&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;You must set &#39;api_type&#39; to &#39;azure&#39; for Azure completion!&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OpenAiAzureChatCompletion"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiAzureChatCompletion">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">OpenAiAzureChatCompletion</span><span class="p">(</span><span class="n">OpenAiChatCompletion</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;OpenAI Azure chat completion.</span>
+
+<span class="sd">    This also be constructed with :meth:`OpenAiBaseCompletion.from_yaml`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        completion_kwargs: The kwargs for the OpenAI completion function.</span>
+<span class="sd">            The following Azure specific properties must be specified:</span>
+
+<span class="sd">                * ``api_type``</span>
+<span class="sd">                * ``api_version``</span>
+<span class="sd">                * ``api_base``</span>
+<span class="sd">                * ``engine``</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        * `Create chat completion &lt;https://platform.openai.com/docs/api-reference/chat/create&gt;`_</span>
+<span class="sd">        * `Quickstart: Get started using GPT-35-Turbo and GPT-4 with Azure OpenAI Service &lt;https://learn.microsoft.com/en-us/azure/ai-services/openai/chatgpt-quickstart?tabs=command-line&amp;pivots=programming-language-python&gt;`_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
+        <span class="n">_check_mandatory_azure_completion_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">completion_kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OpenAiCompletion"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiCompletion">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">OpenAiCompletion</span><span class="p">(</span><span class="n">OpenAiBaseCompletion</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;OpenAI (non chat) completion.</span>
+
+<span class="sd">    This also be constructed with :meth:`OpenAiBaseCompletion.from_yaml`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        completion_kwargs: The kwargs for the OpenAI completion function.</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        `Create completion &lt;https://platform.openai.com/docs/api-reference/completions/create&gt;`_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="OpenAiCompletion._completion"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiCompletion._completion">[docs]</a>    <span class="k">def</span> <span class="nf">_completion</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span> <span class="n">completion_kwargs_for_this_call</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenAIObject</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Call to the OpenAI (not chat) completion.&quot;&quot;&quot;</span>
+        <span class="n">open_ai_object</span><span class="p">:</span> <span class="n">OpenAIObject</span> <span class="o">=</span> <span class="n">Completion</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">prompt</span><span class="o">=</span><span class="n">prompt</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">completion_kwargs_for_this_call</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">open_ai_object</span></div></div>
+
+
+<div class="viewcode-block" id="OpenAiAzureCompletion"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiAzureCompletion">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">OpenAiAzureCompletion</span><span class="p">(</span><span class="n">OpenAiCompletion</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;OpenAI Azure (non chat) completion.</span>
+
+<span class="sd">    This also be constructed with :meth:`OpenAiBaseCompletion.from_yaml`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        completion_kwargs: The kwargs for the OpenAI completion function.</span>
+<span class="sd">            The following Azure specific properties must be specified:</span>
+
+<span class="sd">                * ``api_type``</span>
+<span class="sd">                * ``api_version``</span>
+<span class="sd">                * ``api_base``</span>
+<span class="sd">                * ``engine``</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        * `Create completion &lt;https://platform.openai.com/docs/api-reference/completions/create&gt;`_</span>
+<span class="sd">        * `Quickstart: Get started generating text using Azure OpenAI Service &lt;https://learn.microsoft.com/en-us/azure/ai-services/openai/quickstart?tabs=command-line&amp;pivots=programming-language-python&gt;`_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
+        <span class="n">_check_mandatory_azure_completion_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">completion_kwargs</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
