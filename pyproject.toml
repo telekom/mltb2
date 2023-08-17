@@ -115,6 +115,10 @@ select = [
   "COM",  # flake8-commas - https://beta.ruff.rs/docs/rules/#flake8-commas-com
   "CPY001",  # flake8-copyright - https://beta.ruff.rs/docs/rules/#flake8-copyright-cpy
   "C4",  # flake8-comprehensions - https://beta.ruff.rs/docs/rules/#flake8-comprehensions-c4
+  "DTZ",  # flake8-datetimez - https://beta.ruff.rs/docs/rules/#flake8-datetimez-dtz
+  "T10",  # flake8-debugger - https://beta.ruff.rs/docs/rules/#flake8-debugger-t10
+  # "EM",
+  "EXE",  # flake8-executable - https://beta.ruff.rs/docs/rules/#flake8-executable-exe
 ]
 line-length = 119
 fixable = ["I"]
