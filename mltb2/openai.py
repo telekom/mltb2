@@ -217,8 +217,8 @@ class OpenAiAzureChatCompletion(OpenAiChatCompletion):
                 * ``engine``
 
     See Also:
-        `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
-        `Quickstart: Get started using GPT-35-Turbo and GPT-4 with Azure OpenAI Service <https://learn.microsoft.com/en-us/azure/ai-services/openai/chatgpt-quickstart?tabs=command-line&pivots=programming-language-python>`_
+        * `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
+        * `Quickstart: Get started using GPT-35-Turbo and GPT-4 with Azure OpenAI Service <https://learn.microsoft.com/en-us/azure/ai-services/openai/chatgpt-quickstart?tabs=command-line&pivots=programming-language-python>`_
     """
 
     def __post_init__(self) -> None:
@@ -266,8 +266,8 @@ class OpenAiAzureCompletion(OpenAiCompletion):
                 * ``engine``
 
     See Also:
-        `Create completion <https://platform.openai.com/docs/api-reference/completions/create>`_
-        `Quickstart: Get started generating text using Azure OpenAI Service <https://learn.microsoft.com/en-us/azure/ai-services/openai/quickstart?tabs=command-line&pivots=programming-language-python>`_
+        * `Create completion <https://platform.openai.com/docs/api-reference/completions/create>`_
+        * `Quickstart: Get started generating text using Azure OpenAI Service <https://learn.microsoft.com/en-us/azure/ai-services/openai/quickstart?tabs=command-line&pivots=programming-language-python>`_
     """
 
     def __post_init__(self) -> None:
