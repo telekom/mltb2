@@ -151,7 +151,9 @@ class OpenAiBaseCompletion(ABC):
         """Call the OpenAI prompt completion.
 
         Args:
-            prompt: the prompt
+            prompt: The prompt to be completed by the LLM.
+                In case of chat models this can be a string or a list.
+                In case of "non chat" models only a string is allowed.
             completion_kwargs: Overwrite the ``completion_kwargs`` for this call.
                 This allows you, for example, to change the temperature for this call only.
         """
@@ -167,7 +169,7 @@ class OpenAiBaseCompletion(ABC):
 class OpenAiChatCompletion(OpenAiBaseCompletion):
     """OpenAI chat completion.
 
-    This also be constructed with :meth:`OpenAiBaseCompletion.from_env_file`.
+    This also be constructed with :meth:`OpenAiBaseCompletion.from_yaml`.
 
     Args:
         completion_kwargs: The kwargs for the OpenAI completion function.
@@ -204,7 +206,7 @@ def _check_mandatory_azure_completion_kwargs(completion_kwargs: Mapping[str, Any
 class OpenAiAzureChatCompletion(OpenAiChatCompletion):
     """OpenAI Azure chat completion.
 
-    This also be constructed with :meth:`OpenAiBaseCompletion.from_env_file`.
+    This also be constructed with :meth:`OpenAiBaseCompletion.from_yaml`.
 
     Args:
         completion_kwargs: The kwargs for the OpenAI completion function.
@@ -228,7 +230,7 @@ class OpenAiAzureChatCompletion(OpenAiChatCompletion):
 class OpenAiCompletion(OpenAiBaseCompletion):
     """OpenAI (non chat) completion.
 
-    This also be constructed with :meth:`OpenAiBaseCompletion.from_env_file`.
+    This also be constructed with :meth:`OpenAiBaseCompletion.from_yaml`.
 
     Args:
         completion_kwargs: The kwargs for the OpenAI completion function.
@@ -252,7 +254,7 @@ class OpenAiCompletion(OpenAiBaseCompletion):
 class OpenAiAzureCompletion(OpenAiCompletion):
     """OpenAI Azure (non chat) completion.
 
-    This also be constructed with :meth:`OpenAiBaseCompletion.from_env_file`.
+    This also be constructed with :meth:`OpenAiBaseCompletion.from_yaml`.
 
     Args:
         completion_kwargs: The kwargs for the OpenAI completion function.
