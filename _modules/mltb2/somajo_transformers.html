@@ -133,7 +133,7 @@
         <span class="n">sentences</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">somajo_sentence_splitter</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
         <span class="n">counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transformers_token_counter</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
 
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>  <span class="c1"># type: ignore  # noqa: S101</span>
 
         <span class="n">result_splits</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">current_sentences</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
