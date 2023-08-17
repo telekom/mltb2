@@ -99,12 +99,13 @@ target-versions = ["py38", "py39", "py310", "py311"]
 
 [tool.ruff]
 select = [
-  "E",  # pycodestyle
-  "F",  # pyflakes
-  "I",  # isort
-  "D",  # pydocstyle
-  "CPY001",  # flake8-copyright
-  "PL",  # Pylint
+  "E",  # pycodestyle - https://beta.ruff.rs/docs/rules/#pycodestyle-e-w
+  "F",  # pyflakes - https://beta.ruff.rs/docs/rules/#pyflakes-f
+  "I",  # isort - https://beta.ruff.rs/docs/rules/#isort-i
+  "D",  # pydocstyle - https://beta.ruff.rs/docs/rules/#pydocstyle-d
+  "CPY001",  # flake8-copyright - https://beta.ruff.rs/docs/rules/#flake8-copyright-cpy
+  "PL",  # Pylint - https://beta.ruff.rs/docs/rules/#pylint-pl
+  "YTT",  # flake8-2020 - https://beta.ruff.rs/docs/rules/#flake8-2020-ytt
 ]
 line-length = 119
 fixable = ["I"]
