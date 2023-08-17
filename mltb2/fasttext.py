@@ -43,7 +43,7 @@ class FastTextLanguageIdentification:
                 url=model_url,
                 sha256_checksum=sha256_checksum,
             )
-            assert fetch_remote_file_path == model_full_path
+            assert fetch_remote_file_path == model_full_path  # noqa: S101
 
         return model_full_path
 

@@ -55,7 +55,7 @@ class TextSplitter:
         sentences = self.somajo_sentence_splitter(text)
         counts = self.transformers_token_counter(sentences)
 
-        assert len(sentences) == len(counts)  # type: ignore
+        assert len(sentences) == len(counts)  # type: ignore  # noqa: S101
 
         result_splits: List[str] = []
         current_sentences: List[str] = []
