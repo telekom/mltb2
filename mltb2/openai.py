@@ -41,7 +41,7 @@ class OpenAiTokenCounter:
     encoding: Encoding = field(init=False, repr=False)
     show_progress_bar: bool = False
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Do post init."""
         self.encoding = tiktoken.encoding_for_model(self.model_name)
 
@@ -221,7 +221,7 @@ class OpenAiAzureChatCompletion(OpenAiChatCompletion):
         `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
     """
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Do post init."""
         _check_mandatory_azure_completion_kwargs(self.completion_kwargs)
 
@@ -269,6 +269,6 @@ class OpenAiAzureCompletion(OpenAiCompletion):
         `Create completion <https://platform.openai.com/docs/api-reference/completions/create>`_
     """
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Do post init."""
         _check_mandatory_azure_completion_kwargs(self.completion_kwargs)
