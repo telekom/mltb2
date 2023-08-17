@@ -92,10 +92,9 @@ class OpenAiCompletionAnswer:
     completion_tokens: Optional[int] = None
     total_tokens: Optional[int] = None
     finish_reason: Optional[str] = None
-    temperature: Optional[float] = None
 
     @classmethod
-    def from_open_ai_object(cls, open_ai_object: OpenAIObject, temperature: Optional[float] = None):
+    def from_open_ai_object(cls, open_ai_object: OpenAIObject):
         """Construct this class from ``OpenAIObject``."""
         result = {}
         result["model"] = open_ai_object.get("model")
@@ -114,7 +113,7 @@ class OpenAiCompletionAnswer:
                 message = choice.get("message")
                 if message is not None:
                     result["text"] = message.get("content")
-        return cls(**result, temperature=temperature)
+        return cls(**result)
 
 
 @dataclass
