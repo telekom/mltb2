@@ -103,13 +103,18 @@ select = [
   "F",  # pyflakes - https://beta.ruff.rs/docs/rules/#pyflakes-f
   "I",  # isort - https://beta.ruff.rs/docs/rules/#isort-i
   "D",  # pydocstyle - https://beta.ruff.rs/docs/rules/#pydocstyle-d
-  "CPY001",  # flake8-copyright - https://beta.ruff.rs/docs/rules/#flake8-copyright-cpy
   "PL",  # Pylint - https://beta.ruff.rs/docs/rules/#pylint-pl
   "YTT",  # flake8-2020 - https://beta.ruff.rs/docs/rules/#flake8-2020-ytt
   # "ANN",
   "ASYNC",  # flake8-async - https://beta.ruff.rs/docs/rules/#flake8-async-async
   "S",  # flake8-bandit - https://beta.ruff.rs/docs/rules/#flake8-bandit-s
   "BLE",  # flake8-blind-except - https://beta.ruff.rs/docs/rules/#flake8-blind-except-ble
+  # "FBT",
+  "B",  # flake8-bugbear - https://beta.ruff.rs/docs/rules/#flake8-bugbear-b
+  "A",  # flake8-builtins - https://beta.ruff.rs/docs/rules/#flake8-builtins-a
+  "COM",  # flake8-commas - https://beta.ruff.rs/docs/rules/#flake8-commas-com
+  "CPY001",  # flake8-copyright - https://beta.ruff.rs/docs/rules/#flake8-copyright-cpy
+  "C4",  # flake8-comprehensions - https://beta.ruff.rs/docs/rules/#flake8-comprehensions-c4
 ]
 line-length = 119
 fixable = ["I"]
@@ -120,6 +125,7 @@ ignore = [
   "D411",  # Missing blank line before section ("{name}")
   "PLR0913",  # Too many arguments to function call ({c_args} > {max_args})
   "S106",  # Possible hardcoded password assigned to argument: "{}"
+  "COM812",  # Trailing comma missing
 ]
 
 [tool.ruff.per-file-ignores]
