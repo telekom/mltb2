@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mltb2"
-version = "0.5.0"
+version = "0.5.1rc1"
 description = "Machine Learning Toolbox 2"
 authors = ["PhilipMay <philip@may.la>"]
 readme = "README.md"
