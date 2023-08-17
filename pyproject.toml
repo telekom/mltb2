@@ -103,6 +103,7 @@ select = [
   "F",  # pyflakes
   "I",  # isort
   "D",  # pydocstyle
+  "CPY001",  # flake8-copyright
 ]
 line-length = 119
 fixable = ["I"]
@@ -121,6 +122,9 @@ ignore = [
 
 [tool.ruff.pydocstyle]
 convention = "google"
+
+[tool.ruff.flake8-copyright]
+notice-rgx = "(# Copyright \\(c\\) \\d{4} .*\\n)+# This software is distributed under the terms of the MIT license\\n# which is available at https://opensource.org/licenses/MIT\\n\\n"
 
 [tool.mypy]
 ignore_missing_imports = true
