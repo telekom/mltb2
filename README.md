@@ -28,7 +28,8 @@ Some optional dependencies might be necessary. You can install all of them with:
 pip install mltb2[files,fasttext,optuna,plot,somajo,transformers,somajo_transformers,openai]
 ```
 
-If you don't want to install all dependencies, see the description of the individual modules.
+If you don't want to install all dependencies, see
+[the description of the individual modules](https://telekom.github.io/mltb2/api-reference.html).
 
 ## Licensing
 
