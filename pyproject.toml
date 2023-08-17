@@ -14,8 +14,14 @@ keywords = [
   "ai",
   "machine learning",
   "hyperparameter optimization",
+  "hyperparameter tuning",
   "nlp",
   "natural language processing",
+  "transformers",
+  "llm",
+  "large-language-models",
+  "openai",
+  "plot",
 ]
 # all classifiers see https://pypi.org/classifiers/
 classifiers = [
