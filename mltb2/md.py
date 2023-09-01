@@ -3,7 +3,11 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""Markdown specific functionality."""
+"""Markdown specific functionality.
+
+Use pip to install the necessary dependencies for this module:
+``pip install mltb2[md]``
+"""
 
 import re
 from dataclasses import dataclass
@@ -48,14 +52,29 @@ def chunk_md(md_text: str) -> List[str]:
 
 @dataclass
 class MdTextSplitter:
-    """TODO: add doc."""
+    """Split Markdown text into sections with a specified maximum token number.
+
+    Does not divide headings with their corresponding paragraphs.
+
+    Args:
+        max_token: Maximum number of tokens per text section.
+            Can only be exceeded if a single Markdown chunk is already larger.
+        transformers_token_counter: The token counter to be used.
+        show_progress_bar: Show a progressbar during processing.
+    """
 
     max_token: int
     transformers_token_counter: TransformersTokenCounter
     show_progress_bar: bool = False
 
     def __call__(self, md_text: str) -> List[str]:
-        """TODO: add doc."""
+        """Split the Markdown text into sections.
+
+        Args:
+            md_text: The Markdown text to be split.
+        Returns:
+            The list of Markdown section splits.
+        """
         md_chunks = chunk_md(md_text)
         counts = self.transformers_token_counter(md_chunks)
 
@@ -68,13 +87,14 @@ class MdTextSplitter:
         for md_chunk, count in zip(
             tqdm(md_chunks, disable=not self.show_progress_bar), counts  # type: ignore[arg-type]
         ):
-            temp_merges.append(md_chunk)
-            current_count += count
-            if current_count > self.max_token:
+            if current_count + count > self.max_token and len(temp_merges) > 0:
                 joined_content = "\n\n".join(temp_merges)
                 result_merges.append(joined_content)
                 temp_merges = []
                 current_count = 0
+
+            current_count += count
+            temp_merges.append(md_chunk)
 
         # add the rest
         if len(temp_merges) > 0:

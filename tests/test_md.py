@@ -52,7 +52,7 @@ def test_chunk_md():
 def test_MdTextSplitter_call():
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
     text_merger = MdTextSplitter(
-        max_token=12,
+        max_token=15,
         transformers_token_counter=transformers_token_counter,
     )
     merged_md = text_merger(MD)
