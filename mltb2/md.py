@@ -29,13 +29,13 @@ def chunk_md(md_text: str) -> List[str]:
     md_chunks = _chunk_md_by_headline(md_text)
 
     merged_chunks = []
-    temp_content = []
+    temp_merged_chunk = []
     for chunk in md_chunks:
-        temp_content.append(chunk)
+        temp_merged_chunk.append(chunk)
         if "\n" in chunk:  # content found
-            new_content = "\n\n".join(temp_content)
+            new_content = "\n\n".join(temp_merged_chunk)
             merged_chunks.append(new_content)
-            temp_content = []
+            temp_merged_chunk = []
 
     # if len(temp_content) > 0 this is only headlines and we skip them
     return merged_chunks
