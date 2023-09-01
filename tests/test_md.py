@@ -61,3 +61,34 @@ def test_MdTextMerger_call():
     assert len(merged_md) == 2
     assert merged_md[0] == "# Headline 1\n\nContent.\n\n## Headline 2 / 1\n\nContent."
     assert merged_md[1] == "### Headline 3 / 1\n\n#### Headline 4 / 1\n\nContent."
+
+
+def test_MdTextMerger_call_no_merge():
+    transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
+    text_merger = MdTextMerger(
+        max_token=1,
+        transformers_token_counter=transformers_token_counter,
+    )
+    merged_md = text_merger(MD)
+
+    assert isinstance(merged_md, list)
+    assert len(merged_md) == 3
+    assert merged_md[0] == "# Headline 1\n\nContent."
+    assert merged_md[1] == "## Headline 2 / 1\n\nContent."
+    assert merged_md[2] == "### Headline 3 / 1\n\n#### Headline 4 / 1\n\nContent."
+
+
+def test_MdTextMerger_call_all_merge():
+    transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
+    text_merger = MdTextMerger(
+        max_token=1000,
+        transformers_token_counter=transformers_token_counter,
+    )
+    merged_md = text_merger(MD)
+
+    assert isinstance(merged_md, list)
+    assert len(merged_md) == 1
+    assert (
+        merged_md[0] == "# Headline 1\n\nContent.\n\n## Headline 2 / 1\n\nContent.\n\n"
+        "### Headline 3 / 1\n\n#### Headline 4 / 1\n\nContent."
+    )
