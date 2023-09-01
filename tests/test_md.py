@@ -4,7 +4,8 @@
 
 from typing import Final
 
-from mltb2.md import _chunk_md_by_headline, chunk_md
+from mltb2.md import MdTextMerger, _chunk_md_by_headline, chunk_md
+from mltb2.transformers import TransformersTokenCounter
 
 MD: Final[
     str
@@ -46,3 +47,17 @@ def test_chunk_md():
     assert result[0] == "# Headline 1\n\nContent."
     assert result[1] == "## Headline 2 / 1\n\nContent."
     assert result[2] == "### Headline 3 / 1\n\n#### Headline 4 / 1\n\nContent."
+
+
+def test_MdTextMerger_call():
+    transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
+    text_merger = MdTextMerger(
+        max_token=12,
+        transformers_token_counter=transformers_token_counter,
+    )
+    merged_md = text_merger(MD)
+
+    assert isinstance(merged_md, list)
+    assert len(merged_md) == 2
+    assert merged_md[0] == "# Headline 1\n\nContent.\n\n## Headline 2 / 1\n\nContent."
+    assert merged_md[1] == "### Headline 3 / 1\n\n#### Headline 4 / 1\n\nContent."

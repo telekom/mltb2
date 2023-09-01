@@ -6,7 +6,12 @@
 """Markdown specific functionality."""
 
 import re
+from dataclasses import dataclass
 from typing import Final, List
+
+from tqdm import tqdm
+
+from mltb2.transformers import TransformersTokenCounter
 
 _HEADLINE_REGEX: Final = re.compile(r"^#+ .*", flags=re.MULTILINE)
 
@@ -33,9 +38,47 @@ def chunk_md(md_text: str) -> List[str]:
     for chunk in md_chunks:
         temp_merged_chunk.append(chunk)
         if "\n" in chunk:  # content found
-            new_content = "\n\n".join(temp_merged_chunk)
-            merged_chunks.append(new_content)
+            joined_content = "\n\n".join(temp_merged_chunk)
+            merged_chunks.append(joined_content)
             temp_merged_chunk = []
 
     # if len(temp_content) > 0 this is only headlines and we skip them
     return merged_chunks
+
+
+@dataclass
+class MdTextMerger:
+    """TODO: add doc."""
+
+    max_token: int
+    transformers_token_counter: TransformersTokenCounter
+    show_progress_bar: bool = False
+
+    def __call__(self, md_text: str) -> List[str]:
+        """TODO: add doc."""
+        md_chunks = chunk_md(md_text)
+        counts = self.transformers_token_counter(md_chunks)
+
+        assert len(md_chunks) == len(counts)  # type: ignore[arg-type] # noqa: S101
+
+        result_merges: List[str] = []
+        temp_merges: List[str] = []
+        current_count: int = 0
+
+        for md_chunk, count in zip(
+            tqdm(md_chunks, disable=not self.show_progress_bar), counts  # type: ignore[arg-type]
+        ):
+            temp_merges.append(md_chunk)
+            current_count += count
+            if current_count > self.max_token:
+                joined_content = "\n\n".join(temp_merges)
+                result_merges.append(joined_content)
+                temp_merges = []
+                current_count = 0
+
+        # add the rest
+        if len(temp_merges) > 0:
+            joined_content = "\n\n".join(temp_merges)
+            result_merges.append(joined_content)
+
+        return result_merges
