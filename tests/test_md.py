@@ -4,7 +4,7 @@
 
 from typing import Final
 
-from mltb2.md import MdTextMerger, _chunk_md_by_headline, chunk_md
+from mltb2.md import MdTextSplitter, _chunk_md_by_headline, chunk_md
 from mltb2.transformers import TransformersTokenCounter
 
 MD: Final[
@@ -49,9 +49,9 @@ def test_chunk_md():
     assert result[2] == "### Headline 3 / 1\n\n#### Headline 4 / 1\n\nContent."
 
 
-def test_MdTextMerger_call():
+def test_MdTextSplitter_call():
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
-    text_merger = MdTextMerger(
+    text_merger = MdTextSplitter(
         max_token=12,
         transformers_token_counter=transformers_token_counter,
     )
@@ -63,9 +63,9 @@ def test_MdTextMerger_call():
     assert merged_md[1] == "### Headline 3 / 1\n\n#### Headline 4 / 1\n\nContent."
 
 
-def test_MdTextMerger_call_no_merge():
+def test_MdTextSplitter_call_no_merge():
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
-    text_merger = MdTextMerger(
+    text_merger = MdTextSplitter(
         max_token=1,
         transformers_token_counter=transformers_token_counter,
     )
@@ -78,9 +78,9 @@ def test_MdTextMerger_call_no_merge():
     assert merged_md[2] == "### Headline 3 / 1\n\n#### Headline 4 / 1\n\nContent."
 
 
-def test_MdTextMerger_call_all_merge():
+def test_MdTextSplitter_call_all_merge():
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
-    text_merger = MdTextMerger(
+    text_merger = MdTextSplitter(
         max_token=1000,
         transformers_token_counter=transformers_token_counter,
     )

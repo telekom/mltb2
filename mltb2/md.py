@@ -30,7 +30,7 @@ def _chunk_md_by_headline(md_text: str) -> List[str]:
 
 
 def chunk_md(md_text: str) -> List[str]:
-    """Chunk Markdown by headlines without isolated headlines."""
+    """Chunk Markdown by headlines and merge isolated headlines."""
     md_chunks = _chunk_md_by_headline(md_text)
 
     merged_chunks = []
@@ -47,7 +47,7 @@ def chunk_md(md_text: str) -> List[str]:
 
 
 @dataclass
-class MdTextMerger:
+class MdTextSplitter:
     """TODO: add doc."""
 
     max_token: int
