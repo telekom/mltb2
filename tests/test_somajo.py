@@ -153,7 +153,7 @@ def test_UrlSwapper_swap_urls():
         "2 MD URL s: [Philip May](http://may.la). [other link](https://github.com/telekom/mltb2#installation)",
     ],
 )
-def test_UrlSwapper_is_reversible(text_with_url: str):
+def test_UrlSwapper__is_reversible(text_with_url: str):
     token_extractor = TokenExtractor("de_CMC")
     url_swapper = UrlSwapper(token_extractor)
     text_with_reverse_swapped_url, no_reverse_swap_urls = url_swapper.reverse_swap_urls(
@@ -161,3 +161,15 @@ def test_UrlSwapper_is_reversible(text_with_url: str):
     )
     assert text_with_reverse_swapped_url == text_with_url
     assert len(no_reverse_swap_urls) == 0
+
+
+def test_UrlSwapper__no_reverse_swap_urls():
+    token_extractor = TokenExtractor("de_CMC")
+    url_swapper = UrlSwapper(token_extractor)
+    text_with_url = "This is a text with URL: http://may.la."
+    swapped_url_text = url_swapper.swap_urls(text_with_url)
+    additional_url = "http://other-url.org"
+    swapped_url_text = f"{swapped_url_text} {additional_url}"
+    text_with_reverse_swapped_url, no_reverse_swap_urls = url_swapper.reverse_swap_urls(swapped_url_text)
+    assert len(no_reverse_swap_urls) == 1
+    assert additional_url in no_reverse_swap_urls
