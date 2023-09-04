@@ -153,7 +153,7 @@ def test_UrlSwapper_swap_urls():
         "2 MD URL s: [Philip May](http://may.la). [other link](https://github.com/telekom/mltb2#installation)",
     ],
 )
-def test_UrlSwapper_is_reversable(text_with_url: str):
+def test_UrlSwapper_is_reversible(text_with_url: str):
     token_extractor = TokenExtractor("de_CMC")
     url_swapper = UrlSwapper(token_extractor)
     text_with_reverse_swapped_url, no_reverse_swap_urls = url_swapper.reverse_swap_urls(
