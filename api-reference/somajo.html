@@ -69,6 +69,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#mltb2.somajo.TokenExtractor.extract_url_set"><code class="docutils literal notranslate"><span class="pre">TokenExtractor.extract_url_set()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.somajo.UrlSwapper"><code class="docutils literal notranslate"><span class="pre">UrlSwapper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.somajo.UrlSwapper.reverse_swap_urls"><code class="docutils literal notranslate"><span class="pre">UrlSwapper.reverse_swap_urls()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.somajo.UrlSwapper.swap_urls"><code class="docutils literal notranslate"><span class="pre">UrlSwapper.swap_urls()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.somajo.detokenize"><code class="docutils literal notranslate"><span class="pre">detokenize()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.somajo.extract_token_class_set"><code class="docutils literal notranslate"><span class="pre">extract_token_class_set()</span></code></a></li>
 </ul>
@@ -246,6 +251,52 @@ Use pip to install the necessary dependencies for this module:
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.11)"><em>Set</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mltb2.somajo.UrlSwapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.somajo.</span></span><span class="sig-name descname"><span class="pre">UrlSwapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token_extractor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#mltb2.somajo.TokenExtractor" title="mltb2.somajo.TokenExtractor"><span class="pre">TokenExtractor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://link-{}.com'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/somajo.html#UrlSwapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.UrlSwapper" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Tool to swap (and reverse swap) links with a numbered replacement link.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>token_extractor</strong> (<a class="reference internal" href="#mltb2.somajo.TokenExtractor" title="mltb2.somajo.TokenExtractor"><em>TokenExtractor</em></a>) – The sentence token extractor to be used.</p></li>
+<li><p><strong>url_pattern</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The pattern to use for replacement. One <code class="docutils literal notranslate"><span class="pre">{}</span></code> marks the place where to put the number.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.somajo.UrlSwapper.reverse_swap_urls">
+<span class="sig-name descname"><span class="pre">reverse_swap_urls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.11)"><span class="pre">Set</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/somajo.html#UrlSwapper.reverse_swap_urls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.UrlSwapper.reverse_swap_urls" title="Permalink to this definition"></a></dt>
+<dd><p>Revert the url swap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The reverted text and a <code class="docutils literal notranslate"><span class="pre">set</span></code> of URLs that were unknown by the <code class="docutils literal notranslate"><span class="pre">URLSwapper</span></code>.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – </p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><em>Tuple</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Set" title="(in Python v3.11)"><em>Set</em></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.somajo.UrlSwapper.swap_urls">
+<span class="sig-name descname"><span class="pre">swap_urls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/somajo.html#UrlSwapper.swap_urls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.somajo.UrlSwapper.swap_urls" title="Permalink to this definition"></a></dt>
+<dd><p>Swap the urls of the text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
