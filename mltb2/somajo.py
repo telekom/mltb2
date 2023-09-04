@@ -12,7 +12,7 @@ Use pip to install the necessary dependencies for this module:
 
 from abc import ABC
 from dataclasses import dataclass, field
-from typing import Container, Iterable, List, Optional, Set, Union
+from typing import Container, Dict, Iterable, List, Optional, Set, Tuple, Union
 
 from somajo import SoMaJo
 from tqdm import tqdm
@@ -188,3 +188,46 @@ class TokenExtractor(SoMaJoBaseClass):
         sentences = self.somajo.tokenize_text(text)
         result = extract_token_class_set(sentences, keep_token_classes="URL")
         return result
+
+
+@dataclass
+class UrlSwapper:
+    """Tool to swap (and reverse swap) links with a numbered replacement link.
+
+    Args:
+        token_extractor: The sentence token extractor to be used.
+        url_pattern: The pattern to use for replacement. One ``{}`` marks the place where to put the number.
+    """
+
+    token_extractor: TokenExtractor
+    url_pattern: str = "https://link-{}.com"
+    _url_map: Dict[str, str] = field(init=False, repr=False)  # map from real url to swapped url
+
+    def __post_init__(self):
+        """Do post init."""
+        self._url_map = {}
+
+    def swap_urls(self, text: str) -> str:
+        """Swap the urls of the text."""
+        url_set = self.token_extractor.extract_url_set(text)
+        for url in url_set:
+            if url not in self._url_map:  # if url is unknown: add it
+                self._url_map[url] = self.url_pattern.format(len(self._url_map) + 1)
+            text = text.replace(url, self._url_map[url])  # replace
+        return text
+
+    def reverse_swap_urls(self, text: str) -> Tuple[str, Set[str]]:
+        """Revert the url swap.
+
+        Returns:
+            The reverted text and a ``set`` of URLs that were unknown by the ``URLSwapper``.
+        """
+        reverse_url_map = {v: k for k, v in self._url_map.items()}  # map from swapped url to real url
+        url_set = self.token_extractor.extract_url_set(text)
+        no_reverse_swap_urls = set()
+        for url in url_set:
+            if url in reverse_url_map:
+                text = text.replace(url, reverse_url_map[url])  # replace
+            else:
+                no_reverse_swap_urls.add(url)
+        return text, no_reverse_swap_urls
