@@ -4,9 +4,17 @@
 
 from math import isclose
 
+import pytest
 from somajo import SoMaJo
 
-from mltb2.somajo import JaccardSimilarity, SoMaJoSentenceSplitter, TokenExtractor, detokenize, extract_token_class_set
+from mltb2.somajo import (
+    JaccardSimilarity,
+    SoMaJoSentenceSplitter,
+    TokenExtractor,
+    UrlSwapper,
+    detokenize,
+    extract_token_class_set,
+)
 
 
 def test_SoMaJoSentenceSplitter_call() -> None:
@@ -127,3 +135,29 @@ def test_detokenize():
 
     assert isinstance(result, str)
     assert result == "Das ist ein Satz."
+
+
+def test_UrlSwapper_swap_urls():
+    token_extractor = TokenExtractor("de_CMC")
+    url_swapper = UrlSwapper(token_extractor)
+    text_with_url = "This is a text with URL: http://may.la."
+    text_with_swapped_url = url_swapper.swap_urls(text_with_url)
+    assert text_with_swapped_url == "This is a text with URL: https://link-1.com."
+
+
+@pytest.mark.parametrize(
+    "text_with_url",
+    [
+        "This is a text with URL: http://may.la.",
+        "This is a text with Markdown URL: [Philip May](http://may.la).",
+        "2 MD URL s: [Philip May](http://may.la). [other link](https://github.com/telekom/mltb2#installation)",
+    ],
+)
+def test_UrlSwapper_is_reversable(text_with_url: str):
+    token_extractor = TokenExtractor("de_CMC")
+    url_swapper = UrlSwapper(token_extractor)
+    text_with_reverse_swapped_url, no_reverse_swap_urls = url_swapper.reverse_swap_urls(
+        url_swapper.swap_urls(text_with_url)
+    )
+    assert text_with_reverse_swapped_url == text_with_url
+    assert len(no_reverse_swap_urls) == 0
