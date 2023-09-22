@@ -173,3 +173,15 @@ def test_UrlSwapper__no_reverse_swap_urls():
     text_with_reverse_swapped_url, no_reverse_swap_urls = url_swapper.reverse_swap_urls(swapped_url_text)
     assert len(no_reverse_swap_urls) == 1
     assert additional_url in no_reverse_swap_urls
+
+
+# see https://github.com/telekom/mltb2/issues/94
+@pytest.mark.xfail
+def test_UrlSwapper__markdown_bug():
+    token_extractor = TokenExtractor("de_CMC")
+    url_swapper = UrlSwapper(token_extractor)
+    text_with_url = "This is a MD link: [https://something-1.com](https://something-2.com)."
+    swapped_url_text = url_swapper.swap_urls(text_with_url)
+    assert "https://link-1.com" in swapped_url_text
+    assert "https://link-2.com" in swapped_url_text
+    assert len(url_swapper._url_map) == 2
