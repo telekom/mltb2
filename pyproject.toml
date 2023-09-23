@@ -61,7 +61,7 @@ scikit-learn = {version = "*", optional = true}
 fasttext-wheel = {version = "*", optional = true}
 optuna = {version = "*", optional = true}
 matplotlib = {version = "*", optional = true}
-SoMaJo = {version = "*", optional = true}
+SoMaJo = {version = ">=2.3.1", optional = true}
 torch = {version = "!=2.0.1", optional = true}  # version 2.0.1 has poetry issues
 transformers = {version = "*", optional = true}
 tiktoken = {version = "*", optional = true}

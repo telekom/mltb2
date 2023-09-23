@@ -176,7 +176,6 @@ def test_UrlSwapper__no_reverse_swap_urls():
 
 
 # see https://github.com/telekom/mltb2/issues/94
-@pytest.mark.xfail
 def test_UrlSwapper__markdown_bug():
     token_extractor = TokenExtractor("de_CMC")
     url_swapper = UrlSwapper(token_extractor)
