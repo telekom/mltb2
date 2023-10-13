@@ -106,19 +106,19 @@ Use pip to install the necessary dependencies for this module:
 <dl class="py class">
 <dt class="sig sig-object py" id="mltb2.fasttext.FastTextLanguageIdentification">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.fasttext.</span></span><span class="sig-name descname"><span class="pre">FastTextLanguageIdentification</span></span><a class="reference internal" href="../_modules/mltb2/fasttext.html#FastTextLanguageIdentification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.fasttext.FastTextLanguageIdentification" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Identify languages of a text.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mltb2.fasttext.FastTextLanguageIdentification.__call__">
-<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_lang</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/fasttext.html#FastTextLanguageIdentification.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.fasttext.FastTextLanguageIdentification.__call__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_lang</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/fasttext.html#FastTextLanguageIdentification.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.fasttext.FastTextLanguageIdentification.__call__" title="Permalink to this definition"></a></dt>
 <dd><p>Identify languages of a given text.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>text</strong> – the text for which the language is to be recognized</p></li>
-<li><p><strong>num_lang</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – number of returned languages</p></li>
+<li><p><strong>num_lang</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – number of returned languages</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -141,11 +141,11 @@ Possible languages are: <code class="docutils literal notranslate"><span class="
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mltb2.fasttext.FastTextLanguageIdentification.get_model_path_and_download">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_model_path_and_download</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/fasttext.html#FastTextLanguageIdentification.get_model_path_and_download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.fasttext.FastTextLanguageIdentification.get_model_path_and_download" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_model_path_and_download</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/fasttext.html#FastTextLanguageIdentification.get_model_path_and_download"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.fasttext.FastTextLanguageIdentification.get_model_path_and_download" title="Permalink to this definition"></a></dt>
 <dd><p>Get the model path and download it if needed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
