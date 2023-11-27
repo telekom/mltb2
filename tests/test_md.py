@@ -4,7 +4,7 @@
 
 from typing import Final
 
-from mltb2.md import MdTextSplitter, _chunk_md_by_headline, chunk_md
+from mltb2.md import MdTextSplitter, _chunk_md_by_headline, chunk_md, extract_text_from_markdown
 from mltb2.transformers import TransformersTokenCounter
 
 MD: Final[
@@ -27,6 +27,14 @@ Content.
 Content.
 
 #### Headline 4 / 2"""
+
+def test_():
+    tests = [('## Basic list','Basic list'), 
+            ('* fruit', 'fruit'), 
+            ('> A single quote', 'A single quote'),
+            ('[Link text Here](https://link-url-here.org)','Link text Here')]
+    for md_text, text in tests:
+        assert extract_text_from_markdown(md_text) == text
 
 
 def test_chunk_md_by_headline():
