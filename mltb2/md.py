@@ -14,6 +14,8 @@ from dataclasses import dataclass
 from typing import Final, List
 
 from tqdm import tqdm
+from markdown import Markdown
+from io import StringIO
 
 from mltb2.transformers import TransformersTokenCounter
 
@@ -49,6 +51,26 @@ def chunk_md(md_text: str) -> List[str]:
     # if len(temp_content) > 0 this is only headlines and we skip them
     return merged_chunks
 
+def unmark_element(element, stream=None):
+    if stream is None:
+        stream = StringIO()
+    if element.text:
+        stream.write(element.text)
+    for sub in element:
+        unmark_element(sub, stream)
+    if element.tail:
+        stream.write(element.tail)
+    return stream.getvalue()
+
+
+# patching Markdown
+Markdown.output_formats["plain"] = unmark_element
+__md = Markdown(output_format="plain")
+__md.stripTopLevelTags = False
+
+
+def extract_text_from_markdown(md_text):
+    return __md.convert(md_text)
 
 @dataclass
 class MdTextSplitter:
