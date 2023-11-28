@@ -56,6 +56,7 @@ python = "^3.8"
 numpy = "*"
 scipy = "*"
 tqdm = "*"
+markdown = '*'
 platformdirs = {version = "*", optional = true}
 scikit-learn = {version = "*", optional = true}
 fasttext-wheel = {version = "*", optional = true}
