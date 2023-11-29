@@ -12,11 +12,11 @@ Use pip to install the necessary dependencies for this module:
 
 import re
 from dataclasses import dataclass
+from io import StringIO
 from typing import Final, List
 
-from tqdm import tqdm
 from markdown import Markdown
-from io import StringIO
+from tqdm import tqdm
 
 from mltb2.transformers import TransformersTokenCounter
 
@@ -52,7 +52,9 @@ def chunk_md(md_text: str) -> List[str]:
     # if len(temp_content) > 0 this is only headlines and we skip them
     return merged_chunks
 
+
 def unmark_element(element, stream=None):
+    """Initialize markdown extracting element."""
     if stream is None:
         stream = StringIO()
     if element.text:
@@ -65,13 +67,21 @@ def unmark_element(element, stream=None):
 
 
 # patching Markdown
-Markdown.output_formats["plain"] = unmark_element
-__md = Markdown(output_format="plain")
+Markdown.output_formats["html"] = unmark_element
+__md = Markdown(output_format="html")
 __md.stripTopLevelTags = False
 
 
 def extract_text_from_markdown(md_text):
+    """Parse Markdown and extra plain texts.
+
+    Args:
+        md_text: markdown-formatted text.
+    Returns:
+        plain text without markdown tags.
+    """
     return __md.convert(md_text)
+
 
 @dataclass
 class MdTextSplitter:
