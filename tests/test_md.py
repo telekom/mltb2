@@ -29,11 +29,14 @@ Content.
 
 #### Headline 4 / 2"""
 
+
 def test_():
-    tests = [('## Basic list','Basic list'), 
-            ('* fruit', 'fruit'), 
-            ('> A single quote', 'A single quote'),
-            ('[Link text Here](https://link-url-here.org)','Link text Here')]
+    tests = [
+        ("## Basic list", "Basic list"),
+        ("* fruit", "fruit"),
+        ("> A single quote", "A single quote"),
+        ("[Link text Here](https://link-url-here.org)", "Link text Here"),
+    ]
     for md_text, text in tests:
         assert extract_text_from_markdown(md_text) == text
 
