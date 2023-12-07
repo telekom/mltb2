@@ -13,7 +13,11 @@ xyz
 ## Testing, Linting, and Formatting
 
 We use different formatters and linters in this project.
-You can use them to format the code or just to check the code.
+You can use them to format the code or just to check or test the code.
+
+This project is using [GitHub Actions](https://docs.github.com/en/actions)
+to execute all checks and tests in a CI pipeline.
+To save time you can and should execute those tests in your locale development environment.
 
 In this project we are using the Make tool.
 If you are on Windows either change to a proper operating system
