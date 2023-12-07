@@ -75,7 +75,7 @@ For example execute: `pyenv local 3.8.17`
 Execute `poetry install --all-extras` to install the project.
 This installs all dependencies, optional (extra) dependencies and
 needed linting, testing and documentation dependencies.
-With this method, the sources are also automatically installed in
+With this method, the sources are also implicitly installed in
 [editable mode](https://pip.pypa.io/en/latest/cli/pip_install/#cmdoption-e).
 
 ## Manage your Pull Request
