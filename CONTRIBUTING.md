@@ -26,13 +26,30 @@ But it does not matter. It's your choice.
 
 ### Configure Poetry
 
-We suggest the following two config options:
+We suggest the following two config options. These are not mandatory but useful.
 
-Set [virtualenvs.prefer-active-python](https://python-poetry.org/docs/configuration/#virtualenvsprefer-active-python-experimental)
-to `true`. This can be done [global or locale](https://python-poetry.org/docs/configuration/#local-configuration):
+Set [`virtualenvs.prefer-active-python`](https://python-poetry.org/docs/configuration/#virtualenvsprefer-active-python-experimental)
+to `true`.
+With this setting Poetry uses the currently activated Python version to create a new virtual environment.
+If set to false, the Python version used during Poetry installation is used.
+This makes it possible to determine the exact Python version for development.
+This can be done [global or locale](https://python-poetry.org/docs/configuration/#local-configuration).
+We suggest to do this setting as global.
 
 - global setting: `poetry config virtualenvs.prefer-active-python true`
-- locale setting: `poetry config virtualenvs.prefer-active-python true --local` - this will create a `poetry.toml` file
+- locale setting: `poetry config virtualenvs.prefer-active-python true --local` - this will create or change the `poetry.toml` file
+
+Set [`virtualenvs.options.always-copy`](https://python-poetry.org/docs/configuration/#virtualenvsoptionsalways-copy)
+to `true`.
+When the new virtual environment is created (later) all needed files are copied into it instead of symlinked.
+The advantage is that you can delete the old globally installed Python version later without breaking the Python in
+the locale virtual environment.
+The disadvantage is that we waste some disk space.
+This can be done [global or locale](https://python-poetry.org/docs/configuration/#local-configuration).
+We suggest to do this setting as global.
+
+- global setting: `poetry config virtualenvs.options.always-copy true`
+- locale setting: `poetry config virtualenvs.options.always-copy true --local` - this will create or change the `poetry.toml` file
 
 ## Manage your Pull Request
 
