@@ -6,6 +6,19 @@ xyz
 
 xyz
 
+## Testing, Linting, and Formatting
+
+We use different formatters and linters in this project.
+You can use them to format the code or just to check the code.
+
+In this project we are using the Make tool.
+If you are on Windows either change to a proper operating system
+or execute the individual commands that can be found in `Makefile`.
+
+- to run all code formatters use: `make format`
+- to run all checks use: `make check`
+- to run all tests use: `make test` or your preferred IDE
+
 ## Project Setup
 
 We recommend to do the setup in a text console and not with a GUI tool.
@@ -81,7 +94,3 @@ With this method, the sources are also implicitly installed in
 ## Manage your Pull Request
 
 - a new pull request should have the prefix `[WIP]` in its title: this indicates that you are still working on the PR
-
-## Testing, Linting, and Formatting
-
-xyz
