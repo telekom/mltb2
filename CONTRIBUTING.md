@@ -1,8 +1,21 @@
-# Contribution Guidelines
+# How to contribute
 
 xyz
 
-## Adding a new Feature
+- <https://github.com/rails/rails/blob/main/CONTRIBUTING.md>
+- <https://github.com/opengovernment/opengovernment/blob/master/CONTRIBUTING.md>
+- <https://opensource.guide/starting-a-project/>
+- <https://skills.github.com/>
+
+## Report a Bug
+
+xyz
+
+## Fix a Bug
+
+xyz
+
+## Add a new Feature
 
 xyz
 
@@ -26,6 +39,10 @@ or execute the individual commands that can be found in `Makefile`.
 - to run all code formatters use: `make format`
 - to run all checks use: `make check`
 - to run all tests use: `make test` or your preferred IDE
+
+## Code Style Guidelines
+
+xyz - <https://github.com/telekom/style-doc/blob/main/CONTRIBUTING.md#style-guidelines>
 
 ## Project Setup
 
