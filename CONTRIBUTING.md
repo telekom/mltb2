@@ -6,6 +6,10 @@ xyz
 
 xyz
 
+## Manage your Pull Request
+
+- a new pull request should have the prefix `[WIP]` in its title: this indicates that you are still working on the PR
+
 ## Testing, Linting, and Formatting
 
 We use different formatters and linters in this project.
@@ -90,7 +94,3 @@ This installs all dependencies, optional (extra) dependencies and
 needed linting, testing and documentation dependencies.
 With this method, the sources are also implicitly installed in
 [editable mode](https://pip.pypa.io/en/latest/cli/pip_install/#cmdoption-e).
-
-## Manage your Pull Request
-
-- a new pull request should have the prefix `[WIP]` in its title: this indicates that you are still working on the PR
