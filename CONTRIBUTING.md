@@ -70,6 +70,13 @@ This command will create a `.python-version` file in the project directory.
 Make sure that you are still in the project directory.
 For example execute: `pyenv local 3.8.17`
 
+### Install Project with Poetry
+
+Execute `poetry install --all-extras` to install the project.
+This installs all dependencies, optional (extra) dependencies and
+needed linting, testing and documentation dependencies.
+The source is installed in [editable mode](https://pip.pypa.io/en/latest/cli/pip_install/#cmdoption-e).
+
 ## Manage your Pull Request
 
 - a new pull request should have the prefix `[WIP]` in its title: this indicates that you are still working on the PR
