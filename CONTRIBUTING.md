@@ -51,6 +51,25 @@ We suggest to do this setting as global.
 - global setting: `poetry config virtualenvs.options.always-copy true`
 - locale setting: `poetry config virtualenvs.options.always-copy true --local` - this will create or change the `poetry.toml` file
 
+### Set the Python Version (pyenv)
+
+We recommend [pyenv](https://github.com/pyenv/pyenv) to install and manage different Python versions.
+First [install pyenv](https://github.com/pyenv/pyenv#installation) if you do not already have it.
+
+Next install the appropriate Python version.
+We recommend the development on the oldest still permitted Python version of the project.
+This version number can be found in the `pyproject.toml` file in the setting called
+`tool.poetry.dependencies.python`. If this is set like `python = "^3.8"`
+we use pyenv to install Python 3.8:
+`pyenv install 3.8`
+This installs the latest 3.8 Python version.
+
+If the Python installation was successful we use `pyenv versions` to see which exact Version is installed.
+Then we activate this version with `pyenv local <version>`.
+This command will create a `.python-version` file in the project directory.
+Make sure that you are still in the project directory.
+For example execute: `pyenv local 3.8.17`
+
 ## Manage your Pull Request
 
 - a new pull request should have the prefix `[WIP]` in its title: this indicates that you are still working on the PR
