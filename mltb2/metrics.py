@@ -1,3 +1,8 @@
+# Copyright (c) 2022 Sigrun May, Ostfalia Hochschule für angewandte Wissenschaften
+# Copyright (c) 2023 Philip May
+# This software is distributed under the terms of the MIT license
+# which is available at https://opensource.org/licenses/MIT
+
 from typing import List, Dict, Tuple
 import numpy as np
 
