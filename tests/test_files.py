@@ -18,6 +18,7 @@ def test_fetch_remote_file(tmpdir):
         sha256_checksum="8d834de97b095fbf4bf6075743827862be2c6c404594ae04606d9c56d8f1017b",
     )
     assert remote_file == os.path.join(tmpdir, filename)
+    assert os.path.exists(os.path.join(tmpdir, filename))
 
 
 def test_fetch_remote_file_wrong_checksum(tmpdir):
@@ -29,6 +30,7 @@ def test_fetch_remote_file_wrong_checksum(tmpdir):
             url="https://raw.githubusercontent.com/telekom/mltb2/main/LICENSE",
             sha256_checksum="wrong",
         )
+    assert not os.path.exists(os.path.join(tmpdir, filename))
 
 
 def test_get_and_create_mltb2_data_dir(tmpdir):
