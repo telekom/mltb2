@@ -148,7 +148,7 @@ def load_prostate() -> Tuple[pd.Series, pd.DataFrame]:
             elif "cancer" in label:
                 labels.append(1)
             else:
-                assert False, "This must not happen!"
+                assert False, f"This must not happen! label: {label}"
         label_series = pd.Series(labels)
         assert len(label_series) == 102
 
@@ -195,7 +195,7 @@ def load_leukemia_big() -> Tuple[pd.Series, pd.DataFrame]:
             elif "AML" in label:
                 labels.append(1)
             else:
-                assert False, "This must not happen!"
+                assert False, f"This must not happen! label: {label}"
         label_series = pd.Series(labels)
         assert len(label_series) == 72
 
