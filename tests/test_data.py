@@ -4,7 +4,7 @@
 
 import pandas as pd
 
-from mltb2.data import _load_colon_data, _load_colon_label, load_colon, load_prostate
+from mltb2.data import _load_colon_data, _load_colon_label, load_colon, load_leukemia_big, load_prostate
 
 
 def test_load_colon_data():
@@ -32,7 +32,7 @@ def test_load_colon():
     assert result[1].shape == (62, 2000)
 
 
-def test_load_prostate_data():
+def test_load_prostate():
     result = load_prostate()
     assert result is not None
     assert isinstance(result, tuple)
@@ -41,3 +41,14 @@ def test_load_prostate_data():
     assert isinstance(result[1], pd.DataFrame)
     assert result[0].shape == (102,)
     assert result[1].shape == (102, 6033)
+
+
+def test_load_leukemia_big():
+    result = load_leukemia_big()
+    assert result is not None
+    assert isinstance(result, tuple)
+    assert len(result) == 2
+    assert isinstance(result[0], pd.Series)
+    assert isinstance(result[1], pd.DataFrame)
+    assert result[0].shape == (72,)
+    assert result[1].shape == (72, 7128)
