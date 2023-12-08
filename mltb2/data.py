@@ -4,12 +4,13 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""TODO: add module docstring."""
+"""Data loading functionality."""
 
-from hashlib import sha256
 import os
-import joblib
+from hashlib import sha256
+from typing import Tuple
 
+import joblib
 import numpy as np
 import pandas as pd
 import requests
@@ -24,7 +25,8 @@ def _load_colon_data() -> pd.DataFrame:
     The data is loaded and parsed from the internet.
     Also see <http://genomics-pubs.princeton.edu/oncology/affydata/index.html>
 
-    # TODO: add return doc
+    Returns:
+        data as pandas DataFrame
     """
     # download data file
     url = "http://genomics-pubs.princeton.edu/oncology/affydata/I2000.html"
@@ -54,7 +56,8 @@ def _load_colon_label() -> pd.Series:
     The data is loaded and parsed from the internet.
     Also see <http://genomics-pubs.princeton.edu/oncology/affydata/index.html>
 
-    # TODO: add return doc
+    Returns:
+        labels as pandas Series
     """
     # download data file
     url = "http://genomics-pubs.princeton.edu/oncology/affydata/tissues.html"
@@ -82,7 +85,7 @@ def _load_colon_label() -> pd.Series:
     return label_series
 
 
-def load_colon():
+def load_colon() -> Tuple[pd.Series, pd.DataFrame]:
     """Load colon data.
 
     The data is loaded and parsed from the internet.
