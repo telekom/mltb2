@@ -12,6 +12,7 @@ Use pip to install the necessary dependencies for this module:
 
 import os
 from hashlib import sha256
+from io import StringIO
 from typing import Tuple
 
 import joblib
@@ -112,4 +113,47 @@ def load_colon() -> Tuple[pd.Series, pd.DataFrame]:
     else:
         result = joblib.load(full_path)
 
+    return result
+
+
+def load_prostate() -> Tuple[pd.Series, pd.DataFrame]:
+    """Load prostate data.
+
+    The data is loaded and parsed from `prostate data
+    <https://web.stanford.edu/~hastie/CASI_files/DATA/prostate.html>`_.
+
+    Returns:
+        Tuple containing labels and data.
+    """
+    filename = "prostate.pkl.gz"
+    mltb2_data_home = get_and_create_mltb2_data_dir()
+    full_path = os.path.join(mltb2_data_home, filename)
+    if not os.path.exists(full_path):
+        # download data file
+        url = "https://web.stanford.edu/~hastie/CASI_files/DATA/prostmat.csv"
+        page = requests.get(url, timeout=10)
+        page_str = page.text
+
+        # check checksum of data file
+        page_hash = sha256(page_str.encode("utf-8")).hexdigest()
+        assert page_hash == "f1ccfd3c9a837c002ec5d6489ab139c231739c3611189be14d15ca5541b92036", page_hash
+
+        data_df = pd.read_csv(StringIO(page_str))
+        data_df = data_df.T
+
+        labels = []
+        for label in data_df.index:
+            if "control" in label:
+                labels.append(0)
+            elif "cancer" in label:
+                labels.append(1)
+            else:
+                assert False, "This must not happen!"
+
+        data_df = data_df.reset_index(drop=True)  # reset the index to default integer index
+        label_series = pd.Series(labels)
+        result = (label_series, data_df)
+        joblib.dump(result, full_path, compress=("gzip", 3))
+    else:
+        result = joblib.load(full_path)
     return result
