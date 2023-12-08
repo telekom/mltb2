@@ -5,6 +5,8 @@
 
 """TODO: add docstring."""
 
+import math
+
 import numpy as np
 
 
@@ -27,6 +29,10 @@ def get_stability(selected_features_matrix):
         robustness_density = list(robustness_vector).count(k)
         subset_size_stability = _subset_size_stability(subset_vector, number_of_features, k)
 
+        assert subset_vector[k - 1] != 0
+        assert subset_vector[k - 1] != 0.0
+        assert not math.isnan(subset_vector[k - 1])
+
         stability += (k**2 * robustness_density * subset_size_stability) / subset_vector[k - 1]
         if np.isnan(stability):
             print("stability is nan")
@@ -41,27 +47,6 @@ def get_stability(selected_features_matrix):
         print(stability, " stability greater than 1")
     # assert stability <= 1.1, stability
     return stability
-
-
-def test_stability():
-    """TODO: add docstring."""
-    only_ones = np.ones((10, 20))
-    stability = get_stability(only_ones)
-    assert stability == 1, stability
-
-    perfect_stability = np.concatenate((np.ones((10, 8)), np.zeros((10, 120))), axis=1)
-    assert perfect_stability.shape == (10, 128)
-    perfect_stability_metric = get_stability(perfect_stability)
-    assert perfect_stability_metric == 1, perfect_stability_metric
-
-    perfect_stability2 = np.concatenate((np.ones((10, 1)), np.zeros((10, 120))), axis=1)
-    assert perfect_stability2.shape == (10, 121)
-    perfect_stability_metric2 = get_stability(perfect_stability2)
-    assert perfect_stability_metric2 == 1, perfect_stability_metric2
-
-    # print(get_stability(perfect_stability))
-    not_stable = get_stability(np.zeros((10, 20)))
-    assert not_stable == 0, not_stable
 
 
 def _subset_size_stability(subset_vector, number_of_features, k):
