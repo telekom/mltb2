@@ -9,6 +9,7 @@ Use pip to install the necessary dependencies for this module:
 """
 
 
+import contextlib
 import os
 from typing import Optional
 
@@ -45,5 +46,10 @@ def fetch_remote_file(dirname, filename, url, sha256_checksum) -> str:
         IOError: if the sha256 checksum is wrong
     """
     remote = RemoteFileMetadata(filename=filename, url=url, checksum=sha256_checksum)
-    fetch_remote_file_path = _fetch_remote(remote, dirname=dirname)
+    try:
+        fetch_remote_file_path = _fetch_remote(remote, dirname=dirname)
+    except Exception:
+        with contextlib.suppress(FileNotFoundError):
+            os.remove(os.path.join(dirname, filename))
+        raise
     return fetch_remote_file_path
