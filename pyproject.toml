@@ -70,11 +70,12 @@ openai = {version = "^0", optional = true}
 pyyaml = {version = "*", optional = true}
 pandas = {version = "*", optional = true}
 beautifulsoup4 = {version = "*", optional = true}
+joblib = {version = "*", optional = true}
 
 [tool.poetry.extras]
 files = ["platformdirs", "scikit-learn"]
 fasttext = ["fasttext-wheel"]
-data = ["platformdirs", "scikit-learn", "pandas", "beautifulsoup4"]
+data = ["platformdirs", "scikit-learn", "pandas", "beautifulsoup4", "joblib"]
 optuna = ["optuna"]
 plot = ["matplotlib"]
 somajo = ["SoMaJo"]

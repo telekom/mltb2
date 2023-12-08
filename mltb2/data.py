@@ -7,11 +7,15 @@
 """TODO: add module docstring."""
 
 from hashlib import sha256
+import os
+import joblib
 
 import numpy as np
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
+from mltb2.files import get_and_create_mltb2_data_dir
 
 
 def _load_colon_data() -> pd.DataFrame:
@@ -76,3 +80,26 @@ def _load_colon_label() -> pd.Series:
     assert len(label) == 62
     label_series = pd.Series(label)
     return label_series
+
+
+def load_colon():
+    """Load colon data.
+
+    The data is loaded and parsed from the internet.
+    Also see <http://genomics-pubs.princeton.edu/oncology/affydata/index.html>
+
+    Returns:
+        Tuple containing labels and data.
+    """
+    filename = "colon.pkl.gz"
+    mltb2_data_home = get_and_create_mltb2_data_dir()
+    full_path = os.path.join(mltb2_data_home, filename)
+    if not os.path.exists(full_path):
+        data_df = _load_colon_data()
+        label_series = _load_colon_label()
+        result = (label_series, data_df)
+        joblib.dump(result, full_path, compress=("gzip", 3))
+    else:
+        result = joblib.load(full_path)
+
+    return result
