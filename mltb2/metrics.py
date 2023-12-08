@@ -14,7 +14,7 @@ def high_dim_feature_selection_stability_score(selected_features_binary_matrix: 
     """TODO: add docstring.
 
     See Also:
-        - `https://github.com/Wahid-dr/gStab-Package/blob/main/ICTAPP-23-44-FinalVersion.pdf`_
+        - https://github.com/Wahid-dr/gStab-Package/blob/main/ICTAPP-23-44-FinalVersion.pdf
     """
     if selected_features_binary_matrix.ndim != 2:
         raise ValueError("'selected_features_matrix' must be a two-dimensional array!")
