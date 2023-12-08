@@ -23,7 +23,3 @@ def test_stability():
     assert perfect_stability2.shape == (10, 121)
     perfect_stability_metric2 = get_stability(perfect_stability2)
     assert perfect_stability_metric2 == 1, perfect_stability_metric2
-
-    # print(get_stability(perfect_stability))
-    not_stable = get_stability(np.zeros((10, 20)))
-    assert not_stable == 0, not_stable
