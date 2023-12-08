@@ -148,10 +148,60 @@ def load_prostate() -> Tuple[pd.Series, pd.DataFrame]:
             elif "cancer" in label:
                 labels.append(1)
             else:
-                assert False, "This must not happen!"
+                assert False, f"This must not happen! label: {label}"
+        label_series = pd.Series(labels)
+        assert len(label_series) == 102
 
         data_df = data_df.reset_index(drop=True)  # reset the index to default integer index
+        assert data_df.shape == (102, 6033)
+
+        result = (label_series, data_df)
+        joblib.dump(result, full_path, compress=("gzip", 3))
+    else:
+        result = joblib.load(full_path)
+    return result
+
+
+def load_leukemia_big() -> Tuple[pd.Series, pd.DataFrame]:
+    """Load leukemia (big) data.
+
+    The data is loaded and parsed from the internet.
+    Also see `leukemia data
+    <https://web.stanford.edu/~hastie/CASI_files/DATA/leukemia.html>`_.
+
+    Returns:
+        Tuple containing labels and data.
+    """
+    filename = "leukemia_big.pkl.gz"
+    mltb2_data_home = get_and_create_mltb2_data_dir()
+    full_path = os.path.join(mltb2_data_home, filename)
+    if not os.path.exists(full_path):
+        # download data file
+        url = "https://web.stanford.edu/~hastie/CASI_files/DATA/leukemia_big.csv"
+        page = requests.get(url, timeout=10)
+        page_str = page.text
+
+        # check checksum of data file
+        page_hash = sha256(page_str.encode("utf-8")).hexdigest()
+        assert page_hash == "35e84928da625da0787efb31a451dedbdf390e821a94ef74b7b7ab6cab9466d4", page_hash
+
+        data_df = pd.read_csv(StringIO(page_str))
+        data_df = data_df.T
+
+        labels = []
+        for label in data_df.index:
+            if "ALL" in label:
+                labels.append(0)
+            elif "AML" in label:
+                labels.append(1)
+            else:
+                assert False, f"This must not happen! label: {label}"
         label_series = pd.Series(labels)
+        assert len(label_series) == 72
+
+        data_df = data_df.reset_index(drop=True)  # reset the index to default integer index
+        assert data_df.shape == (72, 7128)
+
         result = (label_series, data_df)
         joblib.dump(result, full_path, compress=("gzip", 3))
     else:
