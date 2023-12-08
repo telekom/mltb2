@@ -26,7 +26,15 @@ def test_high_dim_feature_selection_stability_score():
     assert perfect_stability_metric2 == 1, perfect_stability_metric2
 
 
-def test_high_dim_feature_selection_stability_score__wrong_input():
+def test_high_dim_feature_selection_stability_score__wrong_input_dimensions():
     selected_features_matrix = np.ones((5, 5, 5))
+    with pytest.raises(ValueError):
+        high_dim_feature_selection_stability_score(selected_features_matrix)
+
+
+def test_high_dim_feature_selection_stability_score__wrong_input_dimensions():
+    selected_features_matrix = np.concatenate((np.ones((10, 1)), np.zeros((10, 120))), axis=1)
+    selected_features_matrix[3, 6] = 0.5
+
     with pytest.raises(ValueError):
         high_dim_feature_selection_stability_score(selected_features_matrix)
