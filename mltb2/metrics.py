@@ -3,12 +3,13 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-from typing import List, Dict, Tuple
+"""TODO: add docstring."""
+
 import numpy as np
 
 
 def get_stability(selected_features_matrix):
-
+    """TODO: add docstring."""
     robustness_vector = selected_features_matrix.sum(axis=0)
     print(robustness_vector[robustness_vector.nonzero()])
     subset_vector = selected_features_matrix.sum(axis=1)
@@ -43,6 +44,7 @@ def get_stability(selected_features_matrix):
 
 
 def test_stability():
+    """TODO: add docstring."""
     only_ones = np.ones((10, 20))
     stability = get_stability(only_ones)
     assert stability == 1, stability
@@ -63,12 +65,13 @@ def test_stability():
 
 
 def _subset_size_stability(subset_vector, number_of_features, k):
-    """
+    """TODO: add docstring.
 
     Args:
         subset_vector: Numpy array containing the number of selected features
             per fold. The length of the array equals the number of all folds.
         number_of_features: Number of all features in the input data.
+        k: TODO: add docstring.
 
     Returns:
         Subset-size stability
