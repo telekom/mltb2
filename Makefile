@@ -20,5 +20,8 @@ test:
 sphinx:
 	poetry run make -C docs clean html
 
+open-sphinx:
+	open docs/build/html/index.html
+
 install:
 	poetry lock && poetry install --all-extras

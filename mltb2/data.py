@@ -23,7 +23,8 @@ def _load_colon_data() -> pd.DataFrame:
     """Load colon data (not the labels).
 
     The data is loaded and parsed from the internet.
-    Also see <http://genomics-pubs.princeton.edu/oncology/affydata/index.html>
+    Also see `colon tissues probed by oligonucleotide arrays
+    <http://genomics-pubs.princeton.edu/oncology/affydata/index.html>`_.
 
     Returns:
         data as pandas DataFrame
@@ -54,7 +55,8 @@ def _load_colon_label() -> pd.Series:
     """Load colon label (not the data).
 
     The data is loaded and parsed from the internet.
-    Also see <http://genomics-pubs.princeton.edu/oncology/affydata/index.html>
+    Also see `colon tissues probed by oligonucleotide arrays
+    <http://genomics-pubs.princeton.edu/oncology/affydata/index.html>`_.
 
     Returns:
         labels as pandas Series
@@ -89,7 +91,8 @@ def load_colon() -> Tuple[pd.Series, pd.DataFrame]:
     """Load colon data.
 
     The data is loaded and parsed from the internet.
-    Also see <http://genomics-pubs.princeton.edu/oncology/affydata/index.html>
+    Also see `colon tissues probed by oligonucleotide arrays
+    <http://genomics-pubs.princeton.edu/oncology/affydata/index.html>`_.
 
     Returns:
         Tuple containing labels and data.
