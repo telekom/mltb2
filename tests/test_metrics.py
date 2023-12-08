@@ -4,6 +4,7 @@
 # which is available at https://opensource.org/licenses/MIT
 
 import numpy as np
+import pytest
 
 from mltb2.metrics import high_dim_feature_selection_stability_score
 
@@ -23,3 +24,9 @@ def test_high_dim_feature_selection_stability_score():
     assert perfect_stability2.shape == (10, 121)
     perfect_stability_metric2 = high_dim_feature_selection_stability_score(perfect_stability2)
     assert perfect_stability_metric2 == 1, perfect_stability_metric2
+
+
+def test_high_dim_feature_selection_stability_score__wrong_input():
+    selected_features_matrix = np.ones((5, 5, 5))
+    with pytest.raises(ValueError):
+        high_dim_feature_selection_stability_score(selected_features_matrix)

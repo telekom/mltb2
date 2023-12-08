@@ -12,8 +12,11 @@ import numpy as np
 
 def high_dim_feature_selection_stability_score(selected_features_matrix: np.ndarray):
     """TODO: add docstring."""
+    # check that selected_features_matrix has exactly two dimensions
+    if selected_features_matrix.ndim != 2:
+        raise ValueError("'selected_features_matrix' must be a two-dimensional array!")
+
     robustness_vector = selected_features_matrix.sum(axis=0)
-    print(robustness_vector[robustness_vector.nonzero()])
     subset_vector = selected_features_matrix.sum(axis=1)
 
     number_of_features = len(robustness_vector)
