@@ -5,21 +5,21 @@
 
 import numpy as np
 
-from mltb2.metrics import get_stability
+from mltb2.metrics import high_dim_feature_selection_stability_score
 
 
-def test_stability():
+def test_high_dim_feature_selection_stability_score():
     """TODO: add docstring."""
     only_ones = np.ones((10, 20))
-    stability = get_stability(only_ones)
+    stability = high_dim_feature_selection_stability_score(only_ones)
     assert stability == 1, stability
 
     perfect_stability = np.concatenate((np.ones((10, 8)), np.zeros((10, 120))), axis=1)
     assert perfect_stability.shape == (10, 128)
-    perfect_stability_metric = get_stability(perfect_stability)
+    perfect_stability_metric = high_dim_feature_selection_stability_score(perfect_stability)
     assert perfect_stability_metric == 1, perfect_stability_metric
 
     perfect_stability2 = np.concatenate((np.ones((10, 1)), np.zeros((10, 120))), axis=1)
     assert perfect_stability2.shape == (10, 121)
-    perfect_stability_metric2 = get_stability(perfect_stability2)
+    perfect_stability_metric2 = high_dim_feature_selection_stability_score(perfect_stability2)
     assert perfect_stability_metric2 == 1, perfect_stability_metric2

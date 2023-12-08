@@ -10,7 +10,7 @@ import math
 import numpy as np
 
 
-def get_stability(selected_features_matrix):
+def high_dim_feature_selection_stability_score(selected_features_matrix: np.ndarray):
     """TODO: add docstring."""
     robustness_vector = selected_features_matrix.sum(axis=0)
     print(robustness_vector[robustness_vector.nonzero()])
