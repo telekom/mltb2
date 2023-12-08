@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mltb2.data &mdash; MLTB2  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=de248184" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MLTB2
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api-reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/telekom/mltb2">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/telekom/mltb2/blob/main/LICENSE">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.telekom.com/imprint">Imprint</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MLTB2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">mltb2.data</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for mltb2.data</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2020 - 2023 Philip May</span>
+<span class="c1"># Copyright (c) 2021 Sigrun May, Helmholtz-Zentrum für Infektionsforschung GmbH (HZI)</span>
+<span class="c1"># Copyright (c) 2021 Sigrun May, Ostfalia Hochschule für angewandte Wissenschaften</span>
+<span class="c1"># This software is distributed under the terms of the MIT license</span>
+<span class="c1"># which is available at https://opensource.org/licenses/MIT</span>
+
+<span class="sd">&quot;&quot;&quot;Data loading functionality.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">hashlib</span> <span class="kn">import</span> <span class="n">sha256</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">joblib</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="kn">from</span> <span class="nn">mltb2.files</span> <span class="kn">import</span> <span class="n">get_and_create_mltb2_data_dir</span>
+
+
+<div class="viewcode-block" id="_load_colon_data"><a class="viewcode-back" href="../../api-reference/data.html#mltb2.data._load_colon_data">[docs]</a><span class="k">def</span> <span class="nf">_load_colon_data</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load colon data (not the labels).</span>
+
+<span class="sd">    The data is loaded and parsed from the internet.</span>
+<span class="sd">    Also see `colon tissues probed by oligonucleotide arrays</span>
+<span class="sd">    &lt;http://genomics-pubs.princeton.edu/oncology/affydata/index.html&gt;`_.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        data as pandas DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># download data file</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://genomics-pubs.princeton.edu/oncology/affydata/I2000.html&quot;</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="c1"># check checksum of data file</span>
+    <span class="n">page_hash</span> <span class="o">=</span> <span class="n">sha256</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">page_hash</span> <span class="o">==</span> <span class="s2">&quot;74cc7b47d40a0fbca8dde05f42bcb799b7babad29ea634139a221bb4386b1c3d&quot;</span><span class="p">,</span> <span class="n">page_hash</span>
+
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+    <span class="n">page_text</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
+
+    <span class="n">page_text_lines</span> <span class="o">=</span> <span class="n">page_text</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">page_text_lines</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2000</span>
+    <span class="n">page_text_lines</span> <span class="o">=</span> <span class="p">[[</span><span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">page_text_lines</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">page_text_lines</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2000</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">page_text_lines</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">62</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">page_text_lines</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data_df</span></div>
+
+
+<div class="viewcode-block" id="_load_colon_label"><a class="viewcode-back" href="../../api-reference/data.html#mltb2.data._load_colon_label">[docs]</a><span class="k">def</span> <span class="nf">_load_colon_label</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load colon label (not the data).</span>
+
+<span class="sd">    The data is loaded and parsed from the internet.</span>
+<span class="sd">    Also see `colon tissues probed by oligonucleotide arrays</span>
+<span class="sd">    &lt;http://genomics-pubs.princeton.edu/oncology/affydata/index.html&gt;`_.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        labels as pandas Series</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># download data file</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://genomics-pubs.princeton.edu/oncology/affydata/tissues.html&quot;</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="c1"># check checksum of data file</span>
+    <span class="n">page_hash</span> <span class="o">=</span> <span class="n">sha256</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">content</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">page_hash</span> <span class="o">==</span> <span class="s2">&quot;0c5b377c5dd5544d015bff479a4260d5ccf0bcf98657f600a1d37e34193e0f52&quot;</span><span class="p">,</span> <span class="n">page_hash</span>
+
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+    <span class="n">page_text</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
+    <span class="n">page_text_lines</span> <span class="o">=</span> <span class="n">page_text</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+
+    <span class="n">label</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">page_text_lines</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="n">label</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">pass</span>  <span class="c1"># we ignore this</span>
+
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">==</span> <span class="mi">62</span>
+    <span class="n">label_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">label_series</span></div>
+
+
+<div class="viewcode-block" id="load_colon"><a class="viewcode-back" href="../../api-reference/data.html#mltb2.data.load_colon">[docs]</a><span class="k">def</span> <span class="nf">load_colon</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load colon data.</span>
+
+<span class="sd">    The data is loaded and parsed from the internet.</span>
+<span class="sd">    Also see `colon tissues probed by oligonucleotide arrays</span>
+<span class="sd">    &lt;http://genomics-pubs.princeton.edu/oncology/affydata/index.html&gt;`_.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple containing labels and data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;colon.pkl.gz&quot;</span>
+    <span class="n">mltb2_data_home</span> <span class="o">=</span> <span class="n">get_and_create_mltb2_data_dir</span><span class="p">()</span>
+    <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mltb2_data_home</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">full_path</span><span class="p">):</span>
+        <span class="n">data_df</span> <span class="o">=</span> <span class="n">_load_colon_data</span><span class="p">()</span>
+        <span class="n">label_series</span> <span class="o">=</span> <span class="n">_load_colon_label</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">label_series</span><span class="p">,</span> <span class="n">data_df</span><span class="p">)</span>
+        <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">full_path</span><span class="p">,</span> <span class="n">compress</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;gzip&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">full_path</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Philip May, Deutsche Telekom AG.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
