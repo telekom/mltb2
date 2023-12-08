@@ -74,7 +74,7 @@ joblib = {version = "*", optional = true}
 
 [tool.poetry.extras]
 files = ["platformdirs", "scikit-learn"]
-fasttext = ["fasttext-wheel"]
+fasttext = ["fasttext-wheel", "platformdirs", "scikit-learn"]
 data = ["platformdirs", "scikit-learn", "pandas", "beautifulsoup4", "joblib"]
 optuna = ["optuna"]
 plot = ["matplotlib"]
