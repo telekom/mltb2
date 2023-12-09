@@ -34,7 +34,7 @@ SPECIAL_WHITESPACES: Final[Tuple[str, ...]] = (
     "\u00a0",  # No-Break Space (NBSP) https://www.compart.com/en/unicode/U+00a0
 )
 
-SPECIAL_WHITESPACES_TRANS: Final[Dict[int, None]] = str.maketrans({char: " " for char in SPECIAL_WHITESPACES})
+SPECIAL_WHITESPACES_TRANS: Final[Dict[int, str]] = str.maketrans({char: " " for char in SPECIAL_WHITESPACES})
 
 
 def remove_invisible_characters(text: str) -> str:
@@ -49,6 +49,7 @@ def remove_invisible_characters(text: str) -> str:
         The cleaned text.
     """
     return text.translate(INVISIBLE_CHARACTERS_TRANS)
+
 
 def replace_special_whitespaces(text: str) -> str:
     """Replace special whitespaces with normal whitespaces.
