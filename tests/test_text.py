@@ -2,7 +2,14 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-from mltb2.text import remove_invisible_characters, replace_special_whitespaces
+import pytest
+
+from mltb2.text import (
+    INVISIBLE_CHARACTERS,
+    SPECIAL_WHITESPACES,
+    remove_invisible_characters,
+    replace_special_whitespaces,
+)
 
 
 def test_remove_invisible_characters():
@@ -17,12 +24,27 @@ def test_remove_invisible_characters_empty():
     assert result == ""
 
 
+@pytest.mark.parametrize("char", INVISIBLE_CHARACTERS)
+def test_remove_invisible_characters_single_char(char: str):
+    text = f">{char}<"
+    result = remove_invisible_characters(text)
+    assert result == "><"
+
+
 def test_replace_special_whitespaces():
     text = "a\u00a0b\u2009c\u202fd\u2007e\u200af"
     result = replace_special_whitespaces(text)
     assert result == "a b c d e f"
 
+
 def test_replace_special_whitespaces_empty():
     text = ""
     result = replace_special_whitespaces(text)
     assert result == ""
+
+
+@pytest.mark.parametrize("char", SPECIAL_WHITESPACES)
+def test_replace_special_whitespaces_single_char(char: str):
+    text = f">{char}<"
+    result = replace_special_whitespaces(text)
+    assert result == "> <"
