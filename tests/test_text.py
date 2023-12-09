@@ -18,9 +18,9 @@ def test_remove_invisible_characters_empty():
 
 
 def test_replace_special_whitespaces():
-    text = "a\u00a0b\u2009c\u202fd\u2007e"
+    text = "a\u00a0b\u2009c\u202fd\u2007e\u200af"
     result = replace_special_whitespaces(text)
-    assert result == "a b c d e"
+    assert result == "a b c d e f"
 
 def test_replace_special_whitespaces_empty():
     text = ""

@@ -14,10 +14,13 @@ INVISIBLE_CHARACTERS: Final[Tuple[str, ...]] = (
 INVISIBLE_CHARACTERS_TRANS: Final[Dict[int, None]] = str.maketrans({char: None for char in INVISIBLE_CHARACTERS})
 
 SPECIAL_WHITESPACES: Final[Tuple[str, ...]] = (
-    "\u00a0",  # No-Break Space (NBSP) https://www.compart.com/en/unicode/U+00a0
-    "\u2009",  # Thin Space https://www.compart.com/en/unicode/U+2009
-    "\u202f",  # Narrow No-Break Space (NNBSP) https://www.compart.com/en/unicode/U+202f
+    # unicode block "General Punctuation": https://www.compart.com/en/unicode/block/U+2000
     "\u2007",  # Figure Space https://www.compart.com/en/unicode/U+2007
+    "\u2009",  # Thin Space https://www.compart.com/en/unicode/U+2009
+    "\u200a",  # Hair Space https://www.compart.com/en/unicode/U+200A
+    "\u202f",  # Narrow No-Break Space (NNBSP) https://www.compart.com/en/unicode/U+202f
+    # other unicode blocks
+    "\u00a0",  # No-Break Space (NBSP) https://www.compart.com/en/unicode/U+00a0
 )
 
 SPECIAL_WHITESPACES_TRANS: Final[Dict[int, None]] = str.maketrans({char: " " for char in SPECIAL_WHITESPACES})
