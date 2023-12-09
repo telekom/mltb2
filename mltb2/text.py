@@ -17,6 +17,8 @@ INVISIBLE_CHARACTERS_TRANS: Final[Dict[int, None]] = str.maketrans({char: None f
 def remove_invisible_chars(text: str) -> str:
     """Remove invisible characters from text.
 
+    The invisible characters are defined in the constant `INVISIBLE_CHARACTERS`.
+
     Args:
         text: The text from which the invisible characters are to be removed.
 
