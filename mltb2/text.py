@@ -51,6 +51,20 @@ def remove_invisible_characters(text: str) -> str:
     return text.translate(INVISIBLE_CHARACTERS_TRANS)
 
 
+def has_invisible_characters(text: str) -> bool:
+    """Check if text contains invisible characters.
+
+    The invisible characters are defined in the constant `INVISIBLE_CHARACTERS`.
+
+    Args:
+        text: The text to check.
+
+    Returns:
+        ``True`` if the text contains invisible characters, ``False`` otherwise.
+    """
+    return any(char in text for char in INVISIBLE_CHARACTERS)
+
+
 def replace_special_whitespaces(text: str) -> str:
     """Replace special whitespaces with normal whitespaces.
 
@@ -63,3 +77,17 @@ def replace_special_whitespaces(text: str) -> str:
         The cleaned text.
     """
     return text.translate(SPECIAL_WHITESPACES_TRANS)
+
+
+def has_special_whitespaces(text: str) -> bool:
+    """Check if text contains special whitespaces.
+
+    The special whitespaces are defined in the constant `SPECIAL_WHITESPACES`.
+
+    Args:
+        text: The text to check.
+
+    Returns:
+        ``True`` if the text contains special whitespaces, ``False`` otherwise.
+    """
+    return any(char in text for char in SPECIAL_WHITESPACES)
