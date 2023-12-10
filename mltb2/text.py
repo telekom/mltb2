@@ -37,6 +37,7 @@ SPECIAL_WHITESPACES: Final[Tuple[str, ...]] = (
 
 SPECIAL_WHITESPACES_TRANS: Final[Dict[int, str]] = str.maketrans({char: " " for char in SPECIAL_WHITESPACES})
 
+INVISIBLE_CHARACTERS_AND_SPECIAL_WHITESPACES_TRANS = {**SPECIAL_WHITESPACES_TRANS, **INVISIBLE_CHARACTERS_TRANS}
 
 MULTI_SPACE_PATTERN: Pattern = re.compile(r" {2,}")
 
@@ -44,7 +45,7 @@ MULTI_SPACE_PATTERN: Pattern = re.compile(r" {2,}")
 def remove_invisible_characters(text: str) -> str:
     """Remove invisible characters from text.
 
-    The invisible characters are defined in the constant `INVISIBLE_CHARACTERS`.
+    The invisible characters are defined in the constant ``INVISIBLE_CHARACTERS``.
 
     Args:
         text: The text from which the invisible characters are to be removed.
@@ -58,7 +59,7 @@ def remove_invisible_characters(text: str) -> str:
 def has_invisible_characters(text: str) -> bool:
     """Check if text contains invisible characters.
 
-    The invisible characters are defined in the constant `INVISIBLE_CHARACTERS`.
+    The invisible characters are defined in the constant ``INVISIBLE_CHARACTERS``.
 
     Args:
         text: The text to check.
@@ -72,7 +73,7 @@ def has_invisible_characters(text: str) -> bool:
 def replace_special_whitespaces(text: str) -> str:
     """Replace special whitespaces with normal whitespaces.
 
-    The special whitespaces are defined in the constant `SPECIAL_WHITESPACES`.
+    The special whitespaces are defined in the constant ``SPECIAL_WHITESPACES``.
 
     Args:
         text: The text from which the special whitespaces are to be replaced.
@@ -86,7 +87,7 @@ def replace_special_whitespaces(text: str) -> str:
 def has_special_whitespaces(text: str) -> bool:
     """Check if text contains special whitespaces.
 
-    The special whitespaces are defined in the constant `SPECIAL_WHITESPACES`.
+    The special whitespaces are defined in the constant ``SPECIAL_WHITESPACES``.
 
     Args:
         text: The text to check.
@@ -97,13 +98,36 @@ def has_special_whitespaces(text: str) -> bool:
     return any(char in text for char in SPECIAL_WHITESPACES)
 
 
-def remove_multiple_whitespaces(text: str) -> str:
-    """Remove multiple whitespaces from text.
+def replace_multiple_whitespaces(text: str) -> str:
+    """Replace multiple whitespaces with single whitespace.
 
     Args:
-        text: The text from which the multiple whitespaces are to be removed.
+        text: The text from which the multiple whitespaces are to be replaced.
 
     Returns:
         The cleaned text.
     """
     return MULTI_SPACE_PATTERN.sub(" ", text)
+
+
+def clean_all_invisible_chars_and_whitespaces(text: str) -> str:
+    """Clean text form invisible characters and whitespaces.
+
+    - Remove invisible characters from text.
+    - Replace special whitespaces with normal whitespaces.
+    - Replace multiple whitespaces with single whitespace.
+    - Remove leading and trailing whitespaces.
+
+    The invisible characters are defined in the constant ``INVISIBLE_CHARACTERS``.
+    The special whitespaces are defined in the constant ``SPECIAL_WHITESPACES``.
+
+    Args:
+        text: The text to clean.
+
+    Rteturns:
+        The cleaned text.
+    """
+    text = text.translate(INVISIBLE_CHARACTERS_AND_SPECIAL_WHITESPACES_TRANS)
+    text = replace_multiple_whitespaces(text)
+    text = text.strip()
+    return text
