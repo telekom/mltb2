@@ -11,7 +11,63 @@ TODO
 
 ## Fix a Bug or add a new Feature
 
-To fix a bug or add a new feature you have to open a pull request.
+### 1. Fork the Repository
+
+- Go to the GitHub page of this project.
+- Click the **Fork** button at the top right corner to create a copy of the project in your own GitHub account.
+
+### 2. Clone the Forked Repository
+
+- On your GitHub fork, click the **Code** button and copy the URL provided.
+- Open your terminal or command prompt.
+- Use the command `git clone [URL]` to clone the repository to your local machine.
+
+### 3. Create a New Branch
+
+- Navigate to the cloned directory (e.g., `cd project-name`).
+- Create a new branch using `git checkout -b feature-branch-name` or your IDE.
+
+### 4. Make Your Changes
+
+- Open the project in your code editor / IDE.
+- Make your changes to the project.
+- Test your changes to ensure they work correctly.
+
+TODO
+
+### 5. Commit Your Changes
+
+- After making changes, use `git add .` to stage all changes.
+- Alternatively, to stage individual files, use `git add <file1> <file2> ...`.
+- Commit the changes with `git commit -m "Add a meaningful commit message"`.
+- Alternatively, you can of course also use your IDE for these steps.
+
+### 6. Push to Your Fork
+
+- Push the changes to your forked repository with `git push origin feature-branch-name`.
+- Alternatively, you can of course also use your IDE for this.
+
+### 7. Open a Pull Request
+
+- Go to your forked repository on GitHub.
+- Click the **Compare & pull request** button next to your `feature-branch-name`.
+- Add a title and description for your pull request.
+- Click **Create pull request**.
+
+### 8. Await Review
+
+- Once the pull request is open, maintainers of the original repository will review your changes.
+- Engage in any discussions and make necessary changes if requested.
+
+### 9. Merge the Pull Request
+
+- After your pull request is approved, a maintainer will merge it into the project.
+- Congratulations, you’ve successfully contributed to the project!
+
+### Additional Tips:
+
+- Always pull the latest changes from the original repository to your fork before starting a new feature.
+- Adhere to the coding standards and guidelines of the project.
 
 TODO
 
