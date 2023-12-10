@@ -3,7 +3,7 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""Hugging Face Transformers and SoMaJo specific functionality.
+"""Hugging Face Transformers and SoMaJo specific module.
 
 This module is based on
 `Hugging Face Transformers <https://huggingface.co/docs/transformers/index>`_ and

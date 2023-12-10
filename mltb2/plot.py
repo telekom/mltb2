@@ -2,7 +2,7 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""A collection of plot tools.
+"""Plot tools module.
 
 This module is based on `Matplotlib <https://matplotlib.org/>`_.
 Use pip to install the necessary dependencies for this module:
