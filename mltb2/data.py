@@ -28,8 +28,7 @@ def _load_colon_data() -> pd.DataFrame:
     """Load colon data (not the labels).
 
     The data is loaded and parsed from the internet.
-    Also see `colon tissues probed by oligonucleotide arrays
-    <http://genomics-pubs.princeton.edu/oncology/affydata/index.html>`_.
+    Also see `<http://genomics-pubs.princeton.edu/oncology/affydata/index.html>`_.
 
     Returns:
         data as pandas DataFrame
@@ -60,8 +59,7 @@ def _load_colon_label() -> pd.Series:
     """Load colon label (not the data).
 
     The data is loaded and parsed from the internet.
-    Also see `colon tissues probed by oligonucleotide arrays
-    <http://genomics-pubs.princeton.edu/oncology/affydata/index.html>`_.
+    Also see `<http://genomics-pubs.princeton.edu/oncology/affydata/index.html>`_.
 
     Returns:
         labels as pandas Series
@@ -96,8 +94,7 @@ def load_colon() -> Tuple[pd.Series, pd.DataFrame]:
     """Load colon data.
 
     The data is loaded and parsed from the internet.
-    Also see `colon tissues probed by oligonucleotide arrays
-    <http://genomics-pubs.princeton.edu/oncology/affydata/index.html>`_.
+    Also see `<http://genomics-pubs.princeton.edu/oncology/affydata/index.html>`_.
 
     Returns:
         Tuple containing labels and data.
@@ -119,8 +116,7 @@ def load_colon() -> Tuple[pd.Series, pd.DataFrame]:
 def load_prostate() -> Tuple[pd.Series, pd.DataFrame]:
     """Load prostate data.
 
-    The data is loaded and parsed from `prostate data
-    <https://web.stanford.edu/~hastie/CASI_files/DATA/prostate.html>`_.
+    The data is loaded and parsed from `<https://web.stanford.edu/~hastie/CASI_files/DATA/prostate.html>`_.
 
     Returns:
         Tuple containing labels and data.
@@ -166,8 +162,7 @@ def load_leukemia_big() -> Tuple[pd.Series, pd.DataFrame]:
     """Load leukemia (big) data.
 
     The data is loaded and parsed from the internet.
-    Also see `leukemia data
-    <https://web.stanford.edu/~hastie/CASI_files/DATA/leukemia.html>`_.
+    Also see `<https://web.stanford.edu/~hastie/CASI_files/DATA/leukemia.html>`_.
 
     Returns:
         Tuple containing labels and data.
