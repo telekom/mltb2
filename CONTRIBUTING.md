@@ -9,6 +9,8 @@ TODO
 - Make sure the bug has not already been reported by searching the GitHub Issues.
 - The information you provide should be comprehensive enough to reproduce the problem.
 
+TODO: add https://chat.openai.com/share/a7fa8062-d81a-4518-ac9c-eb58363ce73a
+
 ## Fix a Bug or add a new Feature
 
 ### 1. Fork the Repository
