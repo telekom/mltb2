@@ -57,6 +57,9 @@ TODO
 We recommend to do the setup in a text console and not with a GUI tool.
 This offers better controle and transparency.
 
+We use [Poetry](https://python-poetry.org/docs/) and
+[pyenv](https://github.com/pyenv/pyenv). Not Conda, Anaconda or direct pip.
+
 ### Get Project Source
 
 First you have to clone the project with GIT.
@@ -118,7 +121,7 @@ This command will create a `.python-version` file in the project directory.
 Make sure that you are still in the project directory.
 For example execute: `pyenv local 3.8.17`
 
-### Install Project with Poetry
+### Install the Project with Poetry
 
 Execute `poetry install --all-extras` to install the project.
 This installs all dependencies, optional (extra) dependencies and
