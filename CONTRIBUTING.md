@@ -2,11 +2,6 @@
 
 TODO
 
-- <https://github.com/rails/rails/blob/main/CONTRIBUTING.md>
-- <https://github.com/opengovernment/opengovernment/blob/master/CONTRIBUTING.md>
-- <https://opensource.guide/starting-a-project/>
-- <https://skills.github.com/>
-
 ## Report a Bug or Issue
 
 - We use GitHub issues to track bugs and feature requests.
@@ -14,11 +9,9 @@ TODO
 - Make sure the bug has not already been reported by searching the GitHub Issues.
 - The information you provide should be comprehensive enough to reproduce the problem.
 
-## Fix a Bug
+## Fix a Bug or add a new Feature
 
-TODO
-
-## Add a new Feature
+To fix a bug or add a new feature you have to open a pull request.
 
 TODO
 
