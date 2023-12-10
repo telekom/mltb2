@@ -52,6 +52,8 @@ This offers better controle and transparency.
 ### Get Project Source
 
 First you have to clone the project with GIT.
+If you want to make a pull request, you must clone your previously forked project and
+not the original project.
 After the project has been cloned, use `cd` to change into the project directory.
 
 ### Install Poetry
