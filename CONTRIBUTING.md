@@ -114,14 +114,14 @@ This offers better controle and transparency.
 We use [Poetry](https://python-poetry.org/docs/) and
 [pyenv](https://github.com/pyenv/pyenv). Not Conda, Anaconda or direct pip.
 
-### Get Project Source
+### 1. Get Project Source
 
 First you have to clone the project with GIT.
 If you want to make a pull request, you must clone your previously forked project and
 not the original project.
 After the project has been cloned, use `cd` to change into the project directory.
 
-### Install Poetry
+### 2. Install Poetry
 
 We use [Poetry](https://python-poetry.org/docs/) for dependency management and packaging in this project.
 The next step is the [installation of Poetry](https://python-poetry.org/docs/#installation),
@@ -129,7 +129,7 @@ if you do not already have it.
 Poetry offers different installation options. We recommend the option "with the official installer".
 But it does not matter. It's your choice.
 
-### Configure Poetry
+### 3. Configure Poetry
 
 We suggest the following two config options. These are not mandatory but useful.
 
@@ -156,7 +156,7 @@ We suggest to do this setting as global.
 - global setting: `poetry config virtualenvs.options.always-copy true`
 - locale setting: `poetry config virtualenvs.options.always-copy true --local` - this will create or change the `poetry.toml` file
 
-### Set the Python Version (pyenv)
+### 4. Set the Python Version (pyenv)
 
 We recommend [pyenv](https://github.com/pyenv/pyenv) to install and manage different Python versions.
 First [install pyenv](https://github.com/pyenv/pyenv#installation) if you do not already have it.
@@ -175,7 +175,7 @@ This command will create a `.python-version` file in the project directory.
 Make sure that you are still in the project directory.
 For example execute: `pyenv local 3.8.17`
 
-### Install the Project with Poetry
+### 5. Install the Project with Poetry
 
 Execute `poetry install --all-extras` to install the project.
 This installs all dependencies, optional (extra) dependencies and
