@@ -1,6 +1,6 @@
 # How to contribute
 
-xyz
+TODO
 
 - <https://github.com/rails/rails/blob/main/CONTRIBUTING.md>
 - <https://github.com/opengovernment/opengovernment/blob/master/CONTRIBUTING.md>
@@ -16,13 +16,15 @@ xyz
 
 ## Fix a Bug
 
-xyz
+TODO
 
 ## Add a new Feature
 
-xyz
+TODO
 
 ## Manage your Pull Request
+
+TODO
 
 - a new pull request should have the prefix `[WIP]` in its title: this indicates that you are still working on the PR
 
@@ -45,7 +47,9 @@ or execute the individual commands that can be found in `Makefile`.
 
 ## Code Style Guidelines
 
-xyz - <https://github.com/telekom/style-doc/blob/main/CONTRIBUTING.md#style-guidelines>
+TODO
+
+- <https://github.com/telekom/style-doc/blob/main/CONTRIBUTING.md#style-guidelines>
 
 ## Project Setup
 
