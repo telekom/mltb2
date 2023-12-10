@@ -10,6 +10,7 @@ from mltb2.text import (
     has_invisible_characters,
     has_special_whitespaces,
     remove_invisible_characters,
+    remove_multiple_whitespaces,
     replace_special_whitespaces,
 )
 
@@ -74,3 +75,27 @@ def test_has_special_whitespaces_false():
     text = "Hello you!"
     result = has_special_whitespaces(text)
     assert not result
+
+
+def test_remove_multiple_whitespaces():
+    text = "Hello  World  !"
+    result = remove_multiple_whitespaces(text)
+    assert result == "Hello World !"
+
+
+def test_remove_multiple_whitespaces_empty():
+    text = ""
+    result = remove_multiple_whitespaces(text)
+    assert result == ""
+
+
+def test_remove_multiple_whitespaces_empty_result():
+    text = "  "
+    result = remove_multiple_whitespaces(text)
+    assert result == " "
+
+
+def test_remove_multiple_whitespaces_one_space():
+    text = " "
+    result = remove_multiple_whitespaces(text)
+    assert result == " "

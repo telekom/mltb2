@@ -4,7 +4,8 @@
 
 """Text specific module."""
 
-from typing import Dict, Final, Tuple
+import re
+from typing import Dict, Final, Pattern, Tuple
 
 INVISIBLE_CHARACTERS: Final[Tuple[str, ...]] = (
     "\u200b",  # Zero Width Space (ZWSP) https://www.compart.com/en/unicode/U+200b
@@ -35,6 +36,9 @@ SPECIAL_WHITESPACES: Final[Tuple[str, ...]] = (
 )
 
 SPECIAL_WHITESPACES_TRANS: Final[Dict[int, str]] = str.maketrans({char: " " for char in SPECIAL_WHITESPACES})
+
+
+MULTI_SPACE_PATTERN: Pattern = re.compile(r" {2,}")
 
 
 def remove_invisible_characters(text: str) -> str:
@@ -91,3 +95,15 @@ def has_special_whitespaces(text: str) -> bool:
         ``True`` if the text contains special whitespaces, ``False`` otherwise.
     """
     return any(char in text for char in SPECIAL_WHITESPACES)
+
+
+def remove_multiple_whitespaces(text: str) -> str:
+    """Remove multiple whitespaces from text.
+
+    Args:
+        text: The text from which the multiple whitespaces are to be removed.
+
+    Returns:
+        The cleaned text.
+    """
+    return MULTI_SPACE_PATTERN.sub(" ", text)
