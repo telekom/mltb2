@@ -48,9 +48,14 @@ or execute the individual commands that can be found in `Makefile`.
 
 ## Code Style Guidelines
 
-TODO
-
-- <https://github.com/telekom/style-doc/blob/main/CONTRIBUTING.md#style-guidelines>
+- code must be compatible with all Python versions configured in `pyproject.toml` (see `python =`)
+- max line length is 119
+- Docstrings
+  - use [Google docstring format](https://github.com/google/styleguide/blob/gh-pages/pyguide.md#38-comments-and-docstrings)
+  - this is integrated with [Sphinx](https://www.sphinx-doc.org/) using the
+    [napoleon extension](https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html)
+- versioning: use [Semantic Versioning Specification](https://semver.org/) and
+  [PEP 440 (Version Identification and Dependency Specification)](https://www.python.org/dev/peps/pep-0440/)
 
 ## Project Setup
 
