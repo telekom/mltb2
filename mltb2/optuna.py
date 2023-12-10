@@ -2,7 +2,7 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""Optuna specific functionality.
+"""Optuna specific module.
 
 This module is based on `Optuna <https://optuna.readthedocs.io/en/stable/>`_.
 Use pip to install the necessary dependencies for this module:

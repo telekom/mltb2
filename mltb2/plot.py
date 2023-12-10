@@ -2,7 +2,7 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""A collection of plot tools.
+"""Plot tools module.
 
 This module is based on `Matplotlib <https://matplotlib.org/>`_.
 Use pip to install the necessary dependencies for this module:
@@ -78,10 +78,26 @@ def twin_axes_timeseries_plot(
     fig.tight_layout()
 
 
-def boxplot(values, labels=None, title=None, xlabel=None, ylabel=None, vert=True):
+def boxplot(
+    values,
+    labels=None,
+    title: Optional[str] = None,
+    xlabel: Optional[str] = None,
+    ylabel: Optional[str] = None,
+    vert: bool = True,
+):
     """Prints one or more boxplots in a single diagram.
 
     This function does not call `matplotlib.pyplot.plot()`.
+
+    Args:
+        values: Values for the boxplot(s).
+        labels: Labels for the boxplot(s).
+        title: Title of the plot.
+        xlabel: Label for the x-axis.
+        ylabel: Label for the y-axis.
+        vert: If ``True`` (default), makes the boxes vertical.
+            If ``False``, makes horizontal boxes.
     """
     _, ax = plt.subplots()
 
@@ -106,10 +122,24 @@ def boxplot(values, labels=None, title=None, xlabel=None, ylabel=None, vert=True
     plt.xticks(rotation=90)
 
 
-def boxplot_dict(values_dict, title=None, xlabel=None, ylabel=None, vert=True):
+def boxplot_dict(
+    values_dict,
+    title: Optional[str] = None,
+    xlabel: Optional[str] = None,
+    ylabel: Optional[str] = None,
+    vert: bool = True,
+):
     """Create boxplot form dictionary.
 
     This function does not call `matplotlib.pyplot.plot()`.
+
+    Args:
+        values_dict: Dictionary with values for the boxplot(s).
+        title: Title of the plot.
+        xlabel: Label for the x-axis.
+        ylabel: Label for the y-axis.
+        vert: If ``True`` (default), makes the boxes vertical.
+            If ``False``, makes horizontal boxes.
     """
     values = []
     labels = []

@@ -2,7 +2,7 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""File utils.
+"""File utils module.
 
 Use pip to install the necessary dependencies for this module:
 ``pip install mltb2[files]``
@@ -20,6 +20,10 @@ from sklearn.datasets._base import RemoteFileMetadata, _fetch_remote
 def get_and_create_mltb2_data_dir(mltb2_base_data_dir: Optional[str] = None) -> str:
     """Return and create mltb data dir.
 
+    Args:
+        mltb2_base_data_dir: The base data directory. If ``None`` the default
+            user data directory is used.
+
     Returns:
         The directory path.
     """
@@ -32,7 +36,7 @@ def get_and_create_mltb2_data_dir(mltb2_base_data_dir: Optional[str] = None) -> 
     return mltb2_data_dir
 
 
-def fetch_remote_file(dirname, filename, url, sha256_checksum) -> str:
+def fetch_remote_file(dirname, filename, url: str, sha256_checksum: str) -> str:
     """Fetch a file from a remote URL.
 
     Args:
