@@ -7,9 +7,11 @@ import pytest
 from mltb2.text import (
     INVISIBLE_CHARACTERS,
     SPECIAL_WHITESPACES,
+    clean_all_invisible_chars_and_whitespaces,
     has_invisible_characters,
     has_special_whitespaces,
     remove_invisible_characters,
+    replace_multiple_whitespaces,
     replace_special_whitespaces,
 )
 
@@ -74,3 +76,39 @@ def test_has_special_whitespaces_false():
     text = "Hello you!"
     result = has_special_whitespaces(text)
     assert not result
+
+
+def test_replace_multiple_whitespaces():
+    text = "Hello  World  !"
+    result = replace_multiple_whitespaces(text)
+    assert result == "Hello World !"
+
+
+def test_replace_multiple_whitespaces_empty():
+    text = ""
+    result = replace_multiple_whitespaces(text)
+    assert result == ""
+
+
+def test_replace_multiple_whitespaces_empty_result():
+    text = "  "
+    result = replace_multiple_whitespaces(text)
+    assert result == " "
+
+
+def test_replace_multiple_whitespaces_one_space():
+    text = " "
+    result = replace_multiple_whitespaces(text)
+    assert result == " "
+
+
+def test_clean_all_invisible_chars_and_whitespaces():
+    text = " Hello\u200bWorld\u00ad! How\u2007  are you? "
+    result = clean_all_invisible_chars_and_whitespaces(text)
+    assert result == "HelloWorld! How are you?"
+
+
+def test_clean_all_invisible_chars_and_whitespaces_empty_result():
+    text = " \u200b\u00ad\u2007   "
+    result = clean_all_invisible_chars_and_whitespaces(text)
+    assert result == ""
