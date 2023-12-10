@@ -7,7 +7,7 @@ TODO
 - <https://opensource.guide/starting-a-project/>
 - <https://skills.github.com/>
 
-## Report a Bug
+## Report a Bug or Issue
 
 - We use GitHub issues to track bugs and feature requests.
 - Please provide as much context as possible when you report a bug and open an issue.
@@ -26,7 +26,8 @@ TODO
 
 TODO
 
-- a new pull request should have the prefix `[WIP]` in its title: this indicates that you are still working on the PR
+- a new pull request should have the prefix `[WIP]` (work in progress) in its title:
+  this indicates that you are still working on the PR
 
 ## Testing, Linting, and Formatting
 
