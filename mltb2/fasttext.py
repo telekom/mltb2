@@ -30,7 +30,11 @@ class FastTextLanguageIdentification:
 
     @staticmethod
     def get_model_path_and_download() -> str:
-        """Get the model path and download it if needed."""
+        """Get the model path and download it if needed.
+
+        Returns:
+            The full path to the downloaded model file.
+        """
         model_filename = "lid.176.bin"
         mltb2_data_home = get_and_create_mltb2_data_dir()
         model_full_path = os.path.join(mltb2_data_home, model_filename)
@@ -47,7 +51,7 @@ class FastTextLanguageIdentification:
 
         return model_full_path
 
-    def __call__(self, text, num_lang: int = 10):
+    def __call__(self, text: str, num_lang: int = 10):
         """Identify languages of a given text.
 
         Args:
