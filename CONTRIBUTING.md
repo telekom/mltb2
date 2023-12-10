@@ -9,7 +9,10 @@ xyz
 
 ## Report a Bug
 
-xyz
+- We use GitHub issues to track bugs and feature requests.
+- Please provide as much context as possible when you report a bug and open an issue.
+- Make sure the bug has not already been reported by searching the GitHub Issues.
+- The information you provide should be comprehensive enough to reproduce the problem.
 
 ## Fix a Bug
 
