@@ -82,7 +82,7 @@
 <span class="c1"># This software is distributed under the terms of the MIT license</span>
 <span class="c1"># which is available at https://opensource.org/licenses/MIT</span>
 
-<span class="sd">&quot;&quot;&quot;A collection of plot tools.</span>
+<span class="sd">&quot;&quot;&quot;Plot tools module.</span>
 
 <span class="sd">This module is based on `Matplotlib &lt;https://matplotlib.org/&gt;`_.</span>
 <span class="sd">Use pip to install the necessary dependencies for this module:</span>
@@ -158,10 +158,26 @@
     <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="boxplot"><a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.boxplot">[docs]</a><span class="k">def</span> <span class="nf">boxplot</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="boxplot"><a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.boxplot">[docs]</a><span class="k">def</span> <span class="nf">boxplot</span><span class="p">(</span>
+    <span class="n">values</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">xlabel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">vert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prints one or more boxplots in a single diagram.</span>
 
 <span class="sd">    This function does not call `matplotlib.pyplot.plot()`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        values: Values for the boxplot(s).</span>
+<span class="sd">        labels: Labels for the boxplot(s).</span>
+<span class="sd">        title: Title of the plot.</span>
+<span class="sd">        xlabel: Label for the x-axis.</span>
+<span class="sd">        ylabel: Label for the y-axis.</span>
+<span class="sd">        vert: If ``True`` (default), makes the boxes vertical.</span>
+<span class="sd">            If ``False``, makes horizontal boxes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 
@@ -186,10 +202,24 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="boxplot_dict"><a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.boxplot_dict">[docs]</a><span class="k">def</span> <span class="nf">boxplot_dict</span><span class="p">(</span><span class="n">values_dict</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="boxplot_dict"><a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.boxplot_dict">[docs]</a><span class="k">def</span> <span class="nf">boxplot_dict</span><span class="p">(</span>
+    <span class="n">values_dict</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">xlabel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">vert</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create boxplot form dictionary.</span>
 
 <span class="sd">    This function does not call `matplotlib.pyplot.plot()`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        values_dict: Dictionary with values for the boxplot(s).</span>
+<span class="sd">        title: Title of the plot.</span>
+<span class="sd">        xlabel: Label for the x-axis.</span>
+<span class="sd">        ylabel: Label for the y-axis.</span>
+<span class="sd">        vert: If ``True`` (default), makes the boxes vertical.</span>
+<span class="sd">            If ``False``, makes horizontal boxes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>

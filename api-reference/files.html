@@ -100,20 +100,20 @@
              
   <section id="module-mltb2.files">
 <span id="files"></span><span id="files-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.files" title="mltb2.files"><code class="xref py py-mod docutils literal notranslate"><span class="pre">files</span></code></a><a class="headerlink" href="#module-mltb2.files" title="Permalink to this heading"></a></h1>
-<p>File utils.</p>
+<p>File utils module.</p>
 <p>Use pip to install the necessary dependencies for this module:
 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">mltb2[files]</span></code></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="mltb2.files.fetch_remote_file">
-<span class="sig-prename descclassname"><span class="pre">mltb2.files.</span></span><span class="sig-name descname"><span class="pre">fetch_remote_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sha256_checksum</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/files.html#fetch_remote_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.files.fetch_remote_file" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">mltb2.files.</span></span><span class="sig-name descname"><span class="pre">fetch_remote_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sha256_checksum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/files.html#fetch_remote_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.files.fetch_remote_file" title="Permalink to this definition"></a></dt>
 <dd><p>Fetch a file from a remote URL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dirname</strong> – the directory where the file will be saved</p></li>
 <li><p><strong>filename</strong> – the filename under which the file will be saved</p></li>
-<li><p><strong>url</strong> – the url of the file</p></li>
-<li><p><strong>sha256_checksum</strong> – the sha256 checksum of the file</p></li>
+<li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the url of the file</p></li>
+<li><p><strong>sha256_checksum</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – the sha256 checksum of the file</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -133,11 +133,12 @@
 <span class="sig-prename descclassname"><span class="pre">mltb2.files.</span></span><span class="sig-name descname"><span class="pre">get_and_create_mltb2_data_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mltb2_base_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/files.html#get_and_create_mltb2_data_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.files.get_and_create_mltb2_data_dir" title="Permalink to this definition"></a></dt>
 <dd><p>Return and create mltb data dir.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The directory path.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mltb2_base_data_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>None</em>) – The base data directory. If <code class="docutils literal notranslate"><span class="pre">None</span></code> the default
+user data directory is used.</p>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>mltb2_base_data_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>None</em>) – </p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The directory path.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>

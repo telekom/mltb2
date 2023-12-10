@@ -83,7 +83,7 @@
 <span class="c1"># This software is distributed under the terms of the MIT license</span>
 <span class="c1"># which is available at https://opensource.org/licenses/MIT</span>
 
-<span class="sd">&quot;&quot;&quot;Markdown specific functionality.</span>
+<span class="sd">&quot;&quot;&quot;Markdown specific module.</span>
 
 <span class="sd">Use pip to install the necessary dependencies for this module:</span>
 <span class="sd">``pip install mltb2[md]``</span>
@@ -101,7 +101,14 @@
 
 
 <div class="viewcode-block" id="_chunk_md_by_headline"><a class="viewcode-back" href="../../api-reference/md.html#mltb2.md._chunk_md_by_headline">[docs]</a><span class="k">def</span> <span class="nf">_chunk_md_by_headline</span><span class="p">(</span><span class="n">md_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Chunk Markdown by headlines.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Chunk Markdown by headlines.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        md_text: The Markdown text to be chunked.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The list of Markdown chunks.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">positions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">_HEADLINE_REGEX</span><span class="p">,</span> <span class="n">md_text</span><span class="p">)]</span>
 
     <span class="c1"># extend positions</span>
@@ -114,14 +121,24 @@
 
 
 <div class="viewcode-block" id="chunk_md"><a class="viewcode-back" href="../../api-reference/md.html#mltb2.md.chunk_md">[docs]</a><span class="k">def</span> <span class="nf">chunk_md</span><span class="p">(</span><span class="n">md_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Chunk Markdown by headlines and merge isolated headlines.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Chunk Markdown by headlines and merge isolated headlines.</span>
+
+<span class="sd">    Merges isolated headlines with their corresponding subsequent paragraphs.</span>
+<span class="sd">    Headings isolated at the end of ``md_text`` (headings without content) are removed in this process.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        md_text: The Markdown text to be chunked.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The list of Markdown chunks.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">md_chunks</span> <span class="o">=</span> <span class="n">_chunk_md_by_headline</span><span class="p">(</span><span class="n">md_text</span><span class="p">)</span>
 
     <span class="n">merged_chunks</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">temp_merged_chunk</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">md_chunks</span><span class="p">:</span>
         <span class="n">temp_merged_chunk</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="p">:</span>  <span class="c1"># content found</span>
+        <span class="k">if</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="p">:</span>  <span class="c1"># content chunk found</span>
             <span class="n">joined_content</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">temp_merged_chunk</span><span class="p">)</span>
             <span class="n">merged_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">joined_content</span><span class="p">)</span>
             <span class="n">temp_merged_chunk</span> <span class="o">=</span> <span class="p">[]</span>

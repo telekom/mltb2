@@ -82,7 +82,7 @@
 <span class="c1"># This software is distributed under the terms of the MIT license</span>
 <span class="c1"># which is available at https://opensource.org/licenses/MIT</span>
 
-<span class="sd">&quot;&quot;&quot;fastText specific functionality.</span>
+<span class="sd">&quot;&quot;&quot;fastText specific module.</span>
 
 <span class="sd">This module is based on `fastText &lt;https://fasttext.cc/docs/en/support.html&gt;`_.</span>
 <span class="sd">Use pip to install the necessary dependencies for this module:</span>
@@ -110,7 +110,11 @@
 
 <div class="viewcode-block" id="FastTextLanguageIdentification.get_model_path_and_download"><a class="viewcode-back" href="../../api-reference/fasttext.html#mltb2.fasttext.FastTextLanguageIdentification.get_model_path_and_download">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_model_path_and_download</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the model path and download it if needed.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the model path and download it if needed.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The full path to the downloaded model file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">model_filename</span> <span class="o">=</span> <span class="s2">&quot;lid.176.bin&quot;</span>
         <span class="n">mltb2_data_home</span> <span class="o">=</span> <span class="n">get_and_create_mltb2_data_dir</span><span class="p">()</span>
         <span class="n">model_full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mltb2_data_home</span><span class="p">,</span> <span class="n">model_filename</span><span class="p">)</span>
@@ -127,7 +131,7 @@
 
         <span class="k">return</span> <span class="n">model_full_path</span></div>
 
-<div class="viewcode-block" id="FastTextLanguageIdentification.__call__"><a class="viewcode-back" href="../../api-reference/fasttext.html#mltb2.fasttext.FastTextLanguageIdentification.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">num_lang</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+<div class="viewcode-block" id="FastTextLanguageIdentification.__call__"><a class="viewcode-back" href="../../api-reference/fasttext.html#mltb2.fasttext.FastTextLanguageIdentification.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num_lang</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Identify languages of a given text.</span>
 
 <span class="sd">        Args:</span>

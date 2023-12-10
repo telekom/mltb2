@@ -103,7 +103,7 @@
              
   <section id="module-mltb2.data">
 <span id="data"></span><span id="data-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.data" title="mltb2.data"><code class="xref py py-mod docutils literal notranslate"><span class="pre">data</span></code></a><a class="headerlink" href="#module-mltb2.data" title="Permalink to this heading"></a></h1>
-<p>Data loading functionality.</p>
+<p>Data loading module.</p>
 <p>Use pip to install the necessary dependencies for this module:
 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">mltb2[data]</span></code></p>
 <dl class="py function">
@@ -111,7 +111,7 @@
 <span class="sig-prename descclassname"><span class="pre">mltb2.data.</span></span><span class="sig-name descname"><span class="pre">_load_colon_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/mltb2/data.html#_load_colon_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.data._load_colon_data" title="Permalink to this definition"></a></dt>
 <dd><p>Load colon data (not the labels).</p>
 <p>The data is loaded and parsed from the internet.
-Also see <a class="reference external" href="http://genomics-pubs.princeton.edu/oncology/affydata/index.html">colon tissues probed by oligonucleotide arrays</a>.</p>
+Also see <a class="reference external" href="http://genomics-pubs.princeton.edu/oncology/affydata/index.html">http://genomics-pubs.princeton.edu/oncology/affydata/index.html</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>data as pandas DataFrame</p>
@@ -127,7 +127,7 @@ Also see <a class="reference external" href="http://genomics-pubs.princeton.edu/
 <span class="sig-prename descclassname"><span class="pre">mltb2.data.</span></span><span class="sig-name descname"><span class="pre">_load_colon_label</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="../_modules/mltb2/data.html#_load_colon_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.data._load_colon_label" title="Permalink to this definition"></a></dt>
 <dd><p>Load colon label (not the data).</p>
 <p>The data is loaded and parsed from the internet.
-Also see <a class="reference external" href="http://genomics-pubs.princeton.edu/oncology/affydata/index.html">colon tissues probed by oligonucleotide arrays</a>.</p>
+Also see <a class="reference external" href="http://genomics-pubs.princeton.edu/oncology/affydata/index.html">http://genomics-pubs.princeton.edu/oncology/affydata/index.html</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>labels as pandas Series</p>
@@ -143,7 +143,7 @@ Also see <a class="reference external" href="http://genomics-pubs.princeton.edu/
 <span class="sig-prename descclassname"><span class="pre">mltb2.data.</span></span><span class="sig-name descname"><span class="pre">load_colon</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Series</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/data.html#load_colon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.data.load_colon" title="Permalink to this definition"></a></dt>
 <dd><p>Load colon data.</p>
 <p>The data is loaded and parsed from the internet.
-Also see <a class="reference external" href="http://genomics-pubs.princeton.edu/oncology/affydata/index.html">colon tissues probed by oligonucleotide arrays</a>.</p>
+Also see <a class="reference external" href="http://genomics-pubs.princeton.edu/oncology/affydata/index.html">http://genomics-pubs.princeton.edu/oncology/affydata/index.html</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tuple containing labels and data.</p>
@@ -159,7 +159,7 @@ Also see <a class="reference external" href="http://genomics-pubs.princeton.edu/
 <span class="sig-prename descclassname"><span class="pre">mltb2.data.</span></span><span class="sig-name descname"><span class="pre">load_leukemia_big</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Series</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/data.html#load_leukemia_big"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.data.load_leukemia_big" title="Permalink to this definition"></a></dt>
 <dd><p>Load leukemia (big) data.</p>
 <p>The data is loaded and parsed from the internet.
-Also see <a class="reference external" href="https://web.stanford.edu/~hastie/CASI_files/DATA/leukemia.html">leukemia data</a>.</p>
+Also see <a class="reference external" href="https://web.stanford.edu/~hastie/CASI_files/DATA/leukemia.html">https://web.stanford.edu/~hastie/CASI_files/DATA/leukemia.html</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tuple containing labels and data.</p>
@@ -174,7 +174,7 @@ Also see <a class="reference external" href="https://web.stanford.edu/~hastie/CA
 <dt class="sig sig-object py" id="mltb2.data.load_prostate">
 <span class="sig-prename descclassname"><span class="pre">mltb2.data.</span></span><span class="sig-name descname"><span class="pre">load_prostate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.12)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Series</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/data.html#load_prostate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.data.load_prostate" title="Permalink to this definition"></a></dt>
 <dd><p>Load prostate data.</p>
-<p>The data is loaded and parsed from <a class="reference external" href="https://web.stanford.edu/~hastie/CASI_files/DATA/prostate.html">prostate data</a>.</p>
+<p>The data is loaded and parsed from <a class="reference external" href="https://web.stanford.edu/~hastie/CASI_files/DATA/prostate.html">https://web.stanford.edu/~hastie/CASI_files/DATA/prostate.html</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tuple containing labels and data.</p>
