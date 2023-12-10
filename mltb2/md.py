@@ -21,7 +21,14 @@ _HEADLINE_REGEX: Final = re.compile(r"^#+ .*", flags=re.MULTILINE)
 
 
 def _chunk_md_by_headline(md_text: str) -> List[str]:
-    """Chunk Markdown by headlines."""
+    """Chunk Markdown by headlines.
+
+    Args:
+        md_text: The Markdown text to be chunked.
+
+    Returns:
+        The list of Markdown chunks.
+    """
     positions: List[int] = [m.start() for m in re.finditer(_HEADLINE_REGEX, md_text)]
 
     # extend positions
@@ -34,14 +41,24 @@ def _chunk_md_by_headline(md_text: str) -> List[str]:
 
 
 def chunk_md(md_text: str) -> List[str]:
-    """Chunk Markdown by headlines and merge isolated headlines."""
+    """Chunk Markdown by headlines and merge isolated headlines.
+
+    Merges isolated headlines with their corresponding subsequent paragraphs.
+    Headings isolated at the end of ``md_text`` (headings without content) are removed in this process.
+
+    Args:
+        md_text: The Markdown text to be chunked.
+
+    Returns:
+        The list of Markdown chunks.
+    """
     md_chunks = _chunk_md_by_headline(md_text)
 
     merged_chunks = []
     temp_merged_chunk = []
     for chunk in md_chunks:
         temp_merged_chunk.append(chunk)
-        if "\n" in chunk:  # content found
+        if "\n" in chunk:  # content chunk found
             joined_content = "\n\n".join(temp_merged_chunk)
             merged_chunks.append(joined_content)
             temp_merged_chunk = []
