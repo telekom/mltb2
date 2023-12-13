@@ -8,14 +8,14 @@ from mltb2.data import _load_colon_data, _load_colon_label, load_colon, load_leu
 
 
 def test_load_colon_data():
-    result = _load_colon_data()
+    result = _load_colon_data()  # only load data not labels
     assert result is not None
     assert isinstance(result, pd.DataFrame)
     assert result.shape == (62, 2000)
 
 
 def test_load_colon_label():
-    result = _load_colon_label()
+    result = _load_colon_label()  # only load labels not data
     assert result is not None
     assert isinstance(result, pd.Series)
     assert len(result) == 62
