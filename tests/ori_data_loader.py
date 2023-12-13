@@ -1,9 +1,11 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2021 Sigrun May, Helmholtz-Zentrum für Infektionsforschung GmbH (HZI)
 # Copyright (c) 2021 Sigrun May, Ostfalia Hochschule für angewandte Wissenschaften
 # Copyright (c) 2020 Philip May
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
+
+# this is the original implementation from
+# https://github.com/sigrun-may/cv-pruner/blob/ac35eba88a824e6bb6a6435cda67224a4db69e65/examples/data_loader.py
 
 """Data loader module."""
 
@@ -26,7 +28,7 @@ def load_colon_data() -> Tuple[pd.Series, pd.DataFrame]:
     """
     html_data = "http://genomics-pubs.princeton.edu/oncology/affydata/I2000.html"
 
-    page = requests.get(html_data)
+    page = requests.get(html_data, timeout=10)
 
     soup = BeautifulSoup(page.content, "html.parser")
     colon_text_data = soup.get_text()
@@ -39,7 +41,7 @@ def load_colon_data() -> Tuple[pd.Series, pd.DataFrame]:
     data = np.array(colon_text_data_lines).T
 
     html_label = "http://genomics-pubs.princeton.edu/oncology/affydata/tissues.html"
-    page = requests.get(html_label)
+    page = requests.get(html_label, timeout=10)
     soup = BeautifulSoup(page.content, "html.parser")
     colon_text_label = soup.get_text()
     colon_text_label = colon_text_label.splitlines()
@@ -50,7 +52,7 @@ def load_colon_data() -> Tuple[pd.Series, pd.DataFrame]:
         try:
             i = int(line)
             label.append(0 if i > 0 else 1)
-        except:  # noqa: E722
+        except:  # noqa: S110, E722
             pass
 
     assert len(label) == 62
