@@ -1,6 +1,7 @@
 # How to contribute
 
-TODO
+This guide explains how you can contribute to this project.
+This can be in the form of a bug report or issue, for example, or as a feature in a pull request.
 
 ## Report a Bug or Issue
 
@@ -8,8 +9,6 @@ TODO
 - Please provide as much context as possible when you report a bug and open an issue.
 - Make sure the bug has not already been reported by searching the GitHub Issues.
 - The information you provide should be comprehensive enough to reproduce the problem.
-
-TODO: add https://chat.openai.com/share/a7fa8062-d81a-4518-ac9c-eb58363ce73a
 
 ## Fix a Bug or add a new Feature
 
