@@ -3,6 +3,14 @@
 This guide explains how you can contribute to this project.
 This can be in the form of a bug report or issue, for example, or as a feature in a pull request.
 
+## Table of Contents
+
+- [Report a Bug or Issue](#report-a-bug-or-issue)
+- [Fix a Bug or add a new Feature](#fix-a-bug-or-add-a-new-feature)
+- [Testing, Linting and Formatting](#testing-linting-and-formatting)
+- [Code Style Guidelines](#code-style-guidelines)
+- [Project Setup](#project-setup)
+
 ## Report a Bug or Issue
 
 - We use GitHub issues to track bugs and feature requests.
