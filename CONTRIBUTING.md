@@ -7,8 +7,8 @@ This can be in the form of a bug report or issue, for example, or as a feature i
 
 - We use GitHub issues to track bugs and feature requests.
 - Please provide as much context as possible when you report a bug and open an issue.
-- Make sure the bug has not already been reported by searching the GitHub Issues.
 - The information you provide should be comprehensive enough to reproduce the problem.
+- Make sure the bug has not already been reported by searching the GitHub Issues.
 
 ## Fix a Bug or add a new Feature
 
@@ -30,11 +30,12 @@ This can be in the form of a bug report or issue, for example, or as a feature i
 
 ### 4. Make Your Changes
 
-- Open the project in your code editor / IDE.
+- Open the project in your code editor or IDE.
 - Make your changes to the project.
 - Test your changes to ensure they work correctly.
-
-TODO
+- Take note of chapter [Testing, Linting and Formatting](#testing-linting-and-formatting).
+  This will avoid CI problems later on.
+- Please adhere to the [Code Style Guidelines](#code-style-guidelines).
 
 ### 5. Commit Your Changes
 
@@ -67,8 +68,8 @@ TODO
 
 ### Additional Tips:
 
-- Always pull the latest changes from the original repository to your fork before starting a new feature.
-- Adhere to the coding standards and guidelines of the project.
+- Always pull the latest changes from the original repository to your fork main branch
+  before starting a new feature.
 
 TODO
 
@@ -79,7 +80,7 @@ TODO
 - a new pull request should have the prefix `[WIP]` (work in progress) in its title:
   this indicates that you are still working on the PR
 
-## Testing, Linting, and Formatting
+## Testing, Linting and Formatting
 
 We use different formatters and linters in this project.
 You can use them to format the code or just to check or test the code.
