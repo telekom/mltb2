@@ -30,6 +30,7 @@ This can be in the form of a bug report or issue, for example, or as a feature i
 
 ### 4. Make Your Changes
 
+- [Set up the project](#project-setup) if you have not already done so.
 - Open the project in your code editor or IDE.
 - Make your changes to the project.
 - Test your changes to ensure they work correctly.
