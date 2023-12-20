@@ -55,7 +55,12 @@ This can be in the form of a bug report or issue, for example, or as a feature i
 - Go to your forked repository on GitHub.
 - Click the **Compare & pull request** button next to your `feature-branch-name`.
 - Add a title and description for your pull request.
+- A new pull request should have the prefix `[WIP]` (work in progress) in its title:
+  this indicates that you are still working on the PR.
 - Click **Create pull request**.
+- Check the results of the CI checks and make corrections if necessary.
+- When the pull request is finished from your point of view, remove the WIP prefix.
+  Then write a short comment that you are finished with the PR and it can be reviewed.
 
 ### 8. Await Review
 
@@ -73,13 +78,6 @@ This can be in the form of a bug report or issue, for example, or as a feature i
   before starting a new feature.
 
 TODO
-
-## Manage your Pull Request
-
-TODO
-
-- a new pull request should have the prefix `[WIP]` (work in progress) in its title:
-  this indicates that you are still working on the PR
 
 ## Testing, Linting and Formatting
 
