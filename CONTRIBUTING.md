@@ -59,7 +59,7 @@ This can be in the form of a bug report or issue, for example, or as a feature i
   this indicates that you are still working on the PR.
 - Click **Create pull request**.
 - Check the results of the CI checks and make corrections if necessary.
-- When the pull request is finished from your point of view, remove the WIP prefix.
+- When the pull request is finished from your point of view, remove the `[WIP]` prefix.
   Then write a short comment that you are finished with the PR and it can be reviewed.
 
 ### 8. Await Review
