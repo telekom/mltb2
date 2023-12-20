@@ -1,7 +1,8 @@
 # How to contribute
 
-This guide explains how you can contribute to this project.
-This can be in the form of a bug report or issue, for example, or as a feature in a pull request.
+This guide explains how you can contribute to this project.\
+This can be in the form of a bug report or issue, for example,\
+or as a feature in a pull request.
 
 ## Table of Contents
 
