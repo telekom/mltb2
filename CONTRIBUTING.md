@@ -76,8 +76,9 @@ This can be in the form of a bug report or issue, for example, or as a feature i
 
 - Always pull the latest changes from the original repository to your fork main branch
   before starting a new feature.
-
-TODO
+- More helpful resources:
+  - GitHub Docs: [Creating a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
+  - GitHub Docs: [Contributing to a project](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project)
 
 ## Testing, Linting and Formatting
 
