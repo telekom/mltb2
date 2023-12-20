@@ -2,11 +2,14 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
+from math import isclose
+
 import pytest
 
 from mltb2.text import (
     INVISIBLE_CHARACTERS,
     SPECIAL_WHITESPACES,
+    TextDistance,
     clean_all_invisible_chars_and_whitespaces,
     has_invisible_characters,
     has_special_whitespaces,
@@ -112,3 +115,19 @@ def test_clean_all_invisible_chars_and_whitespaces_empty_result():
     text = " \u200b\u00ad\u2007   "
     result = clean_all_invisible_chars_and_whitespaces(text)
     assert result == ""
+
+
+def test_text_distance_same():
+    text = "Hello World!"
+    td = TextDistance()
+    td.fit(text)
+    distance = td.cosine_distance(text)
+    assert isclose(distance, 0.0), distance
+
+
+def test_text_distance_orthogonal():
+    text = "ab"
+    td = TextDistance()
+    td.fit(text)
+    distance = td.cosine_distance("xy")
+    assert isclose(distance, 1.0), distance

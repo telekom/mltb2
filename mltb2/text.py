@@ -5,7 +5,12 @@
 """Text specific module."""
 
 import re
-from typing import Dict, Final, Pattern, Tuple
+from collections import Counter
+from dataclasses import dataclass, field
+from typing import Dict, Final, Iterable, Pattern, Tuple, Union
+
+from scipy.spatial.distance import cosine
+from tqdm import tqdm
 
 INVISIBLE_CHARACTERS: Final[Tuple[str, ...]] = (
     "\u200b",  # Zero Width Space (ZWSP) https://www.compart.com/en/unicode/U+200b
@@ -131,3 +136,47 @@ def clean_all_invisible_chars_and_whitespaces(text: str) -> str:
     text = replace_multiple_whitespaces(text)
     text = text.strip()
     return text
+
+
+@dataclass
+class TextDistance:
+    """Calculate the cosine distance between two texts.
+
+    One text is fitted and then the cosine distance to another given text is calculated.
+
+    Args:
+        show_progress_bar: Show a progressbar during processing.
+    """
+
+    char_counter: Counter = field(init=False)
+    show_progress_bar: bool = False
+
+    def __post_init__(self):
+        """Do post init."""
+        self.char_counter = Counter()
+
+    def fit(self, text: Union[str, Iterable[str]]) -> None:
+        """Fit the text.
+
+        Args:
+            text: The text to fit.
+        """
+        if isinstance(text, str):
+            self.char_counter.update(text)
+        else:
+            for t in tqdm(text, disable=not self.show_progress_bar):
+                self.char_counter.update(t)
+
+    def cosine_distance(self, text) -> float:
+        """Calculate the cosine distance between the fitted text and the given text.
+
+        Args:
+            text: The text to calculate the cosine distance to.
+        """
+        all_vector = []
+        text_vector = []
+        text_count = Counter(text)
+        for c in set(self.char_counter).union(text_count):
+            all_vector.append(self.char_counter[c])  # if c is not in Counter, it will return 0
+            text_vector.append(text_count[c])  # if c is not in Counter, it will return 0
+        return cosine(all_vector, text_vector)
