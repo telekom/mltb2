@@ -70,10 +70,11 @@ intersphinx_mapping = {
     # "transformers": ("https://huggingface.co/transformers/", None),
     "optuna": ("https://optuna.readthedocs.io/en/stable/", None),
     "mlflow": ("https://www.mlflow.org/docs/latest/", None),
-    "scipy": ("https://docs.scipy.org/doc/scipy/reference/", None),
+    "scipy": ("https://docs.scipy.org/doc/scipy/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "git": ("https://gitpython.readthedocs.io/en/stable/", None),
     "platformdirs": ("https://platformdirs.readthedocs.io/en/latest/", None),
+    #"matplotlib": ("https://matplotlib.org/stable/", None),
 }
 
 # html_logo = "imgs/xxx.png"
