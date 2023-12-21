@@ -2,11 +2,11 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""SoMaJo specific module.
+"""This module offers `SoMaJo <https://github.com/tsproisl/SoMaJo>`_ specific tools.
 
-This module is based on `SoMaJo <https://github.com/tsproisl/SoMaJo>`_.
-Use pip to install the necessary dependencies for this module:
-``pip install mltb2[somajo]``
+Hint:
+    Use pip to install the necessary dependencies for this module:
+    ``pip install mltb2[somajo]``
 """
 
 

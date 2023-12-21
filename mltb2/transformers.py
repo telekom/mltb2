@@ -2,12 +2,11 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""Hugging Face Transformers specific module.
+"""This module offers `Hugging Face Transformers <https://huggingface.co/docs/transformers/index>`_ specific tools.
 
-This module is based on
-`Hugging Face Transformers <https://huggingface.co/docs/transformers/index>`_.
-Use pip to install the necessary dependencies for this module:
-``pip install mltb2[transformers]``
+Hint:
+    Use pip to install the necessary dependencies for this module:
+    ``pip install mltb2[transformers]``
 """
 
 import os

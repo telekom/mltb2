@@ -1,3 +1,7 @@
+# Copyright (c) 2023 Philip May
+# This software is distributed under the terms of the MIT license
+# which is available at https://opensource.org/licenses/MIT
+
 """Configuration for the Sphinx documentation builder."""
 
 # Configuration file for the Sphinx documentation builder.
@@ -17,11 +21,10 @@
 # sys.path.insert(0, os.path.abspath('.'))
 from typing import List
 
-
 # -- Project information -----------------------------------------------------
 
 project = "MLTB2"
-copyright = "2023, Philip May, Deutsche Telekom AG"
+copyright = "2023, Philip May, Deutsche Telekom AG"  # noqa: A001
 author = "Philip May"
 
 
@@ -70,9 +73,11 @@ intersphinx_mapping = {
     # "transformers": ("https://huggingface.co/transformers/", None),
     "optuna": ("https://optuna.readthedocs.io/en/stable/", None),
     "mlflow": ("https://www.mlflow.org/docs/latest/", None),
-    "scipy": ("https://docs.scipy.org/doc/scipy/reference/", None),
+    "scipy": ("https://docs.scipy.org/doc/scipy/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "git": ("https://gitpython.readthedocs.io/en/stable/", None),
+    "platformdirs": ("https://platformdirs.readthedocs.io/en/latest/", None),
+    # "matplotlib": ("https://matplotlib.org/stable/", None),
 }
 
 # html_logo = "imgs/xxx.png"

@@ -1,21 +1,20 @@
 src := mltb2
-test-src := tests
-other-src := setup.py docs
+other-src := tests docs
 
 check:
-	poetry run black $(src) $(test-src) --check --diff
-	poetry run mypy --install-types --non-interactive $(src) $(test-src)
-	poetry run ruff $(src) $(test-src)
+	poetry run black $(src) $(other-src) --check --diff
+	poetry run mypy --install-types --non-interactive $(src) $(other-src)
+	poetry run ruff $(src) $(other-src)
 	poetry run mdformat --check --number .
 	poetry run make -C docs clean doctest
 
 format:
-	poetry run black $(src) $(test-src)
-	poetry run ruff $(src) $(test-src) --fix
+	poetry run black $(src) $(other-src)
+	poetry run ruff $(src) $(other-src) --fix
 	poetry run mdformat --number .
 
 test:
-	poetry run pytest $(test-src)
+	poetry run pytest $(other-src)
 
 sphinx:
 	poetry run make -C docs clean html

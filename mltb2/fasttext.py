@@ -2,11 +2,11 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""fastText specific module.
+"""This module offers tools for `fastText <https://fasttext.cc/docs/en/support.html>`_.
 
-This module is based on `fastText <https://fasttext.cc/docs/en/support.html>`_.
-Use pip to install the necessary dependencies for this module:
-``pip install mltb2[fasttext]``
+Hint:
+    Use pip to install the necessary dependencies for this module:
+    ``pip install mltb2[fasttext]``
 """
 
 import os

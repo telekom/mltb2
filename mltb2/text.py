@@ -2,7 +2,14 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""Text specific module."""
+"""This module offers text specific tools.
+
+It offers the following functionality:
+
+- detect or clean invisible characters
+- detect or replace special whitespaces
+- remove duplicate whitespaces
+"""
 
 import re
 from typing import Dict, Final, Pattern, Tuple

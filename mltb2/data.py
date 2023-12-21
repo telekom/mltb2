@@ -4,10 +4,21 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""Data loading module.
+"""This module offers tools for loading data.
 
-Use pip to install the necessary dependencies for this module:
-``pip install mltb2[data]``
+The following tabular data sets from the biological and medical domain are supported:
+
+- colon: `<http://genomics-pubs.princeton.edu/oncology/affydata/index.html>`_
+- prostate: `<https://web.stanford.edu/~hastie/CASI_files/DATA/prostate.html>`_
+- leukemia_big: `<https://web.stanford.edu/~hastie/CASI_files/DATA/leukemia.html>`_
+
+After loading the data from the internet it is parsed, converted and
+cached in the mltb2 data directory.
+This data directory is determined by :func:`mltb2.files.get_and_create_mltb2_data_dir`.
+
+Hint:
+    Use pip to install the necessary dependencies for this module:
+    ``pip install mltb2[data]``
 """
 
 import os

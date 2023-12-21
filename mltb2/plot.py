@@ -5,8 +5,10 @@
 """Plot tools module.
 
 This module is based on `Matplotlib <https://matplotlib.org/>`_.
-Use pip to install the necessary dependencies for this module:
-``pip install mltb2[plot]``
+
+Hint:
+    Use pip to install the necessary dependencies for this module:
+    ``pip install mltb2[plot]``
 """
 
 from typing import Optional
@@ -31,7 +33,9 @@ def twin_axes_timeseries_plot(
     """Create twin axes timeseries plot.
 
     Plots two different timeseries curves in one diagram but two different y-axes.
-    This function does not call `matplotlib.pyplot.plot()`.
+
+    Hint:
+        This function does not use `matplotlib.pyplot.plot`.
 
     Args:
         values_1: (``array_like``) Values for the first timeseries curve.
@@ -88,7 +92,8 @@ def boxplot(
 ):
     """Prints one or more boxplots in a single diagram.
 
-    This function does not call `matplotlib.pyplot.plot()`.
+    Hint:
+        This function does not use `matplotlib.pyplot.plot`.
 
     Args:
         values: Values for the boxplot(s).
@@ -131,7 +136,8 @@ def boxplot_dict(
 ):
     """Create boxplot form dictionary.
 
-    This function does not call `matplotlib.pyplot.plot()`.
+    Hint:
+        This function does not use `matplotlib.pyplot.plot`.
 
     Args:
         values_dict: Dictionary with values for the boxplot(s).
@@ -152,7 +158,7 @@ def boxplot_dict(
 
 
 def save_last_figure(filename):
-    """Saves the last plot.
+    """Saves the last plot made by Matplotlib.
 
     For jupyter notebooks this has to be called in the same cell that created the plot.
     """
