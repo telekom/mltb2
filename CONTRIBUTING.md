@@ -44,6 +44,7 @@ This guide explains how you can contribute to this project. This can be in the f
 - Take note of chapter [Testing, Linting and Formatting](#testing-linting-and-formatting).
   This will avoid CI problems later on.
 - Please adhere to the [Code Style Guidelines](#code-style-guidelines).
+- Make sure that the code you add is your own or meets existing copyright guidelines.
 
 ### 5. Commit Your Changes
 
@@ -68,6 +69,8 @@ This guide explains how you can contribute to this project. This can be in the f
 - Check the results of the CI checks and make corrections if necessary.
 - When the pull request is finished from your point of view, remove the `[WIP]` prefix.
   Then write a short comment that you are finished with the PR and it can be reviewed.
+- By submitting your pull request, you place the code you add
+  under the copyright conditions of this project.
 
 ### 8. Await Review
 
@@ -114,6 +117,7 @@ or execute the individual commands that can be found in `Makefile`.
     [napoleon extension](https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html)
 - versioning: use [Semantic Versioning Specification](https://semver.org/) and
   [PEP 440 (Version Identification and Dependency Specification)](https://www.python.org/dev/peps/pep-0440/)
+- All Python modules must have an appropriate copyright header.
 
 ## Project Setup
 
