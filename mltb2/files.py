@@ -4,8 +4,9 @@
 
 """File utils module.
 
-Use pip to install the necessary dependencies for this module:
-``pip install mltb2[files]``
+Hint:
+    Use pip to install the necessary dependencies for this module:
+    ``pip install mltb2[files]``
 """
 
 

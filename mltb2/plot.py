@@ -5,8 +5,10 @@
 """Plot tools module.
 
 This module is based on `Matplotlib <https://matplotlib.org/>`_.
-Use pip to install the necessary dependencies for this module:
-``pip install mltb2[plot]``
+
+Hint:
+    Use pip to install the necessary dependencies for this module:
+    ``pip install mltb2[plot]``
 """
 
 from typing import Optional

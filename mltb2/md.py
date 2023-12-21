@@ -5,8 +5,9 @@
 
 """Markdown specific module.
 
-Use pip to install the necessary dependencies for this module:
-``pip install mltb2[md]``
+Hint:
+    Use pip to install the necessary dependencies for this module:
+    ``pip install mltb2[md]``
 """
 
 import re

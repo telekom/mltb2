@@ -4,8 +4,9 @@
 
 """OpenAI specific module.
 
-Use pip to install the necessary dependencies for this module:
-``pip install mltb2[openai]``
+Hint:
+    Use pip to install the necessary dependencies for this module:
+    ``pip install mltb2[openai]``
 """
 
 
