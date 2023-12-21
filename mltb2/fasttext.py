@@ -2,9 +2,7 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""fastText specific module.
-
-This module is based on `fastText <https://fasttext.cc/docs/en/support.html>`_.
+"""This module offers tools for `fastText <https://fasttext.cc/docs/en/support.html>`_.
 
 Hint:
     Use pip to install the necessary dependencies for this module:
