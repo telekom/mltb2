@@ -84,8 +84,11 @@
 
 <span class="sd">&quot;&quot;&quot;File utils module.</span>
 
-<span class="sd">Use pip to install the necessary dependencies for this module:</span>
-<span class="sd">``pip install mltb2[files]``</span>
+<span class="sd">This module provides utility functions for other modules.</span>
+
+<span class="sd">Hint:</span>
+<span class="sd">    Use pip to install the necessary dependencies for this module:</span>
+<span class="sd">    ``pip install mltb2[files]``</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 
@@ -98,11 +101,15 @@
 
 
 <div class="viewcode-block" id="get_and_create_mltb2_data_dir"><a class="viewcode-back" href="../../api-reference/files.html#mltb2.files.get_and_create_mltb2_data_dir">[docs]</a><span class="k">def</span> <span class="nf">get_and_create_mltb2_data_dir</span><span class="p">(</span><span class="n">mltb2_base_data_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return and create mltb data dir.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return and create a data dir for mltb2.</span>
+
+<span class="sd">    The exact directory is given by the ``mltb2_base_data_dir`` as the base folder</span>
+<span class="sd">    and then the folder ``mltb2`` is appended.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        mltb2_base_data_dir: The base data directory. If ``None`` the default</span>
-<span class="sd">            user data directory is used.</span>
+<span class="sd">            user data directory is used. The default user data directory is</span>
+<span class="sd">            determined by :func:`platformdirs.user_data_dir`.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The directory path.</span>

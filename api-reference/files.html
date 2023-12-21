@@ -101,8 +101,12 @@
   <section id="module-mltb2.files">
 <span id="files"></span><span id="files-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.files" title="mltb2.files"><code class="xref py py-mod docutils literal notranslate"><span class="pre">files</span></code></a><a class="headerlink" href="#module-mltb2.files" title="Permalink to this heading"></a></h1>
 <p>File utils module.</p>
+<p>This module provides utility functions for other modules.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
 <p>Use pip to install the necessary dependencies for this module:
 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">mltb2[files]</span></code></p>
+</div>
 <dl class="py function">
 <dt class="sig sig-object py" id="mltb2.files.fetch_remote_file">
 <span class="sig-prename descclassname"><span class="pre">mltb2.files.</span></span><span class="sig-name descname"><span class="pre">fetch_remote_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sha256_checksum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/files.html#fetch_remote_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.files.fetch_remote_file" title="Permalink to this definition"></a></dt>
@@ -131,11 +135,14 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="mltb2.files.get_and_create_mltb2_data_dir">
 <span class="sig-prename descclassname"><span class="pre">mltb2.files.</span></span><span class="sig-name descname"><span class="pre">get_and_create_mltb2_data_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mltb2_base_data_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/files.html#get_and_create_mltb2_data_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.files.get_and_create_mltb2_data_dir" title="Permalink to this definition"></a></dt>
-<dd><p>Return and create mltb data dir.</p>
+<dd><p>Return and create a data dir for mltb2.</p>
+<p>The exact directory is given by the <code class="docutils literal notranslate"><span class="pre">mltb2_base_data_dir</span></code> as the base folder
+and then the folder <code class="docutils literal notranslate"><span class="pre">mltb2</span></code> is appended.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>mltb2_base_data_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>None</em>) – The base data directory. If <code class="docutils literal notranslate"><span class="pre">None</span></code> the default
-user data directory is used.</p>
+user data directory is used. The default user data directory is
+determined by <a class="reference external" href="https://platformdirs.readthedocs.io/en/latest/api.html#platformdirs.user_data_dir" title="(in platformdirs v4.1.1.dev3+g9f684a6)"><code class="xref py py-func docutils literal notranslate"><span class="pre">platformdirs.user_data_dir()</span></code></a>.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The directory path.</p>
