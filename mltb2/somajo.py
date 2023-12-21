@@ -2,9 +2,7 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""SoMaJo specific module.
-
-This module is based on `SoMaJo <https://github.com/tsproisl/SoMaJo>`_.
+"""This module offers `SoMaJo <https://github.com/tsproisl/SoMaJo>`_ specific tools.
 
 Hint:
     Use pip to install the necessary dependencies for this module:
