@@ -6,7 +6,7 @@
 
 """This module offers tools for loading data.
 
-The following tabular data sets are supported:
+The following tabular data sets from the biological and medical domain are supported:
 
 - colon: `<http://genomics-pubs.princeton.edu/oncology/affydata/index.html>`_
 - prostate: `<https://web.stanford.edu/~hastie/CASI_files/DATA/prostate.html>`_
