@@ -12,7 +12,7 @@ Use pip to install the necessary dependencies for this module:
 
 from abc import ABC
 from dataclasses import dataclass, field
-from typing import Container, Dict, Iterable, List, Optional, Set, Tuple, Union
+from typing import Container, Dict, Iterable, List, Literal, Optional, Set, Tuple, Union
 
 from somajo import SoMaJo
 from tqdm import tqdm
@@ -29,7 +29,7 @@ class SoMaJoBaseClass(ABC):
         This class is an abstract base class. It should not be used directly.
     """
 
-    language: str
+    language: Literal["de_CMC", "en_PTB"]
     somajo: SoMaJo = field(init=False, repr=False)
 
     def __post_init__(self):
