@@ -4,6 +4,8 @@
 
 """File utils module.
 
+This module provides utility functions for other modules.
+
 Hint:
     Use pip to install the necessary dependencies for this module:
     ``pip install mltb2[files]``
