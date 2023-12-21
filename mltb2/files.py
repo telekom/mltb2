@@ -19,11 +19,15 @@ from sklearn.datasets._base import RemoteFileMetadata, _fetch_remote
 
 
 def get_and_create_mltb2_data_dir(mltb2_base_data_dir: Optional[str] = None) -> str:
-    """Return and create mltb data dir.
+    """Return and create a data dir for mltb2.
+
+    The exact directory is given by the ``mltb2_base_data_dir`` as the base folder
+    and then the folder ``mltb2`` is appended.
 
     Args:
         mltb2_base_data_dir: The base data directory. If ``None`` the default
-            user data directory is used.
+            user data directory is used. The default user data directory is
+            determined by :func:`platformdirs.user_data_dir`.
 
     Returns:
         The directory path.

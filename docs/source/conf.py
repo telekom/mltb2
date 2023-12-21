@@ -73,6 +73,7 @@ intersphinx_mapping = {
     "scipy": ("https://docs.scipy.org/doc/scipy/reference/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "git": ("https://gitpython.readthedocs.io/en/stable/", None),
+    "platformdirs": ("https://platformdirs.readthedocs.io/en/latest/", None),
 }
 
 # html_logo = "imgs/xxx.png"
