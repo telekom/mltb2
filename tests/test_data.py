@@ -3,7 +3,6 @@
 # which is available at https://opensource.org/licenses/MIT
 
 import pandas as pd
-import pytest
 from numpy.testing import assert_almost_equal
 
 from mltb2.data import _load_colon_data, _load_colon_label, load_colon, load_leukemia_big, load_prostate
