@@ -7,7 +7,7 @@
 import re
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
-from typing import Dict, Final, Iterable, Optional, Pattern, Tuple, Union
+from typing import Dict, Final, Iterable, Optional, Pattern, Set, Tuple, Union
 
 from scipy.spatial.distance import cityblock
 from tqdm import tqdm
@@ -161,6 +161,7 @@ class TextDistance:
     max_dimensions: int = 100
     _char_counter: Optional[Counter] = field(default_factory=Counter, init=False)
     _char_counter_defaultdict: Optional[defaultdict] = field(default=None, init=False)
+    _counted_char_set: Optional[Set[str]] = field(default=None, init=False)
 
     def fit(self, text: Union[str, Iterable[str]]) -> None:
         """Fit the text.
@@ -181,6 +182,7 @@ class TextDistance:
         if self._char_counter is not None:
             self._char_counter_defaultdict = _normalize_counter_to_defaultdict(self._char_counter, self.max_dimensions)
             self._char_counter = None
+            self._counted_char_set = set(self._char_counter_defaultdict)
 
     def distance(self, text) -> float:
         """Calculate the distance between the fitted text and the given text.
@@ -196,7 +198,7 @@ class TextDistance:
         text_vector = []
         text_count = Counter(text)
         text_count_defaultdict = _normalize_counter_to_defaultdict(text_count, self.max_dimensions)
-        for c in set(self._char_counter_defaultdict).union(text_count_defaultdict):  # type: ignore
+        for c in self._counted_char_set.union(text_count_defaultdict):  # type: ignore
             all_vector.append(
                 self._char_counter_defaultdict[c]  # type: ignore
             )  # if c is not in defaultdict, it will return 0
