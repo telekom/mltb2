@@ -5,11 +5,11 @@
 """Text specific module."""
 
 import re
-from collections import Counter
+from collections import Counter, defaultdict
 from dataclasses import dataclass, field
-from typing import Dict, Final, Iterable, Pattern, Tuple, Union
+from typing import Dict, Final, Iterable, Optional, Pattern, Tuple, Union
 
-from scipy.spatial.distance import cosine
+from scipy.spatial.distance import cityblock
 from tqdm import tqdm
 
 INVISIBLE_CHARACTERS: Final[Tuple[str, ...]] = (
@@ -138,6 +138,14 @@ def clean_all_invisible_chars_and_whitespaces(text: str) -> str:
     return text
 
 
+def _normalize_counter_to_defaultdict(counter: Counter, max_dimensions: int) -> defaultdict:
+    total_count = sum(counter.values())
+    normalized_counter = defaultdict(float)
+    for char, count in counter.most_common(max_dimensions):
+        normalized_counter[char] = count / total_count
+    return normalized_counter
+
+
 @dataclass
 class TextDistance:
     """Calculate the cosine distance between two texts.
@@ -146,14 +154,13 @@ class TextDistance:
 
     Args:
         show_progress_bar: Show a progressbar during processing.
+        max_dimensions: The maximum number of dimensions to use for the distance calculation.
     """
 
-    char_counter: Counter = field(init=False)
     show_progress_bar: bool = False
-
-    def __post_init__(self):
-        """Do post init."""
-        self.char_counter = Counter()
+    max_dimensions: int = 100
+    _char_counter: Optional[Counter] = field(default_factory=Counter, init=False)
+    _char_counter_defaultdict: Optional[defaultdict] = field(default=None, init=False)
 
     def fit(self, text: Union[str, Iterable[str]]) -> None:
         """Fit the text.
@@ -161,22 +168,37 @@ class TextDistance:
         Args:
             text: The text to fit.
         """
+        if self._char_counter is None:
+            raise ValueError("Fit mut not be called after distance calculation!")
+
         if isinstance(text, str):
-            self.char_counter.update(text)
+            self._char_counter.update(text)
         else:
             for t in tqdm(text, disable=not self.show_progress_bar):
-                self.char_counter.update(t)
+                self._char_counter.update(t)
 
-    def cosine_distance(self, text) -> float:
-        """Calculate the cosine distance between the fitted text and the given text.
+    def _normalize_char_counter(self):
+        if self._char_counter is not None:
+            self._char_counter_defaultdict = _normalize_counter_to_defaultdict(self._char_counter, self.max_dimensions)
+            self._char_counter = None
+
+    def distance(self, text) -> float:
+        """Calculate the distance between the fitted text and the given text.
+
+        This implementation uses the Manhattan distance and only the
+        first ``max_dimensions`` of the most commen characters.
 
         Args:
             text: The text to calculate the cosine distance to.
         """
+        self._normalize_char_counter()
         all_vector = []
         text_vector = []
         text_count = Counter(text)
-        for c in set(self.char_counter).union(text_count):
-            all_vector.append(self.char_counter[c])  # if c is not in Counter, it will return 0
-            text_vector.append(text_count[c])  # if c is not in Counter, it will return 0
-        return cosine(all_vector, text_vector)
+        text_count_defaultdict = _normalize_counter_to_defaultdict(text_count, self.max_dimensions)
+        for c in set(self._char_counter_defaultdict).union(text_count_defaultdict):  # type: ignore
+            all_vector.append(
+                self._char_counter_defaultdict[c]  # type: ignore
+            )  # if c is not in defaultdict, it will return 0
+            text_vector.append(text_count_defaultdict[c])  # if c is not in defaultdict, it will return 0
+        return cityblock(all_vector, text_vector)

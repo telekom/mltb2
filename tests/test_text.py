@@ -117,11 +117,11 @@ def test_clean_all_invisible_chars_and_whitespaces_empty_result():
     assert result == ""
 
 
-def test_text_distance_same():
+def test_text_distance_distance_same():
     text = "Hello World!"
     td = TextDistance()
     td.fit(text)
-    distance = td.cosine_distance(text)
+    distance = td.distance(text)
     assert isclose(distance, 0.0), distance
 
 
@@ -129,5 +129,5 @@ def test_text_distance_orthogonal():
     text = "ab"
     td = TextDistance()
     td.fit(text)
-    distance = td.cosine_distance("xy")
-    assert isclose(distance, 1.0), distance
+    distance = td.distance("xy")
+    assert isclose(distance, 2.0), distance
