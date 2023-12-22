@@ -130,4 +130,23 @@ def test_text_distance_orthogonal():
     td = TextDistance()
     td.fit(text)
     distance = td.distance("xy")
+    assert distance > 0.0, distance
     assert isclose(distance, 2.0), distance
+
+
+def test_text_distance_extended():
+    text = "aabbbb"  # a:1/3, b:2/3
+    td = TextDistance()
+    td.fit(text)
+    distance = td.distance("bbcccc")  # b:1/3, c:2/3
+    assert distance > 0.0, distance
+    assert isclose(distance, 1 / 3 + 1 / 3 + 2 / 3), distance
+
+
+def test_text_distance_exception():
+    text = "Hello World!"
+    td = TextDistance()
+    td.fit(text)
+    _ = td.distance(text)
+    with pytest.raises(ValueError):
+        td.fit("Hello World")
