@@ -148,6 +148,7 @@ def _normalize_counter_to_defaultdict(counter: Counter, max_dimensions: int) -> 
     Args:
         counter: The counter to normalize.
         max_dimensions: The maximum number of dimensions to use for the normalization.
+            Must be greater than 0.
     Returns:
         The normalized counter with a maximum of ``max_dimensions`` dimensions.
     """
@@ -167,6 +168,7 @@ class TextDistance:
     Args:
         show_progress_bar: Show a progressbar during processing.
         max_dimensions: The maximum number of dimensions to use for the distance calculation.
+            Must be greater than 0.
     """
 
     show_progress_bar: bool = False
@@ -180,6 +182,11 @@ class TextDistance:
 
     # set of all counted characters - see _normalize_char_counter
     _counted_char_set: Optional[Set[str]] = field(default=None, init=False)
+
+    def __post_init__(self):
+        """Do post init."""
+        if not self.max_dimensions > 0:
+            raise ValueError("'max_dimensions' must be > 0!")
 
     def fit(self, text: Union[str, Iterable[str]]) -> None:
         """Fit the text.
