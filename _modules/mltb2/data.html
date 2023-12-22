@@ -104,7 +104,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">hashlib</span> <span class="kn">import</span> <span class="n">sha256</span>
 <span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">joblib</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -181,17 +181,21 @@
     <span class="k">return</span> <span class="n">label_series</span></div>
 
 
-<div class="viewcode-block" id="load_colon"><a class="viewcode-back" href="../../api-reference/data.html#mltb2.data.load_colon">[docs]</a><span class="k">def</span> <span class="nf">load_colon</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<div class="viewcode-block" id="load_colon"><a class="viewcode-back" href="../../api-reference/data.html#mltb2.data.load_colon">[docs]</a><span class="k">def</span> <span class="nf">load_colon</span><span class="p">(</span><span class="n">mltb2_base_data_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load colon data.</span>
 
 <span class="sd">    The data is loaded and parsed from the internet.</span>
 <span class="sd">    Also see `&lt;http://genomics-pubs.princeton.edu/oncology/affydata/index.html&gt;`_.</span>
 
+<span class="sd">    Args:</span>
+<span class="sd">        mltb2_base_data_dir: The base data directory. If ``None`` the default</span>
+<span class="sd">            user data directory is used. The default user data directory is</span>
+<span class="sd">            determined by :func:`platformdirs.user_data_dir`.</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        Tuple containing labels and data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;colon.pkl.gz&quot;</span>
-    <span class="n">mltb2_data_home</span> <span class="o">=</span> <span class="n">get_and_create_mltb2_data_dir</span><span class="p">()</span>
+    <span class="n">mltb2_data_home</span> <span class="o">=</span> <span class="n">get_and_create_mltb2_data_dir</span><span class="p">(</span><span class="n">mltb2_base_data_dir</span><span class="p">)</span>
     <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mltb2_data_home</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">full_path</span><span class="p">):</span>
         <span class="n">data_df</span> <span class="o">=</span> <span class="n">_load_colon_data</span><span class="p">()</span>
@@ -204,16 +208,20 @@
     <span class="k">return</span> <span class="n">result</span></div>
 
 
-<div class="viewcode-block" id="load_prostate"><a class="viewcode-back" href="../../api-reference/data.html#mltb2.data.load_prostate">[docs]</a><span class="k">def</span> <span class="nf">load_prostate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<div class="viewcode-block" id="load_prostate"><a class="viewcode-back" href="../../api-reference/data.html#mltb2.data.load_prostate">[docs]</a><span class="k">def</span> <span class="nf">load_prostate</span><span class="p">(</span><span class="n">mltb2_base_data_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load prostate data.</span>
 
 <span class="sd">    The data is loaded and parsed from `&lt;https://web.stanford.edu/~hastie/CASI_files/DATA/prostate.html&gt;`_.</span>
 
+<span class="sd">    Args:</span>
+<span class="sd">        mltb2_base_data_dir: The base data directory. If ``None`` the default</span>
+<span class="sd">            user data directory is used. The default user data directory is</span>
+<span class="sd">            determined by :func:`platformdirs.user_data_dir`.</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        Tuple containing labels and data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;prostate.pkl.gz&quot;</span>
-    <span class="n">mltb2_data_home</span> <span class="o">=</span> <span class="n">get_and_create_mltb2_data_dir</span><span class="p">()</span>
+    <span class="n">mltb2_data_home</span> <span class="o">=</span> <span class="n">get_and_create_mltb2_data_dir</span><span class="p">(</span><span class="n">mltb2_base_data_dir</span><span class="p">)</span>
     <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mltb2_data_home</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">full_path</span><span class="p">):</span>
         <span class="c1"># download data file</span>
@@ -249,17 +257,21 @@
     <span class="k">return</span> <span class="n">result</span></div>
 
 
-<div class="viewcode-block" id="load_leukemia_big"><a class="viewcode-back" href="../../api-reference/data.html#mltb2.data.load_leukemia_big">[docs]</a><span class="k">def</span> <span class="nf">load_leukemia_big</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<div class="viewcode-block" id="load_leukemia_big"><a class="viewcode-back" href="../../api-reference/data.html#mltb2.data.load_leukemia_big">[docs]</a><span class="k">def</span> <span class="nf">load_leukemia_big</span><span class="p">(</span><span class="n">mltb2_base_data_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load leukemia (big) data.</span>
 
 <span class="sd">    The data is loaded and parsed from the internet.</span>
 <span class="sd">    Also see `&lt;https://web.stanford.edu/~hastie/CASI_files/DATA/leukemia.html&gt;`_.</span>
 
+<span class="sd">    Args:</span>
+<span class="sd">        mltb2_base_data_dir: The base data directory. If ``None`` the default</span>
+<span class="sd">            user data directory is used. The default user data directory is</span>
+<span class="sd">            determined by :func:`platformdirs.user_data_dir`.</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        Tuple containing labels and data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;leukemia_big.pkl.gz&quot;</span>
-    <span class="n">mltb2_data_home</span> <span class="o">=</span> <span class="n">get_and_create_mltb2_data_dir</span><span class="p">()</span>
+    <span class="n">mltb2_data_home</span> <span class="o">=</span> <span class="n">get_and_create_mltb2_data_dir</span><span class="p">(</span><span class="n">mltb2_base_data_dir</span><span class="p">)</span>
     <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mltb2_data_home</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">full_path</span><span class="p">):</span>
         <span class="c1"># download data file</span>
