@@ -2,6 +2,7 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
+from collections import Counter, defaultdict
 from math import isclose
 
 import pytest
@@ -10,6 +11,7 @@ from mltb2.text import (
     INVISIBLE_CHARACTERS,
     SPECIAL_WHITESPACES,
     TextDistance,
+    _normalize_counter_to_defaultdict,
     clean_all_invisible_chars_and_whitespaces,
     has_invisible_characters,
     has_special_whitespaces,
@@ -121,7 +123,14 @@ def test_text_distance_distance_same():
     text = "Hello World!"
     td = TextDistance()
     td.fit(text)
+    assert len(td._char_counter) == 9
+    assert td._normalized_char_counts is None
+    assert td._counted_char_set is None
     distance = td.distance(text)
+    assert td._char_counter is None  # none after fit
+    assert td._normalized_char_counts is not None
+    assert td._counted_char_set is not None
+
     assert isclose(distance, 0.0), distance
 
 
@@ -143,10 +152,37 @@ def test_text_distance_extended():
     assert isclose(distance, 1 / 3 + 1 / 3 + 2 / 3), distance
 
 
-def test_text_distance_exception():
+def test_text_distance_fit_not_allowed_after_distance():
     text = "Hello World!"
     td = TextDistance()
     td.fit(text)
     _ = td.distance(text)
     with pytest.raises(ValueError):
         td.fit("Hello World")
+
+
+def test_text_distance_max_dimensions_must_be_greater_zero():
+    with pytest.raises(ValueError):
+        _ = TextDistance(max_dimensions=0)
+
+
+def test_normalize_counter_to_defaultdict():
+    counter = Counter("aaaabbbcc")
+    max_dimensions = 2
+    normalized_counter = _normalize_counter_to_defaultdict(counter, max_dimensions)
+
+    assert isinstance(normalized_counter, defaultdict)
+    assert len(normalized_counter) == max_dimensions
+    assert isclose(normalized_counter["a"], 4 / 9)
+    assert isclose(normalized_counter["b"], 3 / 9)
+    assert "c" not in normalized_counter
+    assert len(normalized_counter) == max_dimensions
+
+
+def test_normalize_counter_to_defaultdict_empty_counter():
+    counter = Counter()
+    max_dimensions = 2
+    normalized_counter = _normalize_counter_to_defaultdict(counter, max_dimensions)
+
+    assert isinstance(normalized_counter, defaultdict)
+    assert len(normalized_counter) == 0
