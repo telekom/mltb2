@@ -25,8 +25,8 @@ def test_load_colon_label():
     assert len(result) == 62
 
 
-def test_load_colon():
-    result = load_colon()
+def test_load_colon(tmpdir):
+    result = load_colon(tmpdir)
     assert result is not None
     assert isinstance(result, tuple)
     assert len(result) == 2
@@ -36,8 +36,8 @@ def test_load_colon():
     assert result[1].shape == (62, 2000)
 
 
-def test_load_colon_compare_original():
-    result = load_colon()
+def test_load_colon_compare_original(tmpdir):
+    result = load_colon(tmpdir)
     ori_result = load_colon_data()
     assert result[0].shape == ori_result[0].shape
     assert result[1].shape == ori_result[1].shape
@@ -45,9 +45,8 @@ def test_load_colon_compare_original():
     assert_almost_equal(result[1].to_numpy(), ori_result[1].to_numpy())
 
 
-@pytest.mark.skip(reason="see https://github.com/telekom/mltb2/issues/118")
-def test_load_prostate():
-    result = load_prostate()
+def test_load_prostate(tmpdir):
+    result = load_prostate(tmpdir)
     assert result is not None
     assert isinstance(result, tuple)
     assert len(result) == 2
@@ -57,9 +56,8 @@ def test_load_prostate():
     assert result[1].shape == (102, 6033)
 
 
-@pytest.mark.skip(reason="see https://github.com/telekom/mltb2/issues/118")
-def test_load_prostate_compare_original():
-    result = load_prostate()
+def test_load_prostate_compare_original(tmpdir):
+    result = load_prostate(tmpdir)
     ori_result = load_prostate_data()
     assert result[0].shape == ori_result[0].shape
     assert result[1].shape == ori_result[1].shape
@@ -67,9 +65,8 @@ def test_load_prostate_compare_original():
     assert_almost_equal(result[1].to_numpy(), ori_result[1].to_numpy())
 
 
-@pytest.mark.skip(reason="see https://github.com/telekom/mltb2/issues/118")
-def test_load_leukemia_big():
-    result = load_leukemia_big()
+def test_load_leukemia_big(tmpdir):
+    result = load_leukemia_big(tmpdir)
     assert result is not None
     assert isinstance(result, tuple)
     assert len(result) == 2
@@ -79,9 +76,8 @@ def test_load_leukemia_big():
     assert result[1].shape == (72, 7128)
 
 
-@pytest.mark.skip(reason="see https://github.com/telekom/mltb2/issues/118")
-def test_load_leukemia_big_compare_original():
-    result = load_leukemia_big()
+def test_load_leukemia_big_compare_original(tmpdir):
+    result = load_leukemia_big(tmpdir)
     ori_result = load_leukemia_data()
     assert result[0].shape == ori_result[0].shape
     assert result[1].shape == ori_result[1].shape
