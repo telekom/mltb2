@@ -6,7 +6,7 @@ authors = ["PhilipMay <philip@may.la>"]
 readme = "README.md"
 homepage = "https://github.com/telekom/mltb2"
 documentation = "https://telekom.github.io/mltb2/"
-include = ["LICENSE"]
+include = ["LICENSE", "CONTRIBUTING.md", "Makefile"]
 keywords = [
   "optuna",
   "deep learning",
