@@ -163,12 +163,17 @@ def _normalize_counter_to_defaultdict(counter: Counter, max_dimensions: int) -> 
 class TextDistance:
     """Calculate the distance between two texts.
 
-    One text is fitted and then the Manhatten distance to another given text is calculated.
+    One text (or multiple texts) must first be fitted with :func:`~TextDistance.fit`.
+    After that the distance to other given texts can be calculated with :func:`~TextDistance.distance`.
+    After the distance was calculated the first time, the class can
+    not be fitted again.
 
     Args:
         show_progress_bar: Show a progressbar during processing.
         max_dimensions: The maximum number of dimensions to use for the distance calculation.
             Must be greater than 0.
+    Raises:
+        ValueError: If ``max_dimensions`` is not greater than 0.
     """
 
     show_progress_bar: bool = False
@@ -183,7 +188,7 @@ class TextDistance:
     # set of all counted characters - see _normalize_char_counter
     _counted_char_set: Optional[Set[str]] = field(default=None, init=False)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Do post init."""
         if not self.max_dimensions > 0:
             raise ValueError("'max_dimensions' must be > 0!")
@@ -193,6 +198,9 @@ class TextDistance:
 
         Args:
             text: The text to fit.
+        Raises:
+            ValueError: If :func:`~TextDistance.fit` is called after
+                :func:`~TextDistance.distance`.
         """
         if self._char_counter is None:
             raise ValueError("Fit mut not be called after distance calculation!")
@@ -203,7 +211,7 @@ class TextDistance:
             for t in tqdm(text, disable=not self.show_progress_bar):
                 self._char_counter.update(t)
 
-    def _normalize_char_counter(self):
+    def _normalize_char_counter(self) -> None:
         """Normalize the char counter to a defaultdict.
 
         This supports lazy postprocessing of the char counter.
@@ -216,11 +224,11 @@ class TextDistance:
     def distance(self, text) -> float:
         """Calculate the distance between the fitted text and the given text.
 
-        This implementation uses the Manhattan distance and only the
-        first ``max_dimensions`` of the most commen characters.
+        This implementation uses the Manhattan distance (:func:`scipy.spatial.distance.cityblock`).
+        The distance is only calculated for ``max_dimensions`` most commen characters.
 
         Args:
-            text: The text to calculate the cosine distance to.
+            text: The text to calculate the Manhattan distance to.
         """
         self._normalize_char_counter()
         all_vector = []
