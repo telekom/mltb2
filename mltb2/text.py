@@ -139,6 +139,18 @@ def clean_all_invisible_chars_and_whitespaces(text: str) -> str:
 
 
 def _normalize_counter_to_defaultdict(counter: Counter, max_dimensions: int) -> defaultdict:
+    """Normalize a counter to to ``max_dimensions``.
+
+    The number of dimensions is limited to ``max_dimensions``
+    of the most commen characters.
+    The counter values are normalized by deviding them by the total count.
+
+    Args:
+        counter: The counter to normalize.
+        max_dimensions: The maximum number of dimensions to use for the normalization.
+    Returns:
+        The normalized counter with a maximum of ``max_dimensions`` dimensions.
+    """
     total_count = sum(counter.values())
     normalized_counter = defaultdict(float)
     for char, count in counter.most_common(max_dimensions):
@@ -148,9 +160,9 @@ def _normalize_counter_to_defaultdict(counter: Counter, max_dimensions: int) -> 
 
 @dataclass
 class TextDistance:
-    """Calculate the cosine distance between two texts.
+    """Calculate the distance between two texts.
 
-    One text is fitted and then the cosine distance to another given text is calculated.
+    One text is fitted and then the Manhatten distance to another given text is calculated.
 
     Args:
         show_progress_bar: Show a progressbar during processing.
@@ -159,8 +171,14 @@ class TextDistance:
 
     show_progress_bar: bool = False
     max_dimensions: int = 100
+
+    # counter for the text we fit
     _char_counter: Optional[Counter] = field(default_factory=Counter, init=False)
-    _char_counter_defaultdict: Optional[defaultdict] = field(default=None, init=False)
+
+    # normalized counter for the text we fit - see _normalize_char_counter
+    _normalized_char_counts: Optional[defaultdict] = field(default=None, init=False)
+
+    # set of all counted characters - see _normalize_char_counter
     _counted_char_set: Optional[Set[str]] = field(default=None, init=False)
 
     def fit(self, text: Union[str, Iterable[str]]) -> None:
@@ -179,10 +197,14 @@ class TextDistance:
                 self._char_counter.update(t)
 
     def _normalize_char_counter(self):
+        """Normalize the char counter to a defaultdict.
+
+        This supports lazy postprocessing of the char counter.
+        """
         if self._char_counter is not None:
-            self._char_counter_defaultdict = _normalize_counter_to_defaultdict(self._char_counter, self.max_dimensions)
+            self._normalized_char_counts = _normalize_counter_to_defaultdict(self._char_counter, self.max_dimensions)
             self._char_counter = None
-            self._counted_char_set = set(self._char_counter_defaultdict)
+            self._counted_char_set = set(self._normalized_char_counts)
 
     def distance(self, text) -> float:
         """Calculate the distance between the fitted text and the given text.
@@ -200,7 +222,7 @@ class TextDistance:
         text_count_defaultdict = _normalize_counter_to_defaultdict(text_count, self.max_dimensions)
         for c in self._counted_char_set.union(text_count_defaultdict):  # type: ignore
             all_vector.append(
-                self._char_counter_defaultdict[c]  # type: ignore
+                self._normalized_char_counts[c]  # type: ignore
             )  # if c is not in defaultdict, it will return 0
             text_vector.append(text_count_defaultdict[c])  # if c is not in defaultdict, it will return 0
         return cityblock(all_vector, text_vector)
