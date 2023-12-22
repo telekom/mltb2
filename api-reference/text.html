@@ -60,6 +60,13 @@
 <li class="toctree-l2"><a class="reference internal" href="somajo.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="somajo_transformers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_transformers</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">text</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.text.TextDistance"><code class="docutils literal notranslate"><span class="pre">TextDistance</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.text.TextDistance._normalize_char_counter"><code class="docutils literal notranslate"><span class="pre">TextDistance._normalize_char_counter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.text.TextDistance.distance"><code class="docutils literal notranslate"><span class="pre">TextDistance.distance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.text.TextDistance.fit"><code class="docutils literal notranslate"><span class="pre">TextDistance.fit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.text._normalize_counter_to_defaultdict"><code class="docutils literal notranslate"><span class="pre">_normalize_counter_to_defaultdict()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.text.clean_all_invisible_chars_and_whitespaces"><code class="docutils literal notranslate"><span class="pre">clean_all_invisible_chars_and_whitespaces()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.text.has_invisible_characters"><code class="docutils literal notranslate"><span class="pre">has_invisible_characters()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.text.has_special_whitespaces"><code class="docutils literal notranslate"><span class="pre">has_special_whitespaces()</span></code></a></li>
@@ -111,6 +118,99 @@
 <li><p>detect or replace special whitespaces</p></li>
 <li><p>remove duplicate whitespaces</p></li>
 </ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="mltb2.text.TextDistance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.text.</span></span><span class="sig-name descname"><span class="pre">TextDistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">show_progress_bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dimensions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/text.html#TextDistance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.text.TextDistance" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Calculate the distance between two texts.</p>
+<p>One text (or multiple texts) must first be fitted with <a class="reference internal" href="#mltb2.text.TextDistance.fit" title="mltb2.text.TextDistance.fit"><code class="xref py py-func docutils literal notranslate"><span class="pre">fit()</span></code></a>.
+After that the distance to other given texts can be calculated with <a class="reference internal" href="#mltb2.text.TextDistance.distance" title="mltb2.text.TextDistance.distance"><code class="xref py py-func docutils literal notranslate"><span class="pre">distance()</span></code></a>.
+After the distance was calculated the first time, the class can
+not be fitted again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>show_progress_bar</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Show a progressbar during processing.</p></li>
+<li><p><strong>max_dimensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The maximum number of dimensions to use for the distance calculation.
+Must be greater than 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">max_dimensions</span></code> is not greater than 0.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.text.TextDistance._normalize_char_counter">
+<span class="sig-name descname"><span class="pre">_normalize_char_counter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/mltb2/text.html#TextDistance._normalize_char_counter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.text.TextDistance._normalize_char_counter" title="Permalink to this definition"></a></dt>
+<dd><p>Normalize the char counter to a defaultdict.</p>
+<p>This supports lazy postprocessing of the char counter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.text.TextDistance.distance">
+<span class="sig-name descname"><span class="pre">distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/mltb2/text.html#TextDistance.distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.text.TextDistance.distance" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the distance between the fitted text and the given text.</p>
+<p>This implementation uses the Manhattan distance (<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cityblock.html#scipy.spatial.distance.cityblock" title="(in SciPy v1.11.4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">scipy.spatial.distance.cityblock()</span></code></a>).
+The distance is only calculated for <code class="docutils literal notranslate"><span class="pre">max_dimensions</span></code> most commen characters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> – The text to calculate the Manhattan distance to.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.text.TextDistance.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.12)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/mltb2/text.html#TextDistance.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.text.TextDistance.fit" title="Permalink to this definition"></a></dt>
+<dd><p>Fit the text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.12)"><em>Iterable</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The text to fit.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.12)"><strong>ValueError</strong></a> – If <a class="reference internal" href="#mltb2.text.TextDistance.fit" title="mltb2.text.TextDistance.fit"><code class="xref py py-func docutils literal notranslate"><span class="pre">fit()</span></code></a> is called after
+    <a class="reference internal" href="#mltb2.text.TextDistance.distance" title="mltb2.text.TextDistance.distance"><code class="xref py py-func docutils literal notranslate"><span class="pre">distance()</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mltb2.text._normalize_counter_to_defaultdict">
+<span class="sig-prename descclassname"><span class="pre">mltb2.text.</span></span><span class="sig-name descname"><span class="pre">_normalize_counter_to_defaultdict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">counter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.Counter" title="(in Python v3.12)"><span class="pre">Counter</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dimensions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.defaultdict" title="(in Python v3.12)"><span class="pre">defaultdict</span></a></span></span><a class="reference internal" href="../_modules/mltb2/text.html#_normalize_counter_to_defaultdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.text._normalize_counter_to_defaultdict" title="Permalink to this definition"></a></dt>
+<dd><p>Normalize a counter to to <code class="docutils literal notranslate"><span class="pre">max_dimensions</span></code>.</p>
+<p>The number of dimensions is limited to <code class="docutils literal notranslate"><span class="pre">max_dimensions</span></code>
+of the most commen characters.
+The counter values are normalized by deviding them by the total count.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>counter</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.Counter" title="(in Python v3.12)"><em>Counter</em></a>) – The counter to normalize.</p></li>
+<li><p><strong>max_dimensions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The maximum number of dimensions to use for the normalization.
+Must be greater than 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The normalized counter with a maximum of <code class="docutils literal notranslate"><span class="pre">max_dimensions</span></code> dimensions.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.defaultdict" title="(in Python v3.12)"><em>defaultdict</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="mltb2.text.clean_all_invisible_chars_and_whitespaces">
 <span class="sig-prename descclassname"><span class="pre">mltb2.text.</span></span><span class="sig-name descname"><span class="pre">clean_all_invisible_chars_and_whitespaces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/text.html#clean_all_invisible_chars_and_whitespaces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.text.clean_all_invisible_chars_and_whitespaces" title="Permalink to this definition"></a></dt>
