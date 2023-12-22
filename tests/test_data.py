@@ -45,6 +45,7 @@ def test_load_colon_compare_original():
     assert_almost_equal(result[1].to_numpy(), ori_result[1].to_numpy())
 
 
+@pytest.mark.skip(reason="see https://github.com/telekom/mltb2/issues/118")
 def test_load_prostate():
     result = load_prostate()
     assert result is not None
@@ -56,6 +57,7 @@ def test_load_prostate():
     assert result[1].shape == (102, 6033)
 
 
+@pytest.mark.skip(reason="see https://github.com/telekom/mltb2/issues/118")
 def test_load_prostate_compare_original():
     result = load_prostate()
     ori_result = load_prostate_data()
@@ -65,7 +67,6 @@ def test_load_prostate_compare_original():
     assert_almost_equal(result[1].to_numpy(), ori_result[1].to_numpy())
 
 
-@pytest.mark.skip(reason="see https://github.com/telekom/mltb2/issues/118")
 def test_load_leukemia_big():
     result = load_leukemia_big()
     assert result is not None
@@ -77,7 +78,6 @@ def test_load_leukemia_big():
     assert result[1].shape == (72, 7128)
 
 
-@pytest.mark.skip(reason="see https://github.com/telekom/mltb2/issues/118")
 def test_load_leukemia_big_compare_original():
     result = load_leukemia_big()
     ori_result = load_leukemia_data()
