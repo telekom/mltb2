@@ -24,7 +24,7 @@ Hint:
 import os
 from hashlib import sha256
 from io import StringIO
-from typing import Tuple
+from typing import Optional, Tuple
 
 import joblib
 import numpy as np
@@ -101,17 +101,21 @@ def _load_colon_label() -> pd.Series:
     return label_series
 
 
-def load_colon() -> Tuple[pd.Series, pd.DataFrame]:
+def load_colon(mltb2_base_data_dir: Optional[str] = None) -> Tuple[pd.Series, pd.DataFrame]:
     """Load colon data.
 
     The data is loaded and parsed from the internet.
     Also see `<http://genomics-pubs.princeton.edu/oncology/affydata/index.html>`_.
 
+    Args:
+        mltb2_base_data_dir: The base data directory. If ``None`` the default
+            user data directory is used. The default user data directory is
+            determined by :func:`platformdirs.user_data_dir`.
     Returns:
         Tuple containing labels and data.
     """
     filename = "colon.pkl.gz"
-    mltb2_data_home = get_and_create_mltb2_data_dir()
+    mltb2_data_home = get_and_create_mltb2_data_dir(mltb2_base_data_dir)
     full_path = os.path.join(mltb2_data_home, filename)
     if not os.path.exists(full_path):
         data_df = _load_colon_data()
@@ -124,16 +128,20 @@ def load_colon() -> Tuple[pd.Series, pd.DataFrame]:
     return result
 
 
-def load_prostate() -> Tuple[pd.Series, pd.DataFrame]:
+def load_prostate(mltb2_base_data_dir: Optional[str] = None) -> Tuple[pd.Series, pd.DataFrame]:
     """Load prostate data.
 
     The data is loaded and parsed from `<https://web.stanford.edu/~hastie/CASI_files/DATA/prostate.html>`_.
 
+    Args:
+        mltb2_base_data_dir: The base data directory. If ``None`` the default
+            user data directory is used. The default user data directory is
+            determined by :func:`platformdirs.user_data_dir`.
     Returns:
         Tuple containing labels and data.
     """
     filename = "prostate.pkl.gz"
-    mltb2_data_home = get_and_create_mltb2_data_dir()
+    mltb2_data_home = get_and_create_mltb2_data_dir(mltb2_base_data_dir)
     full_path = os.path.join(mltb2_data_home, filename)
     if not os.path.exists(full_path):
         # download data file
@@ -169,17 +177,21 @@ def load_prostate() -> Tuple[pd.Series, pd.DataFrame]:
     return result
 
 
-def load_leukemia_big() -> Tuple[pd.Series, pd.DataFrame]:
+def load_leukemia_big(mltb2_base_data_dir: Optional[str] = None) -> Tuple[pd.Series, pd.DataFrame]:
     """Load leukemia (big) data.
 
     The data is loaded and parsed from the internet.
     Also see `<https://web.stanford.edu/~hastie/CASI_files/DATA/leukemia.html>`_.
 
+    Args:
+        mltb2_base_data_dir: The base data directory. If ``None`` the default
+            user data directory is used. The default user data directory is
+            determined by :func:`platformdirs.user_data_dir`.
     Returns:
         Tuple containing labels and data.
     """
     filename = "leukemia_big.pkl.gz"
-    mltb2_data_home = get_and_create_mltb2_data_dir()
+    mltb2_data_home = get_and_create_mltb2_data_dir(mltb2_base_data_dir)
     full_path = os.path.join(mltb2_data_home, filename)
     if not os.path.exists(full_path):
         # download data file
