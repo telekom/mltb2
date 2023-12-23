@@ -275,6 +275,12 @@
     <span class="c1"># set of all counted characters - see _normalize_char_counter</span>
     <span class="n">_counted_char_set</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
+    <span class="c1"># flag if fit was called</span>
+    <span class="n">_fit_called</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># flag if distance was called</span>
+    <span class="n">_distance_called</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_dimensions</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -289,24 +295,27 @@
 <span class="sd">            ValueError: If :func:`~TextDistance.fit` is called after</span>
 <span class="sd">                :func:`~TextDistance.distance`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Fit mut not be called after distance calculation!&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_distance_called</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;fit must not be called after distance calculation!&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_progress_bar</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">t</span><span class="p">)</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fit_called</span> <span class="o">=</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="TextDistance._normalize_char_counter"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.TextDistance._normalize_char_counter">[docs]</a>    <span class="k">def</span> <span class="nf">_normalize_char_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Normalize the char counter to a defaultdict.</span>
 
 <span class="sd">        This supports lazy postprocessing of the char counter.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_normalized_char_counts</span> <span class="o">=</span> <span class="n">_normalize_counter_to_defaultdict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_dimensions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_distance_called</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_normalized_char_counts</span> <span class="o">=</span> <span class="n">_normalize_counter_to_defaultdict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_dimensions</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_counted_char_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_normalized_char_counts</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_counted_char_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_normalized_char_counts</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_distance_called</span> <span class="o">=</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="TextDistance.distance"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.TextDistance.distance">[docs]</a>    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the distance between the fitted text and the given text.</span>
@@ -317,6 +326,8 @@
 <span class="sd">        Args:</span>
 <span class="sd">            text: The text to calculate the Manhattan distance to.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit_called</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;fit must not be called before distance!&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_char_counter</span><span class="p">()</span>
         <span class="n">all_vector</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">text_vector</span> <span class="o">=</span> <span class="p">[]</span>
