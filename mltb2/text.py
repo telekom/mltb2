@@ -216,7 +216,7 @@ class TextDistance:
                 :func:`~TextDistance.distance`.
         """
         if self._distance_called:
-            raise ValueError("fit mut not be called after distance calculation!")
+            raise ValueError("fit must not be called after distance calculation!")
 
         if isinstance(text, str):
             self._char_counter.update(text)  # type: ignore
