@@ -161,6 +161,13 @@ def test_text_distance_fit_not_allowed_after_distance():
         td.fit("Hello World")
 
 
+def test_text_distance_distance_not_allowed_before_fit():
+    text = "Hello World!"
+    td = TextDistance()
+    with pytest.raises(ValueError):
+        _ = td.distance(text)
+
+
 def test_text_distance_max_dimensions_must_be_greater_zero():
     with pytest.raises(ValueError):
         _ = TextDistance(max_dimensions=0)
