@@ -195,6 +195,12 @@ class TextDistance:
     # set of all counted characters - see _normalize_char_counter
     _counted_char_set: Optional[Set[str]] = field(default=None, init=False)
 
+    # flag if fit was called
+    _fit_called: bool = field(default=False, init=False)
+
+    # flag if distance was called
+    _distance_called: bool = field(default=False, init=False)
+
     def __post_init__(self) -> None:
         """Do post init."""
         if not self.max_dimensions > 0:
@@ -209,24 +215,27 @@ class TextDistance:
             ValueError: If :func:`~TextDistance.fit` is called after
                 :func:`~TextDistance.distance`.
         """
-        if self._char_counter is None:
-            raise ValueError("Fit mut not be called after distance calculation!")
+        if self._distance_called:
+            raise ValueError("fit must not be called after distance calculation!")
 
         if isinstance(text, str):
-            self._char_counter.update(text)
+            self._char_counter.update(text)  # type: ignore
         else:
             for t in tqdm(text, disable=not self.show_progress_bar):
-                self._char_counter.update(t)
+                self._char_counter.update(t)  # type: ignore
+
+        self._fit_called = True
 
     def _normalize_char_counter(self) -> None:
         """Normalize the char counter to a defaultdict.
 
         This supports lazy postprocessing of the char counter.
         """
-        if self._char_counter is not None:
-            self._normalized_char_counts = _normalize_counter_to_defaultdict(self._char_counter, self.max_dimensions)
+        if not self._distance_called:
+            self._normalized_char_counts = _normalize_counter_to_defaultdict(self._char_counter, self.max_dimensions)  # type: ignore
             self._char_counter = None
             self._counted_char_set = set(self._normalized_char_counts)
+            self._distance_called = True
 
     def distance(self, text) -> float:
         """Calculate the distance between the fitted text and the given text.
@@ -237,6 +246,8 @@ class TextDistance:
         Args:
             text: The text to calculate the Manhattan distance to.
         """
+        if not self._fit_called:
+            raise ValueError("fit must not be called before distance!")
         self._normalize_char_counter()
         all_vector = []
         text_vector = []
