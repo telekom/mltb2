@@ -9,6 +9,7 @@ It offers the following functionality:
 - detect or clean invisible characters
 - detect or replace special whitespaces
 - remove duplicate whitespaces
+- calculate the distance between two texts to find anomalies
 """
 
 import re
@@ -170,6 +171,9 @@ def _normalize_counter_to_defaultdict(counter: Counter, max_dimensions: int) -> 
 class TextDistance:
     """Calculate the distance between two texts.
 
+    This class can be used to find texts with anomalies.
+    For example with HTML markup or other unusual characters.
+
     One text (or multiple texts) must first be fitted with :func:`~TextDistance.fit`.
     After that the distance to other given texts can be calculated with :func:`~TextDistance.distance`.
     After the distance was calculated the first time, the class can
@@ -209,6 +213,8 @@ class TextDistance:
     def fit(self, text: Union[str, Iterable[str]]) -> None:
         """Fit the text.
 
+        This method must be called at least once before :func:`~TextDistance.distance`.
+
         Args:
             text: The text to fit.
         Raises:
@@ -245,6 +251,7 @@ class TextDistance:
 
         Args:
             text: The text to calculate the Manhattan distance to.
+                The higher this value is, the more the text differs from the fitted text.
         """
         if not self._fit_called:
             raise ValueError("fit must not be called before distance!")
