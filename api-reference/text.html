@@ -117,12 +117,15 @@
 <li><p>detect or clean invisible characters</p></li>
 <li><p>detect or replace special whitespaces</p></li>
 <li><p>remove duplicate whitespaces</p></li>
+<li><p>calculate the distance between two texts to find anomalies</p></li>
 </ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="mltb2.text.TextDistance">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.text.</span></span><span class="sig-name descname"><span class="pre">TextDistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">show_progress_bar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_dimensions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/text.html#TextDistance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.text.TextDistance" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Calculate the distance between two texts.</p>
+<p>This class can be used to find texts with anomalies.
+For example with HTML markup or other unusual characters.</p>
 <p>One text (or multiple texts) must first be fitted with <a class="reference internal" href="#mltb2.text.TextDistance.fit" title="mltb2.text.TextDistance.fit"><code class="xref py py-func docutils literal notranslate"><span class="pre">fit()</span></code></a>.
 After that the distance to other given texts can be calculated with <a class="reference internal" href="#mltb2.text.TextDistance.distance" title="mltb2.text.TextDistance.distance"><code class="xref py py-func docutils literal notranslate"><span class="pre">distance()</span></code></a>.
 After the distance was calculated the first time, the class can
@@ -159,7 +162,8 @@ Must be greater than 0.</p></li>
 The distance is only calculated for <code class="docutils literal notranslate"><span class="pre">max_dimensions</span></code> most commen characters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>text</strong> – The text to calculate the Manhattan distance to.</p>
+<dd class="field-odd"><p><strong>text</strong> – The text to calculate the Manhattan distance to.
+The higher this value is, the more the text differs from the fitted text.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a></p>
@@ -171,6 +175,7 @@ The distance is only calculated for <code class="docutils literal notranslate"><
 <dt class="sig sig-object py" id="mltb2.text.TextDistance.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.12)"><span class="pre">Iterable</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/mltb2/text.html#TextDistance.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.text.TextDistance.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Fit the text.</p>
+<p>This method must be called at least once before <a class="reference internal" href="#mltb2.text.TextDistance.distance" title="mltb2.text.TextDistance.distance"><code class="xref py py-func docutils literal notranslate"><span class="pre">distance()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterable" title="(in Python v3.12)"><em>Iterable</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – The text to fit.</p>
