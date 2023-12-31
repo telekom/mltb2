@@ -82,6 +82,7 @@
 
 <div class="genindex-jumpbox">
  <a href="#_"><strong>_</strong></a>
+ | <a href="#A"><strong>A</strong></a>
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
@@ -122,6 +123,8 @@
         <li><a href="api-reference/transformers.html#mltb2.transformers.TransformersTokenCounter.__call__">(mltb2.transformers.TransformersTokenCounter method)</a>
 </li>
       </ul></li>
+      <li><a href="api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager._arango_client_factory">_arango_client_factory() (mltb2.arangodb.ArangoBatchDataManager method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-reference/openai.html#mltb2.openai._check_mandatory_azure_completion_kwargs">_check_mandatory_azure_completion_kwargs() (in module mltb2.openai)</a>
@@ -136,6 +139,8 @@
         <li><a href="api-reference/openai.html#mltb2.openai.OpenAiCompletion._completion">(mltb2.openai.OpenAiCompletion method)</a>
 </li>
       </ul></li>
+      <li><a href="api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager._connection_factory">_connection_factory() (mltb2.arangodb.ArangoBatchDataManager method)</a>
+</li>
       <li><a href="api-reference/data.html#mltb2.data._load_colon_data">_load_colon_data() (in module mltb2.data)</a>
 </li>
       <li><a href="api-reference/data.html#mltb2.data._load_colon_label">_load_colon_label() (in module mltb2.data)</a>
@@ -147,13 +152,27 @@
   </ul></td>
 </tr></table>
 
-<h2 id="B">B</h2>
+<h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api-reference/plot.html#mltb2.plot.boxplot">boxplot() (in module mltb2.plot)</a>
+      <li><a href="api-reference/db.html#mltb2.db.AbstractBatchDataManager">AbstractBatchDataManager (class in mltb2.db)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager">ArangoBatchDataManager (class in mltb2.arangodb)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-reference/db.html#mltb2.db.BatchDataProcessor">BatchDataProcessor (class in mltb2.db)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-reference/plot.html#mltb2.plot.boxplot">boxplot() (in module mltb2.plot)</a>
+</li>
       <li><a href="api-reference/plot.html#mltb2.plot.boxplot_dict">boxplot_dict() (in module mltb2.plot)</a>
 </li>
   </ul></td>
@@ -202,9 +221,11 @@
 </li>
       <li><a href="api-reference/files.html#mltb2.files.fetch_remote_file">fetch_remote_file() (in module mltb2.files)</a>
 </li>
+      <li><a href="api-reference/text.html#mltb2.text.TextDistance.fit">fit() (mltb2.text.TextDistance method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api-reference/text.html#mltb2.text.TextDistance.fit">fit() (mltb2.text.TextDistance method)</a>
+      <li><a href="api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager.from_config_file">from_config_file() (mltb2.arangodb.ArangoBatchDataManager class method)</a>
 </li>
       <li><a href="api-reference/openai.html#mltb2.openai.OpenAiCompletionAnswer.from_open_ai_object">from_open_ai_object() (mltb2.openai.OpenAiCompletionAnswer class method)</a>
 </li>
@@ -260,10 +281,16 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api-reference/transformers.html#mltb2.transformers.LabeledDataset">LabeledDataset (class in mltb2.transformers)</a>
 </li>
-      <li><a href="api-reference/data.html#mltb2.data.load_colon">load_colon() (in module mltb2.data)</a>
+      <li><a href="api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager.load_batch">load_batch() (mltb2.arangodb.ArangoBatchDataManager method)</a>
+
+      <ul>
+        <li><a href="api-reference/db.html#mltb2.db.AbstractBatchDataManager.load_batch">(mltb2.db.AbstractBatchDataManager method)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-reference/data.html#mltb2.data.load_colon">load_colon() (in module mltb2.data)</a>
+</li>
       <li><a href="api-reference/data.html#mltb2.data.load_leukemia_big">load_leukemia_big() (in module mltb2.data)</a>
 </li>
       <li><a href="api-reference/data.html#mltb2.data.load_prostate">load_prostate() (in module mltb2.data)</a>
@@ -277,10 +304,24 @@
       <li><a href="api-reference/md.html#mltb2.md.MdTextSplitter">MdTextSplitter (class in mltb2.md)</a>
 </li>
       <li>
+    mltb2.arangodb
+
+      <ul>
+        <li><a href="api-reference/arangodb.html#module-mltb2.arangodb">module</a>
+</li>
+      </ul></li>
+      <li>
     mltb2.data
 
       <ul>
         <li><a href="api-reference/data.html#module-mltb2.data">module</a>
+</li>
+      </ul></li>
+      <li>
+    mltb2.db
+
+      <ul>
+        <li><a href="api-reference/db.html#module-mltb2.db">module</a>
 </li>
       </ul></li>
       <li>
@@ -359,7 +400,11 @@
     module
 
       <ul>
+        <li><a href="api-reference/arangodb.html#module-mltb2.arangodb">mltb2.arangodb</a>
+</li>
         <li><a href="api-reference/data.html#module-mltb2.data">mltb2.data</a>
+</li>
+        <li><a href="api-reference/db.html#module-mltb2.db">mltb2.db</a>
 </li>
         <li><a href="api-reference/fasttext.html#module-mltb2.fasttext">mltb2.fasttext</a>
 </li>
@@ -428,20 +473,28 @@
 </li>
       <li><a href="api-reference/somajo.html#mltb2.somajo.UrlSwapper.reverse_swap_urls">reverse_swap_urls() (mltb2.somajo.UrlSwapper method)</a>
 </li>
+      <li><a href="api-reference/db.html#mltb2.db.BatchDataProcessor.run">run() (mltb2.db.BatchDataProcessor method)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager.save_batch">save_batch() (mltb2.arangodb.ArangoBatchDataManager method)</a>
+
+      <ul>
+        <li><a href="api-reference/db.html#mltb2.db.AbstractBatchDataManager.save_batch">(mltb2.db.AbstractBatchDataManager method)</a>
+</li>
+      </ul></li>
       <li><a href="api-reference/plot.html#mltb2.plot.save_last_figure">save_last_figure() (in module mltb2.plot)</a>
 </li>
       <li><a href="api-reference/optuna.html#mltb2.optuna.SignificanceRepeatedTrainingPruner">SignificanceRepeatedTrainingPruner (class in mltb2.optuna)</a>
 </li>
-      <li><a href="api-reference/somajo.html#mltb2.somajo.SoMaJoBaseClass">SoMaJoBaseClass (class in mltb2.somajo)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api-reference/somajo.html#mltb2.somajo.SoMaJoBaseClass">SoMaJoBaseClass (class in mltb2.somajo)</a>
+</li>
       <li><a href="api-reference/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter">SoMaJoSentenceSplitter (class in mltb2.somajo)</a>
 </li>
       <li><a href="api-reference/transformers.html#mltb2.transformers.KFoldLabeledDataset.split">split() (mltb2.transformers.KFoldLabeledDataset method)</a>
