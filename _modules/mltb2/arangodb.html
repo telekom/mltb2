@@ -90,15 +90,29 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
+<span class="kn">import</span> <span class="nn">gzip</span>
+<span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">closing</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
 
+<span class="kn">import</span> <span class="nn">jsonlines</span>
 <span class="kn">from</span> <span class="nn">arango</span> <span class="kn">import</span> <span class="n">ArangoClient</span>
 <span class="kn">from</span> <span class="nn">arango.database</span> <span class="kn">import</span> <span class="n">StandardDatabase</span>
 <span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">dotenv_values</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
 <span class="kn">from</span> <span class="nn">mltb2.db</span> <span class="kn">import</span> <span class="n">AbstractBatchDataManager</span>
+
+
+<div class="viewcode-block" id="_check_config_keys"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb._check_config_keys">[docs]</a><span class="k">def</span> <span class="nf">_check_config_keys</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">expected_config_keys</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if all expected keys are in config.</span>
+
+<span class="sd">    This is useful to check if a config file contains all necessary keys.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">expected_config_key</span> <span class="ow">in</span> <span class="n">expected_config_keys</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">expected_config_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Config file must contain &#39;</span><span class="si">{</span><span class="n">expected_config_key</span><span class="si">}</span><span class="s2">&#39;!&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ArangoBatchDataManager"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager">[docs]</a><span class="nd">@dataclass</span>
@@ -170,9 +184,7 @@
             <span class="s2">&quot;attribute_name&quot;</span><span class="p">,</span>
             <span class="s2">&quot;batch_size&quot;</span><span class="p">,</span>
         <span class="p">]</span>
-        <span class="k">for</span> <span class="n">expected_config_file_key</span> <span class="ow">in</span> <span class="n">expected_config_file_keys</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">expected_config_file_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">arango_config</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Config file must contain &#39;</span><span class="si">{</span><span class="n">expected_config_file_key</span><span class="si">}</span><span class="s2">&#39;!&quot;</span><span class="p">)</span>
+        <span class="n">_check_config_keys</span><span class="p">(</span><span class="n">arango_config</span><span class="p">,</span> <span class="n">expected_config_file_keys</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
             <span class="n">hosts</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;hosts&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
@@ -235,6 +247,55 @@
             <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection_factory</span><span class="p">(</span><span class="n">arango_client</span><span class="p">)</span>
             <span class="n">collection</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">collection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">collection_name</span><span class="p">)</span>
             <span class="n">collection</span><span class="o">.</span><span class="n">import_bulk</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">on_duplicate</span><span class="o">=</span><span class="s2">&quot;update&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="arango_collection_backup"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.arango_collection_backup">[docs]</a><span class="k">def</span> <span class="nf">arango_collection_backup</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Commandline tool to do an ArangoDB backup of a collection.</span>
+
+<span class="sd">    The backup is written to a gzip compressed JSONL file in the current working directory.</span>
+<span class="sd">    Run ``arango-col-backup -h`` to get command line help.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># argument parsing</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;ArangoDB backup of a collection. &quot;</span>
+        <span class="s2">&quot;The backup is written to a gzip compressed JSONL file in the current working directory.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">argument_parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">)</span>
+    <span class="n">argument_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--conf&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Config file containing &#39;hosts&#39;, &#39;db_name&#39;, &#39;username&#39; and &#39;password&#39;.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">argument_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--col&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Collection name to backup.&quot;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">argument_parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="c1"># load and check config file</span>
+    <span class="n">arango_config</span> <span class="o">=</span> <span class="n">dotenv_values</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">conf</span><span class="p">)</span>
+    <span class="n">expected_config_file_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hosts&quot;</span><span class="p">,</span> <span class="s2">&quot;db_name&quot;</span><span class="p">,</span> <span class="s2">&quot;username&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">]</span>
+    <span class="n">_check_config_keys</span><span class="p">(</span><span class="n">arango_config</span><span class="p">,</span> <span class="n">expected_config_file_keys</span><span class="p">)</span>
+
+    <span class="n">output_file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;./</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">col</span><span class="si">}</span><span class="s2">_backup.jsonl.gz&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Writing backup to &#39;</span><span class="si">{</span><span class="n">output_file_name</span><span class="si">}</span><span class="s2">&#39;...&quot;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">closing</span><span class="p">(</span><span class="n">ArangoClient</span><span class="p">(</span><span class="n">hosts</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;hosts&quot;</span><span class="p">]))</span> <span class="k">as</span> <span class="n">arango_client</span><span class="p">,</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
+        <span class="n">output_file_name</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">gzip_out</span><span class="p">:</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="n">arango_client</span><span class="o">.</span><span class="n">db</span><span class="p">(</span>
+            <span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;db_name&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
+            <span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
+            <span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
+        <span class="p">)</span>
+        <span class="n">jsonlines_writer</span> <span class="o">=</span> <span class="n">jsonlines</span><span class="o">.</span><span class="n">Writer</span><span class="p">(</span><span class="n">gzip_out</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">aql</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;FOR doc IN @@coll RETURN doc&quot;</span><span class="p">,</span>
+                <span class="n">bind_vars</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;@coll&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">col</span><span class="p">},</span>
+                <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                <span class="n">max_runtime</span><span class="o">=</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">,</span>  <span class="c1"># type: ignore # 1 hour</span>
+                <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">cursor</span><span class="p">):</span>
+                <span class="n">jsonlines_writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">ignore_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
 </pre></div>
 
            </div>
