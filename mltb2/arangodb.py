@@ -192,8 +192,11 @@ def arango_collection_backup() -> None:
     expected_config_file_keys = ["hosts", "db_name", "username", "password"]
     _check_config_keys(arango_config, expected_config_file_keys)
 
+    output_file_name = f"./{args.col}_backup.jsonl.gz"
+    print(f"Writing backup to '{output_file_name}'...")
+
     with closing(ArangoClient(hosts=arango_config["hosts"])) as arango_client, gzip.open(  # type: ignore
-        f"./{args.col}_backup.jsonl.gz", "w"
+        output_file_name, "w"
     ) as gzip_out:
         connection = arango_client.db(
             arango_config["db_name"],  # type: ignore
