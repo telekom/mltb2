@@ -4,6 +4,7 @@
 .python-version
 poetry.lock
 poetry.toml
+demo_*.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
