@@ -14,28 +14,38 @@ from typing import Callable, Sequence
 
 
 class BatchDataManager(ABC):
-    """TODO: add docstring."""
+    """Abstract base class for batch processing of database data."""
 
     @abstractmethod
     def load_batch(self) -> Sequence:
-        """TODO: add docstring."""
+        """Load a batch of data from the database."""
         pass
 
     @abstractmethod
     def save_batch(self, batch: Sequence) -> None:
-        """TODO: add docstring."""
+        """Save a batch of data to the database."""
         pass
 
 
 @dataclass
 class BatchDataProcessor:
-    """TODO: add docstring."""
+    """Process batches of data from a database.
+
+    Args:
+        data_manager: The data manager to load and save batches of data.
+        process_batch_callback: A callback function that processes one batch of data.
+    """
 
     data_manager: BatchDataManager
     process_batch_callback: Callable[[Sequence], Sequence]
 
     def run(self) -> None:
-        """TODO: add docstring."""
+        """Run the batch data processing.
+
+        This is done until the data manager returns an empty batch.
+        For each batch the ``process_batch_callback`` is called.
+        Data is loaded by using an implementation of the ``BatchDataManager``.
+        """
         while True:
             batch = self.data_manager.load_batch()
             if len(batch) == 0:
