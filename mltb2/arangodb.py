@@ -169,7 +169,7 @@ class ArangoBatchDataManager(AbstractBatchDataManager):
             collection.import_bulk(batch, on_duplicate="update")
 
 
-def arango_collection_backup():
+def arango_collection_backup() -> None:
     """Commandline tool to do an ArangoDB backup of a collection.
 
     The backup is written to a gzip compressed JSONL file in the current working directory.
