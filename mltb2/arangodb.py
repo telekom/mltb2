@@ -192,20 +192,24 @@ def arango_collection_backup() -> None:
     expected_config_file_keys = ["hosts", "db_name", "username", "password"]
     _check_config_keys(arango_config, expected_config_file_keys)
 
-    with closing(ArangoClient(hosts=arango_config["hosts"])) as arango_client, gzip.open(
+    with closing(ArangoClient(hosts=arango_config["hosts"])) as arango_client, gzip.open(  # type: ignore
         f"./{args.col}_backup.jsonl.gz", "w"
     ) as gzip_out:
-        connection = arango_client.db(arango_config["db_name"], arango_config["username"], arango_config["password"])
-        jsonlines_writer = jsonlines.Writer(gzip_out)
+        connection = arango_client.db(
+            arango_config["db_name"],  # type: ignore
+            arango_config["username"],  # type: ignore
+            arango_config["password"],  # type: ignore
+        )
+        jsonlines_writer = jsonlines.Writer(gzip_out)  # type: ignore
         try:
             cursor = connection.aql.execute(
                 "FOR doc IN @@coll RETURN doc",
                 bind_vars={"@coll": args.col},
                 batch_size=100,
-                max_runtime=60 * 60,  # one hour
+                max_runtime=60 * 60,  # type: ignore # 1 hour
                 stream=True,
             )
             for doc in tqdm(cursor):
                 jsonlines_writer.write(doc)
         finally:
-            cursor.close(ignore_missing=True)
+            cursor.close(ignore_missing=True)  # type: ignore
