@@ -71,6 +71,8 @@ pyyaml = {version = "*", optional = true}
 pandas = {version = "*", optional = true}
 beautifulsoup4 = {version = "*", optional = true}
 joblib = {version = "*", optional = true}
+python-dotenv = {version = "*", optional = true}
+python-arango = {version = "*", optional = true}
 
 [tool.poetry.extras]
 files = ["platformdirs", "scikit-learn"]
@@ -83,6 +85,7 @@ transformers = ["scikit-learn", "torch", "transformers", "safetensors"]
 md = ["scikit-learn", "torch", "transformers", "safetensors"]
 somajo_transformers = ["SoMaJo", "scikit-learn", "torch", "transformers", "safetensors"]
 openai = ["tiktoken", "openai", "pyyaml"]
+arangodb = ["python-dotenv", "python-arango"]
 
 [tool.poetry.group.lint.dependencies]
 black = "*"

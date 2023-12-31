@@ -77,6 +77,7 @@ intersphinx_mapping = {
     "numpy": ("https://numpy.org/doc/stable/", None),
     "git": ("https://gitpython.readthedocs.io/en/stable/", None),
     "platformdirs": ("https://platformdirs.readthedocs.io/en/latest/", None),
+    "arango": ("https://docs.python-arango.com/en/main/", None),
     # "matplotlib": ("https://matplotlib.org/stable/", None),
 }
 
