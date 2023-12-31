@@ -14,7 +14,11 @@ from typing import Callable, Sequence
 
 
 class BatchDataManager(ABC):
-    """Abstract base class for batch processing of database data."""
+    """Abstract base class for batch processing of database data.
+
+    This class (respectively an implementation of it) is intended to be
+    used in conjunction with the :class:`BatchDataProcessor`.
+    """
 
     @abstractmethod
     def load_batch(self) -> Sequence:
@@ -44,7 +48,7 @@ class BatchDataProcessor:
 
         This is done until the data manager returns an empty batch.
         For each batch the ``process_batch_callback`` is called.
-        Data is loaded by using an implementation of the ``BatchDataManager``.
+        Data is loaded by using an implementation of the :class:`BatchDataManager`.
         """
         while True:
             batch = self.data_manager.load_batch()

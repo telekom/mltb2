@@ -23,7 +23,20 @@ from mltb2.db import BatchDataManager
 
 @dataclass
 class ArangoBatchDataManager(BatchDataManager):
-    """TODO: add docstring."""
+    """ArangoDB implementation of the ``BatchDataManager``.
+
+    Args:
+        hosts: ArangoDB host or hosts.
+        db_name: ArangoDB database name.
+        username: ArangoDB username.
+        password: ArangoDB password.
+        collection_name: Documents from this collection are processed.
+        attribute_name: This attribute is used to check if a document is already processed.
+            If the attribute is not present in a document, the document is processed.
+            If it is available the document is considered as already processed.
+        batch_size: The batch size.
+        aql_overwrite: AQL string to overwrite the default.
+    """
 
     hosts: Union[str, Sequence[str]]
     db_name: str
@@ -36,7 +49,22 @@ class ArangoBatchDataManager(BatchDataManager):
 
     @classmethod
     def from_config_file(cls, config_file_name, aql_overwrite: Optional[str] = None):
-        """Construct this from config file."""
+        """Construct this from config file.
+
+        The config file must contain these values:
+
+        - ``hosts``
+        - ``db_name``
+        - ``username``
+        - ``password``
+        - ``collection_name``
+        - ``attribute_name``
+        - ``batch_size``
+
+        Args:
+            config_file_name: The config file name (path).
+            aql_overwrite: AQL string to overwrite the default.
+        """
         arango_config = dotenv_values(config_file_name)
         return cls(
             hosts=arango_config["hosts"],  # type: ignore
@@ -49,19 +77,24 @@ class ArangoBatchDataManager(BatchDataManager):
             aql_overwrite=aql_overwrite,
         )
 
-    def _get_arango_client(self) -> ArangoClient:
-        """TODO: add docstring."""
+    def _arango_client_factory(self) -> ArangoClient:
+        """Create an ArangoDB client."""
         arango_client = ArangoClient(hosts=self.hosts)
         return arango_client
 
-    def _get_connection(self, arango_client: ArangoClient) -> StandardDatabase:
+    def _connection_factory(self, arango_client: ArangoClient) -> StandardDatabase:
+        """Create an ArangoDB connection.
+
+        Args:
+            arango_client: ArangoDB client.
+        """
         connection = arango_client.db(self.db_name, username=self.username, password=self.password)
         return connection
 
     def load_batch(self) -> Sequence:
-        """TODO: add docstring."""
-        with closing(self._get_arango_client()) as arango_client:
-            connection = self._get_connection(arango_client)
+        """Load a batch of data from the ArangoDB database."""
+        with closing(self._arango_client_factory()) as arango_client:
+            connection = self._connection_factory(arango_client)
             bind_vars = {
                 "@coll": self.collection_name,
                 "attribute": self.attribute_name,
@@ -81,8 +114,8 @@ class ArangoBatchDataManager(BatchDataManager):
         return batch  # type: ignore
 
     def save_batch(self, batch: Sequence) -> None:
-        """TODO: add docstring."""
-        with closing(self._get_arango_client()) as arango_client:
-            connection = self._get_connection(arango_client)
+        """Save a batch of data to the ArangoDB database."""
+        with closing(self._arango_client_factory()) as arango_client:
+            connection = self._connection_factory(arango_client)
             collection = connection.collection(self.collection_name)
             collection.import_bulk(batch, on_duplicate="update")
