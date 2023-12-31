@@ -15,6 +15,7 @@ from dataclasses import dataclass
 from typing import Optional, Sequence, Union
 
 from arango import ArangoClient
+from arango.database import StandardDatabase
 from dotenv import dotenv_values
 
 from mltb2.db import BatchDataManager
@@ -34,25 +35,25 @@ class ArangoBatchDataManager(BatchDataManager):
     aql_overwrite: Optional[str] = None
 
     @classmethod
-    def from_config_file(cls, config_file_name, aql_overwrite=None):
+    def from_config_file(cls, config_file_name, aql_overwrite: Optional[str] = None):
         """Construct ``ArangoDataManager`` from config file."""
         arango_config = dotenv_values(config_file_name)
         return cls(
-            hosts=arango_config["hosts"],
-            db_name=arango_config["db_name"],
-            username=arango_config["username"],
-            password=arango_config["password"],
-            collection_name=arango_config["collection_name"],
-            attribute_name=arango_config["attribute_name"],
-            batch_size=int(arango_config["batch_size"]),
+            hosts=arango_config["hosts"],  # type: ignore
+            db_name=arango_config["db_name"],  # type: ignore
+            username=arango_config["username"],  # type: ignore
+            password=arango_config["password"],  # type: ignore
+            collection_name=arango_config["collection_name"],  # type: ignore
+            attribute_name=arango_config["attribute_name"],  # type: ignore
+            batch_size=int(arango_config["batch_size"]),  # type: ignore
             aql_overwrite=aql_overwrite,
         )
 
-    def _get_arango_client(self):
+    def _get_arango_client(self) -> ArangoClient:
         arango_client = ArangoClient(hosts=self.hosts)
         return arango_client
 
-    def _get_connection(self, arango_client):
+    def _get_connection(self, arango_client: ArangoClient) -> StandardDatabase:
         connection = arango_client.db(self.db_name, username=self.username, password=self.password)
         return connection
 
@@ -71,14 +72,14 @@ class ArangoBatchDataManager(BatchDataManager):
                 aql = self.aql_overwrite
             cursor = connection.aql.execute(
                 aql,
-                bind_vars=bind_vars,
+                bind_vars=bind_vars,  # type: ignore
                 batch_size=self.batch_size,
             )
-            with closing(cursor) as closing_cursor:
-                batch = closing_cursor.batch()
-        return batch
+            with closing(cursor) as closing_cursor:  # type: ignore
+                batch = closing_cursor.batch()  # type: ignore
+        return batch  # type: ignore
 
-    def save_batch(self, batch: Sequence):
+    def save_batch(self, batch: Sequence) -> None:
         """TODO: add docstring."""
         with closing(self._get_arango_client()) as arango_client:
             connection = self._get_connection(arango_client)

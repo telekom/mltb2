@@ -10,7 +10,7 @@ It is not meant to be used directly.
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Sequence
+from typing import Callable, Sequence
 
 
 class BatchDataManager(ABC):
@@ -22,28 +22,24 @@ class BatchDataManager(ABC):
         pass
 
     @abstractmethod
-    def save_batch(self, batch: Sequence):
+    def save_batch(self, batch: Sequence) -> None:
         """TODO: add docstring."""
         pass
 
 
 @dataclass
-class BatchDataProcessor(ABC):
+class BatchDataProcessor:
     """TODO: add docstring."""
 
     data_manager: BatchDataManager
+    process_batch_callback: Callable[[Sequence], Sequence]
 
-    @abstractmethod
-    def process_batch(self, batch: Sequence):
-        """TODO: add docstring."""
-        pass
-
-    def run(self):
+    def run(self) -> None:
         """TODO: add docstring."""
         while True:
             batch = self.data_manager.load_batch()
             if len(batch) == 0:
                 break
-            new_batch = self.process_batch(batch)
+            new_batch = self.process_batch_callback(batch)
             if len(new_batch) > 0:
                 self.data_manager.save_batch(new_batch)
