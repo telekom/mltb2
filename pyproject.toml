@@ -48,6 +48,9 @@ classifiers = [
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.poetry.scripts]
+arango-col-backup = 'mltb2.arangodb:arango_collection_backup'
+
 [tool.poetry.urls]
 "Bug Tracker" = "https://github.com/telekom/mltb2/issues"
 
@@ -73,6 +76,7 @@ beautifulsoup4 = {version = "*", optional = true}
 joblib = {version = "*", optional = true}
 python-dotenv = {version = "*", optional = true}
 python-arango = {version = "*", optional = true}
+jsonlines = {version = "*", optional = true}
 
 [tool.poetry.extras]
 files = ["platformdirs", "scikit-learn"]
@@ -85,7 +89,7 @@ transformers = ["scikit-learn", "torch", "transformers", "safetensors"]
 md = ["scikit-learn", "torch", "transformers", "safetensors"]
 somajo_transformers = ["SoMaJo", "scikit-learn", "torch", "transformers", "safetensors"]
 openai = ["tiktoken", "openai", "pyyaml"]
-arangodb = ["python-dotenv", "python-arango"]
+arangodb = ["python-dotenv", "python-arango", "jsonlines"]
 
 [tool.poetry.group.lint.dependencies]
 black = "*"
