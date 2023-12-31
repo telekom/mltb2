@@ -10,15 +10,29 @@ Hint:
 """
 
 
+import gzip
+from argparse import ArgumentParser
 from contextlib import closing
 from dataclasses import dataclass
-from typing import Optional, Sequence, Union
+from typing import Dict, Optional, Sequence, Union
 
+import jsonlines
 from arango import ArangoClient
 from arango.database import StandardDatabase
 from dotenv import dotenv_values
+from tqdm import tqdm
 
 from mltb2.db import AbstractBatchDataManager
+
+
+def _check_config_keys(config: Dict[str, Optional[str]], expected_config_keys: Sequence[str]) -> None:
+    """Check if all expected keys are in config.
+
+    This is useful to check if a config file contains all necessary keys.
+    """
+    for expected_config_key in expected_config_keys:
+        if expected_config_key not in config:
+            raise ValueError(f"Config file must contain '{expected_config_key}'!")
 
 
 @dataclass
@@ -90,9 +104,7 @@ class ArangoBatchDataManager(AbstractBatchDataManager):
             "attribute_name",
             "batch_size",
         ]
-        for expected_config_file_key in expected_config_file_keys:
-            if expected_config_file_key not in arango_config:
-                raise ValueError(f"Config file must contain '{expected_config_file_key}'!")
+        _check_config_keys(arango_config, expected_config_file_keys)
 
         return cls(
             hosts=arango_config["hosts"],  # type: ignore
@@ -155,3 +167,52 @@ class ArangoBatchDataManager(AbstractBatchDataManager):
             connection = self._connection_factory(arango_client)
             collection = connection.collection(self.collection_name)
             collection.import_bulk(batch, on_duplicate="update")
+
+
+def arango_collection_backup() -> None:
+    """Commandline tool to do an ArangoDB backup of a collection.
+
+    The backup is written to a gzip compressed JSONL file in the current working directory.
+    Run ``arango-col-backup -h`` to get command line help.
+    """
+    # argument parsing
+    description = (
+        "ArangoDB backup of a collection. "
+        "The backup is written to a gzip compressed JSONL file in the current working directory."
+    )
+    argument_parser = ArgumentParser(description=description)
+    argument_parser.add_argument(
+        "--conf", type=str, required=True, help="Config file containing 'hosts', 'db_name', 'username' and 'password'."
+    )
+    argument_parser.add_argument("--col", type=str, required=True, help="Collection name to backup.")
+    args = argument_parser.parse_args()
+
+    # load and check config file
+    arango_config = dotenv_values(args.conf)
+    expected_config_file_keys = ["hosts", "db_name", "username", "password"]
+    _check_config_keys(arango_config, expected_config_file_keys)
+
+    output_file_name = f"./{args.col}_backup.jsonl.gz"
+    print(f"Writing backup to '{output_file_name}'...")
+
+    with closing(ArangoClient(hosts=arango_config["hosts"])) as arango_client, gzip.open(  # type: ignore
+        output_file_name, "w"
+    ) as gzip_out:
+        connection = arango_client.db(
+            arango_config["db_name"],  # type: ignore
+            arango_config["username"],  # type: ignore
+            arango_config["password"],  # type: ignore
+        )
+        jsonlines_writer = jsonlines.Writer(gzip_out)  # type: ignore
+        try:
+            cursor = connection.aql.execute(
+                "FOR doc IN @@coll RETURN doc",
+                bind_vars={"@coll": args.col},
+                batch_size=100,
+                max_runtime=60 * 60,  # type: ignore # 1 hour
+                stream=True,
+            )
+            for doc in tqdm(cursor):
+                jsonlines_writer.write(doc)
+        finally:
+            cursor.close(ignore_missing=True)  # type: ignore
