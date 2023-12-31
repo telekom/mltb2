@@ -36,7 +36,7 @@ class ArangoBatchDataManager(BatchDataManager):
 
     @classmethod
     def from_config_file(cls, config_file_name, aql_overwrite: Optional[str] = None):
-        """Construct ``ArangoDataManager`` from config file."""
+        """Construct this from config file."""
         arango_config = dotenv_values(config_file_name)
         return cls(
             hosts=arango_config["hosts"],  # type: ignore
@@ -50,6 +50,7 @@ class ArangoBatchDataManager(BatchDataManager):
         )
 
     def _get_arango_client(self) -> ArangoClient:
+        """TODO: add docstring."""
         arango_client = ArangoClient(hosts=self.hosts)
         return arango_client
 
