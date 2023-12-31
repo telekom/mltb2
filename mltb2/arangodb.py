@@ -172,6 +172,7 @@ class ArangoBatchDataManager(AbstractBatchDataManager):
 def arango_collection_backup():
     """Commandline tool to do an ArangoDB backup of a collection.
 
+    The backup is written to a gzip compressed JSONL file in the current working directory.
     Run ``arango-col-backup -h`` to get command line help.
     """
     # argument parsing
