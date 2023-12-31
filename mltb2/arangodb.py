@@ -67,9 +67,9 @@ class ArangoBatchDataManager(AbstractBatchDataManager):
 
             hosts="https://arangodb.com"
             db_name="my_ml_database"
-            username="PhilipMay"
+            username="my_username"
             password="secret"
-            collection_name="my_ml_data"
+            collection_name="my_ml_data_collection"
             attribute_name="processing_metadata"
             batch_size=100
 
