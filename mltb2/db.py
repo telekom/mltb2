@@ -2,11 +2,7 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""Database utils module.
-
-This module provides utility functions for other modules.
-It is not meant to be used directly.
-"""
+"""Database utils module."""
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
