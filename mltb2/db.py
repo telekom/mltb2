@@ -13,7 +13,7 @@ from dataclasses import dataclass
 from typing import Callable, Sequence
 
 
-class BatchDataManager(ABC):
+class AbstractBatchDataManager(ABC):
     """Abstract base class for batch processing of database data.
 
     This class (respectively an implementation of it) is intended to be
@@ -40,7 +40,7 @@ class BatchDataProcessor:
         process_batch_callback: A callback function that processes one batch of data.
     """
 
-    data_manager: BatchDataManager
+    data_manager: AbstractBatchDataManager
     process_batch_callback: Callable[[Sequence], Sequence]
 
     def run(self) -> None:
@@ -48,7 +48,7 @@ class BatchDataProcessor:
 
         This is done until the data manager returns an empty batch.
         For each batch the ``process_batch_callback`` is called.
-        Data is loaded by using an implementation of the :class:`BatchDataManager`.
+        Data is loaded by using an implementation of the :class:`AbstractBatchDataManager`.
         """
         while True:
             batch = self.data_manager.load_batch()

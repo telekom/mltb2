@@ -18,12 +18,12 @@ from arango import ArangoClient
 from arango.database import StandardDatabase
 from dotenv import dotenv_values
 
-from mltb2.db import BatchDataManager
+from mltb2.db import AbstractBatchDataManager
 
 
 @dataclass
-class ArangoBatchDataManager(BatchDataManager):
-    """ArangoDB implementation of the ``BatchDataManager``.
+class ArangoBatchDataManager(AbstractBatchDataManager):
+    """ArangoDB implementation of the ``AbstractBatchDataManager``.
 
     Args:
         hosts: ArangoDB host or hosts.
