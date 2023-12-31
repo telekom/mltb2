@@ -77,7 +77,23 @@ class ArangoBatchDataManager(AbstractBatchDataManager):
             config_file_name: The config file name (path).
             aql_overwrite: AQL string to overwrite the default.
         """
+        # load config file data
         arango_config = dotenv_values(config_file_name)
+
+        # check if all necessary keys are in config file
+        expected_config_file_keys = [
+            "hosts",
+            "db_name",
+            "username",
+            "password",
+            "collection_name",
+            "attribute_name",
+            "batch_size",
+        ]
+        for expected_config_file_key in expected_config_file_keys:
+            if expected_config_file_key not in arango_config:
+                raise ValueError(f"Config file must contain '{expected_config_file_key}'!")
+
         return cls(
             hosts=arango_config["hosts"],  # type: ignore
             db_name=arango_config["db_name"],  # type: ignore
