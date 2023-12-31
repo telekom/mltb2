@@ -61,6 +61,18 @@ class ArangoBatchDataManager(BatchDataManager):
         - ``attribute_name``
         - ``batch_size``
 
+        Config file example:
+
+        .. code-block::
+
+            hosts="https://arangodb.com"
+            db_name="my_ml_database"
+            username="PhilipMay"
+            password="secret"
+            collection_name="my_ml_data"
+            attribute_name="processing_metadata"
+            batch_size=100
+
         Args:
             config_file_name: The config file name (path).
             aql_overwrite: AQL string to overwrite the default.
@@ -92,7 +104,11 @@ class ArangoBatchDataManager(BatchDataManager):
         return connection
 
     def load_batch(self) -> Sequence:
-        """Load a batch of data from the ArangoDB database."""
+        """Load a batch of data from the ArangoDB database.
+
+        Returns:
+            The loaded batch of data.
+        """
         with closing(self._arango_client_factory()) as arango_client:
             connection = self._connection_factory(arango_client)
             bind_vars = {
@@ -114,7 +130,11 @@ class ArangoBatchDataManager(BatchDataManager):
         return batch  # type: ignore
 
     def save_batch(self, batch: Sequence) -> None:
-        """Save a batch of data to the ArangoDB database."""
+        """Save a batch of data to the ArangoDB database.
+
+        Args:
+            batch: The batch of data to save.
+        """
         with closing(self._arango_client_factory()) as arango_client:
             connection = self._connection_factory(arango_client)
             collection = connection.collection(self.collection_name)
