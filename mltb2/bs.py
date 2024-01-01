@@ -31,7 +31,8 @@ def extract_one(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **
     if attrs is None:
         attrs = {}
     result = soup.find_all(name, attrs, **kwargs)
-    assert len(result) == 1, len(result)
+    if len(result) != 1:
+        raise RuntimeError(f"Expected exactly one result, but got {len(result)}!")
     result = result[0]
     return result
 

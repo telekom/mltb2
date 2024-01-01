@@ -39,11 +39,18 @@ def test_extract_text(my_soup: BeautifulSoup):
         "and their names were Elsie, Lacie and Tillie; and they lived at the bottom of a well. ..."
     )
 
-def test_extract_one(my_soup: BeautifulSoup):
+
+def test_extract_one__happy_case(my_soup: BeautifulSoup):
     result = extract_one(my_soup, name="head")
     assert result is not None
     assert result.name == "head"
     assert result.text == "The Dormouse's story"
+
+
+def test_extract_one__multiple_results(my_soup: BeautifulSoup):
+    with pytest.raises(RuntimeError):
+        _ = extract_one(my_soup, name="a")
+
 
 def test_extract_all(my_soup: BeautifulSoup):
     result = extract_all(my_soup, name="a")
@@ -52,20 +59,26 @@ def test_extract_all(my_soup: BeautifulSoup):
     assert result[0].name == "a"
     assert result[0].text == "Elsie"
 
+
 def test_soup_to_md(my_soup: BeautifulSoup):
     result = soup_to_md(my_soup)
     assert result is not None
-    assert result == "The Dormouse's story **The Dormouse's story**\n\n"\
-        "Once upon a time there were three little sisters; "\
-        "and their names were [Elsie](http://example.com/elsie), "\
-        "[Lacie](http://example.com/lacie) and [Tillie](http://example.com/tillie); "\
+    assert (
+        result == "The Dormouse's story **The Dormouse's story**\n\n"
+        "Once upon a time there were three little sisters; "
+        "and their names were [Elsie](http://example.com/elsie), "
+        "[Lacie](http://example.com/lacie) and [Tillie](http://example.com/tillie); "
         "and they lived at the bottom of a well.\n\n...\n"
+    )
+
 
 def test_html_to_md():
     result = html_to_md(html_doc)
     assert result is not None
-    assert result == "The Dormouse's story **The Dormouse's story**\n\n"\
-        "Once upon a time there were three little sisters; "\
-        "and their names were [Elsie](http://example.com/elsie), "\
-        "[Lacie](http://example.com/lacie) and [Tillie](http://example.com/tillie); "\
+    assert (
+        result == "The Dormouse's story **The Dormouse's story**\n\n"
+        "Once upon a time there were three little sisters; "
+        "and their names were [Elsie](http://example.com/elsie), "
+        "[Lacie](http://example.com/lacie) and [Tillie](http://example.com/tillie); "
         "and they lived at the bottom of a well.\n\n...\n"
+    )
