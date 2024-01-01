@@ -6,7 +6,7 @@
 import pytest
 from bs4 import BeautifulSoup
 
-from mltb2.bs import extract_all, extract_one, extract_text, html_to_md, soup_to_md
+from mltb2.bs import extract_all, extract_one, extract_text, html_to_md, remove_all, soup_to_md
 
 # this code snippet is from the BeautifulSoup documentation
 # MIT License
@@ -52,12 +52,19 @@ def test_extract_one__multiple_results(my_soup: BeautifulSoup):
         _ = extract_one(my_soup, name="a")
 
 
-def test_extract_all(my_soup: BeautifulSoup):
+def test_extract_all__happy_case(my_soup: BeautifulSoup):
     result = extract_all(my_soup, name="a")
     assert result is not None
     assert len(result) == 3
     assert result[0].name == "a"
     assert result[0].text == "Elsie"
+
+
+def test_remove_all(my_soup: BeautifulSoup):
+    remove_all(my_soup, name="a")
+    result = extract_all(my_soup, name="a")
+    assert result is not None
+    assert len(result) == 0
 
 
 def test_soup_to_md(my_soup: BeautifulSoup):
