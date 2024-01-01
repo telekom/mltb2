@@ -9,7 +9,6 @@ Hint:
     ``pip install mltb2[bs]``
 """
 
-import re
 from typing import Optional
 
 import mdformat
@@ -23,15 +22,6 @@ def extract_text(soup, join_str=None) -> str:
     texts = [text for text in soup.stripped_strings]
     result: str = join_str.join(texts)
     return result
-
-
-def normalize_text(text) -> str:  #
-    """TODO: add docstring."""
-    text = text.replace("\xa0", " ")
-    text = text.replace("\u200b", " ")
-    text = re.sub("  +", " ", text)
-    text = text.strip()
-    return text
 
 
 def extract_one(soup, name=None, attrs={}, **kwargs):
