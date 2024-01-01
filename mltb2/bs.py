@@ -17,7 +17,14 @@ from markdownify import MarkdownConverter, markdownify
 
 
 def extract_text(soup: BeautifulSoup, join_str: Optional[str] = None) -> str:
-    """TODO: add docstring."""
+    """Actract the text from a BeautifulSoup object.
+
+    Args:
+        soup: BeautifulSoup object.
+        join_str: String to join the text parts with.
+    Returns:
+        Text from the BeautifulSoup object.
+    """
     if join_str is None:
         join_str = " "
     texts = list(soup.stripped_strings)
@@ -27,7 +34,21 @@ def extract_text(soup: BeautifulSoup, join_str: Optional[str] = None) -> str:
 
 # TODO: add return type
 def extract_one(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: Dict[str, Any]):
-    """TODO: add docstring."""
+    """Extract exactly one specified element from a BeautifulSoup object.
+
+    This function expacts that exactly only one result is found.
+    Otherwise a RuntimeError is raised.
+
+    Args:
+        soup: BeautifulSoup object.
+        name: Name of the tag.
+        attrs: Attributes of the tag.
+        kwargs: Keyword arguments.
+    Returns:
+        The extracted element.
+    Raises:
+        RuntimeError: If not exactly one result is found.
+    """
     if attrs is None:
         attrs = {}
     result = soup.find_all(name, attrs, **kwargs)
@@ -39,7 +60,16 @@ def extract_one(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **
 
 # TODO: add return type
 def extract_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: Dict[str, Any]):
-    """TODO: add docstring."""
+    """Extract all specified elements from a BeautifulSoup object.
+
+    Args:
+        soup: BeautifulSoup object.
+        name: Name of the tag.
+        attrs: Attributes of the tag.
+        kwargs: Keyword arguments.
+    Returns:
+        The extracted elements.
+    """
     if attrs is None:
         attrs = {}
     result = soup.find_all(name, attrs, **kwargs)
