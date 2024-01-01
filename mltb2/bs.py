@@ -20,8 +20,8 @@ def extract_text(soup: BeautifulSoup, join_str: Optional[str] = None) -> str:
     """Extract the text from a BeautifulSoup object.
 
     Args:
-        soup: BeautifulSoup object.
-        join_str: String to join the text parts with.
+        soup: The BeautifulSoup object to extract the text from.
+        join_str: String to join the text parts with. Per default a space is used.
     Returns:
         Text from the BeautifulSoup object.
     """
@@ -39,10 +39,10 @@ def extract_one(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **
     Otherwise a RuntimeError is raised.
 
     Args:
-        soup: BeautifulSoup object.
-        name: Name of the tag.
-        attrs: Attributes of the tag.
-        kwargs: Keyword arguments.
+        soup: The BeautifulSoup object to extract the element from.
+        name: Name of the tag to extract.
+        attrs: Attributes of the tag to extract.
+        kwargs: Additional keyword arguments.
     Returns:
         The extracted BeautifulSoup element.
     Raises:
@@ -61,12 +61,12 @@ def extract_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **
     """Extract all specified elements from a BeautifulSoup object.
 
     Args:
-        soup: BeautifulSoup object.
-        name: Name of the tag.
-        attrs: Attributes of the tag.
-        kwargs: Keyword arguments.
+        soup: The BeautifulSoup object to extract the elements from.
+        name: Name of the tag to extract.
+        attrs: Attributes of the tag to extract.
+        kwargs: Additional keyword arguments.
     Returns:
-        The extracted elements.
+        The extracted BeautifulSoup elements.
     """
     if attrs is None:
         attrs = {}
@@ -75,12 +75,12 @@ def extract_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **
 
 
 def remove_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: Dict[str, Any]) -> None:
-    """Remobe all specified elements from a BeautifulSoup object.
+    """Remove all specified elements from a BeautifulSoup object.
 
     The removal is done in place. Nothing is returned.
 
     Args:
-        soup: BeautifulSoup object.
+        soup: The BeautifulSoup object to remove the elements from.
         name: Name of the tag(-s) to remove.
         attrs: Attributes of the tag(-s) to remove.
         kwargs: Additional keyword arguments.
@@ -95,11 +95,20 @@ def remove_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **k
 def soup_to_md(soup: BeautifulSoup, mdformat_options: Optional[dict] = None) -> str:
     """Convert a BeautifulSoup object to Markdown.
 
+    The default mdformat options are:
+
+    - ``number=True``: apply consecutive numbering to ordered lists
+    - ``wrap="no"``: paragraph word wrap mode
+    - ``end-of-line="lf"``: use LF as line ending
+
+    See Also:
+        The `mdformat Options
+        <https://mdformat.readthedocs.io/en/stable/users/installation_and_usage.html#options>`_.
     Args:
         soup: BeautifulSoup object.
         mdformat_options: Options for mdformat.
     Returns:
-        Markdown text.
+        The Markdown text.
     """
     if mdformat_options is None:
         mdformat_options = {"number": True, "wrap": "no"}
@@ -111,11 +120,20 @@ def soup_to_md(soup: BeautifulSoup, mdformat_options: Optional[dict] = None) -> 
 def html_to_md(html: str, mdformat_options: Optional[dict] = None) -> str:
     """Convert HTML to Markdown.
 
+    The default mdformat options are:
+
+    - ``number=True``: apply consecutive numbering to ordered lists
+    - ``wrap="no"``: paragraph word wrap mode
+    - ``end-of-line="lf"``: use LF as line ending
+
+    See Also:
+        The `mdformat Options
+        <https://mdformat.readthedocs.io/en/stable/users/installation_and_usage.html#options>`_.
     Args:
         html: HTML text.
         mdformat_options: Options for mdformat.
     Returns:
-        Markdown text.
+        The Markdown text.
     """
     if mdformat_options is None:
         mdformat_options = {"number": True, "wrap": "no"}
