@@ -17,7 +17,7 @@ from markdownify import MarkdownConverter, markdownify
 
 
 def extract_text(soup: BeautifulSoup, join_str: Optional[str] = None) -> str:
-    """Actract the text from a BeautifulSoup object.
+    """Extract the text from a BeautifulSoup object.
 
     Args:
         soup: BeautifulSoup object.
@@ -32,8 +32,7 @@ def extract_text(soup: BeautifulSoup, join_str: Optional[str] = None) -> str:
     return result
 
 
-# TODO: add return type
-def extract_one(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: Dict[str, Any]):
+def extract_one(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: Dict[str, Any]) -> Any:
     """Extract exactly one specified element from a BeautifulSoup object.
 
     This function expacts that exactly only one result is found.
@@ -45,7 +44,7 @@ def extract_one(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **
         attrs: Attributes of the tag.
         kwargs: Keyword arguments.
     Returns:
-        The extracted element.
+        The extracted BeautifulSoup element.
     Raises:
         RuntimeError: If not exactly one result is found.
     """
@@ -58,8 +57,7 @@ def extract_one(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **
     return result
 
 
-# TODO: add return type
-def extract_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: Dict[str, Any]):
+def extract_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: Dict[str, Any]) -> Any:
     """Extract all specified elements from a BeautifulSoup object.
 
     Args:
