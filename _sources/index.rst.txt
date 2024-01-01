@@ -13,11 +13,10 @@ It can be installed with pip:
 
    pip install mltb2
 
-Some optional dependencies might be necessary. You can install all of them with:
-
-.. code-block:: bash
-
-   pip install mltb2[optional]
+For many modules optional dependencies are necessary.
+Those optional dependencies must be installed when you want to use the module.
+To install those module specific dependencies see the description of the individual modules
+in the :doc:`api-reference`.
 
 Content
 -------
