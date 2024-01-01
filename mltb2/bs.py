@@ -63,7 +63,7 @@ def soup_to_md(soup: BeautifulSoup, mdformat_options: Optional[dict] = None) -> 
     return text
 
 
-def html_to_md(html, mdformat_options: Optional[dict] = None) -> str:
+def html_to_md(html: str, mdformat_options: Optional[dict] = None) -> str:
     """TODO: add docstring."""
     if mdformat_options is None:
         mdformat_options = {"number": True, "wrap": "no"}
