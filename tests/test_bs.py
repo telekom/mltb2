@@ -6,7 +6,7 @@
 import pytest
 from bs4 import BeautifulSoup
 
-from mltb2.bs import extract_text
+from mltb2.bs import extract_all, extract_one, extract_text
 
 # this code snippet is from the BeautifulSoup documentation
 # MIT License
@@ -28,7 +28,7 @@ and they lived at the bottom of a well.</p>
 
 @pytest.fixture
 def my_soup() -> BeautifulSoup:
-    soup = BeautifulSoup(html_doc)
+    soup = BeautifulSoup(html_doc, features="html.parser")
     return soup
 
 
@@ -39,3 +39,16 @@ def test_extract_text(my_soup: BeautifulSoup):
         result == "The Dormouse's story The Dormouse's story Once upon a time there were three little sisters; "
         "and their names were Elsie, Lacie and Tillie; and they lived at the bottom of a well. ..."
     )
+
+def test_extract_one(my_soup: BeautifulSoup):
+    result = extract_one(my_soup, name="head")
+    assert result is not None
+    assert result.name == "head"
+    assert result.text == "The Dormouse's story"
+
+def test_extract_all(my_soup: BeautifulSoup):
+    result = extract_all(my_soup, name="a")
+    assert result is not None
+    assert len(result) == 3
+    assert result[0].name == "a"
+    assert result[0].text == "Elsie"
