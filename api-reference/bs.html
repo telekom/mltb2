@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bs &mdash; MLTB2  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=de248184" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="data" href="data.html" />
+    <link rel="prev" title="arangodb" href="arangodb.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MLTB2
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api-reference.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="arangodb.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">arangodb</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bs</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.bs.extract_all"><code class="docutils literal notranslate"><span class="pre">extract_all()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.bs.extract_one"><code class="docutils literal notranslate"><span class="pre">extract_one()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.bs.extract_text"><code class="docutils literal notranslate"><span class="pre">extract_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.bs.html_to_md"><code class="docutils literal notranslate"><span class="pre">html_to_md()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.bs.remove_all"><code class="docutils literal notranslate"><span class="pre">remove_all()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.bs.soup_to_md"><code class="docutils literal notranslate"><span class="pre">soup_to_md()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="data.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">data</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="db.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">db</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="fasttext.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fasttext</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="files.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">files</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="md.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">md</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="openai.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">openai</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="optuna.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">optuna</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">plot</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="somajo.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="somajo_transformers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">somajo_transformers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="text.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">text</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="transformers.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">transformers</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/telekom/mltb2">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/telekom/mltb2/blob/main/LICENSE">License</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.telekom.com/imprint">Imprint</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MLTB2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../api-reference.html">API Reference</a></li>
+      <li class="breadcrumb-item active"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bs</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/telekom/mltb2/blob/main/docs/source/api-reference/bs.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-mltb2.bs">
+<span id="bs"></span><span id="bs-code-doc"></span><h1><a class="reference internal" href="#module-mltb2.bs" title="mltb2.bs"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bs</span></code></a><a class="headerlink" href="#module-mltb2.bs" title="Permalink to this heading"></a></h1>
+<p>Beautiful Soup and HTML specific tools.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Use pip to install the necessary dependencies for this module:
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">mltb2[bs]</span></code></p>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="mltb2.bs.extract_all">
+<span class="sig-prename descclassname"><span class="pre">mltb2.bs.</span></span><span class="sig-name descname"><span class="pre">extract_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">soup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BeautifulSoup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></span><a class="reference internal" href="../_modules/mltb2/bs.html#extract_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.bs.extract_all" title="Permalink to this definition"></a></dt>
+<dd><p>Extract all specified elements from a BeautifulSoup object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>soup</strong> (<em>BeautifulSoup</em>) – The BeautifulSoup object to extract the elements from.</p></li>
+<li><p><strong>name</strong> – Name of the tag to extract.</p></li>
+<li><p><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em> | </em><em>None</em>) – Attributes of the tag to extract.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – Additional keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The extracted BeautifulSoup elements.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mltb2.bs.extract_one">
+<span class="sig-prename descclassname"><span class="pre">mltb2.bs.</span></span><span class="sig-name descname"><span class="pre">extract_one</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">soup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BeautifulSoup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a></span></span><a class="reference internal" href="../_modules/mltb2/bs.html#extract_one"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.bs.extract_one" title="Permalink to this definition"></a></dt>
+<dd><p>Extract exactly one specified element from a BeautifulSoup object.</p>
+<p>This function expacts that exactly only one result is found.
+Otherwise a RuntimeError is raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>soup</strong> (<em>BeautifulSoup</em>) – The BeautifulSoup object to extract the element from.</p></li>
+<li><p><strong>name</strong> – Name of the tag to extract.</p></li>
+<li><p><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em> | </em><em>None</em>) – Attributes of the tag to extract.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – Additional keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The extracted BeautifulSoup element.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.12)"><strong>RuntimeError</strong></a> – If not exactly one result is found.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mltb2.bs.extract_text">
+<span class="sig-prename descclassname"><span class="pre">mltb2.bs.</span></span><span class="sig-name descname"><span class="pre">extract_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">soup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BeautifulSoup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">join_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/bs.html#extract_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.bs.extract_text" title="Permalink to this definition"></a></dt>
+<dd><p>Extract the text from a BeautifulSoup object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>soup</strong> (<em>BeautifulSoup</em>) – The BeautifulSoup object to extract the text from.</p></li>
+<li><p><strong>join_str</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><em>None</em>) – String to join the text parts with. Per default a space is used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Text from the BeautifulSoup object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mltb2.bs.html_to_md">
+<span class="sig-prename descclassname"><span class="pre">mltb2.bs.</span></span><span class="sig-name descname"><span class="pre">html_to_md</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mdformat_options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/bs.html#html_to_md"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.bs.html_to_md" title="Permalink to this definition"></a></dt>
+<dd><p>Convert HTML to Markdown.</p>
+<p>The default mdformat options are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">number=True</span></code>: apply consecutive numbering to ordered lists</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wrap=&quot;no&quot;</span></code>: paragraph word wrap mode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">end-of-line=&quot;lf&quot;</span></code>: use LF as line ending</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The <a class="reference external" href="https://mdformat.readthedocs.io/en/stable/users/installation_and_usage.html#options">mdformat Options</a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>html</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – HTML text.</p></li>
+<li><p><strong>mdformat_options</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em> | </em><em>None</em>) – Options for mdformat.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Markdown text.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mltb2.bs.remove_all">
+<span class="sig-prename descclassname"><span class="pre">mltb2.bs.</span></span><span class="sig-name descname"><span class="pre">remove_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">soup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BeautifulSoup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/mltb2/bs.html#remove_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.bs.remove_all" title="Permalink to this definition"></a></dt>
+<dd><p>Remove all specified elements from a BeautifulSoup object.</p>
+<p>The removal is done in place. Nothing is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>soup</strong> (<em>BeautifulSoup</em>) – The BeautifulSoup object to remove the elements from.</p></li>
+<li><p><strong>name</strong> – Name of the tag(-s) to remove.</p></li>
+<li><p><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em> | </em><em>None</em>) – Attributes of the tag(-s) to remove.</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em>) – Additional keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mltb2.bs.soup_to_md">
+<span class="sig-prename descclassname"><span class="pre">mltb2.bs.</span></span><span class="sig-name descname"><span class="pre">soup_to_md</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">soup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BeautifulSoup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mdformat_options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/mltb2/bs.html#soup_to_md"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.bs.soup_to_md" title="Permalink to this definition"></a></dt>
+<dd><p>Convert a BeautifulSoup object to Markdown.</p>
+<p>The default mdformat options are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">number=True</span></code>: apply consecutive numbering to ordered lists</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wrap=&quot;no&quot;</span></code>: paragraph word wrap mode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">end-of-line=&quot;lf&quot;</span></code>: use LF as line ending</p></li>
+</ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The <a class="reference external" href="https://mdformat.readthedocs.io/en/stable/users/installation_and_usage.html#options">mdformat Options</a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>soup</strong> (<em>BeautifulSoup</em>) – BeautifulSoup object.</p></li>
+<li><p><strong>mdformat_options</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.12)"><em>dict</em></a><em> | </em><em>None</em>) – Options for mdformat.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Markdown text.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="arangodb.html" class="btn btn-neutral float-left" title="arangodb" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="data.html" class="btn btn-neutral float-right" title="data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Philip May, Deutsche Telekom AG.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
