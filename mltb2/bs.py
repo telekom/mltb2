@@ -9,14 +9,14 @@ Hint:
     ``pip install mltb2[bs]``
 """
 
-from typing import Optional
+from typing import Any, Dict, Optional
 
 import mdformat
 from bs4 import BeautifulSoup
 from markdownify import MarkdownConverter, markdownify
 
 
-def extract_text(soup: BeautifulSoup, join_str=None) -> str:
+def extract_text(soup: BeautifulSoup, join_str: Optional[str] = None) -> str:
     """TODO: add docstring."""
     if join_str is None:
         join_str = " "
@@ -25,7 +25,8 @@ def extract_text(soup: BeautifulSoup, join_str=None) -> str:
     return result
 
 
-def extract_one(soup: BeautifulSoup, name=None, attrs=None, **kwargs):
+# TODO: add return type
+def extract_one(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: Dict[str, Any]):
     """TODO: add docstring."""
     if attrs is None:
         attrs = {}
@@ -35,7 +36,8 @@ def extract_one(soup: BeautifulSoup, name=None, attrs=None, **kwargs):
     return result
 
 
-def extract_all(soup: BeautifulSoup, name=None, attrs=None, **kwargs):
+# TODO: add return type
+def extract_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: Dict[str, Any]):
     """TODO: add docstring."""
     if attrs is None:
         attrs = {}
@@ -43,7 +45,7 @@ def extract_all(soup: BeautifulSoup, name=None, attrs=None, **kwargs):
     return result
 
 
-def remove_all(soup: BeautifulSoup, name=None, attrs=None, **kwargs) -> None:
+def remove_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: Dict[str, Any]) -> None:
     """TODO: add docstring."""
     if attrs is None:
         attrs = {}
