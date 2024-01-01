@@ -77,6 +77,8 @@ joblib = {version = "*", optional = true}
 python-dotenv = {version = "*", optional = true}
 python-arango = {version = "*", optional = true}
 jsonlines = {version = "*", optional = true}
+markdownify = {version = "*", optional = true}
+mdformat = {version = "*", optional = true}
 
 [tool.poetry.extras]
 files = ["platformdirs", "scikit-learn"]
@@ -90,6 +92,7 @@ md = ["scikit-learn", "torch", "transformers", "safetensors"]
 somajo_transformers = ["SoMaJo", "scikit-learn", "torch", "transformers", "safetensors"]
 openai = ["tiktoken", "openai", "pyyaml"]
 arangodb = ["python-dotenv", "python-arango", "jsonlines"]
+bs = ["beautifulsoup4", "markdownify", "mdformat"]
 
 [tool.poetry.group.lint.dependencies]
 black = "*"
@@ -159,7 +162,7 @@ ignore = [
 convention = "google"
 
 [tool.ruff.flake8-copyright]
-notice-rgx = "(# Copyright \\(c\\) \\d{4} .*\\n)+# This software is distributed under the terms of the MIT license\\n# which is available at https://opensource.org/licenses/MIT\\n\\n"
+notice-rgx = "(# Copyright \\(c\\) \\d{4}.*\\n)+# This software is distributed under the terms of the MIT license\\n# which is available at https://opensource.org/licenses/MIT\\n\\n"
 
 [tool.mypy]
 ignore_missing_imports = true
