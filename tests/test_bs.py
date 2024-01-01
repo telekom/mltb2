@@ -6,7 +6,7 @@
 import pytest
 from bs4 import BeautifulSoup
 
-from mltb2.bs import extract_all, extract_one, extract_text
+from mltb2.bs import extract_all, extract_one, extract_text, soup_to_md
 
 # this code snippet is from the BeautifulSoup documentation
 # MIT License
@@ -22,8 +22,7 @@ html_doc = """
 <a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>;
 and they lived at the bottom of a well.</p>
 
-<p class="story">...</p>
-"""
+<p class="story">...</p>"""
 
 
 @pytest.fixture
@@ -52,3 +51,12 @@ def test_extract_all(my_soup: BeautifulSoup):
     assert len(result) == 3
     assert result[0].name == "a"
     assert result[0].text == "Elsie"
+
+def test_soup_to_md(my_soup: BeautifulSoup):
+    result = soup_to_md(my_soup)
+    assert result is not None
+    assert result == "The Dormouse's story **The Dormouse's story**\n\n"\
+        "Once upon a time there were three little sisters; "\
+        "and their names were [Elsie](http://example.com/elsie), "\
+        "[Lacie](http://example.com/lacie) and [Tillie](http://example.com/tillie); "\
+        "and they lived at the bottom of a well.\n\n...\n"
