@@ -2,7 +2,7 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
-"""Beautiful Soup specific tools.
+"""Beautiful Soup and HTML specific tools.
 
 Hint:
     Use pip to install the necessary dependencies for this module:
