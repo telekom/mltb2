@@ -95,7 +95,14 @@ def remove_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **k
 
 
 def soup_to_md(soup: BeautifulSoup, mdformat_options: Optional[dict] = None) -> str:
-    """TODO: add docstring."""
+    """Convert a BeautifulSoup object to Markdown.
+
+    Args:
+        soup: BeautifulSoup object.
+        mdformat_options: Options for mdformat.
+    Returns:
+        Markdown text.
+    """
     if mdformat_options is None:
         mdformat_options = {"number": True, "wrap": "no"}
     text = MarkdownConverter().convert_soup(soup)
@@ -104,7 +111,14 @@ def soup_to_md(soup: BeautifulSoup, mdformat_options: Optional[dict] = None) -> 
 
 
 def html_to_md(html: str, mdformat_options: Optional[dict] = None) -> str:
-    """TODO: add docstring."""
+    """Convert HTML to Markdown.
+
+    Args:
+        html: HTML text.
+        mdformat_options: Options for mdformat.
+    Returns:
+        Markdown text.
+    """
     if mdformat_options is None:
         mdformat_options = {"number": True, "wrap": "no"}
     text = markdownify(html)
