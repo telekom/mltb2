@@ -77,7 +77,16 @@ def extract_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **
 
 
 def remove_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: Dict[str, Any]) -> None:
-    """TODO: add docstring."""
+    """Remobe all specified elements from a BeautifulSoup object.
+
+    The removal is done in place. Nothing is returned.
+
+    Args:
+        soup: BeautifulSoup object.
+        name: Name of the tag(-s) to remove.
+        attrs: Attributes of the tag(-s) to remove.
+        kwargs: Additional keyword arguments.
+    """
     if attrs is None:
         attrs = {}
     result = soup.find_all(name, attrs, **kwargs)
