@@ -10,7 +10,7 @@
 [![Build & Deploy Doc](https://github.com/telekom/mltb2/actions/workflows/build_deploy_doc.yml/badge.svg)](https://github.com/telekom/mltb2/actions/workflows/build_deploy_doc.yml)
 [![GitHub issues](https://img.shields.io/github/issues-raw/telekom/mltb2)](https://github.com/telekom/mltb2/issues)
 
-📦 A box of machine learning tools. 📦
+📦 A box of machine learning tools... 📦
 
 - [Documentation Page](https://telekom.github.io/mltb2/)
 - [How to contribute](https://github.com/telekom/mltb2/blob/main/CONTRIBUTING.md)
