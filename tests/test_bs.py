@@ -52,7 +52,7 @@ def test_extract_one__multiple_results(my_soup: BeautifulSoup):
         _ = extract_one(my_soup, name="a")
 
 
-def test_extract_all__happy_case(my_soup: BeautifulSoup):
+def test_extract_all(my_soup: BeautifulSoup):
     result = extract_all(my_soup, name="a")
     assert result is not None
     assert len(result) == 3
