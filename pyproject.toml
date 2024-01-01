@@ -98,7 +98,9 @@ bs = ["beautifulsoup4", "markdownify", "mdformat"]
 black = "*"
 ruff = "*"
 mypy = "*"
-mdformat = "*"
+mdformat-gfm = "*"
+mdformat-frontmatter = "*"
+mdformat-footnote = "*"
 
 [tool.poetry.group.test.dependencies]
 pytest = "*"
