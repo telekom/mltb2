@@ -168,4 +168,5 @@ notice-rgx = "(# Copyright \\(c\\) \\d{4}.*\\n)+# This software is distributed u
 
 [tool.mypy]
 ignore_missing_imports = true
+warn_unused_ignores = true
 enable_error_code=["ignore-without-code"]
