@@ -114,11 +114,11 @@ class SignificanceRepeatedTrainingPruner(BasePruner):
     def __init__(self, alpha: float = 0.1, n_warmup_steps: int = 4) -> None:
         # input value check
         if n_warmup_steps < 0:
-            raise ValueError("'n_warmup_steps' must not be negative! n_warmup_steps: {}".format(n_warmup_steps))
+            raise ValueError(f"'n_warmup_steps' must not be negative! n_warmup_steps: {n_warmup_steps}")
         if alpha >= 1:
-            raise ValueError("'alpha' must be smaller than 1! {}".format(alpha))
+            raise ValueError(f"'alpha' must be smaller than 1! {alpha}")
         if alpha <= 0:
-            raise ValueError("'alpha' must be greater than 0! {}".format(alpha))
+            raise ValueError(f"'alpha' must be greater than 0! {alpha}")
 
         self.n_warmup_steps = n_warmup_steps
         self.alpha = alpha
