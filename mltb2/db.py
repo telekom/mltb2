@@ -19,12 +19,10 @@ class AbstractBatchDataManager(ABC):
     @abstractmethod
     def load_batch(self) -> Sequence:
         """Load a batch of data from the database."""
-        pass
 
     @abstractmethod
     def save_batch(self, batch: Sequence) -> None:
         """Save a batch of data to the database."""
-        pass
 
 
 @dataclass
