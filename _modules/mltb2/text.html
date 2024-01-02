@@ -305,10 +305,10 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;fit must not be called after distance calculation!&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>  <span class="c1"># type: ignore[union-attr]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_progress_bar</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  <span class="c1"># type: ignore[union-attr]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_fit_called</span> <span class="o">=</span> <span class="kc">True</span></div>
 
@@ -318,7 +318,7 @@
 <span class="sd">        This supports lazy postprocessing of the char counter.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_distance_called</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_normalized_char_counts</span> <span class="o">=</span> <span class="n">_normalize_counter_to_defaultdict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_dimensions</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_normalized_char_counts</span> <span class="o">=</span> <span class="n">_normalize_counter_to_defaultdict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_dimensions</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_char_counter</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_counted_char_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_normalized_char_counts</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_distance_called</span> <span class="o">=</span> <span class="kc">True</span></div>
@@ -340,9 +340,9 @@
         <span class="n">text_vector</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">text_count</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
         <span class="n">text_count_defaultdict</span> <span class="o">=</span> <span class="n">_normalize_counter_to_defaultdict</span><span class="p">(</span><span class="n">text_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_dimensions</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_counted_char_set</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">text_count_defaultdict</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_counted_char_set</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">text_count_defaultdict</span><span class="p">):</span>  <span class="c1"># type: ignore[union-attr]</span>
             <span class="n">all_vector</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_normalized_char_counts</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_normalized_char_counts</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>  <span class="c1"># type: ignore[index]</span>
             <span class="p">)</span>  <span class="c1"># if c is not in defaultdict, it will return 0</span>
             <span class="n">text_vector</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text_count_defaultdict</span><span class="p">[</span><span class="n">c</span><span class="p">])</span>  <span class="c1"># if c is not in defaultdict, it will return 0</span>
         <span class="k">return</span> <span class="n">cityblock</span><span class="p">(</span><span class="n">all_vector</span><span class="p">,</span> <span class="n">text_vector</span><span class="p">)</span></div></div>

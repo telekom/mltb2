@@ -187,13 +187,13 @@
         <span class="n">_check_config_keys</span><span class="p">(</span><span class="n">arango_config</span><span class="p">,</span> <span class="n">expected_config_file_keys</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
-            <span class="n">hosts</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;hosts&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
-            <span class="n">db_name</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;db_name&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
-            <span class="n">username</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
-            <span class="n">password</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
-            <span class="n">collection_name</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
-            <span class="n">attribute_name</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;attribute_name&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
-            <span class="n">batch_size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;batch_size&quot;</span><span class="p">]),</span>  <span class="c1"># type: ignore</span>
+            <span class="n">hosts</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;hosts&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">db_name</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;db_name&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">username</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">password</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">collection_name</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;collection_name&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">attribute_name</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;attribute_name&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;batch_size&quot;</span><span class="p">]),</span>  <span class="c1"># type: ignore[arg-type]</span>
             <span class="n">aql_overwrite</span><span class="o">=</span><span class="n">aql_overwrite</span><span class="p">,</span>
         <span class="p">)</span></div>
 
@@ -230,12 +230,12 @@
                 <span class="n">aql</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aql_overwrite</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">aql</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
                 <span class="n">aql</span><span class="p">,</span>
-                <span class="n">bind_vars</span><span class="o">=</span><span class="n">bind_vars</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
+                <span class="n">bind_vars</span><span class="o">=</span><span class="n">bind_vars</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
                 <span class="n">batch_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="k">with</span> <span class="n">closing</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span> <span class="k">as</span> <span class="n">closing_cursor</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
-                <span class="n">batch</span> <span class="o">=</span> <span class="n">closing_cursor</span><span class="o">.</span><span class="n">batch</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
-        <span class="k">return</span> <span class="n">batch</span>  <span class="c1"># type: ignore</span></div>
+            <span class="k">with</span> <span class="n">closing</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span> <span class="k">as</span> <span class="n">closing_cursor</span><span class="p">:</span>  <span class="c1"># type: ignore[type-var]</span>
+                <span class="n">batch</span> <span class="o">=</span> <span class="n">closing_cursor</span><span class="o">.</span><span class="n">batch</span><span class="p">()</span>  <span class="c1"># type: ignore[union-attr]</span>
+        <span class="k">return</span> <span class="n">batch</span>  <span class="c1"># type: ignore[return-value]</span></div>
 
 <div class="viewcode-block" id="ArangoBatchDataManager.save_batch"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager.save_batch">[docs]</a>    <span class="k">def</span> <span class="nf">save_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Save a batch of data to the ArangoDB database.</span>
@@ -275,27 +275,27 @@
     <span class="n">output_file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;./</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">col</span><span class="si">}</span><span class="s2">_backup.jsonl.gz&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Writing backup to &#39;</span><span class="si">{</span><span class="n">output_file_name</span><span class="si">}</span><span class="s2">&#39;...&quot;</span><span class="p">)</span>
 
-    <span class="k">with</span> <span class="n">closing</span><span class="p">(</span><span class="n">ArangoClient</span><span class="p">(</span><span class="n">hosts</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;hosts&quot;</span><span class="p">]))</span> <span class="k">as</span> <span class="n">arango_client</span><span class="p">,</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
+    <span class="k">with</span> <span class="n">closing</span><span class="p">(</span><span class="n">ArangoClient</span><span class="p">(</span><span class="n">hosts</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;hosts&quot;</span><span class="p">]))</span> <span class="k">as</span> <span class="n">arango_client</span><span class="p">,</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>  <span class="c1"># type: ignore[arg-type]</span>
         <span class="n">output_file_name</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span>
     <span class="p">)</span> <span class="k">as</span> <span class="n">gzip_out</span><span class="p">:</span>
         <span class="n">connection</span> <span class="o">=</span> <span class="n">arango_client</span><span class="o">.</span><span class="n">db</span><span class="p">(</span>
-            <span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;db_name&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
-            <span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
-            <span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore</span>
+            <span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;db_name&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore[arg-type]</span>
         <span class="p">)</span>
-        <span class="n">jsonlines_writer</span> <span class="o">=</span> <span class="n">jsonlines</span><span class="o">.</span><span class="n">Writer</span><span class="p">(</span><span class="n">gzip_out</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="n">jsonlines_writer</span> <span class="o">=</span> <span class="n">jsonlines</span><span class="o">.</span><span class="n">Writer</span><span class="p">(</span><span class="n">gzip_out</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">aql</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
                 <span class="s2">&quot;FOR doc IN @@coll RETURN doc&quot;</span><span class="p">,</span>
                 <span class="n">bind_vars</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;@coll&quot;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">col</span><span class="p">},</span>
                 <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                <span class="n">max_runtime</span><span class="o">=</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">,</span>  <span class="c1"># type: ignore # 1 hour</span>
+                <span class="n">max_runtime</span><span class="o">=</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type] # 1 hour</span>
                 <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">cursor</span><span class="p">):</span>
                 <span class="n">jsonlines_writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
         <span class="k">finally</span><span class="p">:</span>
-            <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">ignore_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">ignore_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># type: ignore[union-attr]</span></div>
 </pre></div>
 
            </div>
