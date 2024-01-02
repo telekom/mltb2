@@ -49,7 +49,7 @@ def test_chunk_md():
     assert result[2] == "### Headline 3 / 1\n\n#### Headline 4 / 1\n\nContent."
 
 
-def test_MdTextSplitter_call():
+def test_MdTextSplitter_call():  # noqa: N802
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
     text_merger = MdTextSplitter(
         max_token=15,
@@ -63,7 +63,7 @@ def test_MdTextSplitter_call():
     assert merged_md[1] == "### Headline 3 / 1\n\n#### Headline 4 / 1\n\nContent."
 
 
-def test_MdTextSplitter_call_no_merge():
+def test_MdTextSplitter_call_no_merge():  # noqa: N802
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
     text_merger = MdTextSplitter(
         max_token=1,
@@ -78,7 +78,7 @@ def test_MdTextSplitter_call_no_merge():
     assert merged_md[2] == "### Headline 3 / 1\n\n#### Headline 4 / 1\n\nContent."
 
 
-def test_MdTextSplitter_call_all_merge():
+def test_MdTextSplitter_call_all_merge():  # noqa: N802
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
     text_merger = MdTextSplitter(
         max_token=1000,

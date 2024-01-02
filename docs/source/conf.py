@@ -2,6 +2,8 @@
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
+# ruff: noqa: INP001
+
 """Configuration for the Sphinx documentation builder."""
 
 # Configuration file for the Sphinx documentation builder.

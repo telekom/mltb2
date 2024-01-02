@@ -6,14 +6,14 @@
 from mltb2.transformers import TransformersTokenCounter
 
 
-def test_TransformersTokenCounter_call_string():
+def test_TransformersTokenCounter_call_string():  # noqa: N802
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
     token_count = transformers_token_counter("Das ist ein Text.")
 
     assert token_count == 5
 
 
-def test_TransformersTokenCounter_call_list():
+def test_TransformersTokenCounter_call_list():  # noqa: N802
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
     token_count = transformers_token_counter(["Das ist ein Text.", "Das ist ein anderer Text."])
 

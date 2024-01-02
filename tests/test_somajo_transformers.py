@@ -11,7 +11,7 @@ from mltb2.somajo_transformers import TextSplitter
 from mltb2.transformers import TransformersTokenCounter
 
 
-def test_TextSplitter_call():
+def test_TextSplitter_call():  # noqa: N802
     somajo_sentence_splitter = SoMaJoSentenceSplitter("de_CMC")
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
     text_splitter = TextSplitter(
@@ -29,7 +29,7 @@ def test_TextSplitter_call():
     assert split_text[2] == "Satz 4 ist das."
 
 
-def test_TextSplitter_call_sentence_too_long_exception():
+def test_TextSplitter_call_sentence_too_long_exception():  # noqa: N802
     somajo_sentence_splitter = SoMaJoSentenceSplitter("de_CMC")
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
     text_splitter = TextSplitter(
@@ -43,7 +43,7 @@ def test_TextSplitter_call_sentence_too_long_exception():
         text_splitter(text)
 
 
-def test_TextSplitter_call_sentence_too_long_no_exception():
+def test_TextSplitter_call_sentence_too_long_no_exception():  # noqa: N802
     somajo_sentence_splitter = SoMaJoSentenceSplitter("de_CMC")
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
     text_splitter = TextSplitter(
