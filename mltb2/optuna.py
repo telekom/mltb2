@@ -10,6 +10,7 @@ Hint:
 """
 
 
+import contextlib
 import logging
 
 import numpy as np
@@ -126,10 +127,8 @@ class SignificanceRepeatedTrainingPruner(BasePruner):
     def prune(self, study: optuna.study.Study, trial: optuna.trial.FrozenTrial) -> bool:  # noqa: D102
         # get best tial - best trial is not available for first trial
         best_trial = None
-        try:
+        with contextlib.suppress(ValueError):
             best_trial = study.best_trial
-        except ValueError:
-            pass
 
         if best_trial is not None:
             trial_intermediate_values = list(trial.intermediate_values.values())
