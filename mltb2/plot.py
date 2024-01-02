@@ -1,4 +1,4 @@
-# Copyright (c) 2018 Philip May
+# Copyright (c) 2018-2024 Philip May
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -116,14 +116,8 @@ def boxplot(
         ax.set(ylabel=ylabel)
 
     ax.boxplot(values, labels=labels, vert=vert)
-
-    if vert:
-        grid_axis = "y"
-    else:
-        grid_axis = "x"
-
+    grid_axis = "y" if vert else "x"
     plt.grid(b=True, axis=grid_axis, linestyle="--")
-
     plt.xticks(rotation=90)
 
 

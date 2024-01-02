@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Philip May
+# Copyright (c) 2023-2024 Philip May
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -6,14 +6,14 @@
 from mltb2.openai import OpenAiTokenCounter
 
 
-def test_OpenAiTokenCounter_call_string():
+def test_OpenAiTokenCounter_call_string():  # noqa: N802
     token_counter = OpenAiTokenCounter("gpt-4")
     token_count = token_counter("Das ist ein Text.")
 
     assert token_count == 5
 
 
-def test_OpenAiTokenCounter_call_list():
+def test_OpenAiTokenCounter_call_list():  # noqa: N802
     token_counter = OpenAiTokenCounter("gpt-4")
     token_count = token_counter(["Das ist ein Text.", "Das ist ein anderer Text."])
 

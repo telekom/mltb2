@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Philip May
+# Copyright (c) 2023-2024 Philip May
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -74,9 +74,7 @@ def extract_token_class_set(sentences: Iterable, keep_token_classes: Optional[Co
     result = set()
     for sentence in sentences:
         for token in sentence:
-            if keep_token_classes is None:
-                result.add(token.text)
-            elif token.token_class in keep_token_classes:
+            if keep_token_classes is None or token.token_class in keep_token_classes:
                 result.add(token.text)
             # else ignore
     return result

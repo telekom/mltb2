@@ -1,4 +1,4 @@
-# Copyright (c) 2020 - 2023 Philip May
+# Copyright (c) 2020-2024 Philip May
 # Copyright (c) 2021 Sigrun May, Helmholtz-Zentrum für Infektionsforschung GmbH (HZI)
 # Copyright (c) 2021 Sigrun May, Ostfalia Hochschule für angewandte Wissenschaften
 # This software is distributed under the terms of the MIT license
@@ -93,7 +93,7 @@ def _load_colon_label() -> pd.Series:
         try:
             i = int(line)
             label.append(0 if i > 0 else 1)
-        except ValueError:
+        except ValueError:  # noqa: PERF203
             pass  # we ignore this
 
     assert len(label) == 62

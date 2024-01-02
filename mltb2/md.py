@@ -1,5 +1,5 @@
 # Copyright (c) 2023 Philip May, Deutsche Telekom AG
-# Copyright (c) 2023 Philip May
+# Copyright (c) 2023-2024 Philip May
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -34,7 +34,7 @@ def _chunk_md_by_headline(md_text: str) -> List[str]:
 
     # extend positions
     if 0 not in positions:
-        positions = [0] + positions
+        positions = [0] + positions  # noqa: RUF005
     positions.append(len(md_text))
 
     result = [md_text[x:y].strip() for x, y in zip(positions, positions[1:])]
@@ -96,7 +96,7 @@ class MdTextSplitter:
         md_chunks = chunk_md(md_text)
         counts = self.transformers_token_counter(md_chunks)
 
-        assert len(md_chunks) == len(counts)  # type: ignore[arg-type] # noqa: S101
+        assert len(md_chunks) == len(counts)  # type: ignore[arg-type]
 
         result_merges: List[str] = []
         temp_merges: List[str] = []

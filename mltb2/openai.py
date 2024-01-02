@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Philip May
+# Copyright (c) 2023-2024 Philip May
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -143,7 +143,6 @@ class OpenAiBaseCompletion(ABC):
         self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs_for_this_call: Mapping[str, Any]
     ) -> OpenAIObject:
         """Abstract method to call the OpenAI completion."""
-        pass
 
     def __call__(
         self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs: Optional[Mapping[str, Any]] = None
@@ -182,10 +181,7 @@ class OpenAiChatCompletion(OpenAiBaseCompletion):
         self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs_for_this_call: Mapping[str, Any]
     ) -> OpenAIObject:
         """Call to the OpenAI chat completion."""
-        if isinstance(prompt, str):
-            messages = [{"role": "user", "content": prompt}]
-        else:
-            messages = prompt
+        messages = [{"role": "user", "content": prompt}] if isinstance(prompt, str) else prompt
         open_ai_object: OpenAIObject = ChatCompletion.create(
             messages=messages,
             **completion_kwargs_for_this_call,

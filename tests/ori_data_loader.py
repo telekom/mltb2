@@ -1,6 +1,6 @@
 # Copyright (c) 2021 Sigrun May, Helmholtz-Zentrum für Infektionsforschung GmbH (HZI)
 # Copyright (c) 2021 Sigrun May, Ostfalia Hochschule für angewandte Wissenschaften
-# Copyright (c) 2020 Philip May
+# Copyright (c) 2020-2024 Philip May
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -52,7 +52,7 @@ def load_colon_data() -> Tuple[pd.Series, pd.DataFrame]:
         try:
             i = int(line)
             label.append(0 if i > 0 else 1)
-        except:  # noqa: S110, E722
+        except:  # noqa: S110, E722, PERF203
             pass
 
     assert len(label) == 62
@@ -62,7 +62,7 @@ def load_colon_data() -> Tuple[pd.Series, pd.DataFrame]:
     # generate feature names
     column_names = []
     for column_name in data_df.columns:
-        column_names.append("gene_" + str(column_name))
+        column_names.append("gene_" + str(column_name))  # noqa: PERF401
 
     data_df.columns = column_names
 
@@ -80,7 +80,7 @@ def load_prostate_data() -> Tuple[pd.Series, pd.DataFrame]:
     Returns:
         Tuple containing labels and data.
     """
-    df = pd.read_csv("https://web.stanford.edu/~hastie/CASI_files/DATA/prostmat.csv")
+    df = pd.read_csv("https://web.stanford.edu/~hastie/CASI_files/DATA/prostmat.csv")  # noqa: PD901
     data = df.T
 
     # labels
@@ -108,7 +108,7 @@ def load_leukemia_data() -> Tuple[pd.Series, pd.DataFrame]:
     Returns:
         Tuple containing labels and data.
     """
-    df = pd.read_csv("https://web.stanford.edu/~hastie/CASI_files/DATA/leukemia_big.csv")
+    df = pd.read_csv("https://web.stanford.edu/~hastie/CASI_files/DATA/leukemia_big.csv")  # noqa: PD901
     data = df.T
 
     # labels

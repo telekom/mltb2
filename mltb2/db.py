@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Philip May
+# Copyright (c) 2023-2024 Philip May
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -19,12 +19,10 @@ class AbstractBatchDataManager(ABC):
     @abstractmethod
     def load_batch(self) -> Sequence:
         """Load a batch of data from the database."""
-        pass
 
     @abstractmethod
     def save_batch(self, batch: Sequence) -> None:
         """Save a batch of data to the database."""
-        pass
 
 
 @dataclass
