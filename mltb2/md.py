@@ -34,7 +34,7 @@ def _chunk_md_by_headline(md_text: str) -> List[str]:
 
     # extend positions
     if 0 not in positions:
-        positions = [0] + positions
+        positions = [0] + positions  # noqa: RUF005
     positions.append(len(md_text))
 
     result = [md_text[x:y].strip() for x, y in zip(positions, positions[1:])]
