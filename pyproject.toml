@@ -115,32 +115,15 @@ line-length = 119
 target-version = ["py38", "py39", "py310", "py311"]
 
 [tool.ruff]
-select = [
-  "E",  # pycodestyle - https://beta.ruff.rs/docs/rules/#pycodestyle-e-w
-  "F",  # pyflakes - https://beta.ruff.rs/docs/rules/#pyflakes-f
-  "I",  # isort - https://beta.ruff.rs/docs/rules/#isort-i
-  "D",  # pydocstyle - https://beta.ruff.rs/docs/rules/#pydocstyle-d
-  "PL",  # Pylint - https://beta.ruff.rs/docs/rules/#pylint-pl
-  "YTT",  # flake8-2020 - https://beta.ruff.rs/docs/rules/#flake8-2020-ytt
-  # "ANN",
-  "ASYNC",  # flake8-async - https://beta.ruff.rs/docs/rules/#flake8-async-async
-  "S",  # flake8-bandit - https://beta.ruff.rs/docs/rules/#flake8-bandit-s
-  "BLE",  # flake8-blind-except - https://beta.ruff.rs/docs/rules/#flake8-blind-except-ble
-  # "FBT",
-  "B",  # flake8-bugbear - https://beta.ruff.rs/docs/rules/#flake8-bugbear-b
-  "A",  # flake8-builtins - https://beta.ruff.rs/docs/rules/#flake8-builtins-a
-  "COM",  # flake8-commas - https://beta.ruff.rs/docs/rules/#flake8-commas-com
-  "CPY001",  # flake8-copyright - https://beta.ruff.rs/docs/rules/#flake8-copyright-cpy
-  "C4",  # flake8-comprehensions - https://beta.ruff.rs/docs/rules/#flake8-comprehensions-c4
-  "DTZ",  # flake8-datetimez - https://beta.ruff.rs/docs/rules/#flake8-datetimez-dtz
-  "T10",  # flake8-debugger - https://beta.ruff.rs/docs/rules/#flake8-debugger-t10
-  # "EM",
-  "EXE",  # flake8-executable - https://beta.ruff.rs/docs/rules/#flake8-executable-exe
-]
+select = ["ALL"]
 line-length = 119
 fixable = ["I"]
 target-version = "py38"
 ignore = [
+  "DJ",  # flake8-django - https://docs.astral.sh/ruff/rules/#flake8-django-dj
+  "ERA",  # eradicate - https://docs.astral.sh/ruff/rules/#eradicate-era
+  "ANN",  # flake8-annotations - https://docs.astral.sh/ruff/rules/#flake8-annotations-ann
+  "FA",  # flake8-future-annotations - https://docs.astral.sh/ruff/rules/#flake8-future-annotations-fa
   "D107",  # Missing docstring in __init__
   "D410",  # Missing blank line after section ("{name}")
   "D411",  # Missing blank line before section ("{name}")
