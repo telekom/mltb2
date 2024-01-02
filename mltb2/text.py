@@ -225,10 +225,10 @@ class TextDistance:
             raise ValueError("fit must not be called after distance calculation!")
 
         if isinstance(text, str):
-            self._char_counter.update(text)  # type: ignore
+            self._char_counter.update(text)  # type: ignore[union-attr]
         else:
             for t in tqdm(text, disable=not self.show_progress_bar):
-                self._char_counter.update(t)  # type: ignore
+                self._char_counter.update(t)  # type: ignore[union-attr]
 
         self._fit_called = True
 
@@ -238,7 +238,7 @@ class TextDistance:
         This supports lazy postprocessing of the char counter.
         """
         if not self._distance_called:
-            self._normalized_char_counts = _normalize_counter_to_defaultdict(self._char_counter, self.max_dimensions)  # type: ignore
+            self._normalized_char_counts = _normalize_counter_to_defaultdict(self._char_counter, self.max_dimensions)  # type: ignore[arg-type]
             self._char_counter = None
             self._counted_char_set = set(self._normalized_char_counts)
             self._distance_called = True
@@ -260,9 +260,9 @@ class TextDistance:
         text_vector = []
         text_count = Counter(text)
         text_count_defaultdict = _normalize_counter_to_defaultdict(text_count, self.max_dimensions)
-        for c in self._counted_char_set.union(text_count_defaultdict):  # type: ignore
+        for c in self._counted_char_set.union(text_count_defaultdict):  # type: ignore[union-attr]
             all_vector.append(
-                self._normalized_char_counts[c]  # type: ignore
+                self._normalized_char_counts[c]  # type: ignore[index]
             )  # if c is not in defaultdict, it will return 0
             text_vector.append(text_count_defaultdict[c])  # if c is not in defaultdict, it will return 0
         return cityblock(all_vector, text_vector)

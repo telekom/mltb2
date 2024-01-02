@@ -107,13 +107,13 @@ class ArangoBatchDataManager(AbstractBatchDataManager):
         _check_config_keys(arango_config, expected_config_file_keys)
 
         return cls(
-            hosts=arango_config["hosts"],  # type: ignore
-            db_name=arango_config["db_name"],  # type: ignore
-            username=arango_config["username"],  # type: ignore
-            password=arango_config["password"],  # type: ignore
-            collection_name=arango_config["collection_name"],  # type: ignore
-            attribute_name=arango_config["attribute_name"],  # type: ignore
-            batch_size=int(arango_config["batch_size"]),  # type: ignore
+            hosts=arango_config["hosts"],  # type: ignore[arg-type]
+            db_name=arango_config["db_name"],  # type: ignore[arg-type]
+            username=arango_config["username"],  # type: ignore[arg-type]
+            password=arango_config["password"],  # type: ignore[arg-type]
+            collection_name=arango_config["collection_name"],  # type: ignore[arg-type]
+            attribute_name=arango_config["attribute_name"],  # type: ignore[arg-type]
+            batch_size=int(arango_config["batch_size"]),  # type: ignore[arg-type]
             aql_overwrite=aql_overwrite,
         )
 
@@ -150,12 +150,12 @@ class ArangoBatchDataManager(AbstractBatchDataManager):
                 aql = self.aql_overwrite
             cursor = connection.aql.execute(
                 aql,
-                bind_vars=bind_vars,  # type: ignore
+                bind_vars=bind_vars,  # type: ignore[arg-type]
                 batch_size=self.batch_size,
             )
-            with closing(cursor) as closing_cursor:  # type: ignore
-                batch = closing_cursor.batch()  # type: ignore
-        return batch  # type: ignore
+            with closing(cursor) as closing_cursor:  # type: ignore[type-var]
+                batch = closing_cursor.batch()  # type: ignore[union-attr]
+        return batch  # type: ignore[return-value]
 
     def save_batch(self, batch: Sequence) -> None:
         """Save a batch of data to the ArangoDB database.
@@ -195,24 +195,24 @@ def arango_collection_backup() -> None:
     output_file_name = f"./{args.col}_backup.jsonl.gz"
     print(f"Writing backup to '{output_file_name}'...")
 
-    with closing(ArangoClient(hosts=arango_config["hosts"])) as arango_client, gzip.open(  # type: ignore
+    with closing(ArangoClient(hosts=arango_config["hosts"])) as arango_client, gzip.open(  # type: ignore[arg-type]
         output_file_name, "w"
     ) as gzip_out:
         connection = arango_client.db(
-            arango_config["db_name"],  # type: ignore
-            arango_config["username"],  # type: ignore
-            arango_config["password"],  # type: ignore
+            arango_config["db_name"],  # type: ignore[arg-type]
+            arango_config["username"],  # type: ignore[arg-type]
+            arango_config["password"],  # type: ignore[arg-type]
         )
-        jsonlines_writer = jsonlines.Writer(gzip_out)  # type: ignore
+        jsonlines_writer = jsonlines.Writer(gzip_out)  # type: ignore[arg-type]
         try:
             cursor = connection.aql.execute(
                 "FOR doc IN @@coll RETURN doc",
                 bind_vars={"@coll": args.col},
                 batch_size=100,
-                max_runtime=60 * 60,  # type: ignore # 1 hour
+                max_runtime=60 * 60,  # type: ignore[arg-type] # 1 hour
                 stream=True,
             )
             for doc in tqdm(cursor):
                 jsonlines_writer.write(doc)
         finally:
-            cursor.close(ignore_missing=True)  # type: ignore
+            cursor.close(ignore_missing=True)  # type: ignore[union-attr]
