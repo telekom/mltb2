@@ -93,7 +93,7 @@ def _load_colon_label() -> pd.Series:
         try:
             i = int(line)
             label.append(0 if i > 0 else 1)
-        except ValueError:
+        except ValueError:  # noqa: PERF203
             pass  # we ignore this
 
     assert len(label) == 62
