@@ -88,6 +88,7 @@ def _load_colon_label() -> pd.Series:
     page_text_lines = page_text.splitlines()
 
     label = []
+
     for line in page_text_lines:
         try:
             i = int(line)
