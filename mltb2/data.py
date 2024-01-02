@@ -1,4 +1,4 @@
-# Copyright (c) 2020 - 2023 Philip May
+# Copyright (c) 2020-2024 Philip May
 # Copyright (c) 2021 Sigrun May, Helmholtz-Zentrum für Infektionsforschung GmbH (HZI)
 # Copyright (c) 2021 Sigrun May, Ostfalia Hochschule für angewandte Wissenschaften
 # This software is distributed under the terms of the MIT license
