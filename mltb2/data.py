@@ -88,12 +88,12 @@ def _load_colon_label() -> pd.Series:
     page_text_lines = page_text.splitlines()
 
     label = []
-    try:
-        for line in page_text_lines:
+    for line in page_text_lines:
+        try:
             i = int(line)
             label.append(0 if i > 0 else 1)
-    except ValueError:
-        pass  # we ignore this
+        except ValueError:
+            pass  # we ignore this
 
     assert len(label) == 62
     label_series = pd.Series(label)
