@@ -78,7 +78,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for mltb2.db</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (c) 2023 Philip May</span>
+<span></span><span class="c1"># Copyright (c) 2023-2024 Philip May</span>
 <span class="c1"># This software is distributed under the terms of the MIT license</span>
 <span class="c1"># which is available at https://opensource.org/licenses/MIT</span>
 
@@ -98,13 +98,11 @@
 
 <div class="viewcode-block" id="AbstractBatchDataManager.load_batch"><a class="viewcode-back" href="../../api-reference/db.html#mltb2.db.AbstractBatchDataManager.load_batch">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">load_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load a batch of data from the database.&quot;&quot;&quot;</span>
-        <span class="k">pass</span></div>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load a batch of data from the database.&quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="AbstractBatchDataManager.save_batch"><a class="viewcode-back" href="../../api-reference/db.html#mltb2.db.AbstractBatchDataManager.save_batch">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">save_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save a batch of data to the database.&quot;&quot;&quot;</span>
-        <span class="k">pass</span></div></div>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save a batch of data to the database.&quot;&quot;&quot;</span></div></div>
 
 
 <div class="viewcode-block" id="BatchDataProcessor"><a class="viewcode-back" href="../../api-reference/db.html#mltb2.db.BatchDataProcessor">[docs]</a><span class="nd">@dataclass</span>

@@ -78,7 +78,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for mltb2.data</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (c) 2020 - 2023 Philip May</span>
+<span></span><span class="c1"># Copyright (c) 2020-2024 Philip May</span>
 <span class="c1"># Copyright (c) 2021 Sigrun May, Helmholtz-Zentrum für Infektionsforschung GmbH (HZI)</span>
 <span class="c1"># Copyright (c) 2021 Sigrun May, Ostfalia Hochschule für angewandte Wissenschaften</span>
 <span class="c1"># This software is distributed under the terms of the MIT license</span>
@@ -173,7 +173,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
             <span class="n">label</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>  <span class="c1"># noqa: PERF203</span>
             <span class="k">pass</span>  <span class="c1"># we ignore this</span>
 
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="o">==</span> <span class="mi">62</span>

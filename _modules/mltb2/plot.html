@@ -78,7 +78,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for mltb2.plot</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (c) 2018 Philip May</span>
+<span></span><span class="c1"># Copyright (c) 2018-2024 Philip May</span>
 <span class="c1"># This software is distributed under the terms of the MIT license</span>
 <span class="c1"># which is available at https://opensource.org/licenses/MIT</span>
 
@@ -196,14 +196,8 @@
         <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel</span><span class="p">)</span>
 
     <span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="n">vert</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">vert</span><span class="p">:</span>
-        <span class="n">grid_axis</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">grid_axis</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span>
-
+    <span class="n">grid_axis</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span> <span class="k">if</span> <span class="n">vert</span> <span class="k">else</span> <span class="s2">&quot;x&quot;</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">grid_axis</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
-
     <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span></div>
 
 

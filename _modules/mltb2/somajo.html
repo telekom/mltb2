@@ -78,7 +78,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for mltb2.somajo</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (c) 2023 Philip May</span>
+<span></span><span class="c1"># Copyright (c) 2023-2024 Philip May</span>
 <span class="c1"># This software is distributed under the terms of the MIT license</span>
 <span class="c1"># which is available at https://opensource.org/licenses/MIT</span>
 
@@ -154,9 +154,7 @@
     <span class="n">result</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">keep_token_classes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">result</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">token</span><span class="o">.</span><span class="n">token_class</span> <span class="ow">in</span> <span class="n">keep_token_classes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">keep_token_classes</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">token</span><span class="o">.</span><span class="n">token_class</span> <span class="ow">in</span> <span class="n">keep_token_classes</span><span class="p">:</span>
                 <span class="n">result</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
             <span class="c1"># else ignore</span>
     <span class="k">return</span> <span class="n">result</span></div>
