@@ -181,10 +181,7 @@ class OpenAiChatCompletion(OpenAiBaseCompletion):
         self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs_for_this_call: Mapping[str, Any]
     ) -> OpenAIObject:
         """Call to the OpenAI chat completion."""
-        if isinstance(prompt, str):
-            messages = [{"role": "user", "content": prompt}]
-        else:
-            messages = prompt
+        messages = [{"role": "user", "content": prompt}] if isinstance(prompt, str) else prompt
         open_ai_object: OpenAIObject = ChatCompletion.create(
             messages=messages,
             **completion_kwargs_for_this_call,
