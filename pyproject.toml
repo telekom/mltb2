@@ -104,6 +104,7 @@ mdformat-footnote = "*"
 
 [tool.poetry.group.test.dependencies]
 pytest = "*"
+pytest-rerunfailures = "*"
 
 [tool.poetry.group.doc.dependencies]
 sphinx = "*"
