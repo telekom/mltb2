@@ -143,7 +143,6 @@ class OpenAiBaseCompletion(ABC):
         self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs_for_this_call: Mapping[str, Any]
     ) -> OpenAIObject:
         """Abstract method to call the OpenAI completion."""
-        pass
 
     def __call__(
         self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs: Optional[Mapping[str, Any]] = None
