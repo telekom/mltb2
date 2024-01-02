@@ -96,7 +96,7 @@ class MdTextSplitter:
         md_chunks = chunk_md(md_text)
         counts = self.transformers_token_counter(md_chunks)
 
-        assert len(md_chunks) == len(counts)  # type: ignore[arg-type] # noqa: S101
+        assert len(md_chunks) == len(counts)  # type: ignore[arg-type]
 
         result_merges: List[str] = []
         temp_merges: List[str] = []
