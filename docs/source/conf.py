@@ -40,7 +40,7 @@ extensions = [
     "sphinx.ext.viewcode",  # https://www.sphinx-doc.org/en/master/usage/extensions/viewcode.html
     # "recommonmark",
     # "myst_parser",  # https://myst-parser.readthedocs.io/
-    "sphinx.ext.intersphinx",  # https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html  # noqa: E501
+    "sphinx.ext.intersphinx",  # https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html
     "sphinx_copybutton",  # https://github.com/executablebooks/sphinx-copybutton
     "sphinx.ext.todo",  # https://www.sphinx-doc.org/en/master/usage/extensions/todo.html
     "sphinx.ext.doctest",  # https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html
@@ -117,7 +117,7 @@ autodoc_typehints = "both"
 # The default options for autodoc directives.
 # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_default_options
 autodoc_default_options = {
-    # If set, autodoc will generate document for the members of the target module, class or exception.  # noqa: E501
+    # If set, autodoc will generate document for the members of the target module, class or exception.
     # https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#directive-option-automodule-members
     "members": True,
     "show-inheritance": True,
@@ -138,6 +138,6 @@ napoleon_preprocess_types = True
 # https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html#confval-napoleon_numpy_docstring
 napoleon_numpy_docstring = False
 
-# If this is True, todo and todolist produce output, else they produce nothing. The default is False.  # noqa: E501
+# If this is True, todo and todolist produce output, else they produce nothing. The default is False.
 # https://www.sphinx-doc.org/en/master/usage/extensions/todo.html#confval-todo_include_todos
 todo_include_todos = True
