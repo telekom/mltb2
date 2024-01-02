@@ -31,7 +31,7 @@ def my_soup() -> BeautifulSoup:
     return soup
 
 
-@pytest.mark.xfail(reason="see https://github.com/telekom/mltb2/issues/127")
+@pytest.mark.skip(reason="see https://github.com/telekom/mltb2/issues/127")
 def test_extract_text(my_soup: BeautifulSoup):
     result = extract_text(my_soup)
     assert (
