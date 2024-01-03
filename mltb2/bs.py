@@ -19,6 +19,9 @@ from markdownify import MarkdownConverter, markdownify
 def extract_text(soup: BeautifulSoup, join_str: Optional[str] = None) -> str:
     """Extract the text from a BeautifulSoup object.
 
+    Warning:
+        This implementation has known issues with whitespace handling.
+
     Args:
         soup: The BeautifulSoup object to extract the text from.
         join_str: String to join the text parts with. Per default a space is used.
