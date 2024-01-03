@@ -99,6 +99,9 @@
 <div class="viewcode-block" id="extract_text"><a class="viewcode-back" href="../../api-reference/bs.html#mltb2.bs.extract_text">[docs]</a><span class="k">def</span> <span class="nf">extract_text</span><span class="p">(</span><span class="n">soup</span><span class="p">:</span> <span class="n">BeautifulSoup</span><span class="p">,</span> <span class="n">join_str</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract the text from a BeautifulSoup object.</span>
 
+<span class="sd">    Warning:</span>
+<span class="sd">        This implementation has known issues with whitespace handling.</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        soup: The BeautifulSoup object to extract the text from.</span>
 <span class="sd">        join_str: String to join the text parts with. Per default a space is used.</span>
