@@ -54,7 +54,7 @@ def test_replace_multiple_whitespaces_hypothesis(text: str):
     text_whitespace_count = text.count(" ")
     result_whitespace_count = result.count(" ")
     assert len(result) <= len(text)
-    assert text_whitespace_count <= result_whitespace_count
+    assert result_whitespace_count <= text_whitespace_count
 
 
 def test_remove_invisible_characters():
