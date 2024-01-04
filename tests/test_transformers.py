@@ -3,7 +3,27 @@
 # which is available at https://opensource.org/licenses/MIT
 
 
+import pytest
+from hypothesis import given, settings
+from hypothesis.strategies import text
+
 from mltb2.transformers import TransformersTokenCounter
+
+
+@pytest.fixture(scope="module")
+def deepset_gbert_base_token_counter() -> TransformersTokenCounter:
+    return TransformersTokenCounter("deepset/gbert-base")
+
+
+@settings(max_examples=1000, deadline=None)
+@given(text=text())
+def test_TransformersTokenCounter_hypothesis(  # noqa: N802
+    text: str, deepset_gbert_base_token_counter: TransformersTokenCounter
+):
+    token_count = deepset_gbert_base_token_counter(text)
+
+    assert isinstance(token_count, int)
+    assert token_count >= 0
 
 
 def test_TransformersTokenCounter_call_string():  # noqa: N802
