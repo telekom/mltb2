@@ -6,6 +6,8 @@ from collections import Counter, defaultdict
 from math import isclose
 
 import pytest
+from hypothesis import given, settings
+from hypothesis.strategies import text
 
 from mltb2.text import (
     INVISIBLE_CHARACTERS,
@@ -19,6 +21,30 @@ from mltb2.text import (
     replace_multiple_whitespaces,
     replace_special_whitespaces,
 )
+
+
+@settings(max_examples=1000)
+@given(text())
+def test_remove_and_detect_invisible_characters_hypothesis(text: str):
+    result = remove_invisible_characters(text)
+    assert isinstance(result, str)
+    if has_invisible_characters(text):
+        assert len(result) < len(text)
+    else:
+        assert len(result) == len(text)
+
+
+@settings(max_examples=1000)
+@given(text())
+def test_replace_and_detect_special_whitespaces_hypothesis(text: str):
+    result = replace_special_whitespaces(text)
+    assert isinstance(result, str)
+    text_whitespace_count = text.count(" ")
+    result_whitespace_count = result.count(" ")
+    if has_special_whitespaces(text):
+        assert text_whitespace_count < result_whitespace_count
+    else:
+        assert text_whitespace_count == result_whitespace_count
 
 
 def test_remove_invisible_characters():
