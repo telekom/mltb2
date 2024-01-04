@@ -11,7 +11,7 @@ from mltb2.transformers import TransformersTokenCounter
 
 
 @pytest.fixture(scope="module")
-def deepset_gbert_base_token_counter():
+def deepset_gbert_base_token_counter() -> TransformersTokenCounter:
     return TransformersTokenCounter("deepset/gbert-base")
 
 
