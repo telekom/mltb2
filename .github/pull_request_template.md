@@ -4,7 +4,10 @@
 
 ## Pull request checklist
 
-- [ ] add tests
+- tests
+  - [ ] Do we have tests? Should we add more?
+  - [ ] Should we parametrize tests?
+  - [ ] Should we add hypothesis tests?
 - documentation
   - [ ] add docstrings
   - [ ] if a module is new: add API reference file for Sphinx in `docs/source/api-reference`
