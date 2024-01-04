@@ -47,6 +47,16 @@ def test_replace_and_detect_special_whitespaces_hypothesis(text: str):
         assert text_whitespace_count == result_whitespace_count
 
 
+@settings(max_examples=1000)
+@given(text())
+def test_replace_multiple_whitespaces_hypothesis(text: str):
+    result = replace_multiple_whitespaces(text)
+    text_whitespace_count = text.count(" ")
+    result_whitespace_count = result.count(" ")
+    assert len(result) <= len(text)
+    assert text_whitespace_count <= result_whitespace_count
+
+
 def test_remove_invisible_characters():
     text = "Hello\u200bWorld\u00ad!"
     result = remove_invisible_characters(text)
