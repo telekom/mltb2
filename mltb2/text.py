@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Philip May
+# Copyright (c) 2023-2024 Philip May
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -53,6 +53,29 @@ SPECIAL_WHITESPACES_TRANS: Final[Dict[int, str]] = str.maketrans({char: " " for 
 INVISIBLE_CHARACTERS_AND_SPECIAL_WHITESPACES_TRANS = {**SPECIAL_WHITESPACES_TRANS, **INVISIBLE_CHARACTERS_TRANS}
 
 MULTI_SPACE_PATTERN: Pattern = re.compile(r" {2,}")
+
+XML_TAG_PATTERN: Pattern = re.compile(r"<\/?[\w:]+( \/|\/|)>")
+
+
+def has_xml_tag(text: str) -> bool:
+    """Check if text contains XML tags (one or multiple).
+
+    These are some XML tags we detect:
+
+    - ``<xml_tag>``
+    - ``<xml:tag>``
+    - ``</xml_tag>``
+    - ``<xml_tag/>``
+    - ``<xml_tag />``
+
+    While we do not detect ``a < b but x > y``.
+
+    Args:
+        text: The text to check.
+    Returns:
+        ``True`` if the text contains XML tags, ``False`` otherwise.
+    """
+    return re.search(XML_TAG_PATTERN, text) is not None
 
 
 def remove_invisible_characters(text: str) -> str:
