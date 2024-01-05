@@ -17,6 +17,7 @@ from mltb2.text import (
     clean_all_invisible_chars_and_whitespaces,
     has_invisible_characters,
     has_special_whitespaces,
+    has_xml_tag,
     remove_invisible_characters,
     replace_multiple_whitespaces,
     replace_special_whitespaces,
@@ -229,3 +230,38 @@ def test_normalize_counter_to_defaultdict_empty_counter():
 
     assert isinstance(normalized_counter, defaultdict)
     assert len(normalized_counter) == 0
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "Some text<ta_g>more text",
+        "Some text<ta:g>more text",
+        "Some text</tag>more text",
+        "Some text<tag/>more text",
+        "Some text<tag />more text",
+    ],
+)
+def test_has_xml_tag_with_tags(text: str):
+    assert has_xml_tag(text)
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "Some text",
+        "",
+        "a < b but x > y",
+    ],
+)
+def test_has_xml_tag_without_tags(text: str):
+    assert not has_xml_tag(text)
+
+
+@settings(max_examples=1000)
+@given(text())
+def test_has_xml_tag_hypothesis(text: str):
+    result = has_xml_tag(text)
+    if result:
+        assert "<" in text
+        assert ">" in text

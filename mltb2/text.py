@@ -54,6 +54,19 @@ INVISIBLE_CHARACTERS_AND_SPECIAL_WHITESPACES_TRANS = {**SPECIAL_WHITESPACES_TRAN
 
 MULTI_SPACE_PATTERN: Pattern = re.compile(r" {2,}")
 
+XML_TAG_PATTERN: Pattern = re.compile(r"<\/?[\w:]+( \/|\/|)>")
+
+
+def has_xml_tag(text: str) -> bool:
+    """Check if text contains XML tags (one or multiple).
+
+    Args:
+        text: The text to check.
+    Returns:
+        ``True`` if the text contains XML tags, ``False`` otherwise.
+    """
+    return re.search(XML_TAG_PATTERN, text) is not None
+
 
 def remove_invisible_characters(text: str) -> str:
     """Remove invisible characters from text.
