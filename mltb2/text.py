@@ -60,6 +60,14 @@ XML_TAG_PATTERN: Pattern = re.compile(r"<\/?[\w:]+( \/|\/|)>")
 def has_xml_tag(text: str) -> bool:
     """Check if text contains XML tags (one or multiple).
 
+    These are some XML tags we detect:
+
+    - ``<xml_tag>``
+    - ``<xml:tag>``
+    - ``</xml_tag>``
+    - ``<xml_tag/>``
+    - ``<xml_tag />``
+
     Args:
         text: The text to check.
     Returns:
