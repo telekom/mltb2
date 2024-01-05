@@ -78,7 +78,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for mltb2.text</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (c) 2023 Philip May</span>
+<span></span><span class="c1"># Copyright (c) 2023-2024 Philip May</span>
 <span class="c1"># This software is distributed under the terms of the MIT license</span>
 <span class="c1"># which is available at https://opensource.org/licenses/MIT</span>
 
@@ -133,6 +133,29 @@
 <span class="n">INVISIBLE_CHARACTERS_AND_SPECIAL_WHITESPACES_TRANS</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">SPECIAL_WHITESPACES_TRANS</span><span class="p">,</span> <span class="o">**</span><span class="n">INVISIBLE_CHARACTERS_TRANS</span><span class="p">}</span>
 
 <span class="n">MULTI_SPACE_PATTERN</span><span class="p">:</span> <span class="n">Pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot; {2,}&quot;</span><span class="p">)</span>
+
+<span class="n">XML_TAG_PATTERN</span><span class="p">:</span> <span class="n">Pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&lt;\/?[\w:]+( \/|\/|)&gt;&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="has_xml_tag"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.has_xml_tag">[docs]</a><span class="k">def</span> <span class="nf">has_xml_tag</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if text contains XML tags (one or multiple).</span>
+
+<span class="sd">    These are some XML tags we detect:</span>
+
+<span class="sd">    - ``&lt;xml_tag&gt;``</span>
+<span class="sd">    - ``&lt;xml:tag&gt;``</span>
+<span class="sd">    - ``&lt;/xml_tag&gt;``</span>
+<span class="sd">    - ``&lt;xml_tag/&gt;``</span>
+<span class="sd">    - ``&lt;xml_tag /&gt;``</span>
+
+<span class="sd">    While we do not detect ``a &lt; b but x &gt; y``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text: The text to check.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        ``True`` if the text contains XML tags, ``False`` otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">XML_TAG_PATTERN</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
 
 <div class="viewcode-block" id="remove_invisible_characters"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.remove_invisible_characters">[docs]</a><span class="k">def</span> <span class="nf">remove_invisible_characters</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>

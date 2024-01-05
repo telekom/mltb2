@@ -73,6 +73,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.text.clean_all_invisible_chars_and_whitespaces"><code class="docutils literal notranslate"><span class="pre">clean_all_invisible_chars_and_whitespaces()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.text.has_invisible_characters"><code class="docutils literal notranslate"><span class="pre">has_invisible_characters()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.text.has_special_whitespaces"><code class="docutils literal notranslate"><span class="pre">has_special_whitespaces()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.text.has_xml_tag"><code class="docutils literal notranslate"><span class="pre">has_xml_tag()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.text.remove_invisible_characters"><code class="docutils literal notranslate"><span class="pre">remove_invisible_characters()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.text.replace_multiple_whitespaces"><code class="docutils literal notranslate"><span class="pre">replace_multiple_whitespaces()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.text.replace_special_whitespaces"><code class="docutils literal notranslate"><span class="pre">replace_special_whitespaces()</span></code></a></li>
@@ -274,6 +275,32 @@ The special whitespaces are defined in the constant <code class="docutils litera
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the text contains special whitespaces, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mltb2.text.has_xml_tag">
+<span class="sig-prename descclassname"><span class="pre">mltb2.text.</span></span><span class="sig-name descname"><span class="pre">has_xml_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/mltb2/text.html#has_xml_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.text.has_xml_tag" title="Permalink to this definition"></a></dt>
+<dd><p>Check if text contains XML tags (one or multiple).</p>
+<p>These are some XML tags we detect:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;xml_tag&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;xml:tag&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;/xml_tag&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;xml_tag/&gt;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;xml_tag</span> <span class="pre">/&gt;</span></code></p></li>
+</ul>
+<p>While we do not detect <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;</span> <span class="pre">b</span> <span class="pre">but</span> <span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">y</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The text to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the text contains XML tags, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
