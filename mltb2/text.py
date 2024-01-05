@@ -68,6 +68,8 @@ def has_xml_tag(text: str) -> bool:
     - ``<xml_tag/>``
     - ``<xml_tag />``
 
+    While we do not detect ``a < b but x > y``.
+
     Args:
         text: The text to check.
     Returns:
