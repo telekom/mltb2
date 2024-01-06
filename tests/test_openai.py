@@ -26,13 +26,14 @@ def test_OpenAiTokenCounter_call_string():  # noqa: N802
     assert token_count == 5
 
 
-@settings(max_examples=1000)
+@settings(max_examples=1000, deadline=None)
 @given(lists(text()))
 def test_OpenAiTokenCounter_list_hypothesis(texts: List[str]):  # noqa: N802
     token_counter = OpenAiTokenCounter("gpt-4")
     token_count = token_counter(texts)
 
     assert len(token_count) == len(texts)
+    assert all([count >= 0 for count in token_count])
 
 
 def test_OpenAiTokenCounter_call_list():  # noqa: N802
