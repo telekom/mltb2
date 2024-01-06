@@ -16,7 +16,7 @@ def test_OpenAiTokenCounter_str_hypothesis(text: str):  # noqa: N802
     token_counter = OpenAiTokenCounter("gpt-4")
     token_count = token_counter(text)
 
-    assert token_count >= 0
+    assert token_count >= 0  # type: ignore[operator]
 
 
 def test_OpenAiTokenCounter_call_string():  # noqa: N802
@@ -32,8 +32,8 @@ def test_OpenAiTokenCounter_list_hypothesis(texts: List[str]):  # noqa: N802
     token_counter = OpenAiTokenCounter("gpt-4")
     token_count = token_counter(texts)
 
-    assert len(token_count) == len(texts)
-    assert all([count >= 0 for count in token_count])
+    assert len(token_count) == len(texts)  # type: ignore[arg-type]
+    assert all(count >= 0 for count in token_count)  # type: ignore[union-attr]
 
 
 def test_OpenAiTokenCounter_call_list():  # noqa: N802
