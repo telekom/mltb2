@@ -10,14 +10,13 @@ Hint:
 """
 
 
-from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import Any, Dict, Iterable, List, Mapping, Optional, Union
+from typing import Any, Dict, Iterable, List, Optional, Union
 
 import tiktoken
 import yaml
-from openai import ChatCompletion, Completion
-from openai.openai_object import OpenAIObject
+from openai import OpenAI
+from openai._base_client import BaseClient
 from tiktoken.core import Encoding
 from tqdm import tqdm
 
@@ -67,206 +66,32 @@ class OpenAiTokenCounter:
 
 
 @dataclass
-class OpenAiCompletionAnswer:
-    """Answer of an OpenAI completion.
+class OpenAiChatCompletion:
+    """TODO: add docstring."""
 
-    Args:
-        text: the result of the OpenAI completion
-        model: model name which has been used
-        prompt_tokens: number of tokens of the prompt
-        completion_tokens: number of tokens of the completion (``text``)
-        total_tokens: number of total tokens (``prompt_tokens + completion_tokens``)
-        finish_reason: The reason why the completion stopped.
+    api_key: str
+    model: str
+    client: BaseClient = field(init=False, repr=False)
 
-            * ``stop``: Means the API returned the full completion without running into any token limit.
-            * ``length``: Means the API stopped the completion because of running into a token limit.
-            * ``function_call``: When the model called a function.
-
-    See Also:
-        * `The chat completion object <https://platform.openai.com/docs/api-reference/chat/object>`_
-        * `The completion object <https://platform.openai.com/docs/api-reference/completions/object>`_
-    """
-
-    text: Optional[str] = None
-    model: Optional[str] = None
-    prompt_tokens: Optional[int] = None
-    completion_tokens: Optional[int] = None
-    total_tokens: Optional[int] = None
-    finish_reason: Optional[str] = None
-
-    @classmethod
-    def from_open_ai_object(cls, open_ai_object: OpenAIObject):
-        """Construct this class from ``OpenAIObject``."""
-        result = {}
-        result["model"] = open_ai_object.get("model")
-        usage = open_ai_object.get("usage")
-        if usage is not None:
-            result["prompt_tokens"] = usage.get("prompt_tokens")
-            result["completion_tokens"] = usage.get("completion_tokens")
-            result["total_tokens"] = usage.get("total_tokens")
-        choices = open_ai_object.get("choices")
-        if choices is not None and len(choices) > 0:
-            choice = choices[0]
-            result["finish_reason"] = choice.get("finish_reason")
-            if "text" in choice:  # non chat models
-                result["text"] = choice.get("text")
-            elif "message" in choice:  # chat models
-                message = choice.get("message")
-                if message is not None:
-                    result["text"] = message.get("content")
-        return cls(**result)
-
-
-@dataclass
-class OpenAiBaseCompletion(ABC):
-    """Abstract base class for OpenAI completion.
-
-    Args:
-        completion_kwargs: kwargs for the OpenAI completion function
-
-    See Also:
-        * `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
-        * `Create completion <https://platform.openai.com/docs/api-reference/completions/create>`_
-    """
-
-    completion_kwargs: Dict[str, Any]
+    def __post_init__(self) -> None:
+        """Do post init."""
+        self.client = OpenAI(api_key=self.api_key)
 
     @classmethod
     def from_yaml(cls, yaml_file):
         """Construct this class from a yaml file."""
         with open(yaml_file, "r") as file:
             completion_kwargs = yaml.safe_load(file)
-        return cls(completion_kwargs)
+        return cls(**completion_kwargs)
 
-    @abstractmethod
-    def _completion(
-        self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs_for_this_call: Mapping[str, Any]
-    ) -> OpenAIObject:
-        """Abstract method to call the OpenAI completion."""
-
-    def __call__(
-        self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs: Optional[Mapping[str, Any]] = None
-    ) -> OpenAiCompletionAnswer:
-        """Call the OpenAI prompt completion.
-
-        Args:
-            prompt: The prompt to be completed by the LLM.
-                In case of chat models this can be a string or a list.
-                In case of "non chat" models only a string is allowed.
-            completion_kwargs: Overwrite the ``completion_kwargs`` for this call.
-                This allows you, for example, to change the temperature for this call only.
-        """
-        completion_kwargs_for_this_call = self.completion_kwargs.copy()
-        if completion_kwargs is not None:
-            completion_kwargs_for_this_call.update(completion_kwargs)
-        open_ai_object: OpenAIObject = self._completion(prompt, completion_kwargs_for_this_call)
-        open_ai_completion_answer = OpenAiCompletionAnswer.from_open_ai_object(open_ai_object)
-        return open_ai_completion_answer
-
-
-@dataclass
-class OpenAiChatCompletion(OpenAiBaseCompletion):
-    """OpenAI chat completion.
-
-    This also be constructed with :meth:`OpenAiBaseCompletion.from_yaml`.
-
-    Args:
-        completion_kwargs: The kwargs for the OpenAI completion function.
-
-    See Also:
-        `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
-    """
-
-    def _completion(
-        self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs_for_this_call: Mapping[str, Any]
-    ) -> OpenAIObject:
-        """Call to the OpenAI chat completion."""
+    def __call__(self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs: Optional[Dict[str, Any]] = None):
+        """TODO: add docstring."""
+        # TODO: check key of messages
+        completion_kwargs = {} if completion_kwargs is None else completion_kwargs
         messages = [{"role": "user", "content": prompt}] if isinstance(prompt, str) else prompt
-        open_ai_object: OpenAIObject = ChatCompletion.create(
+        chat_completion = self.client.chat.completions.create(  # type: ignore[attr-defined]
             messages=messages,
-            **completion_kwargs_for_this_call,
+            model=self.model,
+            **completion_kwargs,
         )
-        return open_ai_object
-
-
-def _check_mandatory_azure_completion_kwargs(completion_kwargs: Mapping[str, Any]) -> None:
-    """Check mandatory Azure ``completion_kwargs``."""
-    for mandatory_azure_completion_kwarg in ("api_base", "engine", "api_type", "api_version"):
-        if mandatory_azure_completion_kwarg not in completion_kwargs:
-            raise ValueError(f"You must set '{mandatory_azure_completion_kwarg}' for Azure completion!")
-    if completion_kwargs["api_type"] != "azure":
-        raise ValueError("You must set 'api_type' to 'azure' for Azure completion!")
-
-
-@dataclass
-class OpenAiAzureChatCompletion(OpenAiChatCompletion):
-    """OpenAI Azure chat completion.
-
-    This also be constructed with :meth:`OpenAiBaseCompletion.from_yaml`.
-
-    Args:
-        completion_kwargs: The kwargs for the OpenAI completion function.
-            The following Azure specific properties must be specified:
-
-                * ``api_type``
-                * ``api_version``
-                * ``api_base``
-                * ``engine``
-
-    See Also:
-        * `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
-        * `Quickstart: Get started using GPT-35-Turbo and GPT-4 with Azure OpenAI Service <https://learn.microsoft.com/en-us/azure/ai-services/openai/chatgpt-quickstart?tabs=command-line&pivots=programming-language-python>`_
-    """
-
-    def __post_init__(self) -> None:
-        """Do post init."""
-        _check_mandatory_azure_completion_kwargs(self.completion_kwargs)
-
-
-@dataclass
-class OpenAiCompletion(OpenAiBaseCompletion):
-    """OpenAI (non chat) completion.
-
-    This also be constructed with :meth:`OpenAiBaseCompletion.from_yaml`.
-
-    Args:
-        completion_kwargs: The kwargs for the OpenAI completion function.
-
-    See Also:
-        `Create completion <https://platform.openai.com/docs/api-reference/completions/create>`_
-    """
-
-    def _completion(
-        self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs_for_this_call: Mapping[str, Any]
-    ) -> OpenAIObject:
-        """Call to the OpenAI (not chat) completion."""
-        open_ai_object: OpenAIObject = Completion.create(
-            prompt=prompt,
-            **completion_kwargs_for_this_call,
-        )
-        return open_ai_object
-
-
-@dataclass
-class OpenAiAzureCompletion(OpenAiCompletion):
-    """OpenAI Azure (non chat) completion.
-
-    This also be constructed with :meth:`OpenAiBaseCompletion.from_yaml`.
-
-    Args:
-        completion_kwargs: The kwargs for the OpenAI completion function.
-            The following Azure specific properties must be specified:
-
-                * ``api_type``
-                * ``api_version``
-                * ``api_base``
-                * ``engine``
-
-    See Also:
-        * `Create completion <https://platform.openai.com/docs/api-reference/completions/create>`_
-        * `Quickstart: Get started generating text using Azure OpenAI Service <https://learn.microsoft.com/en-us/azure/ai-services/openai/quickstart?tabs=command-line&pivots=programming-language-python>`_
-    """
-
-    def __post_init__(self) -> None:
-        """Do post init."""
-        _check_mandatory_azure_completion_kwargs(self.completion_kwargs)
+        return chat_completion
