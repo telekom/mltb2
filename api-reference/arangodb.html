@@ -52,11 +52,20 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api-reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">arangodb</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.arangodb.ArangoBatchDataManager"><code class="docutils literal notranslate"><span class="pre">ArangoBatchDataManager</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mltb2.arangodb.ArangoBatchDataManager._arango_client_factory"><code class="docutils literal notranslate"><span class="pre">ArangoBatchDataManager._arango_client_factory()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mltb2.arangodb.ArangoBatchDataManager._connection_factory"><code class="docutils literal notranslate"><span class="pre">ArangoBatchDataManager._connection_factory()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mltb2.arangodb.ArangoBatchDataManager.from_config_file"><code class="docutils literal notranslate"><span class="pre">ArangoBatchDataManager.from_config_file()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mltb2.arangodb.ArangoBatchDataManager.load_batch"><code class="docutils literal notranslate"><span class="pre">ArangoBatchDataManager.load_batch()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mltb2.arangodb.ArangoBatchDataManager.save_batch"><code class="docutils literal notranslate"><span class="pre">ArangoBatchDataManager.save_batch()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.arangodb.ArangoConnectionManager"><code class="docutils literal notranslate"><span class="pre">ArangoConnectionManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.arangodb.ArangoConnectionManager._arango_client_factory"><code class="docutils literal notranslate"><span class="pre">ArangoConnectionManager._arango_client_factory()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.arangodb.ArangoConnectionManager._connection_factory"><code class="docutils literal notranslate"><span class="pre">ArangoConnectionManager._connection_factory()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mltb2.arangodb.ArangoImportDataManager"><code class="docutils literal notranslate"><span class="pre">ArangoImportDataManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.arangodb.ArangoImportDataManager.from_config_file"><code class="docutils literal notranslate"><span class="pre">ArangoImportDataManager.from_config_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.arangodb.ArangoImportDataManager.import_dataframe"><code class="docutils literal notranslate"><span class="pre">ArangoImportDataManager.import_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.arangodb.ArangoImportDataManager.import_dicts"><code class="docutils literal notranslate"><span class="pre">ArangoImportDataManager.import_dicts()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.arangodb._check_config_keys"><code class="docutils literal notranslate"><span class="pre">_check_config_keys()</span></code></a></li>
@@ -120,7 +129,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mltb2.arangodb.ArangoBatchDataManager">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.arangodb.</span></span><span class="sig-name descname"><span class="pre">ArangoBatchDataManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hosts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aql_overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/arangodb.html#ArangoBatchDataManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.arangodb.ArangoBatchDataManager" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="db.html#mltb2.db.AbstractBatchDataManager" title="mltb2.db.AbstractBatchDataManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractBatchDataManager</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="db.html#mltb2.db.AbstractBatchDataManager" title="mltb2.db.AbstractBatchDataManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractBatchDataManager</span></code></a>, <a class="reference internal" href="#mltb2.arangodb.ArangoConnectionManager" title="mltb2.arangodb.ArangoConnectionManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArangoConnectionManager</span></code></a></p>
 <p>ArangoDB implementation of the <code class="docutils literal notranslate"><span class="pre">AbstractBatchDataManager</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -138,31 +147,6 @@ If it is available the document is considered as already processed.</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="mltb2.arangodb.ArangoBatchDataManager._arango_client_factory">
-<span class="sig-name descname"><span class="pre">_arango_client_factory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python-arango.com/en/main/specs.html#arango.client.ArangoClient" title="(in python-arango)"><span class="pre">ArangoClient</span></a></span></span><a class="reference internal" href="../_modules/mltb2/arangodb.html#ArangoBatchDataManager._arango_client_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.arangodb.ArangoBatchDataManager._arango_client_factory" title="Permalink to this definition"></a></dt>
-<dd><p>Create an ArangoDB client.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python-arango.com/en/main/specs.html#arango.client.ArangoClient" title="(in python-arango)"><em>ArangoClient</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mltb2.arangodb.ArangoBatchDataManager._connection_factory">
-<span class="sig-name descname"><span class="pre">_connection_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arango_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python-arango.com/en/main/specs.html#arango.client.ArangoClient" title="(in python-arango)"><span class="pre">ArangoClient</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python-arango.com/en/main/specs.html#arango.database.StandardDatabase" title="(in python-arango)"><span class="pre">StandardDatabase</span></a></span></span><a class="reference internal" href="../_modules/mltb2/arangodb.html#ArangoBatchDataManager._connection_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.arangodb.ArangoBatchDataManager._connection_factory" title="Permalink to this definition"></a></dt>
-<dd><p>Create an ArangoDB connection.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>arango_client</strong> (<a class="reference external" href="https://docs.python-arango.com/en/main/specs.html#arango.client.ArangoClient" title="(in python-arango)"><em>ArangoClient</em></a>) – ArangoDB client.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python-arango.com/en/main/specs.html#arango.database.StandardDatabase" title="(in python-arango)"><em>StandardDatabase</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="mltb2.arangodb.ArangoBatchDataManager.from_config_file">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aql_overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/arangodb.html#ArangoBatchDataManager.from_config_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.arangodb.ArangoBatchDataManager.from_config_file" title="Permalink to this definition"></a></dt>
@@ -221,6 +205,133 @@ If it is available the document is considered as already processed.</p></li>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mltb2.arangodb.ArangoConnectionManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.arangodb.</span></span><span class="sig-name descname"><span class="pre">ArangoConnectionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hosts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/arangodb.html#ArangoConnectionManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.arangodb.ArangoConnectionManager" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>ArangoDB connection manager.</p>
+<p>Base class to manage / create ArangoDB connections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hosts</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – ArangoDB host or hosts.</p></li>
+<li><p><strong>db_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – ArangoDB database name.</p></li>
+<li><p><strong>username</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – ArangoDB username.</p></li>
+<li><p><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – ArangoDB password.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.arangodb.ArangoConnectionManager._arango_client_factory">
+<span class="sig-name descname"><span class="pre">_arango_client_factory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python-arango.com/en/main/specs.html#arango.client.ArangoClient" title="(in python-arango)"><span class="pre">ArangoClient</span></a></span></span><a class="reference internal" href="../_modules/mltb2/arangodb.html#ArangoConnectionManager._arango_client_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.arangodb.ArangoConnectionManager._arango_client_factory" title="Permalink to this definition"></a></dt>
+<dd><p>Create an ArangoDB client.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python-arango.com/en/main/specs.html#arango.client.ArangoClient" title="(in python-arango)"><em>ArangoClient</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.arangodb.ArangoConnectionManager._connection_factory">
+<span class="sig-name descname"><span class="pre">_connection_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arango_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python-arango.com/en/main/specs.html#arango.client.ArangoClient" title="(in python-arango)"><span class="pre">ArangoClient</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python-arango.com/en/main/specs.html#arango.database.StandardDatabase" title="(in python-arango)"><span class="pre">StandardDatabase</span></a></span></span><a class="reference internal" href="../_modules/mltb2/arangodb.html#ArangoConnectionManager._connection_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.arangodb.ArangoConnectionManager._connection_factory" title="Permalink to this definition"></a></dt>
+<dd><p>Create an ArangoDB connection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>arango_client</strong> (<a class="reference external" href="https://docs.python-arango.com/en/main/specs.html#arango.client.ArangoClient" title="(in python-arango)"><em>ArangoClient</em></a>) – ArangoDB client.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python-arango.com/en/main/specs.html#arango.database.StandardDatabase" title="(in python-arango)"><em>StandardDatabase</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mltb2.arangodb.ArangoImportDataManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mltb2.arangodb.</span></span><span class="sig-name descname"><span class="pre">ArangoImportDataManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hosts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/arangodb.html#ArangoImportDataManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.arangodb.ArangoImportDataManager" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#mltb2.arangodb.ArangoConnectionManager" title="mltb2.arangodb.ArangoConnectionManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArangoConnectionManager</span></code></a></p>
+<p>ArangoDB import tool to fill data into a collection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hosts</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>]</em>) – ArangoDB host or hosts.</p></li>
+<li><p><strong>db_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – ArangoDB database name.</p></li>
+<li><p><strong>username</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – ArangoDB username.</p></li>
+<li><p><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – ArangoDB password.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.arangodb.ArangoImportDataManager.from_config_file">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config_file_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/arangodb.html#ArangoImportDataManager.from_config_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.arangodb.ArangoImportDataManager.from_config_file" title="Permalink to this definition"></a></dt>
+<dd><p>Construct this from config file.</p>
+<p>The config file must contain at least these values:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">hosts</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">db_name</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">username</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code></p></li>
+</ul>
+<p>Config file example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hosts</span><span class="o">=</span><span class="s2">&quot;https://arangodb.com&quot;</span>
+<span class="n">db_name</span><span class="o">=</span><span class="s2">&quot;my_ml_database&quot;</span>
+<span class="n">username</span><span class="o">=</span><span class="s2">&quot;my_username&quot;</span>
+<span class="n">password</span><span class="o">=</span><span class="s2">&quot;secret&quot;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config_file_name</strong> – The config file name (path).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.arangodb.ArangoImportDataManager.import_dataframe">
+<span class="sig-name descname"><span class="pre">import_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/mltb2/arangodb.html#ArangoImportDataManager.import_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.arangodb.ArangoImportDataManager.import_dataframe" title="Permalink to this definition"></a></dt>
+<dd><p>Import Pandas data to ArangoDB.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataframe</strong> (<em>DataFrame</em>) – The Pandas data to import.</p></li>
+<li><p><strong>collection_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The collection name to import to.</p></li>
+<li><p><strong>create_collection</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> the collection is created if it does not exist.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python-arango.com/en/main/errors.html#arango.exceptions.DocumentInsertError" title="(in python-arango)"><strong>arango.exceptions.DocumentInsertError</strong></a> – If import fails.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.arangodb.ArangoImportDataManager.import_dicts">
+<span class="sig-name descname"><span class="pre">import_dicts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dicts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">create_collection</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/mltb2/arangodb.html#ArangoImportDataManager.import_dicts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.arangodb.ArangoImportDataManager.import_dicts" title="Permalink to this definition"></a></dt>
+<dd><p>Import data to ArangoDB.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dicts</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.12)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><em>Any</em></a><em>]</em><em>]</em>) – The data to import.</p></li>
+<li><p><strong>collection_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The collection name to import to.</p></li>
+<li><p><strong>create_collection</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> the collection is created if it does not exist.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python-arango.com/en/main/errors.html#arango.exceptions.DocumentInsertError" title="(in python-arango)"><strong>arango.exceptions.DocumentInsertError</strong></a> – If import fails.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
