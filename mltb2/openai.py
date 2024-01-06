@@ -15,8 +15,7 @@ from typing import Any, Dict, Iterable, List, Optional, Union
 
 import tiktoken
 import yaml
-from openai import OpenAI
-from openai._base_client import BaseClient
+from openai import AzureOpenAI, OpenAI
 from tiktoken.core import Encoding
 from tqdm import tqdm
 
@@ -71,7 +70,7 @@ class OpenAiChatCompletion:
 
     api_key: str
     model: str
-    client: BaseClient = field(init=False, repr=False)
+    client: Union[OpenAI, AzureOpenAI] = field(init=False, repr=False)
 
     def __post_init__(self) -> None:
         """Do post init."""
@@ -89,9 +88,25 @@ class OpenAiChatCompletion:
         # TODO: check key of messages
         completion_kwargs = {} if completion_kwargs is None else completion_kwargs
         messages = [{"role": "user", "content": prompt}] if isinstance(prompt, str) else prompt
-        chat_completion = self.client.chat.completions.create(  # type: ignore[attr-defined]
-            messages=messages,
+        chat_completion = self.client.chat.completions.create(
+            messages=messages,  # type: ignore[arg-type]
             model=self.model,
             **completion_kwargs,
         )
         return chat_completion
+
+
+@dataclass
+class OpenAiAzureChatCompletion(OpenAiChatCompletion):
+    """TODO: add docstring."""
+
+    api_version: str
+    azure_endpoint: str
+
+    def __post_init__(self) -> None:
+        """Do post init."""
+        self.client = AzureOpenAI(
+            api_key=self.api_key,
+            api_version=self.api_version,
+            azure_endpoint=self.azure_endpoint,
+        )
