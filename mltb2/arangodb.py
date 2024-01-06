@@ -37,8 +37,17 @@ def _check_config_keys(config: Dict[str, Optional[str]], expected_config_keys: S
 
 
 @dataclass
-class ArangoDataManager:
-    """TODO: add docstring."""
+class ArangoConnectionManager:
+    """ArangoDB connection manager.
+
+    Base class to manage / create ArangoDB connections.
+
+    Args:
+        hosts: ArangoDB host or hosts.
+        db_name: ArangoDB database name.
+        username: ArangoDB username.
+        password: ArangoDB password.
+    """
 
     hosts: Union[str, Sequence[str]]
     db_name: str
@@ -61,7 +70,7 @@ class ArangoDataManager:
 
 
 @dataclass
-class ArangoBatchDataManager(AbstractBatchDataManager, ArangoDataManager):
+class ArangoBatchDataManager(AbstractBatchDataManager, ArangoConnectionManager):
     """ArangoDB implementation of the ``AbstractBatchDataManager``.
 
     Args:
@@ -226,7 +235,7 @@ def arango_collection_backup() -> None:
 
 
 @dataclass
-class ArangoImportDataManager(ArangoDataManager):
+class ArangoImportDataManager(ArangoConnectionManager):
     """ArangoDB import tool to fill data into a collection.
 
     Args:
