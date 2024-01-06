@@ -16,6 +16,7 @@ from typing import Any, Dict, Iterable, List, Optional, Union
 import tiktoken
 import yaml
 from openai import AzureOpenAI, OpenAI
+from openai.types.chat import ChatCompletion
 from tiktoken.core import Encoding
 from tqdm import tqdm
 
@@ -65,7 +66,58 @@ class OpenAiTokenCounter:
 
 
 @dataclass
-class OpenAiChatCompletion:
+class OpenAiChatResult:
+    """TODO: add docstring.
+
+    Args:
+        content: the result of the OpenAI completion
+        model: model name which has been used
+        prompt_tokens: number of tokens of the prompt
+        completion_tokens: number of tokens of the completion (``text``)
+        total_tokens: number of total tokens (``prompt_tokens + completion_tokens``)
+        finish_reason: The reason why the completion stopped.
+
+            * ``stop``: Means the API returned the full completion without running into any token limit.
+            * ``length``: Means the API stopped the completion because of running into a token limit.
+            * ``function_call``: When the model called a function.
+    """
+
+    content: Optional[str] = None
+    model: Optional[str] = None
+    prompt_tokens: Optional[int] = None
+    completion_tokens: Optional[int] = None
+    total_tokens: Optional[int] = None
+    finish_reason: Optional[str] = None
+    completion_args: Optional[Dict[str, Any]] = None
+
+    @classmethod
+    def from_chat_completion(
+        cls,
+        chat_completion: ChatCompletion,
+        completion_kwargs: Optional[Dict[str, Any]] = None,
+    ):
+        """TODO: add docstring."""
+        result = {}
+        result["completion_args"] = completion_kwargs
+        chat_completion_dict = chat_completion.model_dump()
+        result["model"] = chat_completion_dict.get("model")
+        usage = chat_completion_dict.get("usage")
+        if usage is not None:
+            result["prompt_tokens"] = usage.get("prompt_tokens")
+            result["completion_tokens"] = usage.get("completion_tokens")
+            result["total_tokens"] = usage.get("total_tokens")
+        choices = chat_completion_dict.get("choices")
+        if choices is not None and len(choices) > 0:
+            choice = choices[0]
+            result["finish_reason"] = choice.get("finish_reason")
+            message = choice.get("message")
+            if message is not None:
+                result["content"] = message.get("content")
+        return cls(**result)  # type: ignore[arg-type]
+
+
+@dataclass
+class OpenAiChat:
     """TODO: add docstring."""
 
     api_key: str
@@ -83,7 +135,11 @@ class OpenAiChatCompletion:
             completion_kwargs = yaml.safe_load(file)
         return cls(**completion_kwargs)
 
-    def __call__(self, prompt: Union[str, List[Dict[str, str]]], completion_kwargs: Optional[Dict[str, Any]] = None):
+    def __call__(
+        self,
+        prompt: Union[str, List[Dict[str, str]]],
+        completion_kwargs: Optional[Dict[str, Any]] = None,
+    ):
         """TODO: add docstring."""
         # TODO: check key of messages
         completion_kwargs = {} if completion_kwargs is None else completion_kwargs
@@ -93,11 +149,12 @@ class OpenAiChatCompletion:
             model=self.model,
             **completion_kwargs,
         )
-        return chat_completion
+        result = OpenAiChatResult.from_chat_completion(chat_completion, completion_kwargs=completion_kwargs)
+        return result
 
 
 @dataclass
-class OpenAiAzureChatCompletion(OpenAiChatCompletion):
+class OpenAiAzureChat(OpenAiChat):
     """TODO: add docstring."""
 
     api_version: str
