@@ -236,7 +236,6 @@ class OpenAiAzureChat(OpenAiChat):
     This can also be constructed with :meth:`~OpenAiChat.from_yaml`.
 
     See Also:
-
         * OpenAI API reference: `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
         * `Quickstart: Get started generating text using Azure OpenAI Service <https://learn.microsoft.com/en-us/azure/ai-services/openai/quickstart?tabs=command-line&pivots=programming-language-python>`_
 
@@ -247,6 +246,7 @@ class OpenAiAzureChat(OpenAiChat):
             A common value for this is ``2023-05-15``.
         azure_endpoint: The Azure endpoint.
     """
+
     api_version: str
     azure_endpoint: str
 
