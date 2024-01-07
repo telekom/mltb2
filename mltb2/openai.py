@@ -118,7 +118,14 @@ class OpenAiChatResult:
 
 @dataclass
 class OpenAiChat:
-    """TODO: add docstring."""
+    """Tool to interact with OpenAI chat models.
+
+    This also be constructed with :meth:`OpenAiChat.from_yaml`.
+
+    Args:
+        api_key: The OpenAI API key.
+        model: The OpenAI model name.
+    """
 
     api_key: str
     model: str
