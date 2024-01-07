@@ -8,7 +8,7 @@ import pytest
 from hypothesis import given, settings
 from hypothesis.strategies import lists, text
 
-from mltb2.openai import OpenAiTokenCounter
+from mltb2.openai import OpenAiChat, OpenAiTokenCounter
 
 
 @pytest.fixture(scope="module")
@@ -48,3 +48,36 @@ def test_OpenAiTokenCounter_call_list():  # noqa: N802
     assert len(token_count) == 2
     assert token_count[0] == 5
     assert token_count[1] == 7
+
+
+def test_OpenAiChat__missing_role_message_key():  # noqa: N802
+    open_ai_chat = OpenAiChat(api_key="secret", model="apt-4")
+    invalid_prompt_as_list = [{"x": "user", "content": "prompt"}]
+    with pytest.raises(ValueError):
+        open_ai_chat(invalid_prompt_as_list)
+
+
+def test_OpenAiChat__missing_content_message_key():  # noqa: N802
+    open_ai_chat = OpenAiChat(api_key="secret", model="apt-4")
+    invalid_prompt_as_list = [{"role": "user", "x": "prompt"}]
+    with pytest.raises(ValueError):
+        open_ai_chat(invalid_prompt_as_list)
+
+
+def test_OpenAiChat__invalid_role_in_message_key():  # noqa: N802
+    open_ai_chat = OpenAiChat(api_key="secret", model="apt-4")
+    invalid_prompt_as_list = [{"role": "x", "content": "prompt"}]
+    with pytest.raises(ValueError):
+        open_ai_chat(invalid_prompt_as_list)
+
+
+def test_OpenAiChat__model_in_completion_kwargs():  # noqa: N802
+    open_ai_chat = OpenAiChat(api_key="secret", model="apt-4")
+    with pytest.raises(ValueError):
+        open_ai_chat("Hello!", completion_kwargs={"model": "gpt-4"})
+
+
+def test_OpenAiChat__messages_in_completion_kwargs():  # noqa: N802
+    open_ai_chat = OpenAiChat(api_key="secret", model="apt-4")
+    with pytest.raises(ValueError):
+        open_ai_chat("Hello!", completion_kwargs={"messages": "World!"})
