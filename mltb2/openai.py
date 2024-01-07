@@ -139,14 +139,52 @@ class OpenAiChat:
         self,
         prompt: Union[str, List[Dict[str, str]]],
         completion_kwargs: Optional[Dict[str, Any]] = None,
-    ):
-        """TODO: add docstring."""
-        # TODO: check key of messages
-        completion_kwargs = {} if completion_kwargs is None else completion_kwargs
+    ) -> OpenAiChatResult:
+        """Create a model response for the given prompt (chat conversation).
+
+        Args:
+            prompt: The prompt for the model.
+            completion_kwargs: Keyword arguments for the OpenAI completion.
+
+                - ``model`` can not be set via ``completion_kwargs``! Please set the ``model`` in the initializer.
+                - ``messages`` can not be set via ``completion_kwargs``! Please set the ``prompt`` argument.
+
+                Also see:
+
+                    - ``openai.resources.chat.completions.Completions.create()``
+                    - OpenAI API reference: `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
+
+        Returns:
+            The result of the OpenAI completion.
+        """
+        if isinstance(prompt, list):
+            for message in prompt:
+                if "role" not in message or "content" not in message:
+                    raise ValueError(
+                        "If prompt is a list of messages, each message must have a 'role' and 'content' key!"
+                    )
+                if message["role"] not in ["system", "user", "assistant", "tool"]:
+                    raise ValueError(
+                        "If prompt is a list of messages, each message must have a 'role' key with one of the values "
+                        "'system', 'user', 'assistant' or 'tool'!"
+                    )
+
+        if completion_kwargs is not None:
+            # check keys of completion_kwargs
+            if "model" in completion_kwargs:
+                raise ValueError(
+                    "'model' can not be set via 'completion_kwargs'! Please set the 'model' in the initializer."
+                )
+            if "messages" in completion_kwargs:
+                raise ValueError(
+                    "'messages' can not be set via 'completion_kwargs'! Please set the 'prompt' argument."
+                )
+        else:
+            completion_kwargs = {}  # set default value
+        completion_kwargs["model"] = self.model
         messages = [{"role": "user", "content": prompt}] if isinstance(prompt, str) else prompt
         chat_completion = self.client.chat.completions.create(
             messages=messages,  # type: ignore[arg-type]
-            model=self.model,
             **completion_kwargs,
         )
         result = OpenAiChatResult.from_chat_completion(chat_completion, completion_kwargs=completion_kwargs)
