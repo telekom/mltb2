@@ -161,7 +161,7 @@ class OpenAiChat:
         self.client = OpenAI(api_key=self.api_key)
 
     @classmethod
-    def from_yaml(cls, yaml_file) -> None:
+    def from_yaml(cls, yaml_file):
         """Construct this class from a yaml file.
 
         Args:
