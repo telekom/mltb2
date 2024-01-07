@@ -67,19 +67,34 @@ class OpenAiTokenCounter:
 
 @dataclass
 class OpenAiChatResult:
-    """TODO: add docstring.
+    """Result of an OpenAI chat completion.
+
+    If you want to convert this to a ``dict`` use ``asdict(open_ai_chat_result)``
+    from the ``dataclasses`` module.
+
+    See Also:
+        OpenAI API reference: `The chat completion object <https://platform.openai.com/docs/api-reference/chat/object>`_
 
     Args:
         content: the result of the OpenAI completion
         model: model name which has been used
         prompt_tokens: number of tokens of the prompt
-        completion_tokens: number of tokens of the completion (``text``)
-        total_tokens: number of total tokens (``prompt_tokens + completion_tokens``)
+        completion_tokens: number of tokens of the completion (``content``)
+        total_tokens: number of total tokens (``prompt_tokens + content_tokens``)
         finish_reason: The reason why the completion stopped.
 
             * ``stop``: Means the API returned the full completion without running into any token limit.
             * ``length``: Means the API stopped the completion because of running into a token limit.
-            * ``function_call``: When the model called a function.
+            * ``content_filter``: When content was omitted due to a flag from the OpenAI content filters.
+            * ``tool_calls``: When the model called a tool.
+            * ``function_call`` (deprecated): When the model called a function.
+
+        completion_args: The arguments which have been used for the completion. Examples:
+
+            * ``model``: always set
+            * ``max_tokens``: only set if ``completion_kwargs`` contained ``max_tokens``
+            * ``temperature``: only set if ``completion_kwargs`` contained ``temperature``
+            * ``top_p``: only set if ``completion_kwargs`` contained ``top_p``
     """
 
     content: Optional[str] = None
@@ -96,7 +111,14 @@ class OpenAiChatResult:
         chat_completion: ChatCompletion,
         completion_kwargs: Optional[Dict[str, Any]] = None,
     ):
-        """TODO: add docstring."""
+        """Construct this class from an OpenAI ``ChatCompletion`` object.
+
+        Args:
+            chat_completion: The OpenAI ``ChatCompletion`` object.
+            completion_kwargs: The arguments which have been used for the completion.
+        Returns:
+            The constructed class.
+        """
         result = {}
         result["completion_args"] = completion_kwargs
         chat_completion_dict = chat_completion.model_dump()
@@ -120,7 +142,10 @@ class OpenAiChatResult:
 class OpenAiChat:
     """Tool to interact with OpenAI chat models.
 
-    This also be constructed with :meth:`OpenAiChat.from_yaml`.
+    This also be constructed with :meth:`~OpenAiChat.from_yaml`.
+
+    See Also:
+        OpenAI API reference: `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
 
     Args:
         api_key: The OpenAI API key.
@@ -137,7 +162,13 @@ class OpenAiChat:
 
     @classmethod
     def from_yaml(cls, yaml_file):
-        """Construct this class from a yaml file."""
+        """Construct this class from a yaml file.
+
+        Args:
+            yaml_file: The yaml file.
+        Returns:
+            The constructed class.
+        """
         with open(yaml_file, "r") as file:
             completion_kwargs = yaml.safe_load(file)
         return cls(**completion_kwargs)
@@ -200,8 +231,22 @@ class OpenAiChat:
 
 @dataclass
 class OpenAiAzureChat(OpenAiChat):
-    """TODO: add docstring."""
+    """Tool to interact with Azure OpenAI chat models.
 
+    This can also be constructed with :meth:`~OpenAiChat.from_yaml`.
+
+    See Also:
+
+        * OpenAI API reference: `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
+        * `Quickstart: Get started generating text using Azure OpenAI Service <https://learn.microsoft.com/en-us/azure/ai-services/openai/quickstart?tabs=command-line&pivots=programming-language-python>`_
+
+    Args:
+        api_key: The OpenAI API key.
+        model: The OpenAI model name.
+        api_version: The OpenAI API version.
+            A common value for this is ``2023-05-15``.
+        azure_endpoint: The Azure endpoint.
+    """
     api_version: str
     azure_endpoint: str
 
