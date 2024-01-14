@@ -105,12 +105,16 @@ mdformat-footnote = "*"
 [tool.poetry.group.test.dependencies]
 pytest = "*"
 pytest-rerunfailures = "*"
+pytest-random-order = "*"
 hypothesis = "*"
 
 [tool.poetry.group.doc.dependencies]
 sphinx = "*"
 sphinx_rtd_theme = "*"
 sphinx_copybutton = "*"
+
+[tool.pytest.ini_options]
+addopts = "--random-order-bucket=global"
 
 [tool.black]
 line-length = 119
