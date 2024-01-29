@@ -78,7 +78,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for mltb2.fasttext</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (c) 2023 Philip May</span>
+<span></span><span class="c1"># Copyright (c) 2023-2024 Philip May</span>
 <span class="c1"># This software is distributed under the terms of the MIT license</span>
 <span class="c1"># which is available at https://opensource.org/licenses/MIT</span>
 
@@ -91,6 +91,7 @@
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">import</span> <span class="nn">fasttext</span>
 <span class="kn">from</span> <span class="nn">fasttext.FastText</span> <span class="kn">import</span> <span class="n">_FastText</span>
@@ -131,12 +132,15 @@
 
         <span class="k">return</span> <span class="n">model_full_path</span></div>
 
-<div class="viewcode-block" id="FastTextLanguageIdentification.__call__"><a class="viewcode-back" href="../../api-reference/fasttext.html#mltb2.fasttext.FastTextLanguageIdentification.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num_lang</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+<div class="viewcode-block" id="FastTextLanguageIdentification.__call__"><a class="viewcode-back" href="../../api-reference/fasttext.html#mltb2.fasttext.FastTextLanguageIdentification.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num_lang</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">always_detect_lang</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Identify languages of a given text.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            text: the text for which the language is to be recognized</span>
-<span class="sd">            num_lang: number of returned languages</span>
+<span class="sd">            num_lang: number of returned language probabilities</span>
+<span class="sd">            always_detect_lang: A list of languages that should always be returned</span>
+<span class="sd">                even if not detected. If the language is not detected, the probability</span>
+<span class="sd">                is set to 0.0.</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            A dict from language to probability.</span>
 <span class="sd">            This dict contains no more than ``num_lang`` elements.</span>
@@ -156,6 +160,10 @@
         <span class="n">languages</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">probabilities</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">lang_to_prob</span> <span class="o">=</span> <span class="p">{</span><span class="n">lang</span><span class="p">[</span><span class="mi">9</span><span class="p">:]:</span> <span class="n">prob</span> <span class="k">for</span> <span class="n">lang</span><span class="p">,</span> <span class="n">prob</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">languages</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">)}</span>
+        <span class="k">if</span> <span class="n">always_detect_lang</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">lang</span> <span class="ow">in</span> <span class="n">always_detect_lang</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">lang</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lang_to_prob</span><span class="p">:</span>
+                    <span class="n">lang_to_prob</span><span class="p">[</span><span class="n">lang</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="k">return</span> <span class="n">lang_to_prob</span></div></div>
 </pre></div>
 
