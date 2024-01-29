@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Philip May
+# Copyright (c) 2023-2024 Philip May
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -16,3 +16,11 @@ def test_fasttext_language_identification_call():
     languages = language_identification("This is an English sentence.")
     assert languages is not None
     assert len(languages) == 10
+
+
+def test_fasttext_language_identification_call_with_always_detect_lang():
+    language_identification = FastTextLanguageIdentification()
+    languages = language_identification("This is an English sentence.", always_detect_lang=["fake_language"])
+    assert languages is not None
+    assert len(languages) == 11
+    assert "fake_language" in languages
