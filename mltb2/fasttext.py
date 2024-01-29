@@ -11,6 +11,7 @@ Hint:
 
 import os
 from dataclasses import dataclass, field
+from typing import List, Optional
 
 import fasttext
 from fasttext.FastText import _FastText
@@ -51,12 +52,15 @@ class FastTextLanguageIdentification:
 
         return model_full_path
 
-    def __call__(self, text: str, num_lang: int = 10):
+    def __call__(self, text: str, num_lang: int = 10, always_detect_lang: Optional[List[str]] = None):
         """Identify languages of a given text.
 
         Args:
             text: the text for which the language is to be recognized
             num_lang: number of returned languages
+            always_detect_lang: A list of languages that should always be returned
+                even if not detected. If the language is not detected, the probability
+                is set to 0.0.
         Returns:
             A dict from language to probability.
             This dict contains no more than ``num_lang`` elements.
@@ -76,4 +80,8 @@ class FastTextLanguageIdentification:
         languages = predictions[0]
         probabilities = predictions[1]
         lang_to_prob = {lang[9:]: prob for lang, prob in zip(languages, probabilities)}
+        if always_detect_lang is not None:
+            for lang in always_detect_lang:
+                if lang not in lang_to_prob:
+                    lang_to_prob[lang] = 0.0
         return lang_to_prob
