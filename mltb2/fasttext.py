@@ -57,7 +57,7 @@ class FastTextLanguageIdentification:
 
         Args:
             text: the text for which the language is to be recognized
-            num_lang: number of returned languages
+            num_lang: number of returned language probabilities
             always_detect_lang: A list of languages that should always be returned
                 even if not detected. If the language is not detected, the probability
                 is set to 0.0.

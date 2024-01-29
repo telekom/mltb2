@@ -20,10 +20,7 @@ def test_fasttext_language_identification_call():
 
 def test_fasttext_language_identification_call_with_always_detect_lang():
     language_identification = FastTextLanguageIdentification()
-    languages = language_identification("This is an English sentence.")
+    languages = language_identification("This is an English sentence.", always_detect_lang=["fake_language"])
     assert languages is not None
-    assert len(languages) == 10
-    languages_with_de = language_identification("This is an English sentence.", always_detect_lang=["de"])
-    assert languages_with_de is not None
-    assert len(languages_with_de) == 11
-    assert "de" in languages_with_de
+    assert len(languages) == 11
+    assert "fake_language" in languages
