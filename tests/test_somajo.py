@@ -184,3 +184,12 @@ def test_UrlSwapper__markdown_bug():  # noqa: N802
     assert "https://link-1.com" in swapped_url_text
     assert "https://link-2.com" in swapped_url_text
     assert len(url_swapper._url_map) == 2
+
+
+# regression for https://github.com/tsproisl/SoMaJo/issues/27
+def test_TokenExtractor_extract_url_set__markdown_bug_2():  # noqa: N802
+    text_with_url = "This is a MD link: <https://something-2.com>."
+    token_extractor = TokenExtractor("de_CMC")
+    url_set = token_extractor.extract_url_set(text_with_url)
+    assert len(url_set) == 1, url_set
+    assert "https://something-2.com" in url_set, url_set
