@@ -69,6 +69,15 @@ def test_JaccardSimilarity_call_no_overlap():  # noqa: N802
     assert isclose(result, 0.0)
 
 
+def test_TokenExtractor_extract_token_set():  # noqa: N802
+    text = "Das ist ein Text. Er enthält keine URL."
+    token_extractor = TokenExtractor("de_CMC")
+    result = token_extractor.extract_token_set(text)
+    assert len(result) == 9
+    assert "Das" in result
+    assert "." in result
+
+
 def test_TokenExtractor_extract_url_set_with_str():  # noqa: N802
     url1 = "http://may.la"
     url2 = "github.com"
