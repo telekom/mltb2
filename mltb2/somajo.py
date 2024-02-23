@@ -12,7 +12,7 @@ Hint:
 
 from abc import ABC
 from dataclasses import dataclass, field
-from typing import Container, Dict, Iterable, List, Literal, Optional, Set, Tuple, Union
+from typing import Dict, Iterable, List, Literal, Optional, Set, Tuple, Union
 
 from somajo import SoMaJo
 from tqdm import tqdm
@@ -62,7 +62,7 @@ def detokenize(tokens) -> str:
     return result
 
 
-def extract_token_class_set(sentences: Iterable, keep_token_classes: Optional[Container[str]] = None) -> Set[str]:
+def extract_token_class_set(sentences: Iterable, keep_token_classes: Optional[str] = None) -> Set[str]:
     """Extract token from sentences by token class.
 
     Args:
@@ -185,6 +185,21 @@ class TokenExtractor(SoMaJoBaseClass):
             text = [text]
         sentences = self.somajo.tokenize_text(text)
         result = extract_token_class_set(sentences, keep_token_classes="URL")
+        return result
+
+    def extract_token_set(self, text: Union[Iterable, str], keep_token_classes: Optional[str] = None) -> Set[str]:
+        """Extract tokens from text.
+
+        Args:
+            text: the text
+            keep_token_classes: The token classes to keep. If ``None`` all will be kept.
+        Returns:
+            Set of tokens.
+        """
+        if isinstance(text, str):
+            text = [text]
+        sentences = self.somajo.tokenize_text(text)
+        result = extract_token_class_set(sentences, keep_token_classes=keep_token_classes)
         return result
 
 
