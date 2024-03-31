@@ -14,6 +14,7 @@ from mltb2.text import (
     SPECIAL_WHITESPACES,
     TextDistance,
     _normalize_counter_to_defaultdict,
+    clean_all_invisible_chars_and_strip,
     clean_all_invisible_chars_and_whitespaces,
     has_invisible_characters,
     has_special_whitespaces,
@@ -148,6 +149,12 @@ def test_clean_all_invisible_chars_and_whitespaces():
     text = " Hello\u200bWorld\u00ad! How\u2007  are you? "
     result = clean_all_invisible_chars_and_whitespaces(text)
     assert result == "HelloWorld! How are you?"
+
+
+def test_clean_all_invisible_chars_and_strip():
+    text = " Hello\u200bWorld\u00ad! How\u2007are  you? "
+    result = clean_all_invisible_chars_and_strip(text)
+    assert result == "HelloWorld! How are  you?"
 
 
 def test_clean_all_invisible_chars_and_whitespaces_empty_result():
