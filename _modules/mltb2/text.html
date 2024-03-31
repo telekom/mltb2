@@ -249,6 +249,27 @@
     <span class="k">return</span> <span class="n">text</span></div>
 
 
+<div class="viewcode-block" id="clean_all_invisible_chars_and_strip"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.clean_all_invisible_chars_and_strip">[docs]</a><span class="k">def</span> <span class="nf">clean_all_invisible_chars_and_strip</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean text form invisible characters and strip the text.</span>
+
+<span class="sd">    - Remove invisible characters from text.</span>
+<span class="sd">    - Replace special whitespaces with normal whitespaces.</span>
+<span class="sd">    - Remove leading and trailing whitespaces.</span>
+
+<span class="sd">    The invisible characters are defined in the constant ``INVISIBLE_CHARACTERS``.</span>
+<span class="sd">    The special whitespaces are defined in the constant ``SPECIAL_WHITESPACES``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        text: The text to clean.</span>
+
+<span class="sd">    Rteturns:</span>
+<span class="sd">        The cleaned text.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">INVISIBLE_CHARACTERS_AND_SPECIAL_WHITESPACES_TRANS</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">text</span></div>
+
+
 <div class="viewcode-block" id="_normalize_counter_to_defaultdict"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text._normalize_counter_to_defaultdict">[docs]</a><span class="k">def</span> <span class="nf">_normalize_counter_to_defaultdict</span><span class="p">(</span><span class="n">counter</span><span class="p">:</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">max_dimensions</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">defaultdict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize a counter to to ``max_dimensions``.</span>
 
