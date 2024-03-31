@@ -169,6 +169,27 @@ def clean_all_invisible_chars_and_whitespaces(text: str) -> str:
     return text
 
 
+def clean_all_invisible_chars_and_strip(text: str) -> str:
+    """Clean text form invisible characters and strip the text.
+
+    - Remove invisible characters from text.
+    - Replace special whitespaces with normal whitespaces.
+    - Remove leading and trailing whitespaces.
+
+    The invisible characters are defined in the constant ``INVISIBLE_CHARACTERS``.
+    The special whitespaces are defined in the constant ``SPECIAL_WHITESPACES``.
+
+    Args:
+        text: The text to clean.
+
+    Rteturns:
+        The cleaned text.
+    """
+    text = text.translate(INVISIBLE_CHARACTERS_AND_SPECIAL_WHITESPACES_TRANS)
+    text = text.strip()
+    return text
+
+
 def _normalize_counter_to_defaultdict(counter: Counter, max_dimensions: int) -> defaultdict:
     """Normalize a counter to to ``max_dimensions``.
 
