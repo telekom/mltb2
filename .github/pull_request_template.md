@@ -23,3 +23,4 @@
 - [ ] check if the copyright needs an update
   - file header
   - README.md
+  - LICENSE file
