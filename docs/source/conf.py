@@ -26,7 +26,7 @@ from typing import List
 # -- Project information -----------------------------------------------------
 
 project = "MLTB2"
-copyright = "2023, Philip May, Deutsche Telekom AG"  # noqa: A001
+copyright = "2023-2024 Philip May, Deutsche Telekom AG"  # noqa: A001
 author = "Philip May"
 
 
