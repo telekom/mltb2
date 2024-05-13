@@ -91,7 +91,7 @@ class FileBasedRestartableBatchDataProcessor:
     _result_dir_path: Path = field(init=False, repr=False)
     _own_lock_uuids: Set[str] = field(init=False, repr=False, default_factory=set)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Do post init."""
         # check that batch size is > 0
         if self.batch_size <= 0:
