@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Philip May
+# Copyright (c) 2023-2024 Philip May
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -85,9 +85,11 @@ def test_FileBasedRestartableBatchDataProcessor_uuid_unique(tmp_path):
 
 def test_FileBasedRestartableBatchDataProcessor_write_lock_files(tmp_path):
     result_dir = tmp_path.absolute()
-    batch_size=10
+    batch_size = 10
     data = [{"uuid": str(uuid4()), "x": i} for i in range(100)]
-    data_processor = FileBasedRestartableBatchDataProcessor(data=data, batch_size=batch_size, uuid_name="uuid", result_dir=result_dir)
+    data_processor = FileBasedRestartableBatchDataProcessor(
+        data=data, batch_size=batch_size, uuid_name="uuid", result_dir=result_dir
+    )
     data = data_processor.read_batch()
 
     assert len(data) == batch_size
@@ -99,9 +101,11 @@ def test_FileBasedRestartableBatchDataProcessor_write_lock_files(tmp_path):
 
 def test_FileBasedRestartableBatchDataProcessor_save_batch_data(tmp_path):
     result_dir = tmp_path.absolute()
-    batch_size=10
+    batch_size = 10
     data = [{"uuid": str(uuid4()), "x": i} for i in range(100)]
-    data_processor = FileBasedRestartableBatchDataProcessor(data=data, batch_size=batch_size, uuid_name="uuid", result_dir=result_dir)
+    data_processor = FileBasedRestartableBatchDataProcessor(
+        data=data, batch_size=batch_size, uuid_name="uuid", result_dir=result_dir
+    )
     data = data_processor.read_batch()
     data_processor.save_batch(data)
 
@@ -112,9 +116,11 @@ def test_FileBasedRestartableBatchDataProcessor_save_batch_data(tmp_path):
 
 def test_FileBasedRestartableBatchDataProcessor_remove_lock_files(tmp_path):
     result_dir = tmp_path.absolute()
-    batch_size=10
+    batch_size = 10
     data = [{"uuid": str(uuid4()), "x": i} for i in range(100)]
-    data_processor = FileBasedRestartableBatchDataProcessor(data=data, batch_size=batch_size, uuid_name="uuid", result_dir=result_dir)
+    data_processor = FileBasedRestartableBatchDataProcessor(
+        data=data, batch_size=batch_size, uuid_name="uuid", result_dir=result_dir
+    )
     data = data_processor.read_batch()
     data_processor.save_batch(data)
 
@@ -125,9 +131,11 @@ def test_FileBasedRestartableBatchDataProcessor_remove_lock_files(tmp_path):
 
 def test_FileBasedRestartableBatchDataProcessor_save_unlocked(tmp_path):
     result_dir = tmp_path.absolute()
-    batch_size=10
+    batch_size = 10
     data = [{"uuid": str(uuid4()), "x": i} for i in range(100)]
-    data_processor = FileBasedRestartableBatchDataProcessor(data=data, batch_size=batch_size, uuid_name="uuid", result_dir=result_dir)
+    data_processor = FileBasedRestartableBatchDataProcessor(
+        data=data, batch_size=batch_size, uuid_name="uuid", result_dir=result_dir
+    )
     data = data_processor.read_batch()
     data[0]["uuid"] = "something_else"
     with pytest.raises(ValueError):
