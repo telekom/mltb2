@@ -125,10 +125,13 @@ line-length = 119
 target-version = ["py38", "py39", "py310", "py311"]
 
 [tool.ruff]
-select = ["ALL"]
 line-length = 119
-fixable = ["I"]
 target-version = "py38"
+
+
+[tool.ruff.lint]
+select = ["ALL"]
+fixable = ["I"]
 ignore = [
   "DJ",  # flake8-django - https://docs.astral.sh/ruff/rules/#flake8-django-dj
   "ERA",  # eradicate - https://docs.astral.sh/ruff/rules/#eradicate-era
@@ -161,7 +164,7 @@ ignore = [
   "RUF015",  # Prefer `next(iter(sentences))` over single element slice
 ]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "tests/**/test_*.py" = [
   "D100",  # Missing docstring in public module
   "D103",  # Missing docstring in public function
@@ -170,10 +173,10 @@ ignore = [
   "N802",  # Function name should be lowercase
 ]
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
 
-[tool.ruff.flake8-copyright]
+[tool.ruff.lint.flake8-copyright]
 notice-rgx = "(# Copyright \\(c\\) \\d{4}.*\\n)+# This software is distributed under the terms of the MIT license\\n# which is available at https://opensource.org/licenses/MIT\\n\\n"
 
 [tool.mypy]

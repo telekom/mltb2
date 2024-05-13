@@ -142,6 +142,7 @@ class FileBasedRestartableBatchDataProcessor:
             self._own_lock_uuids.add(uuid)
 
     def read_batch(self) -> Sequence[Dict[str, Any]]:
+        """Read the next batch of data."""
         locked_or_done_uuids: Set[str] = self._get_locked_or_done_uuids()
         remaining_data = [d for d in self.data if d[self.uuid_name] not in locked_or_done_uuids]
         random.shuffle(remaining_data)
@@ -155,7 +156,7 @@ class FileBasedRestartableBatchDataProcessor:
             uuid = d[self.uuid_name]
             if uuid not in self._own_lock_uuids:
                 raise ValueError(f"uuid '{uuid}' not locked by me!")
-            filename = self._result_dir_path / f"{uuid}_{str(uuid4())}.json.gz"
+            filename = self._result_dir_path / f"{uuid}_{str(uuid4())}.json.gz"  # noqa: RUF010
             with gzip.GzipFile(filename, "w") as outfile:
                 outfile.write(json.dumps(d).encode("utf-8"))
 
@@ -166,5 +167,6 @@ class FileBasedRestartableBatchDataProcessor:
             self._own_lock_uuids.discard(uuid)
 
     def save_batch(self, batch: Sequence[Dict[str, Any]]) -> None:
+        """Save the batch of data."""
         self._save_batch_data(batch)
         self._remove_lock_files(batch)
