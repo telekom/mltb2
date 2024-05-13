@@ -17,7 +17,7 @@ from mltb2.somajo import (
 )
 
 
-def test_SoMaJoSentenceSplitter_call() -> None:  # noqa: N802
+def test_SoMaJoSentenceSplitter_call() -> None:
     """Test ``SoMaJoSentenceSplitter.call`` happy case."""
     splitter = SoMaJoSentenceSplitter("de_CMC")
     text = "Das ist der erste Satz. Das ist der 2. Satz."
@@ -28,7 +28,7 @@ def test_SoMaJoSentenceSplitter_call() -> None:  # noqa: N802
     assert sentences[1] == "Das ist der 2. Satz."
 
 
-def test_SoMaJoSentenceSplitter_call_space_and_linebreak() -> None:  # noqa: N802
+def test_SoMaJoSentenceSplitter_call_space_and_linebreak() -> None:
     """Test ``SoMaJoSentenceSplitter.call`` with space an line break."""
     splitter = SoMaJoSentenceSplitter("de_CMC")
     text = "  Das   ist der erste Satz.   \n   Das ist der 2.  \n    Satz.  "
@@ -39,7 +39,7 @@ def test_SoMaJoSentenceSplitter_call_space_and_linebreak() -> None:  # noqa: N80
     assert sentences[1] == "Das ist der 2. Satz."
 
 
-def test_JaccardSimilarity_call():  # noqa: N802
+def test_JaccardSimilarity_call():
     text1 = "Das ist ein deutscher Text."
     text2 = "Das ist ein anderer Text."
     jaccard_similarity = JaccardSimilarity("de_CMC")
@@ -52,7 +52,7 @@ def test_JaccardSimilarity_call():  # noqa: N802
     assert result2 > 0.0
 
 
-def test_JaccardSimilarity_call_same():  # noqa: N802
+def test_JaccardSimilarity_call_same():
     text = "Das ist ein deutscher Text."
     jaccard_similarity = JaccardSimilarity("de_CMC")
     result = jaccard_similarity(text, text)
@@ -60,7 +60,7 @@ def test_JaccardSimilarity_call_same():  # noqa: N802
     assert isclose(result, 1.0)
 
 
-def test_JaccardSimilarity_call_no_overlap():  # noqa: N802
+def test_JaccardSimilarity_call_no_overlap():
     text1 = "Das ist ein deutscher Text."
     text2 = "Vollkommen anders!"
     jaccard_similarity = JaccardSimilarity("de_CMC")
@@ -69,7 +69,7 @@ def test_JaccardSimilarity_call_no_overlap():  # noqa: N802
     assert isclose(result, 0.0)
 
 
-def test_TokenExtractor_extract_token_set():  # noqa: N802
+def test_TokenExtractor_extract_token_set():
     text = "Das ist ein Text. Er enthält keine URL."
     token_extractor = TokenExtractor("de_CMC")
     result = token_extractor.extract_token_set(text)
@@ -78,7 +78,7 @@ def test_TokenExtractor_extract_token_set():  # noqa: N802
     assert "." in result
 
 
-def test_TokenExtractor_extract_url_set_with_str():  # noqa: N802
+def test_TokenExtractor_extract_url_set_with_str():
     url1 = "http://may.la"
     url2 = "github.com"
     text_with_url = f"{url1} Das ist ein Text. {url2} Er enthält eine URL."
@@ -89,7 +89,7 @@ def test_TokenExtractor_extract_url_set_with_str():  # noqa: N802
     assert url2 in result
 
 
-def test_TokenExtractor_extract_url_set_with_list():  # noqa: N802
+def test_TokenExtractor_extract_url_set_with_list():
     url1 = "http://may.la"
     url2 = "github.com"
     text_with_url = [f"{url1} Das ist ein Text.", f"{url2} Er enthält eine URL."]
@@ -100,7 +100,7 @@ def test_TokenExtractor_extract_url_set_with_list():  # noqa: N802
     assert url2 in result
 
 
-def test_TokenExtractor_extract_url_set_no_url():  # noqa: N802
+def test_TokenExtractor_extract_url_set_no_url():
     text_with_url = "Das ist ein Text. Er enthält keine URLs."
     token_extractor = TokenExtractor("de_CMC")
     result = token_extractor.extract_url_set(text_with_url)
@@ -146,7 +146,7 @@ def test_detokenize():
     assert result == "Das ist ein Satz."
 
 
-def test_UrlSwapper_swap_urls():  # noqa: N802
+def test_UrlSwapper_swap_urls():
     token_extractor = TokenExtractor("de_CMC")
     url_swapper = UrlSwapper(token_extractor)
     text_with_url = "This is a text with URL: http://may.la."
@@ -162,7 +162,7 @@ def test_UrlSwapper_swap_urls():  # noqa: N802
         "2 MD URL s: [Philip May](http://may.la). [other link](https://github.com/telekom/mltb2#installation)",
     ],
 )
-def test_UrlSwapper__is_reversible(text_with_url: str):  # noqa: N802
+def test_UrlSwapper__is_reversible(text_with_url: str):
     token_extractor = TokenExtractor("de_CMC")
     url_swapper = UrlSwapper(token_extractor)
     text_with_reverse_swapped_url, no_reverse_swap_urls = url_swapper.reverse_swap_urls(
@@ -172,7 +172,7 @@ def test_UrlSwapper__is_reversible(text_with_url: str):  # noqa: N802
     assert len(no_reverse_swap_urls) == 0
 
 
-def test_UrlSwapper__no_reverse_swap_urls():  # noqa: N802
+def test_UrlSwapper__no_reverse_swap_urls():
     token_extractor = TokenExtractor("de_CMC")
     url_swapper = UrlSwapper(token_extractor)
     text_with_url = "This is a text with URL: http://may.la."
@@ -185,7 +185,7 @@ def test_UrlSwapper__no_reverse_swap_urls():  # noqa: N802
 
 
 # see https://github.com/telekom/mltb2/issues/94
-def test_UrlSwapper__markdown_bug():  # noqa: N802
+def test_UrlSwapper__markdown_bug():
     token_extractor = TokenExtractor("de_CMC")
     url_swapper = UrlSwapper(token_extractor)
     text_with_url = "This is a MD link: [https://something-1.com](https://something-2.com)."
@@ -196,7 +196,7 @@ def test_UrlSwapper__markdown_bug():  # noqa: N802
 
 
 # regression for https://github.com/tsproisl/SoMaJo/issues/27
-def test_TokenExtractor_extract_url_set__markdown_bug_2():  # noqa: N802
+def test_TokenExtractor_extract_url_set__markdown_bug_2():
     text_with_url = "This is a MD link: <https://something-2.com>."
     token_extractor = TokenExtractor("de_CMC")
     url_set = token_extractor.extract_url_set(text_with_url)
