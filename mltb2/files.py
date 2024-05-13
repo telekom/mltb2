@@ -123,7 +123,6 @@ class FileBasedRestartableBatchDataProcessor:
             raise ValueError(f"Faild to create or find result_dir '{self.result_dir}'!")
 
     def _get_locked_or_done_uuids(self) -> Set[str]:
-        """Get locked or done uuids."""
         locked_or_done_uuids: Set[str] = set()
         for child_path in self._result_dir_path.iterdir():
             if child_path.is_file():
