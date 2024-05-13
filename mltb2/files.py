@@ -88,6 +88,9 @@ class FileBasedRestartableBatchDataProcessor:
         if self.batch_size <= 0:
             raise ValueError("batch_size must be > 0!")
 
+        if not len(self.data) > 0:
+            raise ValueError("data must not be empty!")
+
         uuids: Set[str] = set()
 
         # check uuid_name
@@ -143,7 +146,7 @@ class FileBasedRestartableBatchDataProcessor:
             uuid = d[self.uuid_name]
             if uuid not in self._own_lock_uuids:
                 raise ValueError(f"uuid '{uuid}' not locked by me!")
-            filename = f"{uuid}_{str(uuid4())}.json.gz"
+            filename = self._result_dir_path / f"{uuid}_{str(uuid4())}.json.gz"
             with gzip.GzipFile(filename, "w") as outfile:
                 outfile.write(json.dumps(d).encode("utf-8"))
 
