@@ -170,7 +170,6 @@ class FileBasedRestartableBatchDataProcessor:
         self._save_batch_data(batch)
         self._remove_lock_files(batch)
 
-
     @staticmethod
     def load_data(result_dir: str) -> List[Dict[str, Any]]:
         """Load all data.
