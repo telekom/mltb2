@@ -75,6 +75,14 @@ def fetch_remote_file(dirname, filename, url: str, sha256_checksum: str) -> str:
 
 @dataclass
 class FileBasedRestartableBatchDataProcessor:
+    """Batch data processor which supports restarability and is backed by files.
+
+    Args:
+        data: The data to process.
+        batch_size: The batch size.
+        uuid_name: The name of the uuid field in the data.
+        result_dir: The directory where the results are stored.
+    """
 
     data: List[Dict[str, Any]]
     batch_size: int
