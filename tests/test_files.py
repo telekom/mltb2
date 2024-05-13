@@ -141,3 +141,30 @@ def test_FileBasedRestartableBatchDataProcessor_save_unlocked(tmp_path):
     data[0]["uuid"] = "something_else"
     with pytest.raises(ValueError):
         data_processor.save_batch(data)
+
+
+def test_FileBasedRestartableBatchDataProcessor_load_data(tmp_path):
+    result_dir = tmp_path.absolute()
+    batch_size = 10
+    data = [{"uuid": str(uuid4()), "x": i} for i in range(100)]
+    data_processor = FileBasedRestartableBatchDataProcessor(
+        data=data, batch_size=batch_size, uuid_name="uuid", result_dir=result_dir
+    )
+
+    # process all data
+    while True:
+        _data = data_processor.read_batch()
+        if len(_data) == 0:
+            break
+        data_processor.save_batch(_data)
+
+    del data_processor
+    processed_data = FileBasedRestartableBatchDataProcessor.load_data(result_dir)
+
+    assert len(processed_data) == len(data)
+    for d in processed_data:
+        assert "uuid" in d
+        assert "x" in d
+        assert isinstance(d["uuid"], str)
+        assert isinstance(d["x"], int)
+        assert d["x"] < 100

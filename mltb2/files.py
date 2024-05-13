@@ -169,3 +169,24 @@ class FileBasedRestartableBatchDataProcessor:
         """Save the batch of data."""
         self._save_batch_data(batch)
         self._remove_lock_files(batch)
+
+
+    @staticmethod
+    def load_data(result_dir: str) -> List[Dict[str, Any]]:
+        """Load all data.
+
+        After all data is processed, this method can be used to load all data.
+
+        Args:
+            result_dir: The directory where the results are stored.
+        """
+        _result_dir_path = Path(result_dir)
+        if not _result_dir_path.is_dir():
+            raise ValueError(f"Did not find result_dir '{result_dir}'!")
+
+        data = []
+        for child_path in _result_dir_path.iterdir():
+            if child_path.is_file() and child_path.name.endswith(".json.gz"):
+                with gzip.GzipFile(child_path, "r") as infile:
+                    data.append(json.loads(infile.read().decode("utf-8")))
+        return data
