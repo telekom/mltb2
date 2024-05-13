@@ -75,7 +75,7 @@ def fetch_remote_file(dirname, filename, url: str, sha256_checksum: str) -> str:
 
 @dataclass
 class FileBasedRestartableBatchDataProcessor:
-    """Batch data processor which supports restarability and is backed by files.
+    """Batch data processor which supports restartability and is backed by files.
 
     Args:
         data: The data to process.
