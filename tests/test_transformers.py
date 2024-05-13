@@ -17,23 +17,21 @@ def deepset_gbert_base_token_counter() -> TransformersTokenCounter:
 
 @settings(max_examples=1000, deadline=None)
 @given(text=text())
-def test_TransformersTokenCounter_hypothesis(  # noqa: N802
-    text: str, deepset_gbert_base_token_counter: TransformersTokenCounter
-):
+def test_TransformersTokenCounter_hypothesis(text: str, deepset_gbert_base_token_counter: TransformersTokenCounter):
     token_count = deepset_gbert_base_token_counter(text)
 
     assert isinstance(token_count, int)
     assert token_count >= 0
 
 
-def test_TransformersTokenCounter_call_string():  # noqa: N802
+def test_TransformersTokenCounter_call_string():
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
     token_count = transformers_token_counter("Das ist ein Text.")
 
     assert token_count == 5
 
 
-def test_TransformersTokenCounter_call_list():  # noqa: N802
+def test_TransformersTokenCounter_call_list():
     transformers_token_counter = TransformersTokenCounter("deepset/gbert-base")
     token_count = transformers_token_counter(["Das ist ein Text.", "Das ist ein anderer Text."])
 

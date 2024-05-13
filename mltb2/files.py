@@ -1,4 +1,5 @@
-# Copyright (c) 2023 Philip May
+# Copyright (c) 2023-2024 Philip May
+# Copyright (c) 2023-2024 Philip May, Deutsche Telekom AG
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -13,8 +14,14 @@ Hint:
 
 
 import contextlib
+import gzip
+import json
 import os
-from typing import Optional
+import random
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Sequence, Set
+from uuid import uuid4
 
 from platformdirs import user_data_dir
 from sklearn.datasets._base import RemoteFileMetadata, _fetch_remote
@@ -64,3 +71,121 @@ def fetch_remote_file(dirname, filename, url: str, sha256_checksum: str) -> str:
             os.remove(os.path.join(dirname, filename))
         raise
     return fetch_remote_file_path
+
+
+@dataclass
+class FileBasedRestartableBatchDataProcessor:
+    """Batch data processor which supports restartability and is backed by files.
+
+    Args:
+        data: The data to process.
+        batch_size: The batch size.
+        uuid_name: The name of the uuid field in the data.
+        result_dir: The directory where the results are stored.
+    """
+
+    data: List[Dict[str, Any]]
+    batch_size: int
+    uuid_name: str
+    result_dir: str
+    _result_dir_path: Path = field(init=False, repr=False)
+    _own_lock_uuids: Set[str] = field(init=False, repr=False, default_factory=set)
+
+    def __post_init__(self) -> None:
+        """Do post init."""
+        # check that batch size is > 0
+        if self.batch_size <= 0:
+            raise ValueError("batch_size must be > 0!")
+
+        if not len(self.data) > 0:
+            raise ValueError("data must not be empty!")
+
+        uuids: Set[str] = set()
+
+        # check uuid_name
+        for idx, d in enumerate(self.data):
+            if self.uuid_name not in d:
+                raise ValueError(f"uuid_name '{self.uuid_name}' not available in data at index {idx}!")
+            uuid = d[self.uuid_name]
+            if not isinstance(uuid, str):
+                raise TypeError(f"uuid '{uuid}' at index {idx} is not a string!")
+            if len(uuid) == 0:
+                raise ValueError(f"uuid '{uuid}' at index {idx} is empty!")
+            uuids.add(uuid)
+
+        if len(uuids) != len(self.data):
+            raise ValueError("uuids are not unique!")
+
+        # create and check _result_dir_path
+        self._result_dir_path = Path(self.result_dir)
+        self._result_dir_path.mkdir(parents=True, exist_ok=True)  # create directory if not available
+        if not self._result_dir_path.is_dir():
+            raise ValueError(f"Faild to create or find result_dir '{self.result_dir}'!")
+
+    def _get_locked_or_done_uuids(self) -> Set[str]:
+        locked_or_done_uuids: Set[str] = set()
+        for child_path in self._result_dir_path.iterdir():
+            if child_path.is_file():
+                filename = child_path.name
+                if filename.endswith(".lock"):
+                    uuid = filename[: filename.rindex(".lock")]
+                elif filename.endswith(".json.gz") and "_" in filename:
+                    uuid = filename[: filename.rindex("_")]
+                locked_or_done_uuids.add(uuid)
+        return locked_or_done_uuids
+
+    def _write_lock_files(self, batch: Sequence[Dict[str, Any]]) -> None:
+        for d in batch:
+            uuid = d[self.uuid_name]
+            (self._result_dir_path / f"{uuid}.lock").touch()
+            self._own_lock_uuids.add(uuid)
+
+    def read_batch(self) -> Sequence[Dict[str, Any]]:
+        """Read the next batch of data."""
+        locked_or_done_uuids: Set[str] = self._get_locked_or_done_uuids()
+        remaining_data = [d for d in self.data if d[self.uuid_name] not in locked_or_done_uuids]
+        random.shuffle(remaining_data)
+        next_batch_size = min(self.batch_size, len(remaining_data))
+        next_batch = remaining_data[:next_batch_size]
+        self._write_lock_files(next_batch)
+        return next_batch
+
+    def _save_batch_data(self, batch: Sequence[Dict[str, Any]]) -> None:
+        for d in batch:
+            uuid = d[self.uuid_name]
+            if uuid not in self._own_lock_uuids:
+                raise ValueError(f"uuid '{uuid}' not locked by me!")
+            filename = self._result_dir_path / f"{uuid}_{str(uuid4())}.json.gz"  # noqa: RUF010
+            with gzip.GzipFile(filename, "w") as outfile:
+                outfile.write(json.dumps(d).encode("utf-8"))
+
+    def _remove_lock_files(self, batch: Sequence[Dict[str, Any]]) -> None:
+        for d in batch:
+            uuid = d[self.uuid_name]
+            (self._result_dir_path / f"{uuid}.lock").unlink(missing_ok=True)
+            self._own_lock_uuids.discard(uuid)
+
+    def save_batch(self, batch: Sequence[Dict[str, Any]]) -> None:
+        """Save the batch of data."""
+        self._save_batch_data(batch)
+        self._remove_lock_files(batch)
+
+    @staticmethod
+    def load_data(result_dir: str) -> List[Dict[str, Any]]:
+        """Load all data.
+
+        After all data is processed, this method can be used to load all data.
+
+        Args:
+            result_dir: The directory where the results are stored.
+        """
+        _result_dir_path = Path(result_dir)
+        if not _result_dir_path.is_dir():
+            raise ValueError(f"Did not find result_dir '{result_dir}'!")
+
+        data = []
+        for child_path in _result_dir_path.iterdir():
+            if child_path.is_file() and child_path.name.endswith(".json.gz"):
+                with gzip.GzipFile(child_path, "r") as infile:
+                    data.append(json.loads(infile.read().decode("utf-8")))
+        return data

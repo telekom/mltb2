@@ -4,13 +4,13 @@ other-src := tests docs
 check:
 	poetry run black $(src) $(other-src) --check --diff
 	poetry run mypy --install-types --non-interactive $(src) $(other-src)
-	poetry run ruff $(src) $(other-src)
+	poetry run ruff check $(src) $(other-src)
 	poetry run mdformat --check --number .
 	poetry run make -C docs clean doctest
 
 format:
 	poetry run black $(src) $(other-src)
-	poetry run ruff $(src) $(other-src) --fix
+	poetry run ruff check $(src) $(other-src) --fix
 	poetry run mdformat --number .
 
 test:
