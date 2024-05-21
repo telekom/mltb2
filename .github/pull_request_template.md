@@ -20,6 +20,7 @@
   - [ ] double check if return types are specified - including `-> None`
 - [ ] check TODO comments in code
 - [ ] check FIXME comments in code
+- [ ] check if we want to increase the version or rc number
 - [ ] check if the copyright needs an update
   - file header
   - README.md
