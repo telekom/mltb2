@@ -126,11 +126,13 @@ class FileBasedRestartableBatchDataProcessor:
         for child_path in self._result_dir_path.iterdir():
             if child_path.is_file():
                 filename = child_path.name
+                uuid = None
                 if filename.endswith(".lock"):
                     uuid = filename[: filename.rindex(".lock")]
                 elif filename.endswith(".pkl.gz") and "_" in filename:
                     uuid = filename[: filename.rindex("_")]
-                locked_or_done_uuids.add(uuid)
+                if uuid is not None:
+                    locked_or_done_uuids.add(uuid)
         return locked_or_done_uuids
 
     def _write_lock_files(self, batch: Sequence[Dict[str, Any]]) -> None:

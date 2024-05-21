@@ -168,3 +168,17 @@ def test_FileBasedRestartableBatchDataProcessor_load_data(tmp_path):
         assert isinstance(d["uuid"], str)
         assert isinstance(d["x"], int)
         assert d["x"] < 100
+
+
+def test_FileBasedRestartableBatchDataProcessor_unknown_file(tmp_path):
+    result_dir = tmp_path.absolute()
+    batch_size = 10
+    data = [{"uuid": str(uuid4()), "x": i} for i in range(100)]
+    data_processor = FileBasedRestartableBatchDataProcessor(
+        data=data, batch_size=batch_size, uuid_name="uuid", result_dir=result_dir
+    )
+
+    # place unknown file
+    (tmp_path / "some_unknown_file.txt").touch()
+
+    data = data_processor.read_batch()
