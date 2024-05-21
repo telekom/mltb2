@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mltb2"
-version = "0.12.4rc2"
+version = "0.12.4rc3"
 description = "Machine Learning Toolbox 2"
 authors = ["PhilipMay <philip@may.la>"]
 readme = "README.md"
@@ -85,7 +85,7 @@ markdownify = {version = "*", optional = true}
 mdformat = {version = "*", optional = true}
 
 [tool.poetry.extras]
-files = ["platformdirs", "scikit-learn"]
+files = ["platformdirs", "scikit-learn", "joblib"]
 fasttext = ["fasttext-wheel", "platformdirs", "scikit-learn"]
 data = ["platformdirs", "scikit-learn", "pandas", "beautifulsoup4", "joblib"]
 optuna = ["optuna"]

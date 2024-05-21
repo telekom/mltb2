@@ -14,8 +14,6 @@ Hint:
 
 
 import contextlib
-import gzip
-import json
 import os
 import random
 from dataclasses import dataclass, field
@@ -23,6 +21,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Set
 from uuid import uuid4
 
+import joblib
 from platformdirs import user_data_dir
 from sklearn.datasets._base import RemoteFileMetadata, _fetch_remote
 
@@ -129,7 +128,7 @@ class FileBasedRestartableBatchDataProcessor:
                 filename = child_path.name
                 if filename.endswith(".lock"):
                     uuid = filename[: filename.rindex(".lock")]
-                elif filename.endswith(".json.gz") and "_" in filename:
+                elif filename.endswith(".pkl.gz") and "_" in filename:
                     uuid = filename[: filename.rindex("_")]
                 locked_or_done_uuids.add(uuid)
         return locked_or_done_uuids
@@ -155,9 +154,8 @@ class FileBasedRestartableBatchDataProcessor:
             uuid = d[self.uuid_name]
             if uuid not in self._own_lock_uuids:
                 raise ValueError(f"uuid '{uuid}' not locked by me!")
-            filename = self._result_dir_path / f"{uuid}_{str(uuid4())}.json.gz"  # noqa: RUF010
-            with gzip.GzipFile(filename, "w") as outfile:
-                outfile.write(json.dumps(d).encode("utf-8"))
+            filename = self._result_dir_path / f"{uuid}_{str(uuid4())}.pkl.gz"  # noqa: RUF010
+            joblib.dump(d, filename, compress=("gzip", 3))
 
     def _remove_lock_files(self, batch: Sequence[Dict[str, Any]]) -> None:
         for d in batch:
@@ -185,7 +183,6 @@ class FileBasedRestartableBatchDataProcessor:
 
         data = []
         for child_path in _result_dir_path.iterdir():
-            if child_path.is_file() and child_path.name.endswith(".json.gz"):
-                with gzip.GzipFile(child_path, "r") as infile:
-                    data.append(json.loads(infile.read().decode("utf-8")))
+            if child_path.is_file() and child_path.name.endswith(".pkl.gz"):
+                data.append(joblib.load(child_path))  # noqa: PERF401
         return data
