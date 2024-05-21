@@ -17,7 +17,7 @@
   - fix formatting with `make format`
 - Python type info
   - [ ] check and improve Python type info
-  - [ ] double check if return types are specified - inclusing `-> None`
+  - [ ] double check if return types are specified - including `-> None`
 - [ ] check TODO comments in code
 - [ ] check FIXME comments in code
 - [ ] check if the copyright needs an update
