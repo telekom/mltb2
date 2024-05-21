@@ -1,4 +1,5 @@
 # Copyright (c) 2023-2024 Philip May
+# Copyright (c) 2024 Philip May, Deutsche Telekom AG
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -10,6 +11,7 @@ Hint:
 """
 
 
+import os
 from dataclasses import dataclass, field
 from typing import Any, Dict, Iterable, List, Optional, Union
 
@@ -164,6 +166,9 @@ class OpenAiChat:
     def from_yaml(cls, yaml_file):
         """Construct this class from a yaml file.
 
+        If the ``api_key`` is not set in the yaml file,
+        it will be loaded from the environment variable ``OPENAI_API_KEY``.
+
         Args:
             yaml_file: The yaml file.
         Returns:
@@ -171,6 +176,13 @@ class OpenAiChat:
         """
         with open(yaml_file, "r") as file:
             completion_kwargs = yaml.safe_load(file)
+
+        # load api_key from environment variable if it is not set in the yaml file
+        if "api_key" not in completion_kwargs:
+            api_key = os.getenv("OPENAI_API_KEY")
+            if api_key is not None:
+                completion_kwargs["api_key"] = api_key
+
         return cls(**completion_kwargs)
 
     def __call__(

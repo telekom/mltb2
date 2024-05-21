@@ -1,10 +1,14 @@
 # Copyright (c) 2023-2024 Philip May
+# Copyright (c) 2024 Philip May, Deutsche Telekom AG
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
+import os
+from pathlib import Path
 from typing import List
 
 import pytest
+import yaml
 from hypothesis import given, settings
 from hypothesis.strategies import lists, text
 
@@ -79,3 +83,21 @@ def test_OpenAiChat__messages_in_completion_kwargs():
     open_ai_chat = OpenAiChat(api_key="secret", model="apt-4")
     with pytest.raises(ValueError):
         open_ai_chat("Hello!", completion_kwargs={"messages": "World!"})
+
+
+def test_OpenAiChat__from_yaml_key_from_env(tmp_path: Path):
+    # create yaml file
+    yaml_file = tmp_path / "openai_config.yaml"
+    yaml_file_dict = {
+        # "api_key": "some_api_key",
+        "model": "some_model",
+    }
+    with open(yaml_file, "w") as file:
+        yaml.dump(yaml_file_dict, file)
+
+    os.environ["OPENAI_API_KEY"] = "some_other_api_key"
+
+    open_ai_chat = OpenAiChat.from_yaml(yaml_file)
+
+    assert open_ai_chat.api_key == "some_other_api_key"
+    assert open_ai_chat.model == "some_model"
