@@ -111,7 +111,7 @@ def test_FileBasedRestartableBatchDataProcessor_save_batch_data(tmp_path):
     data_processor.save_batch(data)
 
     # check lock files
-    lock_files = list(tmp_path.glob("*.json.gz"))
+    lock_files = list(tmp_path.glob("*.pkl.gz"))
     assert len(lock_files) == batch_size
 
 
