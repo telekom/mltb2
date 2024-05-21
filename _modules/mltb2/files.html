@@ -94,8 +94,6 @@
 
 
 <span class="kn">import</span> <span class="nn">contextlib</span>
-<span class="kn">import</span> <span class="nn">gzip</span>
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
@@ -103,6 +101,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Set</span>
 <span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">uuid4</span>
 
+<span class="kn">import</span> <span class="nn">joblib</span>
 <span class="kn">from</span> <span class="nn">platformdirs</span> <span class="kn">import</span> <span class="n">user_data_dir</span>
 <span class="kn">from</span> <span class="nn">sklearn.datasets._base</span> <span class="kn">import</span> <span class="n">RemoteFileMetadata</span><span class="p">,</span> <span class="n">_fetch_remote</span>
 
@@ -209,7 +208,7 @@
                 <span class="n">filename</span> <span class="o">=</span> <span class="n">child_path</span><span class="o">.</span><span class="n">name</span>
                 <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.lock&quot;</span><span class="p">):</span>
                     <span class="n">uuid</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[:</span> <span class="n">filename</span><span class="o">.</span><span class="n">rindex</span><span class="p">(</span><span class="s2">&quot;.lock&quot;</span><span class="p">)]</span>
-                <span class="k">elif</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json.gz&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pkl.gz&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
                     <span class="n">uuid</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[:</span> <span class="n">filename</span><span class="o">.</span><span class="n">rindex</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)]</span>
                 <span class="n">locked_or_done_uuids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">locked_or_done_uuids</span>
@@ -235,9 +234,8 @@
             <span class="n">uuid</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid_name</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">uuid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_own_lock_uuids</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;uuid &#39;</span><span class="si">{</span><span class="n">uuid</span><span class="si">}</span><span class="s2">&#39; not locked by me!&quot;</span><span class="p">)</span>
-            <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_dir_path</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">uuid</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">())</span><span class="si">}</span><span class="s2">.json.gz&quot;</span>  <span class="c1"># noqa: RUF010</span>
-            <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">GzipFile</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
-                <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_dir_path</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">uuid</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">())</span><span class="si">}</span><span class="s2">.pkl.gz&quot;</span>  <span class="c1"># noqa: RUF010</span>
+            <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">compress</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;gzip&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">_remove_lock_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">:</span>
@@ -265,9 +263,8 @@
 
         <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">child_path</span> <span class="ow">in</span> <span class="n">_result_dir_path</span><span class="o">.</span><span class="n">iterdir</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">child_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">and</span> <span class="n">child_path</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json.gz&quot;</span><span class="p">):</span>
-                <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">GzipFile</span><span class="p">(</span><span class="n">child_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
-                    <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">infile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)))</span>
+            <span class="k">if</span> <span class="n">child_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">and</span> <span class="n">child_path</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pkl.gz&quot;</span><span class="p">):</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">child_path</span><span class="p">))</span>  <span class="c1"># noqa: PERF401</span>
         <span class="k">return</span> <span class="n">data</span></div></div>
 </pre></div>
 
