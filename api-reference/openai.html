@@ -201,6 +201,8 @@ A common value for this is <code class="docutils literal notranslate"><span clas
 <dt class="sig sig-object py" id="mltb2.openai.OpenAiChat.from_yaml">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mltb2/openai.html#OpenAiChat.from_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.openai.OpenAiChat.from_yaml" title="Permalink to this definition"></a></dt>
 <dd><p>Construct this class from a yaml file.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">api_key</span></code> is not set in the yaml file,
+it will be loaded from the environment variable <code class="docutils literal notranslate"><span class="pre">OPENAI_API_KEY</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>yaml_file</strong> – The yaml file.</p>
