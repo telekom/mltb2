@@ -180,6 +180,8 @@ class FileBasedRestartableBatchDataProcessor:
         """Load all data.
 
         After all data is processed, this method can be used to load all data.
+        As the FileBasedRestartableBatchDataProcessor may be executed several times in parallel,
+        data records may exist in duplicate. These duplicates are removed here.
 
         Args:
             result_dir: The directory where the results are stored.
