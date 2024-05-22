@@ -121,16 +121,21 @@ class FileBasedRestartableBatchDataProcessor:
         if not self._result_dir_path.is_dir():
             raise ValueError(f"Faild to create or find result_dir '{self.result_dir}'!")
 
+    @staticmethod
+    def _get_uuid_from_filename(filename: str) -> Optional[str]:
+        uuid = None
+        if filename.endswith(".lock"):
+            uuid = filename[: filename.rindex(".lock")]
+        elif filename.endswith(".pkl.gz") and "_" in filename:
+            uuid = filename[: filename.rindex("_")]
+        return uuid
+
     def _get_locked_or_done_uuids(self) -> Set[str]:
         locked_or_done_uuids: Set[str] = set()
         for child_path in self._result_dir_path.iterdir():
             if child_path.is_file():
                 filename = child_path.name
-                uuid = None
-                if filename.endswith(".lock"):
-                    uuid = filename[: filename.rindex(".lock")]
-                elif filename.endswith(".pkl.gz") and "_" in filename:
-                    uuid = filename[: filename.rindex("_")]
+                uuid = FileBasedRestartableBatchDataProcessor._get_uuid_from_filename(filename)
                 if uuid is not None:
                     locked_or_done_uuids.add(uuid)
         return locked_or_done_uuids
@@ -175,6 +180,8 @@ class FileBasedRestartableBatchDataProcessor:
         """Load all data.
 
         After all data is processed, this method can be used to load all data.
+        As the FileBasedRestartableBatchDataProcessor may be executed several times in parallel,
+        data records may exist in duplicate. These duplicates are removed here.
 
         Args:
             result_dir: The directory where the results are stored.
@@ -184,7 +191,11 @@ class FileBasedRestartableBatchDataProcessor:
             raise ValueError(f"Did not find result_dir '{result_dir}'!")
 
         data = []
+        uuids = set()
         for child_path in _result_dir_path.iterdir():
             if child_path.is_file() and child_path.name.endswith(".pkl.gz"):
-                data.append(joblib.load(child_path))  # noqa: PERF401
+                uuid = FileBasedRestartableBatchDataProcessor._get_uuid_from_filename(child_path.name)
+                if uuid not in uuids:
+                    uuids.add(uuid)
+                    data.append(joblib.load(child_path))
         return data
