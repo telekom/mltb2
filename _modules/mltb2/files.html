@@ -201,16 +201,21 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_dir_path</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Faild to create or find result_dir &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">result_dir</span><span class="si">}</span><span class="s2">&#39;!&quot;</span><span class="p">)</span>
 
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_uuid_from_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="n">uuid</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.lock&quot;</span><span class="p">):</span>
+            <span class="n">uuid</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[:</span> <span class="n">filename</span><span class="o">.</span><span class="n">rindex</span><span class="p">(</span><span class="s2">&quot;.lock&quot;</span><span class="p">)]</span>
+        <span class="k">elif</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pkl.gz&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="n">uuid</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[:</span> <span class="n">filename</span><span class="o">.</span><span class="n">rindex</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">uuid</span>
+
     <span class="k">def</span> <span class="nf">_get_locked_or_done_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="n">locked_or_done_uuids</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">child_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_dir_path</span><span class="o">.</span><span class="n">iterdir</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">child_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
                 <span class="n">filename</span> <span class="o">=</span> <span class="n">child_path</span><span class="o">.</span><span class="n">name</span>
-                <span class="n">uuid</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.lock&quot;</span><span class="p">):</span>
-                    <span class="n">uuid</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[:</span> <span class="n">filename</span><span class="o">.</span><span class="n">rindex</span><span class="p">(</span><span class="s2">&quot;.lock&quot;</span><span class="p">)]</span>
-                <span class="k">elif</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pkl.gz&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;_&quot;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
-                    <span class="n">uuid</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[:</span> <span class="n">filename</span><span class="o">.</span><span class="n">rindex</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)]</span>
+                <span class="n">uuid</span> <span class="o">=</span> <span class="n">FileBasedRestartableBatchDataProcessor</span><span class="o">.</span><span class="n">_get_uuid_from_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">uuid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">locked_or_done_uuids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">locked_or_done_uuids</span>
@@ -255,6 +260,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Load all data.</span>
 
 <span class="sd">        After all data is processed, this method can be used to load all data.</span>
+<span class="sd">        As the FileBasedRestartableBatchDataProcessor may be executed several times in parallel,</span>
+<span class="sd">        data records may exist in duplicate. These duplicates are removed here.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            result_dir: The directory where the results are stored.</span>
@@ -264,9 +271,13 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Did not find result_dir &#39;</span><span class="si">{</span><span class="n">result_dir</span><span class="si">}</span><span class="s2">&#39;!&quot;</span><span class="p">)</span>
 
         <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">uuids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">child_path</span> <span class="ow">in</span> <span class="n">_result_dir_path</span><span class="o">.</span><span class="n">iterdir</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">child_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">()</span> <span class="ow">and</span> <span class="n">child_path</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pkl.gz&quot;</span><span class="p">):</span>
-                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">child_path</span><span class="p">))</span>  <span class="c1"># noqa: PERF401</span>
+                <span class="n">uuid</span> <span class="o">=</span> <span class="n">FileBasedRestartableBatchDataProcessor</span><span class="o">.</span><span class="n">_get_uuid_from_filename</span><span class="p">(</span><span class="n">child_path</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">uuid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">uuids</span><span class="p">:</span>
+                    <span class="n">uuids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span>
+                    <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">child_path</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">data</span></div></div>
 </pre></div>
 
