@@ -190,7 +190,7 @@ def test_FileBasedRestartableBatchDataProcessor_load_data_no_duplicate(tmp_path)
 
     result_file = list(tmp_path.glob("*.pkl.gz"))[0].as_posix()
     # copy result file to create a duplicate
-    duplicate_result_file = result_file.replace(".pkl.gz", "_duplicate.pkl.gz")
+    duplicate_result_file = result_file.replace(".pkl.gz", "#duplicate.pkl.gz")
     shutil.copyfile(result_file, duplicate_result_file)
 
     processed_data = FileBasedRestartableBatchDataProcessor.load_data(result_dir)
