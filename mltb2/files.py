@@ -121,6 +121,10 @@ class FileBasedRestartableBatchDataProcessor:
         if not self._result_dir_path.is_dir():
             raise ValueError(f"Faild to create or find result_dir '{self.result_dir}'!")
 
+    def __len__(self) -> int:
+        """Return the number of data records."""
+        return len(self.data)
+
     @staticmethod
     def _get_uuid_from_filename(filename: str) -> Optional[str]:
         uuid = None
