@@ -56,33 +56,33 @@ def test_OpenAiChat__missing_role_message_key():
     open_ai_chat = OpenAiChat(api_key="secret", model="apt-4")
     invalid_prompt_as_list = [{"x": "user", "content": "prompt"}]
     with pytest.raises(ValueError):
-        open_ai_chat(invalid_prompt_as_list)
+        open_ai_chat.create_completions(invalid_prompt_as_list)
 
 
 def test_OpenAiChat__missing_content_message_key():
     open_ai_chat = OpenAiChat(api_key="secret", model="apt-4")
     invalid_prompt_as_list = [{"role": "user", "x": "prompt"}]
     with pytest.raises(ValueError):
-        open_ai_chat(invalid_prompt_as_list)
+        open_ai_chat.create_completions(invalid_prompt_as_list)
 
 
 def test_OpenAiChat__invalid_role_in_message_key():
     open_ai_chat = OpenAiChat(api_key="secret", model="apt-4")
     invalid_prompt_as_list = [{"role": "x", "content": "prompt"}]
     with pytest.raises(ValueError):
-        open_ai_chat(invalid_prompt_as_list)
+        open_ai_chat.create_completions(invalid_prompt_as_list)
 
 
 def test_OpenAiChat__model_in_completion_kwargs():
     open_ai_chat = OpenAiChat(api_key="secret", model="apt-4")
     with pytest.raises(ValueError):
-        open_ai_chat("Hello!", completion_kwargs={"model": "gpt-4"})
+        open_ai_chat.create_completions("Hello!", completion_kwargs={"model": "gpt-4"})
 
 
 def test_OpenAiChat__messages_in_completion_kwargs():
     open_ai_chat = OpenAiChat(api_key="secret", model="apt-4")
     with pytest.raises(ValueError):
-        open_ai_chat("Hello!", completion_kwargs={"messages": "World!"})
+        open_ai_chat.create_completions("Hello!", completion_kwargs={"messages": "World!"})
 
 
 def test_OpenAiChat__from_yaml_key_from_env(tmp_path: Path):
