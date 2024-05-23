@@ -17,7 +17,7 @@ from typing import Any, Dict, Iterable, List, Optional, Union
 
 import tiktoken
 import yaml
-from openai import AzureOpenAI, OpenAI
+from openai import AsyncAzureOpenAI, AsyncOpenAI, AzureOpenAI, OpenAI
 from openai.types.chat import ChatCompletion
 from tiktoken.core import Encoding
 from tqdm import tqdm
@@ -157,10 +157,12 @@ class OpenAiChat:
     api_key: str
     model: str
     client: Union[OpenAI, AzureOpenAI] = field(init=False, repr=False)
+    async_client: Union[AsyncOpenAI, AsyncAzureOpenAI] = field(init=False, repr=False)
 
     def __post_init__(self) -> None:
         """Do post init."""
         self.client = OpenAI(api_key=self.api_key)
+        self.async_client = AsyncOpenAI(api_key=self.api_key)
 
     @classmethod
     def from_yaml(cls, yaml_file):
@@ -185,7 +187,7 @@ class OpenAiChat:
 
         return cls(**completion_kwargs)
 
-    def __call__(
+    def create_completions(
         self,
         prompt: Union[str, List[Dict[str, str]]],
         completion_kwargs: Optional[Dict[str, Any]] = None,
@@ -240,6 +242,61 @@ class OpenAiChat:
         result = OpenAiChatResult.from_chat_completion(chat_completion, completion_kwargs=completion_kwargs)
         return result
 
+    async def create_completions_async(
+        self,
+        prompt: Union[str, List[Dict[str, str]]],
+        completion_kwargs: Optional[Dict[str, Any]] = None,
+    ) -> OpenAiChatResult:
+        """Create a model response for the given prompt (chat conversation).
+
+        Args:
+            prompt: The prompt for the model.
+            completion_kwargs: Keyword arguments for the OpenAI completion.
+
+                - ``model`` can not be set via ``completion_kwargs``! Please set the ``model`` in the initializer.
+                - ``messages`` can not be set via ``completion_kwargs``! Please set the ``prompt`` argument.
+
+                Also see:
+
+                    - ``openai.resources.chat.completions.Completions.create()``
+                    - OpenAI API reference: `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
+
+        Returns:
+            The result of the OpenAI completion.
+        """
+        if isinstance(prompt, list):
+            for message in prompt:
+                if "role" not in message or "content" not in message:
+                    raise ValueError(
+                        "If prompt is a list of messages, each message must have a 'role' and 'content' key!"
+                    )
+                if message["role"] not in ["system", "user", "assistant", "tool"]:
+                    raise ValueError(
+                        "If prompt is a list of messages, each message must have a 'role' key with one of the values "
+                        "'system', 'user', 'assistant' or 'tool'!"
+                    )
+
+        if completion_kwargs is not None:
+            # check keys of completion_kwargs
+            if "model" in completion_kwargs:
+                raise ValueError(
+                    "'model' can not be set via 'completion_kwargs'! Please set the 'model' in the initializer."
+                )
+            if "messages" in completion_kwargs:
+                raise ValueError(
+                    "'messages' can not be set via 'completion_kwargs'! Please set the 'prompt' argument."
+                )
+        else:
+            completion_kwargs = {}  # set default value
+        completion_kwargs["model"] = self.model
+        messages = [{"role": "user", "content": prompt}] if isinstance(prompt, str) else prompt
+        chat_completion = await self.async_client.chat.completions.create(
+            messages=messages,  # type: ignore[arg-type]
+            **completion_kwargs,
+        )
+        result = OpenAiChatResult.from_chat_completion(chat_completion, completion_kwargs=completion_kwargs)
+        return result
+
 
 @dataclass
 class OpenAiAzureChat(OpenAiChat):
@@ -265,6 +322,11 @@ class OpenAiAzureChat(OpenAiChat):
     def __post_init__(self) -> None:
         """Do post init."""
         self.client = AzureOpenAI(
+            api_key=self.api_key,
+            api_version=self.api_version,
+            azure_endpoint=self.azure_endpoint,
+        )
+        self.async_client = AsyncAzureOpenAI(
             api_key=self.api_key,
             api_version=self.api_version,
             azure_endpoint=self.azure_endpoint,
