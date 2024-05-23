@@ -97,7 +97,7 @@
 
 <span class="kn">import</span> <span class="nn">tiktoken</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
-<span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">AzureOpenAI</span><span class="p">,</span> <span class="n">OpenAI</span>
+<span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">AsyncAzureOpenAI</span><span class="p">,</span> <span class="n">AsyncOpenAI</span><span class="p">,</span> <span class="n">AzureOpenAI</span><span class="p">,</span> <span class="n">OpenAI</span>
 <span class="kn">from</span> <span class="nn">openai.types.chat</span> <span class="kn">import</span> <span class="n">ChatCompletion</span>
 <span class="kn">from</span> <span class="nn">tiktoken.core</span> <span class="kn">import</span> <span class="n">Encoding</span>
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
@@ -237,10 +237,12 @@
     <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">model</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">client</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">OpenAI</span><span class="p">,</span> <span class="n">AzureOpenAI</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">async_client</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">AsyncOpenAI</span><span class="p">,</span> <span class="n">AsyncAzureOpenAI</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">async_client</span> <span class="o">=</span> <span class="n">AsyncOpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">)</span>
 
 <div class="viewcode-block" id="OpenAiChat.from_yaml"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat.from_yaml">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">yaml_file</span><span class="p">):</span>
@@ -265,7 +267,7 @@
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">completion_kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="OpenAiChat.__call__"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span>
+<div class="viewcode-block" id="OpenAiChat.create_completions"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat.create_completions">[docs]</a>    <span class="k">def</span> <span class="nf">create_completions</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span>
         <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -318,6 +320,61 @@
             <span class="o">**</span><span class="n">completion_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">OpenAiChatResult</span><span class="o">.</span><span class="n">from_chat_completion</span><span class="p">(</span><span class="n">chat_completion</span><span class="p">,</span> <span class="n">completion_kwargs</span><span class="o">=</span><span class="n">completion_kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="OpenAiChat.create_completions_async"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat.create_completions_async">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">create_completions_async</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span>
+        <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenAiChatResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a model response for the given prompt (chat conversation).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            prompt: The prompt for the model.</span>
+<span class="sd">            completion_kwargs: Keyword arguments for the OpenAI completion.</span>
+
+<span class="sd">                - ``model`` can not be set via ``completion_kwargs``! Please set the ``model`` in the initializer.</span>
+<span class="sd">                - ``messages`` can not be set via ``completion_kwargs``! Please set the ``prompt`` argument.</span>
+
+<span class="sd">                Also see:</span>
+
+<span class="sd">                    - ``openai.resources.chat.completions.Completions.create()``</span>
+<span class="sd">                    - OpenAI API reference: `Create chat completion &lt;https://platform.openai.com/docs/api-reference/chat/create&gt;`_</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The result of the OpenAI completion.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">prompt</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;role&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">message</span> <span class="ow">or</span> <span class="s2">&quot;content&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">message</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;If prompt is a list of messages, each message must have a &#39;role&#39; and &#39;content&#39; key!&quot;</span>
+                    <span class="p">)</span>
+                <span class="k">if</span> <span class="n">message</span><span class="p">[</span><span class="s2">&quot;role&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;tool&quot;</span><span class="p">]:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;If prompt is a list of messages, each message must have a &#39;role&#39; key with one of the values &quot;</span>
+                        <span class="s2">&quot;&#39;system&#39;, &#39;user&#39;, &#39;assistant&#39; or &#39;tool&#39;!&quot;</span>
+                    <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">completion_kwargs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># check keys of completion_kwargs</span>
+            <span class="k">if</span> <span class="s2">&quot;model&quot;</span> <span class="ow">in</span> <span class="n">completion_kwargs</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;&#39;model&#39; can not be set via &#39;completion_kwargs&#39;! Please set the &#39;model&#39; in the initializer.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;messages&quot;</span> <span class="ow">in</span> <span class="n">completion_kwargs</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;&#39;messages&#39; can not be set via &#39;completion_kwargs&#39;! Please set the &#39;prompt&#39; argument.&quot;</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">completion_kwargs</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># set default value</span>
+        <span class="n">completion_kwargs</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
+        <span class="n">messages</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">prompt</span>
+        <span class="n">chat_completion</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+            <span class="o">**</span><span class="n">completion_kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">OpenAiChatResult</span><span class="o">.</span><span class="n">from_chat_completion</span><span class="p">(</span><span class="n">chat_completion</span><span class="p">,</span> <span class="n">completion_kwargs</span><span class="o">=</span><span class="n">completion_kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div></div>
 
 
@@ -345,6 +402,11 @@
     <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">AzureOpenAI</span><span class="p">(</span>
+            <span class="n">api_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span>
+            <span class="n">api_version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span>
+            <span class="n">azure_endpoint</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">azure_endpoint</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">async_client</span> <span class="o">=</span> <span class="n">AsyncAzureOpenAI</span><span class="p">(</span>
             <span class="n">api_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span>
             <span class="n">api_version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_version</span><span class="p">,</span>
             <span class="n">azure_endpoint</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">azure_endpoint</span><span class="p">,</span>
