@@ -57,6 +57,7 @@
 <li class="toctree-l2"><a class="reference internal" href="fasttext.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fasttext</span></code></a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">files</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#mltb2.files.FileBasedRestartableBatchDataProcessor"><code class="docutils literal notranslate"><span class="pre">FileBasedRestartableBatchDataProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mltb2.files.FileBasedRestartableBatchDataProcessor.__len__"><code class="docutils literal notranslate"><span class="pre">FileBasedRestartableBatchDataProcessor.__len__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mltb2.files.FileBasedRestartableBatchDataProcessor.load_data"><code class="docutils literal notranslate"><span class="pre">FileBasedRestartableBatchDataProcessor.load_data()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mltb2.files.FileBasedRestartableBatchDataProcessor.read_batch"><code class="docutils literal notranslate"><span class="pre">FileBasedRestartableBatchDataProcessor.read_batch()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mltb2.files.FileBasedRestartableBatchDataProcessor.save_batch"><code class="docutils literal notranslate"><span class="pre">FileBasedRestartableBatchDataProcessor.save_batch()</span></code></a></li>
@@ -131,6 +132,17 @@
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mltb2.files.FileBasedRestartableBatchDataProcessor.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../_modules/mltb2/files.html#FileBasedRestartableBatchDataProcessor.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.files.FileBasedRestartableBatchDataProcessor.__len__" title="Permalink to this definition"></a></dt>
+<dd><p>Return the number of data records.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="mltb2.files.FileBasedRestartableBatchDataProcessor.load_data">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.12)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.12)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/mltb2/files.html#FileBasedRestartableBatchDataProcessor.load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#mltb2.files.FileBasedRestartableBatchDataProcessor.load_data" title="Permalink to this definition"></a></dt>
