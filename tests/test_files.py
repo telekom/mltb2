@@ -216,3 +216,12 @@ def test_FileBasedRestartableBatchDataProcessor_unknown_file(tmp_path):
     (tmp_path / "some_unknown_file.txt").touch()
 
     data = data_processor.read_batch()
+
+
+def test_FileBasedRestartableBatchDataProcessor_len(tmp_path):
+    result_dir = tmp_path.absolute()
+    data = [{"uuid": str(uuid4()), "x": i} for i in range(77)]
+    data_processor = FileBasedRestartableBatchDataProcessor(
+        data=data, batch_size=10, uuid_name="uuid", result_dir=result_dir
+    )
+    assert len(data_processor) == 77
