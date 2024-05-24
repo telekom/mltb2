@@ -225,3 +225,32 @@ def test_FileBasedRestartableBatchDataProcessor_len(tmp_path):
         data=data, batch_size=10, uuid_name="uuid", result_dir=result_dir
     )
     assert len(data_processor) == 77
+
+
+def test_FileBasedRestartableBatchDataProcessor_clear_lock_files(tmp_path):
+    result_dir = tmp_path.absolute()
+    batch_size = 10
+    data = [{"uuid": str(uuid4()), "x": i} for i in range(100)]
+    data_processor = FileBasedRestartableBatchDataProcessor(
+        data=data, batch_size=batch_size, uuid_name="uuid", result_dir=result_dir
+    )
+
+    _ = data_processor.read_batch()  # create empty lock files
+
+    # process all data
+    while True:
+        _data = data_processor.read_batch()
+        if len(_data) == 0:
+            break
+        data_processor.save_batch(_data)
+
+    del data_processor
+    processed_data = FileBasedRestartableBatchDataProcessor.load_data(result_dir)
+
+    assert len(processed_data) == len(data)
+    for d in processed_data:
+        assert "uuid" in d
+        assert "x" in d
+        assert isinstance(d["uuid"], str)
+        assert isinstance(d["x"], int)
+        assert d["x"] < 100
