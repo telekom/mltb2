@@ -150,10 +150,22 @@ class FileBasedRestartableBatchDataProcessor:
             (self._result_dir_path / f"{uuid}.lock").touch()
             self._own_lock_uuids.add(uuid)
 
-    def read_batch(self) -> Sequence[Dict[str, Any]]:
-        """Read the next batch of data."""
+    def _get_remaining_data(self) -> List[Dict[str, Any]]:
         locked_or_done_uuids: Set[str] = self._get_locked_or_done_uuids()
         remaining_data = [d for d in self.data if d[self.uuid_name] not in locked_or_done_uuids]
+        return remaining_data
+
+    def read_batch(self) -> Sequence[Dict[str, Any]]:
+        """Read the next batch of data."""
+        remaining_data: List[Dict[str, Any]] = self._get_remaining_data()
+
+        # if we think we are done, delete all lock files and check again
+        # this is because lock files might be orphaned
+        if len(remaining_data) == 0:
+            for lock_file_path in self._result_dir_path.glob("*.lock"):
+                lock_file_path.unlink(missing_ok=True)
+            remaining_data = self._get_remaining_data()
+
         random.shuffle(remaining_data)
         next_batch_size = min(self.batch_size, len(remaining_data))
         next_batch = remaining_data[:next_batch_size]
