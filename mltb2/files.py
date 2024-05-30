@@ -201,7 +201,7 @@ class FileBasedRestartableBatchDataProcessor:
 
         Args:
             result_dir: The directory where the results are stored.
-            ignore_load_error: Ignore errors when loading the result files. Just log them.
+            ignore_load_error: Ignore errors when loading the result files. Just print them.
         """
         _result_dir_path = Path(result_dir)
         if not _result_dir_path.is_dir():
