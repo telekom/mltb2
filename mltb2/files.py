@@ -192,7 +192,7 @@ class FileBasedRestartableBatchDataProcessor:
         self._remove_lock_files(batch)
 
     @staticmethod
-    def load_data(result_dir: str) -> List[Dict[str, Any]]:
+    def load_data(result_dir: str, ignore_load_error: bool = False) -> List[Dict[str, Any]]:
         """Load all data.
 
         After all data is processed, this method can be used to load all data.
@@ -201,6 +201,7 @@ class FileBasedRestartableBatchDataProcessor:
 
         Args:
             result_dir: The directory where the results are stored.
+            ignore_load_error: Ignore errors when loading the result files. Just log them.
         """
         _result_dir_path = Path(result_dir)
         if not _result_dir_path.is_dir():
@@ -212,6 +213,17 @@ class FileBasedRestartableBatchDataProcessor:
             if child_path.is_file() and child_path.name.endswith(".pkl.gz"):
                 uuid = FileBasedRestartableBatchDataProcessor._get_uuid_from_filename(child_path.name)
                 if uuid not in uuids:
-                    uuids.add(uuid)
-                    data.append(joblib.load(child_path))
+
+                    d = None
+                    try:
+                        d = joblib.load(child_path)
+                    except Exception as e:
+                        if ignore_load_error:
+                            print(f"Error loading file '{child_path}': {e}")
+                        else:
+                            raise e  # NOQA: TRY201
+
+                    if d is not None:
+                        uuids.add(uuid)
+                        data.append(d)
         return data

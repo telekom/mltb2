@@ -254,3 +254,51 @@ def test_FileBasedRestartableBatchDataProcessor_clear_lock_files(tmp_path):
         assert isinstance(d["uuid"], str)
         assert isinstance(d["x"], int)
         assert d["x"] < 100
+
+
+def test_FileBasedRestartableBatchDataProcessor_load_data_with_error(tmp_path):
+    result_dir = tmp_path.absolute()
+    batch_size = 10
+    data = [{"uuid": str(uuid4()), "x": i} for i in range(100)]
+    data_processor = FileBasedRestartableBatchDataProcessor(
+        data=data, batch_size=batch_size, uuid_name="uuid", result_dir=result_dir
+    )
+
+    # process all data
+    while True:
+        _data = data_processor.read_batch()
+        if len(_data) == 0:
+            break
+        data_processor.save_batch(_data)
+
+    first_data_file = list(tmp_path.glob("*.pkl.gz"))[0]
+    with open(first_data_file, "w") as f:
+        f.write("")
+
+    del data_processor
+    with pytest.raises(EOFError):
+        _ = FileBasedRestartableBatchDataProcessor.load_data(result_dir)
+
+
+def test_FileBasedRestartableBatchDataProcessor_load_data_ignore_error(tmp_path):
+    result_dir = tmp_path.absolute()
+    batch_size = 10
+    data = [{"uuid": str(uuid4()), "x": i} for i in range(100)]
+    data_processor = FileBasedRestartableBatchDataProcessor(
+        data=data, batch_size=batch_size, uuid_name="uuid", result_dir=result_dir
+    )
+
+    # process all data
+    while True:
+        _data = data_processor.read_batch()
+        if len(_data) == 0:
+            break
+        data_processor.save_batch(_data)
+
+    first_data_file = list(tmp_path.glob("*.pkl.gz"))[0]
+    with open(first_data_file, "w") as f:
+        f.write("")
+
+    del data_processor
+    processed_data = FileBasedRestartableBatchDataProcessor.load_data(result_dir, ignore_load_error=True)
+    assert len(processed_data) == len(data) - 1
