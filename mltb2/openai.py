@@ -140,6 +140,23 @@ class OpenAiChatResult:
         return cls(**result)  # type: ignore[arg-type]
 
 
+def remove_openai_tokens(messages: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    """Remove OpenAI special tokens from the messages.
+
+    These tokens are ``<|im_start|>`` and ``<|im_end|>`` and they can cause problems when passed to the OpenAI API.
+
+    Args:
+        messages: The OpenAI messages.
+    Returns:
+        The messages without OpenAI special tokens.
+    """
+    result = messages.copy()
+    for d in result:
+        d["content"] = d["content"].replace("<|im_start|>", "")
+        d["content"] = d["content"].replace("<|im_end|>", "")
+    return result
+
+
 @dataclass
 class OpenAiChat:
     """Tool to interact with OpenAI chat models.
@@ -191,6 +208,7 @@ class OpenAiChat:
         self,
         prompt: Union[str, List[Dict[str, str]]],
         completion_kwargs: Optional[Dict[str, Any]] = None,
+        clean_openai_tokens: bool = False,
     ) -> OpenAiChatResult:
         """Create a model response for the given prompt (chat conversation).
 
@@ -205,6 +223,7 @@ class OpenAiChat:
 
                     - ``openai.resources.chat.completions.Completions.create()``
                     - OpenAI API reference: `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
+            clean_openai_tokens: Remove OpenAI special tokens from the prompt.
 
         Returns:
             The result of the OpenAI completion.
@@ -235,6 +254,8 @@ class OpenAiChat:
             completion_kwargs = {}  # set default value
         completion_kwargs["model"] = self.model
         messages = [{"role": "user", "content": prompt}] if isinstance(prompt, str) else prompt
+        if clean_openai_tokens:
+            messages = remove_openai_tokens(messages)
         chat_completion = self.client.chat.completions.create(
             messages=messages,  # type: ignore[arg-type]
             **completion_kwargs,
@@ -246,6 +267,7 @@ class OpenAiChat:
         self,
         prompt: Union[str, List[Dict[str, str]]],
         completion_kwargs: Optional[Dict[str, Any]] = None,
+        clean_openai_tokens: bool = False,
     ) -> OpenAiChatResult:
         """Create a model response for the given prompt (chat conversation).
 
@@ -260,6 +282,7 @@ class OpenAiChat:
 
                     - ``openai.resources.chat.completions.Completions.create()``
                     - OpenAI API reference: `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
+            clean_openai_tokens: Remove OpenAI special tokens from the prompt.
 
         Returns:
             The result of the OpenAI completion.
@@ -290,6 +313,8 @@ class OpenAiChat:
             completion_kwargs = {}  # set default value
         completion_kwargs["model"] = self.model
         messages = [{"role": "user", "content": prompt}] if isinstance(prompt, str) else prompt
+        if clean_openai_tokens:
+            messages = remove_openai_tokens(messages)
         chat_completion = await self.async_client.chat.completions.create(
             messages=messages,  # type: ignore[arg-type]
             **completion_kwargs,
