@@ -220,6 +220,23 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span></div></div>
 
 
+<div class="viewcode-block" id="remove_openai_tokens"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.remove_openai_tokens">[docs]</a><span class="k">def</span> <span class="nf">remove_openai_tokens</span><span class="p">(</span><span class="n">messages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove OpenAI special tokens from the messages.</span>
+
+<span class="sd">    These tokens are ``&lt;|im_start|&gt;`` and ``&lt;|im_end|&gt;`` and they can cause problems when passed to the OpenAI API.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        messages: The OpenAI messages.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The messages without OpenAI special tokens.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">messages</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;|im_start|&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;|im_end|&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
 <div class="viewcode-block" id="OpenAiChat"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">OpenAiChat</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Tool to interact with OpenAI chat models.</span>
@@ -271,6 +288,7 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span>
         <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">clean_openai_tokens</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenAiChatResult</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a model response for the given prompt (chat conversation).</span>
 
@@ -285,6 +303,7 @@
 
 <span class="sd">                    - ``openai.resources.chat.completions.Completions.create()``</span>
 <span class="sd">                    - OpenAI API reference: `Create chat completion &lt;https://platform.openai.com/docs/api-reference/chat/create&gt;`_</span>
+<span class="sd">            clean_openai_tokens: Remove OpenAI special tokens from the prompt.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            The result of the OpenAI completion.</span>
@@ -315,6 +334,8 @@
             <span class="n">completion_kwargs</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># set default value</span>
         <span class="n">completion_kwargs</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
         <span class="n">messages</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">prompt</span>
+        <span class="k">if</span> <span class="n">clean_openai_tokens</span><span class="p">:</span>
+            <span class="n">messages</span> <span class="o">=</span> <span class="n">remove_openai_tokens</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
         <span class="n">chat_completion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
             <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
             <span class="o">**</span><span class="n">completion_kwargs</span><span class="p">,</span>
@@ -326,6 +347,7 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span>
         <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">clean_openai_tokens</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenAiChatResult</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a model response for the given prompt (chat conversation).</span>
 
@@ -340,6 +362,7 @@
 
 <span class="sd">                    - ``openai.resources.chat.completions.Completions.create()``</span>
 <span class="sd">                    - OpenAI API reference: `Create chat completion &lt;https://platform.openai.com/docs/api-reference/chat/create&gt;`_</span>
+<span class="sd">            clean_openai_tokens: Remove OpenAI special tokens from the prompt.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            The result of the OpenAI completion.</span>
@@ -370,6 +393,8 @@
             <span class="n">completion_kwargs</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># set default value</span>
         <span class="n">completion_kwargs</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span>
         <span class="n">messages</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">prompt</span>
+        <span class="k">if</span> <span class="n">clean_openai_tokens</span><span class="p">:</span>
+            <span class="n">messages</span> <span class="o">=</span> <span class="n">remove_openai_tokens</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
         <span class="n">chat_completion</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
             <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
             <span class="o">**</span><span class="n">completion_kwargs</span><span class="p">,</span>
