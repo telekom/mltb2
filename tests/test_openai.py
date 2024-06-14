@@ -12,7 +12,7 @@ import yaml
 from hypothesis import given, settings
 from hypothesis.strategies import lists, text
 
-from mltb2.openai import OpenAiChat, OpenAiTokenCounter
+from mltb2.openai import OpenAiChat, OpenAiTokenCounter, remove_openai_tokens
 
 
 @pytest.fixture(scope="module")
@@ -101,3 +101,15 @@ def test_OpenAiChat__from_yaml_key_from_env(tmp_path: Path):
 
     assert open_ai_chat.api_key == "some_other_api_key"
     assert open_ai_chat.model == "some_model"
+
+
+def test_remove_openai_tokens_im_start_removal():
+    prompt = [{"role": "user", "content": "Test <|im_start|>."}]
+    result = remove_openai_tokens(prompt)
+    assert result == [{"role": "user", "content": "Test ."}]
+
+
+def test_remove_openai_tokens_im_end_removal():
+    prompt = [{"role": "user", "content": "Test <|im_end|>."}]
+    result = remove_openai_tokens(prompt)
+    assert result == [{"role": "user", "content": "Test ."}]
