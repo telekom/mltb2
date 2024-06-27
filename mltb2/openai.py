@@ -346,7 +346,7 @@ class OpenAiAzureChat(OpenAiChat):
     api_key: Optional[str]
     api_version: str
     azure_endpoint: str
-    azure_ad_token_provider: Optional[str]
+    azure_ad_token: Optional[str]
 
     def __post_init__(self) -> None:
         """Do post init."""
@@ -354,11 +354,13 @@ class OpenAiAzureChat(OpenAiChat):
             api_key=self.api_key,
             api_version=self.api_version,
             azure_endpoint=self.azure_endpoint,
+            azure_ad_token_provider=lambda: self.azure_ad_token,
         )
         self.async_client = AsyncAzureOpenAI(
             api_key=self.api_key,
             api_version=self.api_version,
             azure_endpoint=self.azure_endpoint,
+            azure_ad_token_provider=lambda: self.azure_ad_token,
         )
 
     @classmethod
@@ -381,5 +383,5 @@ class OpenAiAzureChat(OpenAiChat):
         if "azure_ad_token" not in completion_kwargs:
             azure_ad_token = os.getenv("AZURE_AD_TOKEN")
             if azure_ad_token is not None:
-                kwargs["azure_ad_token_provider"] = lambda: azure_ad_token
+                kwargs["azure_ad_token"] = azure_ad_token
         return super().from_yaml(yaml_file, **kwargs)
