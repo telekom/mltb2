@@ -343,7 +343,7 @@ class OpenAiAzureChat(OpenAiChat):
             A common value for this is ``2023-05-15``.
         azure_endpoint: The Azure endpoint.
     """
-
+    api_key: Optional[str]
     api_version: str
     azure_endpoint: str
     azure_ad_token_provider: Optional[str]
