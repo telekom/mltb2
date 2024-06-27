@@ -171,7 +171,7 @@ class OpenAiChat:
         model: The OpenAI model name.
     """
 
-    api_key: str
+    api_key: Optional[str]
     model: str
     client: Union[OpenAI, AzureOpenAI] = field(init=False, repr=False)
     async_client: Union[AsyncOpenAI, AsyncAzureOpenAI] = field(init=False, repr=False)
