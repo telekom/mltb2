@@ -384,4 +384,6 @@ class OpenAiAzureChat(OpenAiChat):
             azure_ad_token = os.getenv("AZURE_AD_TOKEN")
             if azure_ad_token is not None:
                 kwargs["azure_ad_token"] = azure_ad_token
+                if "api_key" not in completion_kwargs and "api_key" not in kwargs:
+                    kwargs["api_key"] = None
         return super().from_yaml(yaml_file, **kwargs)
