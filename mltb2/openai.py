@@ -172,10 +172,10 @@ class OpenAiChat:
         model: The OpenAI model name.
     """
 
-    api_key: Optional[str]
     model: str
     client: Union[OpenAI, AzureOpenAI] = field(init=False, repr=False)
     async_client: Union[AsyncOpenAI, AsyncAzureOpenAI] = field(init=False, repr=False)
+    api_key: Optional[str] = None
 
     def __post_init__(self) -> None:
         """Do post init."""
@@ -183,7 +183,7 @@ class OpenAiChat:
         self.async_client = AsyncOpenAI(api_key=self.api_key)
 
     @classmethod
-    def from_yaml(cls, yaml_file, **kwargs):
+    def from_yaml(cls, yaml_file, api_key: Optional[str] = None, **kwargs):
         """Construct this class from a yaml file.
 
         If the ``api_key`` is not set in the yaml file,
@@ -191,6 +191,7 @@ class OpenAiChat:
 
         Args:
             yaml_file: The yaml file.
+            api_key: The OpenAI API key.
             kwargs: extra kwargs to override parameters
         Returns:
             The constructed class.
@@ -198,11 +199,10 @@ class OpenAiChat:
         with open(yaml_file, "r") as file:
             completion_kwargs = yaml.safe_load(file)
 
-        # load api_key from environment variable if it is not set in the yaml file
-        if "api_key" not in completion_kwargs:
-            api_key = os.getenv("OPENAI_API_KEY")
-            if api_key is not None:
-                completion_kwargs["api_key"] = api_key
+        # set api_key according to this priority:
+        # method parameter > yaml > environment variable
+        api_key = api_key or completion_kwargs.get("api_key") or os.getenv("OPENAI_API_KEY")
+        completion_kwargs["api_key"] = api_key
 
         if kwargs:
             completion_kwargs.update(kwargs)
@@ -345,10 +345,10 @@ class OpenAiAzureChat(OpenAiChat):
         azure_endpoint: The Azure endpoint.
     """
 
-    api_key: Optional[str]
     api_version: str
     azure_endpoint: str
-    azure_ad_token: Optional[str]
+    api_key: Optional[str] = None
+    azure_ad_token: Optional[str] = None
 
     def __post_init__(self) -> None:
         """Do post init."""
@@ -356,17 +356,17 @@ class OpenAiAzureChat(OpenAiChat):
             api_key=self.api_key,
             api_version=self.api_version,
             azure_endpoint=self.azure_endpoint,
-            azure_ad_token_provider=lambda: self.azure_ad_token,
+            azure_ad_token=self.azure_ad_token,
         )
         self.async_client = AsyncAzureOpenAI(
             api_key=self.api_key,
             api_version=self.api_version,
             azure_endpoint=self.azure_endpoint,
-            azure_ad_token_provider=lambda: self.azure_ad_token,
+            azure_ad_toke=self.azure_ad_token,
         )
 
     @classmethod
-    def from_yaml(cls, yaml_file, **kwargs):
+    def from_yaml(cls, yaml_file, api_key: Optional[str] = None, azure_ad_token: Optional[str] = None):
         """Construct this class from a yaml file.
 
         If the ``api_key`` is not set in the yaml file,
@@ -374,18 +374,15 @@ class OpenAiAzureChat(OpenAiChat):
 
         Args:
             yaml_file: The yaml file.
-            kwargs: extra kwargs
+            api_key: The OpenAI API key.
+            azure_ad_token: Azure AD token
         Returns:
             The constructed class.
         """
         with open(yaml_file, "r") as file:
             completion_kwargs = yaml.safe_load(file)
 
-        # load azure_ad_token from environment variable if it is not set in the yaml file
-        if "azure_ad_token" not in completion_kwargs:
-            azure_ad_token = os.getenv("AZURE_AD_TOKEN")
-            if azure_ad_token is not None:
-                kwargs["azure_ad_token"] = azure_ad_token
-                if "api_key" not in completion_kwargs and "api_key" not in kwargs:
-                    kwargs["api_key"] = None
-        return super().from_yaml(yaml_file, **kwargs)
+        # set azure_ad_token according to this priority:
+        # method parameter > yaml > environment variable
+        azure_ad_token = azure_ad_token or completion_kwargs.get("AZURE_AD_TOKEN") or os.getenv("AZURE_AD_TOKEN")
+        return super().from_yaml(yaml_file, api_key=api_key, azure_ad_token=azure_ad_token, **kwargs)
