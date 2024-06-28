@@ -345,8 +345,8 @@ class OpenAiAzureChat(OpenAiChat):
         azure_endpoint: The Azure endpoint.
     """
 
-    api_version: str
-    azure_endpoint: str
+    api_version: Optional[str] = None
+    azure_endpoint: Optional[str] = None
     api_key: Optional[str] = None
     azure_ad_token: Optional[str] = None
 
@@ -362,7 +362,7 @@ class OpenAiAzureChat(OpenAiChat):
             api_key=self.api_key,
             api_version=self.api_version,
             azure_endpoint=self.azure_endpoint,
-            azure_ad_toke=self.azure_ad_token,
+            azure_ad_token=self.azure_ad_token,
         )
 
     @classmethod
@@ -385,4 +385,4 @@ class OpenAiAzureChat(OpenAiChat):
         # set azure_ad_token according to this priority:
         # method parameter > yaml > environment variable
         azure_ad_token = azure_ad_token or completion_kwargs.get("AZURE_AD_TOKEN") or os.getenv("AZURE_AD_TOKEN")
-        return super().from_yaml(yaml_file, api_key=api_key, azure_ad_token=azure_ad_token, **kwargs)
+        return super().from_yaml(yaml_file, api_key=api_key, azure_ad_token=azure_ad_token)
