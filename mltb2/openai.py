@@ -1,5 +1,6 @@
 # Copyright (c) 2023-2024 Philip May
 # Copyright (c) 2024 Philip May, Deutsche Telekom AG
+# Copyright (c) 2024 Alaeddine Abdessalem, Deutsche Telekom AG
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -343,6 +344,7 @@ class OpenAiAzureChat(OpenAiChat):
             A common value for this is ``2023-05-15``.
         azure_endpoint: The Azure endpoint.
     """
+
     api_key: Optional[str]
     api_version: str
     azure_endpoint: str
