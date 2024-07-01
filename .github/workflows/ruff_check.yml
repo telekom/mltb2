@@ -36,4 +36,4 @@ jobs:
         poetry install --all-extras --without doc
 
     - name: Check with Ruff
-      run: poetry run ruff ${{ env.src }} ${{ env.other_src }}
+      run: poetry run ruff check ${{ env.src }} ${{ env.other_src }}
