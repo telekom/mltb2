@@ -327,8 +327,15 @@ class OpenAiChat:
         return result
 
 
+# there is a limitation with python dataclasses when it comes to defining a subclass with positional arguments, while
+# the parent class already defines keyword arguemnts (positional arguments cannot follow keyword arguments)
+# workaroung is defined here: https://stackoverflow.com/questions/51575931/class-inheritance-in-python-3-7-dataclasses
 @dataclass
-class OpenAiAzureChat(OpenAiChat):
+class _OpenAiAzureChatBase:
+    azure_endpoint: str
+
+@dataclass
+class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
     """Tool to interact with Azure OpenAI chat models.
 
     This can also be constructed with :meth:`~OpenAiChat.from_yaml`.
@@ -346,7 +353,6 @@ class OpenAiAzureChat(OpenAiChat):
     """
 
     api_version: Optional[str] = None
-    azure_endpoint: Optional[str] = None
     api_key: Optional[str] = None
     azure_ad_token: Optional[str] = None
 
