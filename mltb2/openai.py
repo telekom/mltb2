@@ -366,7 +366,7 @@ class OpenAiAzureChat(OpenAiChat):
         )
 
     @classmethod
-    def from_yaml(cls, yaml_file, api_key: Optional[str] = None, azure_ad_token: Optional[str] = None):
+    def from_yaml(cls, yaml_file, api_key: Optional[str] = None, azure_ad_token: Optional[str] = None, **kwargs):
         """Construct this class from a yaml file.
 
         If the ``api_key`` is not set in the yaml file,
@@ -376,6 +376,7 @@ class OpenAiAzureChat(OpenAiChat):
             yaml_file: The yaml file.
             api_key: The OpenAI API key.
             azure_ad_token: Azure AD token
+            kwargs: extra kwargs to override parameters
         Returns:
             The constructed class.
         """
@@ -385,4 +386,4 @@ class OpenAiAzureChat(OpenAiChat):
         # set azure_ad_token according to this priority:
         # method parameter > yaml > environment variable
         azure_ad_token = azure_ad_token or completion_kwargs.get("AZURE_AD_TOKEN") or os.getenv("AZURE_AD_TOKEN")
-        return super().from_yaml(yaml_file, api_key=api_key, azure_ad_token=azure_ad_token)
+        return super().from_yaml(yaml_file, api_key=api_key, azure_ad_token=azure_ad_token, **kwargs)
