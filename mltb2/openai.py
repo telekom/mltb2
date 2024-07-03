@@ -334,6 +334,7 @@ class OpenAiChat:
 class _OpenAiAzureChatBase:
     azure_endpoint: str
 
+
 @dataclass
 class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
     """Tool to interact with Azure OpenAI chat models.
