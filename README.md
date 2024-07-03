@@ -32,7 +32,7 @@ To install those module specific dependencies see
 ## Licensing
 
 Copyright (c) 2023-2024 [Philip May](https://philipmay.org)\
-Copyright (c) 2023-2024 [Philip May](https://philipmay.org), [Deutsche Telekom AG](https://www.telekom.de/)
+Copyright (c) 2023-2024 [Philip May](https://philipmay.org), [Deutsche Telekom AG](https://www.telekom.de/)\
 Copyright (c) 2023-2024 Alaeddine Abdessalem, [Deutsche Telekom AG](https://www.telekom.de/)
 
 Licensed under the **MIT License** (the "License"); you may not use this file except in compliance with the License.
