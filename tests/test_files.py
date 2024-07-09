@@ -18,7 +18,7 @@ def test_fetch_remote_file(tmpdir):
         dirname=tmpdir,
         filename=filename,
         url="https://raw.githubusercontent.com/telekom/mltb2/main/LICENSE",
-        sha256_checksum="733fe19287807e392fc0899a1577fa36bad2ab543efdce372a2fc05399b91c2f",
+        sha256_checksum="92d6c99efeeea9c7a0361da50a0d7160920e626b046211a4779b73ac23819ca5",
     )
     assert remote_file == os.path.join(tmpdir, filename)
     assert os.path.exists(os.path.join(tmpdir, filename))
