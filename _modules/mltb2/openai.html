@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -91,8 +91,9 @@
 
 
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">tiktoken</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
@@ -102,7 +103,9 @@
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
 
-<div class="viewcode-block" id="OpenAiTokenCounter"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiTokenCounter">[docs]</a><span class="nd">@dataclass</span>
+<div class="viewcode-block" id="OpenAiTokenCounter">
+<a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiTokenCounter">[docs]</a>
+<span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">OpenAiTokenCounter</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Count OpenAI tokens.</span>
 
@@ -126,7 +129,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">encoding_for_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="p">)</span>
 
-<div class="viewcode-block" id="OpenAiTokenCounter.__call__"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiTokenCounter.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<div class="viewcode-block" id="OpenAiTokenCounter.__call__">
+<a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiTokenCounter.__call__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Count tokens for text.</span>
 
 <span class="sd">        Args:</span>
@@ -143,10 +148,14 @@
             <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_progress_bar</span><span class="p">):</span>
                 <span class="n">tokenized_text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
                 <span class="n">counts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tokenized_text</span><span class="p">))</span>
-            <span class="k">return</span> <span class="n">counts</span></div></div>
+            <span class="k">return</span> <span class="n">counts</span></div>
+</div>
 
 
-<div class="viewcode-block" id="OpenAiChatResult"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChatResult">[docs]</a><span class="nd">@dataclass</span>
+
+<div class="viewcode-block" id="OpenAiChatResult">
+<a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChatResult">[docs]</a>
+<span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">OpenAiChatResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Result of an OpenAI chat completion.</span>
 
@@ -184,13 +193,15 @@
     <span class="n">completion_tokens</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">total_tokens</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">finish_reason</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">completion_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">completion_args</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="OpenAiChatResult.from_chat_completion"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChatResult.from_chat_completion">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="OpenAiChatResult.from_chat_completion">
+<a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChatResult.from_chat_completion">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_chat_completion</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">chat_completion</span><span class="p">:</span> <span class="n">ChatCompletion</span><span class="p">,</span>
-        <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct this class from an OpenAI ``ChatCompletion`` object.</span>
 
@@ -216,10 +227,14 @@
             <span class="n">message</span> <span class="o">=</span> <span class="n">choice</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">result</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span></div></div>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span></div>
+</div>
 
 
-<div class="viewcode-block" id="remove_openai_tokens"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.remove_openai_tokens">[docs]</a><span class="k">def</span> <span class="nf">remove_openai_tokens</span><span class="p">(</span><span class="n">messages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+
+<div class="viewcode-block" id="remove_openai_tokens">
+<a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.remove_openai_tokens">[docs]</a>
+<span class="k">def</span> <span class="nf">remove_openai_tokens</span><span class="p">(</span><span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove OpenAI special tokens from the messages.</span>
 
 <span class="sd">    These tokens are ``&lt;|im_start|&gt;`` and ``&lt;|im_end|&gt;`` and they can cause problems when passed to the OpenAI API.</span>
@@ -236,7 +251,10 @@
     <span class="k">return</span> <span class="n">result</span></div>
 
 
-<div class="viewcode-block" id="OpenAiChat"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat">[docs]</a><span class="nd">@dataclass</span>
+
+<div class="viewcode-block" id="OpenAiChat">
+<a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat">[docs]</a>
+<span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">OpenAiChat</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Tool to interact with OpenAI chat models.</span>
 
@@ -260,7 +278,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">async_client</span> <span class="o">=</span> <span class="n">AsyncOpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">)</span>
 
-<div class="viewcode-block" id="OpenAiChat.from_yaml"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat.from_yaml">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="OpenAiChat.from_yaml">
+<a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat.from_yaml">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">yaml_file</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct this class from a yaml file.</span>
 
@@ -286,10 +306,13 @@
             <span class="n">completion_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">completion_kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="OpenAiChat.create_completions"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat.create_completions">[docs]</a>    <span class="k">def</span> <span class="nf">create_completions</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpenAiChat.create_completions">
+<a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat.create_completions">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_completions</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span>
-        <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span>
+        <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">clean_openai_tokens</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenAiChatResult</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a model response for the given prompt (chat conversation).</span>
@@ -345,10 +368,13 @@
         <span class="n">result</span> <span class="o">=</span> <span class="n">OpenAiChatResult</span><span class="o">.</span><span class="n">from_chat_completion</span><span class="p">(</span><span class="n">chat_completion</span><span class="p">,</span> <span class="n">completion_kwargs</span><span class="o">=</span><span class="n">completion_kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="OpenAiChat.create_completions_async"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat.create_completions_async">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">create_completions_async</span><span class="p">(</span>
+
+<div class="viewcode-block" id="OpenAiChat.create_completions_async">
+<a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat.create_completions_async">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">create_completions_async</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span>
-        <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span>
+        <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">clean_openai_tokens</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenAiChatResult</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a model response for the given prompt (chat conversation).</span>
@@ -402,18 +428,25 @@
             <span class="o">**</span><span class="n">completion_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">OpenAiChatResult</span><span class="o">.</span><span class="n">from_chat_completion</span><span class="p">(</span><span class="n">chat_completion</span><span class="p">,</span> <span class="n">completion_kwargs</span><span class="o">=</span><span class="n">completion_kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">result</span></div></div>
+        <span class="k">return</span> <span class="n">result</span></div>
+</div>
+
 
 
 <span class="c1"># there is a limitation with python dataclasses when it comes to defining a subclass with positional arguments, while</span>
 <span class="c1"># the parent class already defines keyword arguemnts (positional arguments cannot follow keyword arguments)</span>
 <span class="c1"># workaroung is defined here: https://stackoverflow.com/questions/51575931/class-inheritance-in-python-3-7-dataclasses</span>
-<div class="viewcode-block" id="_OpenAiAzureChatBase"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai._OpenAiAzureChatBase">[docs]</a><span class="nd">@dataclass</span>
+<div class="viewcode-block" id="_OpenAiAzureChatBase">
+<a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai._OpenAiAzureChatBase">[docs]</a>
+<span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">_OpenAiAzureChatBase</span><span class="p">:</span>
     <span class="n">azure_endpoint</span><span class="p">:</span> <span class="nb">str</span></div>
 
 
-<div class="viewcode-block" id="OpenAiAzureChat"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiAzureChat">[docs]</a><span class="nd">@dataclass</span>
+
+<div class="viewcode-block" id="OpenAiAzureChat">
+<a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiAzureChat">[docs]</a>
+<span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">OpenAiAzureChat</span><span class="p">(</span><span class="n">OpenAiChat</span><span class="p">,</span> <span class="n">_OpenAiAzureChatBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Tool to interact with Azure OpenAI chat models.</span>
 
@@ -450,7 +483,9 @@
             <span class="n">azure_ad_token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">azure_ad_token</span><span class="p">,</span>
         <span class="p">)</span>
 
-<div class="viewcode-block" id="OpenAiAzureChat.from_yaml"><a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiAzureChat.from_yaml">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="OpenAiAzureChat.from_yaml">
+<a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiAzureChat.from_yaml">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">yaml_file</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">azure_ad_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct this class from a yaml file.</span>
 
@@ -471,7 +506,9 @@
         <span class="c1"># set azure_ad_token according to this priority:</span>
         <span class="c1"># method parameter &gt; yaml &gt; environment variable</span>
         <span class="n">azure_ad_token</span> <span class="o">=</span> <span class="n">azure_ad_token</span> <span class="ow">or</span> <span class="n">completion_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;AZURE_AD_TOKEN&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;AZURE_AD_TOKEN&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">yaml_file</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">azure_ad_token</span><span class="o">=</span><span class="n">azure_ad_token</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span><span class="n">yaml_file</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">azure_ad_token</span><span class="o">=</span><span class="n">azure_ad_token</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
+
 </pre></div>
 
            </div>

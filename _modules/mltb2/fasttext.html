@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -89,7 +89,7 @@
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">import</span> <span class="nn">fasttext</span>
 <span class="kn">from</span> <span class="nn">fasttext.FastText</span> <span class="kn">import</span> <span class="n">_FastText</span>
@@ -97,7 +97,9 @@
 <span class="kn">from</span> <span class="nn">mltb2.files</span> <span class="kn">import</span> <span class="n">fetch_remote_file</span><span class="p">,</span> <span class="n">get_and_create_mltb2_data_dir</span>
 
 
-<div class="viewcode-block" id="FastTextLanguageIdentification"><a class="viewcode-back" href="../../api-reference/fasttext.html#mltb2.fasttext.FastTextLanguageIdentification">[docs]</a><span class="nd">@dataclass</span>
+<div class="viewcode-block" id="FastTextLanguageIdentification">
+<a class="viewcode-back" href="../../api-reference/fasttext.html#mltb2.fasttext.FastTextLanguageIdentification">[docs]</a>
+<span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">FastTextLanguageIdentification</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Identify languages of a text.&quot;&quot;&quot;</span>
 
@@ -107,7 +109,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">fasttext</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_model_path_and_download</span><span class="p">())</span>
 
-<div class="viewcode-block" id="FastTextLanguageIdentification.get_model_path_and_download"><a class="viewcode-back" href="../../api-reference/fasttext.html#mltb2.fasttext.FastTextLanguageIdentification.get_model_path_and_download">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="FastTextLanguageIdentification.get_model_path_and_download">
+<a class="viewcode-back" href="../../api-reference/fasttext.html#mltb2.fasttext.FastTextLanguageIdentification.get_model_path_and_download">[docs]</a>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_model_path_and_download</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the model path and download it if needed.</span>
 
@@ -130,7 +134,10 @@
 
         <span class="k">return</span> <span class="n">model_full_path</span></div>
 
-<div class="viewcode-block" id="FastTextLanguageIdentification.__call__"><a class="viewcode-back" href="../../api-reference/fasttext.html#mltb2.fasttext.FastTextLanguageIdentification.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num_lang</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">always_detect_lang</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FastTextLanguageIdentification.__call__">
+<a class="viewcode-back" href="../../api-reference/fasttext.html#mltb2.fasttext.FastTextLanguageIdentification.__call__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num_lang</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">always_detect_lang</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Identify languages of a given text.</span>
 
 <span class="sd">        Args:</span>
@@ -162,7 +169,9 @@
             <span class="k">for</span> <span class="n">lang</span> <span class="ow">in</span> <span class="n">always_detect_lang</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">lang</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">lang_to_prob</span><span class="p">:</span>
                     <span class="n">lang_to_prob</span><span class="p">[</span><span class="n">lang</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-        <span class="k">return</span> <span class="n">lang_to_prob</span></div></div>
+        <span class="k">return</span> <span class="n">lang_to_prob</span></div>
+</div>
+
 </pre></div>
 
            </div>

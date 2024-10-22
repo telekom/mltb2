@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -90,9 +90,10 @@
 
 <span class="kn">import</span> <span class="nn">gzip</span>
 <span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">closing</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">jsonlines</span>
 <span class="kn">from</span> <span class="nn">arango</span> <span class="kn">import</span> <span class="n">ArangoClient</span>
@@ -104,7 +105,9 @@
 <span class="kn">from</span> <span class="nn">mltb2.db</span> <span class="kn">import</span> <span class="n">AbstractBatchDataManager</span>
 
 
-<div class="viewcode-block" id="_check_config_keys"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb._check_config_keys">[docs]</a><span class="k">def</span> <span class="nf">_check_config_keys</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">expected_config_keys</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="_check_config_keys">
+<a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb._check_config_keys">[docs]</a>
+<span class="k">def</span> <span class="nf">_check_config_keys</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span> <span class="n">expected_config_keys</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if all expected keys are in config.</span>
 
 <span class="sd">    This is useful to check if a config file contains all necessary keys.</span>
@@ -114,7 +117,10 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Config file must contain &#39;</span><span class="si">{</span><span class="n">expected_config_key</span><span class="si">}</span><span class="s2">&#39;!&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ArangoConnectionManager"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoConnectionManager">[docs]</a><span class="nd">@dataclass</span>
+
+<div class="viewcode-block" id="ArangoConnectionManager">
+<a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoConnectionManager">[docs]</a>
+<span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">ArangoConnectionManager</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;ArangoDB connection manager.</span>
 
@@ -132,22 +138,31 @@
     <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">password</span><span class="p">:</span> <span class="nb">str</span>
 
-<div class="viewcode-block" id="ArangoConnectionManager._arango_client_factory"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoConnectionManager._arango_client_factory">[docs]</a>    <span class="k">def</span> <span class="nf">_arango_client_factory</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArangoClient</span><span class="p">:</span>
+<div class="viewcode-block" id="ArangoConnectionManager._arango_client_factory">
+<a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoConnectionManager._arango_client_factory">[docs]</a>
+    <span class="k">def</span> <span class="nf">_arango_client_factory</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArangoClient</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an ArangoDB client.&quot;&quot;&quot;</span>
         <span class="n">arango_client</span> <span class="o">=</span> <span class="n">ArangoClient</span><span class="p">(</span><span class="n">hosts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hosts</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">arango_client</span></div>
 
-<div class="viewcode-block" id="ArangoConnectionManager._connection_factory"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoConnectionManager._connection_factory">[docs]</a>    <span class="k">def</span> <span class="nf">_connection_factory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arango_client</span><span class="p">:</span> <span class="n">ArangoClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StandardDatabase</span><span class="p">:</span>
+
+<div class="viewcode-block" id="ArangoConnectionManager._connection_factory">
+<a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoConnectionManager._connection_factory">[docs]</a>
+    <span class="k">def</span> <span class="nf">_connection_factory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arango_client</span><span class="p">:</span> <span class="n">ArangoClient</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StandardDatabase</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an ArangoDB connection.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            arango_client: ArangoDB client.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">connection</span> <span class="o">=</span> <span class="n">arango_client</span><span class="o">.</span><span class="n">db</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db_name</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">connection</span></div></div>
+        <span class="k">return</span> <span class="n">connection</span></div>
+</div>
 
 
-<div class="viewcode-block" id="ArangoBatchDataManager"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager">[docs]</a><span class="nd">@dataclass</span>
+
+<div class="viewcode-block" id="ArangoBatchDataManager">
+<a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager">[docs]</a>
+<span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">ArangoBatchDataManager</span><span class="p">(</span><span class="n">AbstractBatchDataManager</span><span class="p">,</span> <span class="n">ArangoConnectionManager</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;ArangoDB implementation of the ``AbstractBatchDataManager``.</span>
 
@@ -169,7 +184,9 @@
     <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span>
     <span class="n">aql_overwrite</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="ArangoBatchDataManager.from_config_file"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager.from_config_file">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ArangoBatchDataManager.from_config_file">
+<a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager.from_config_file">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_config_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config_file_name</span><span class="p">,</span> <span class="n">aql_overwrite</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct this from config file.</span>
 
@@ -225,7 +242,10 @@
             <span class="n">aql_overwrite</span><span class="o">=</span><span class="n">aql_overwrite</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ArangoBatchDataManager.load_batch"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager.load_batch">[docs]</a>    <span class="k">def</span> <span class="nf">load_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">:</span>
+
+<div class="viewcode-block" id="ArangoBatchDataManager.load_batch">
+<a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager.load_batch">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Load a batch of data from the ArangoDB database.</span>
 
 <span class="sd">        Returns:</span>
@@ -251,7 +271,10 @@
                 <span class="n">batch</span> <span class="o">=</span> <span class="n">closing_cursor</span><span class="o">.</span><span class="n">batch</span><span class="p">()</span>  <span class="c1"># type: ignore[union-attr]</span>
         <span class="k">return</span> <span class="n">batch</span>  <span class="c1"># type: ignore[return-value]</span></div>
 
-<div class="viewcode-block" id="ArangoBatchDataManager.save_batch"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager.save_batch">[docs]</a>    <span class="k">def</span> <span class="nf">save_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="ArangoBatchDataManager.save_batch">
+<a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoBatchDataManager.save_batch">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Save a batch of data to the ArangoDB database.</span>
 
 <span class="sd">        Args:</span>
@@ -260,10 +283,14 @@
         <span class="k">with</span> <span class="n">closing</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_arango_client_factory</span><span class="p">())</span> <span class="k">as</span> <span class="n">arango_client</span><span class="p">:</span>
             <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection_factory</span><span class="p">(</span><span class="n">arango_client</span><span class="p">)</span>
             <span class="n">collection</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">collection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">collection_name</span><span class="p">)</span>
-            <span class="n">collection</span><span class="o">.</span><span class="n">import_bulk</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">on_duplicate</span><span class="o">=</span><span class="s2">&quot;update&quot;</span><span class="p">)</span></div></div>
+            <span class="n">collection</span><span class="o">.</span><span class="n">import_bulk</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">on_duplicate</span><span class="o">=</span><span class="s2">&quot;update&quot;</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="arango_collection_backup"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.arango_collection_backup">[docs]</a><span class="k">def</span> <span class="nf">arango_collection_backup</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="arango_collection_backup">
+<a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.arango_collection_backup">[docs]</a>
+<span class="k">def</span> <span class="nf">arango_collection_backup</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Commandline tool to do an ArangoDB backup of a collection.</span>
 
 <span class="sd">    The backup is written to a gzip compressed JSONL file in the current working directory.</span>
@@ -289,9 +316,10 @@
     <span class="n">output_file_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;./</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">col</span><span class="si">}</span><span class="s2">_backup.jsonl.gz&quot;</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Writing backup to &#39;</span><span class="si">{</span><span class="n">output_file_name</span><span class="si">}</span><span class="s2">&#39;...&quot;</span><span class="p">)</span>
 
-    <span class="k">with</span> <span class="n">closing</span><span class="p">(</span><span class="n">ArangoClient</span><span class="p">(</span><span class="n">hosts</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;hosts&quot;</span><span class="p">]))</span> <span class="k">as</span> <span class="n">arango_client</span><span class="p">,</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>  <span class="c1"># type: ignore[arg-type]</span>
-        <span class="n">output_file_name</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span>
-    <span class="p">)</span> <span class="k">as</span> <span class="n">gzip_out</span><span class="p">:</span>
+    <span class="k">with</span> <span class="p">(</span>
+        <span class="n">closing</span><span class="p">(</span><span class="n">ArangoClient</span><span class="p">(</span><span class="n">hosts</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;hosts&quot;</span><span class="p">]))</span> <span class="k">as</span> <span class="n">arango_client</span><span class="p">,</span>  <span class="c1"># type: ignore[arg-type]</span>
+        <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">output_file_name</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">gzip_out</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="n">connection</span> <span class="o">=</span> <span class="n">arango_client</span><span class="o">.</span><span class="n">db</span><span class="p">(</span>
             <span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;db_name&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore[arg-type]</span>
             <span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">],</span>  <span class="c1"># type: ignore[arg-type]</span>
@@ -312,7 +340,10 @@
             <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">ignore_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># type: ignore[union-attr]</span></div>
 
 
-<div class="viewcode-block" id="ArangoImportDataManager"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoImportDataManager">[docs]</a><span class="nd">@dataclass</span>
+
+<div class="viewcode-block" id="ArangoImportDataManager">
+<a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoImportDataManager">[docs]</a>
+<span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">ArangoImportDataManager</span><span class="p">(</span><span class="n">ArangoConnectionManager</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;ArangoDB import tool to fill data into a collection.</span>
 
@@ -323,7 +354,9 @@
 <span class="sd">        password: ArangoDB password.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ArangoImportDataManager.from_config_file"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoImportDataManager.from_config_file">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ArangoImportDataManager.from_config_file">
+<a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoImportDataManager.from_config_file">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_config_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config_file_name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct this from config file.</span>
 
@@ -365,8 +398,11 @@
             <span class="n">password</span><span class="o">=</span><span class="n">arango_config</span><span class="p">[</span><span class="s2">&quot;password&quot;</span><span class="p">],</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ArangoImportDataManager.import_dicts"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoImportDataManager.import_dicts">[docs]</a>    <span class="k">def</span> <span class="nf">import_dicts</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">dicts</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">create_collection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="ArangoImportDataManager.import_dicts">
+<a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoImportDataManager.import_dicts">[docs]</a>
+    <span class="k">def</span> <span class="nf">import_dicts</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">dicts</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">create_collection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Import data to ArangoDB.</span>
 
@@ -402,7 +438,10 @@
                 <span class="n">batch_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ArangoImportDataManager.import_dataframe"><a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoImportDataManager.import_dataframe">[docs]</a>    <span class="k">def</span> <span class="nf">import_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">create_collection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="ArangoImportDataManager.import_dataframe">
+<a class="viewcode-back" href="../../api-reference/arangodb.html#mltb2.arangodb.ArangoImportDataManager.import_dataframe">[docs]</a>
+    <span class="k">def</span> <span class="nf">import_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">:</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">create_collection</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Import Pandas data to ArangoDB.</span>
 
 <span class="sd">        Args:</span>
@@ -413,7 +452,9 @@
 <span class="sd">            arango.exceptions.DocumentInsertError: If import fails.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dicts</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">import_dicts</span><span class="p">(</span><span class="n">dicts</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">,</span> <span class="n">create_collection</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">import_dicts</span><span class="p">(</span><span class="n">dicts</span><span class="p">,</span> <span class="n">collection_name</span><span class="p">,</span> <span class="n">create_collection</span><span class="p">)</span></div>
+</div>
+
 </pre></div>
 
            </div>

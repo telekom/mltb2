@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -95,7 +95,9 @@
 
 
 <span class="c1"># see https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.twinx.html</span>
-<div class="viewcode-block" id="twin_axes_timeseries_plot"><a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.twin_axes_timeseries_plot">[docs]</a><span class="k">def</span> <span class="nf">twin_axes_timeseries_plot</span><span class="p">(</span>
+<div class="viewcode-block" id="twin_axes_timeseries_plot">
+<a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.twin_axes_timeseries_plot">[docs]</a>
+<span class="k">def</span> <span class="nf">twin_axes_timeseries_plot</span><span class="p">(</span>
     <span class="n">values_1</span><span class="p">,</span>
     <span class="n">label_1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">values_2</span><span class="p">,</span>
@@ -160,7 +162,10 @@
     <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="boxplot"><a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.boxplot">[docs]</a><span class="k">def</span> <span class="nf">boxplot</span><span class="p">(</span>
+
+<div class="viewcode-block" id="boxplot">
+<a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.boxplot">[docs]</a>
+<span class="k">def</span> <span class="nf">boxplot</span><span class="p">(</span>
     <span class="n">values</span><span class="p">,</span>
     <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -193,13 +198,16 @@
     <span class="k">if</span> <span class="n">ylabel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel</span><span class="p">)</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="n">vert</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="n">vert</span><span class="p">)</span>  <span class="c1"># type: ignore[call-arg]</span>
     <span class="n">grid_axis</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span> <span class="k">if</span> <span class="n">vert</span> <span class="k">else</span> <span class="s2">&quot;x&quot;</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">grid_axis</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">grid_axis</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="boxplot_dict"><a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.boxplot_dict">[docs]</a><span class="k">def</span> <span class="nf">boxplot_dict</span><span class="p">(</span>
+
+<div class="viewcode-block" id="boxplot_dict">
+<a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.boxplot_dict">[docs]</a>
+<span class="k">def</span> <span class="nf">boxplot_dict</span><span class="p">(</span>
     <span class="n">values_dict</span><span class="p">,</span>
     <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">xlabel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -229,12 +237,16 @@
     <span class="n">boxplot</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">vert</span><span class="o">=</span><span class="n">vert</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="save_last_figure"><a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.save_last_figure">[docs]</a><span class="k">def</span> <span class="nf">save_last_figure</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+<div class="viewcode-block" id="save_last_figure">
+<a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.save_last_figure">[docs]</a>
+<span class="k">def</span> <span class="nf">save_last_figure</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Saves the last plot made by Matplotlib.</span>
 
 <span class="sd">    For jupyter notebooks this has to be called in the same cell that created the plot.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span></div>
+
 </pre></div>
 
            </div>

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,9 +14,9 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
-      <script src="../../_static/doctools.js?v=888ff710"></script>
-      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -92,13 +92,14 @@
 
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Pattern</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">scipy.spatial.distance</span> <span class="kn">import</span> <span class="n">cityblock</span>
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
-<span class="n">INVISIBLE_CHARACTERS</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span>
+<span class="n">INVISIBLE_CHARACTERS</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span>
     <span class="s2">&quot;</span><span class="se">\u200b</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># Zero Width Space (ZWSP) https://www.compart.com/en/unicode/U+200b</span>
     <span class="s2">&quot;</span><span class="se">\u00ad</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># Soft Hyphen (SHY) https://www.compart.com/en/unicode/U+00ad</span>
     <span class="c1"># TODO: what about:</span>
@@ -106,9 +107,9 @@
     <span class="c1"># https://www.compart.com/en/unicode/U+2029</span>
 <span class="p">)</span>
 
-<span class="n">INVISIBLE_CHARACTERS_TRANS</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">({</span><span class="n">char</span><span class="p">:</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">INVISIBLE_CHARACTERS</span><span class="p">})</span>
+<span class="n">INVISIBLE_CHARACTERS_TRANS</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">({</span><span class="n">char</span><span class="p">:</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">INVISIBLE_CHARACTERS</span><span class="p">})</span>
 
-<span class="n">SPECIAL_WHITESPACES</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span>
+<span class="n">SPECIAL_WHITESPACES</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span>
     <span class="c1"># unicode block &quot;General Punctuation&quot;: https://www.compart.com/en/unicode/block/U+2000</span>
     <span class="s2">&quot;</span><span class="se">\u2000</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># En Quad</span>
     <span class="s2">&quot;</span><span class="se">\u2001</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># Em Quad</span>
@@ -126,16 +127,18 @@
     <span class="s2">&quot;</span><span class="se">\u00a0</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># No-Break Space (NBSP) https://www.compart.com/en/unicode/U+00a0</span>
 <span class="p">)</span>
 
-<span class="n">SPECIAL_WHITESPACES_TRANS</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">({</span><span class="n">char</span><span class="p">:</span> <span class="s2">&quot; &quot;</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">SPECIAL_WHITESPACES</span><span class="p">})</span>
+<span class="n">SPECIAL_WHITESPACES_TRANS</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">({</span><span class="n">char</span><span class="p">:</span> <span class="s2">&quot; &quot;</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">SPECIAL_WHITESPACES</span><span class="p">})</span>
 
 <span class="n">INVISIBLE_CHARACTERS_AND_SPECIAL_WHITESPACES_TRANS</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">SPECIAL_WHITESPACES_TRANS</span><span class="p">,</span> <span class="o">**</span><span class="n">INVISIBLE_CHARACTERS_TRANS</span><span class="p">}</span>
 
-<span class="n">MULTI_SPACE_PATTERN</span><span class="p">:</span> <span class="n">Pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot; {2,}&quot;</span><span class="p">)</span>
+<span class="n">MULTI_SPACE_PATTERN</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot; {2,}&quot;</span><span class="p">)</span>
 
-<span class="n">XML_TAG_PATTERN</span><span class="p">:</span> <span class="n">Pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&lt;\/?[\w:]+( \/|\/|)&gt;&quot;</span><span class="p">)</span>
+<span class="n">XML_TAG_PATTERN</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&lt;\/?[\w:]+( \/|\/|)&gt;&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="has_xml_tag"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.has_xml_tag">[docs]</a><span class="k">def</span> <span class="nf">has_xml_tag</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="has_xml_tag">
+<a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.has_xml_tag">[docs]</a>
+<span class="k">def</span> <span class="nf">has_xml_tag</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if text contains XML tags (one or multiple).</span>
 
 <span class="sd">    These are some XML tags we detect:</span>
@@ -156,7 +159,10 @@
     <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">XML_TAG_PATTERN</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="remove_invisible_characters"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.remove_invisible_characters">[docs]</a><span class="k">def</span> <span class="nf">remove_invisible_characters</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="remove_invisible_characters">
+<a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.remove_invisible_characters">[docs]</a>
+<span class="k">def</span> <span class="nf">remove_invisible_characters</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove invisible characters from text.</span>
 
 <span class="sd">    The invisible characters are defined in the constant ``INVISIBLE_CHARACTERS``.</span>
@@ -170,7 +176,10 @@
     <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">INVISIBLE_CHARACTERS_TRANS</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="has_invisible_characters"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.has_invisible_characters">[docs]</a><span class="k">def</span> <span class="nf">has_invisible_characters</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+
+<div class="viewcode-block" id="has_invisible_characters">
+<a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.has_invisible_characters">[docs]</a>
+<span class="k">def</span> <span class="nf">has_invisible_characters</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if text contains invisible characters.</span>
 
 <span class="sd">    The invisible characters are defined in the constant ``INVISIBLE_CHARACTERS``.</span>
@@ -184,7 +193,10 @@
     <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">char</span> <span class="ow">in</span> <span class="n">text</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">INVISIBLE_CHARACTERS</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="replace_special_whitespaces"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.replace_special_whitespaces">[docs]</a><span class="k">def</span> <span class="nf">replace_special_whitespaces</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="replace_special_whitespaces">
+<a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.replace_special_whitespaces">[docs]</a>
+<span class="k">def</span> <span class="nf">replace_special_whitespaces</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Replace special whitespaces with normal whitespaces.</span>
 
 <span class="sd">    The special whitespaces are defined in the constant ``SPECIAL_WHITESPACES``.</span>
@@ -198,7 +210,10 @@
     <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">SPECIAL_WHITESPACES_TRANS</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="has_special_whitespaces"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.has_special_whitespaces">[docs]</a><span class="k">def</span> <span class="nf">has_special_whitespaces</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+
+<div class="viewcode-block" id="has_special_whitespaces">
+<a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.has_special_whitespaces">[docs]</a>
+<span class="k">def</span> <span class="nf">has_special_whitespaces</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if text contains special whitespaces.</span>
 
 <span class="sd">    The special whitespaces are defined in the constant ``SPECIAL_WHITESPACES``.</span>
@@ -212,7 +227,10 @@
     <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">char</span> <span class="ow">in</span> <span class="n">text</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">SPECIAL_WHITESPACES</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="replace_multiple_whitespaces"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.replace_multiple_whitespaces">[docs]</a><span class="k">def</span> <span class="nf">replace_multiple_whitespaces</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="replace_multiple_whitespaces">
+<a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.replace_multiple_whitespaces">[docs]</a>
+<span class="k">def</span> <span class="nf">replace_multiple_whitespaces</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Replace multiple whitespaces with single whitespace.</span>
 
 <span class="sd">    Args:</span>
@@ -224,7 +242,10 @@
     <span class="k">return</span> <span class="n">MULTI_SPACE_PATTERN</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="clean_all_invisible_chars_and_whitespaces"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.clean_all_invisible_chars_and_whitespaces">[docs]</a><span class="k">def</span> <span class="nf">clean_all_invisible_chars_and_whitespaces</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="clean_all_invisible_chars_and_whitespaces">
+<a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.clean_all_invisible_chars_and_whitespaces">[docs]</a>
+<span class="k">def</span> <span class="nf">clean_all_invisible_chars_and_whitespaces</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean text form invisible characters and whitespaces.</span>
 
 <span class="sd">    - Remove invisible characters from text.</span>
@@ -247,7 +268,10 @@
     <span class="k">return</span> <span class="n">text</span></div>
 
 
-<div class="viewcode-block" id="clean_all_invisible_chars_and_strip"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.clean_all_invisible_chars_and_strip">[docs]</a><span class="k">def</span> <span class="nf">clean_all_invisible_chars_and_strip</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="clean_all_invisible_chars_and_strip">
+<a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.clean_all_invisible_chars_and_strip">[docs]</a>
+<span class="k">def</span> <span class="nf">clean_all_invisible_chars_and_strip</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean text form invisible characters and strip the text.</span>
 
 <span class="sd">    - Remove invisible characters from text.</span>
@@ -268,7 +292,10 @@
     <span class="k">return</span> <span class="n">text</span></div>
 
 
-<div class="viewcode-block" id="_normalize_counter_to_defaultdict"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text._normalize_counter_to_defaultdict">[docs]</a><span class="k">def</span> <span class="nf">_normalize_counter_to_defaultdict</span><span class="p">(</span><span class="n">counter</span><span class="p">:</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">max_dimensions</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">defaultdict</span><span class="p">:</span>
+
+<div class="viewcode-block" id="_normalize_counter_to_defaultdict">
+<a class="viewcode-back" href="../../api-reference/text.html#mltb2.text._normalize_counter_to_defaultdict">[docs]</a>
+<span class="k">def</span> <span class="nf">_normalize_counter_to_defaultdict</span><span class="p">(</span><span class="n">counter</span><span class="p">:</span> <span class="n">Counter</span><span class="p">,</span> <span class="n">max_dimensions</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">defaultdict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize a counter to to ``max_dimensions``.</span>
 
 <span class="sd">    The number of dimensions is limited to ``max_dimensions``</span>
@@ -289,7 +316,10 @@
     <span class="k">return</span> <span class="n">normalized_counter</span></div>
 
 
-<div class="viewcode-block" id="TextDistance"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.TextDistance">[docs]</a><span class="nd">@dataclass</span>
+
+<div class="viewcode-block" id="TextDistance">
+<a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.TextDistance">[docs]</a>
+<span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">TextDistance</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the distance between two texts.</span>
 
@@ -319,7 +349,7 @@
     <span class="n">_normalized_char_counts</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">defaultdict</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="c1"># set of all counted characters - see _normalize_char_counter</span>
-    <span class="n">_counted_char_set</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">_counted_char_set</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="c1"># flag if fit was called</span>
     <span class="n">_fit_called</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -332,7 +362,9 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_dimensions</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;max_dimensions&#39; must be &gt; 0!&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="TextDistance.fit"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.TextDistance.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="TextDistance.fit">
+<a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.TextDistance.fit">[docs]</a>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit the text.</span>
 
 <span class="sd">        This method must be called at least once before :func:`~TextDistance.distance`.</span>
@@ -354,7 +386,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_fit_called</span> <span class="o">=</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="TextDistance._normalize_char_counter"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.TextDistance._normalize_char_counter">[docs]</a>    <span class="k">def</span> <span class="nf">_normalize_char_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TextDistance._normalize_char_counter">
+<a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.TextDistance._normalize_char_counter">[docs]</a>
+    <span class="k">def</span> <span class="nf">_normalize_char_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Normalize the char counter to a defaultdict.</span>
 
 <span class="sd">        This supports lazy postprocessing of the char counter.</span>
@@ -365,7 +400,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_counted_char_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_normalized_char_counts</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_distance_called</span> <span class="o">=</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="TextDistance.distance"><a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.TextDistance.distance">[docs]</a>    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+
+<div class="viewcode-block" id="TextDistance.distance">
+<a class="viewcode-back" href="../../api-reference/text.html#mltb2.text.TextDistance.distance">[docs]</a>
+    <span class="k">def</span> <span class="nf">distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the distance between the fitted text and the given text.</span>
 
 <span class="sd">        This implementation uses the Manhattan distance (:func:`scipy.spatial.distance.cityblock`).</span>
@@ -387,7 +425,9 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_normalized_char_counts</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>  <span class="c1"># type: ignore[index]</span>
             <span class="p">)</span>  <span class="c1"># if c is not in defaultdict, it will return 0</span>
             <span class="n">text_vector</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text_count_defaultdict</span><span class="p">[</span><span class="n">c</span><span class="p">])</span>  <span class="c1"># if c is not in defaultdict, it will return 0</span>
-        <span class="k">return</span> <span class="n">cityblock</span><span class="p">(</span><span class="n">all_vector</span><span class="p">,</span> <span class="n">text_vector</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">cityblock</span><span class="p">(</span><span class="n">all_vector</span><span class="p">,</span> <span class="n">text_vector</span><span class="p">)</span></div>
+</div>
+
 </pre></div>
 
            </div>
