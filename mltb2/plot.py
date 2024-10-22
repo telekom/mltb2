@@ -115,9 +115,9 @@ def boxplot(
     if ylabel is not None:
         ax.set(ylabel=ylabel)
 
-    ax.boxplot(values, labels=labels, vert=vert)
+    ax.boxplot(values, labels=labels, vert=vert)  # type: ignore[call-arg]
     grid_axis = "y" if vert else "x"
-    plt.grid(b=True, axis=grid_axis, linestyle="--")
+    plt.grid(b=True, axis=grid_axis, linestyle="--")  # type: ignore[arg-type]
     plt.xticks(rotation=90)
 
 

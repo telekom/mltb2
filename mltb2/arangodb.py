@@ -213,8 +213,8 @@ def arango_collection_backup() -> None:
     print(f"Writing backup to '{output_file_name}'...")
 
     with (
-        closing(ArangoClient(hosts=arango_config["hosts"])) as arango_client,
-        gzip.open(output_file_name, "w") as gzip_out,  # type: ignore[arg-type]
+        closing(ArangoClient(hosts=arango_config["hosts"])) as arango_client,  # type: ignore[arg-type]
+        gzip.open(output_file_name, "w") as gzip_out,
     ):
         connection = arango_client.db(
             arango_config["db_name"],  # type: ignore[arg-type]
