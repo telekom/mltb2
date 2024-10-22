@@ -13,8 +13,9 @@ Hint:
 
 
 import os
+from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Any, Dict, Iterable, List, Optional, Union
+from typing import Any, Optional, Union
 
 import tiktoken
 import yaml
@@ -48,7 +49,7 @@ class OpenAiTokenCounter:
         """Do post init."""
         self.encoding = tiktoken.encoding_for_model(self.model_name)
 
-    def __call__(self, text: Union[str, Iterable]) -> Union[int, List[int]]:
+    def __call__(self, text: Union[str, Iterable]) -> Union[int, list[int]]:
         """Count tokens for text.
 
         Args:
@@ -106,13 +107,13 @@ class OpenAiChatResult:
     completion_tokens: Optional[int] = None
     total_tokens: Optional[int] = None
     finish_reason: Optional[str] = None
-    completion_args: Optional[Dict[str, Any]] = None
+    completion_args: Optional[dict[str, Any]] = None
 
     @classmethod
     def from_chat_completion(
         cls,
         chat_completion: ChatCompletion,
-        completion_kwargs: Optional[Dict[str, Any]] = None,
+        completion_kwargs: Optional[dict[str, Any]] = None,
     ):
         """Construct this class from an OpenAI ``ChatCompletion`` object.
 
@@ -141,7 +142,7 @@ class OpenAiChatResult:
         return cls(**result)  # type: ignore[arg-type]
 
 
-def remove_openai_tokens(messages: List[Dict[str, str]]) -> List[Dict[str, str]]:
+def remove_openai_tokens(messages: list[dict[str, str]]) -> list[dict[str, str]]:
     """Remove OpenAI special tokens from the messages.
 
     These tokens are ``<|im_start|>`` and ``<|im_end|>`` and they can cause problems when passed to the OpenAI API.
@@ -210,8 +211,8 @@ class OpenAiChat:
 
     def create_completions(
         self,
-        prompt: Union[str, List[Dict[str, str]]],
-        completion_kwargs: Optional[Dict[str, Any]] = None,
+        prompt: Union[str, list[dict[str, str]]],
+        completion_kwargs: Optional[dict[str, Any]] = None,
         clean_openai_tokens: bool = False,
     ) -> OpenAiChatResult:
         """Create a model response for the given prompt (chat conversation).
@@ -269,8 +270,8 @@ class OpenAiChat:
 
     async def create_completions_async(
         self,
-        prompt: Union[str, List[Dict[str, str]]],
-        completion_kwargs: Optional[Dict[str, Any]] = None,
+        prompt: Union[str, list[dict[str, str]]],
+        completion_kwargs: Optional[dict[str, Any]] = None,
         clean_openai_tokens: bool = False,
     ) -> OpenAiChatResult:
         """Create a model response for the given prompt (chat conversation).

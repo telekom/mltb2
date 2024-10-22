@@ -9,15 +9,13 @@
 
 """Data loader module."""
 
-from typing import Tuple
-
 import numpy as np
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
 
-def load_colon_data() -> Tuple[pd.Series, pd.DataFrame]:
+def load_colon_data() -> tuple[pd.Series, pd.DataFrame]:
     """Load colon data.
 
     The data is loaded and parsed from the internet.
@@ -72,7 +70,7 @@ def load_colon_data() -> Tuple[pd.Series, pd.DataFrame]:
 # TODO append random features and shuffle
 
 
-def load_prostate_data() -> Tuple[pd.Series, pd.DataFrame]:
+def load_prostate_data() -> tuple[pd.Series, pd.DataFrame]:
     """Load prostate data.
 
     The data is loaded and parsed from <https://web.stanford.edu/~hastie/CASI_files/DATA/prostate.html>
@@ -99,7 +97,7 @@ def load_prostate_data() -> Tuple[pd.Series, pd.DataFrame]:
     return pd.Series(labels), data
 
 
-def load_leukemia_data() -> Tuple[pd.Series, pd.DataFrame]:
+def load_leukemia_data() -> tuple[pd.Series, pd.DataFrame]:
     """Load leukemia data.
 
     The data is loaded and parsed from the internet.

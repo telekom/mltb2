@@ -10,8 +10,9 @@ Hint:
 """
 
 import os
+from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Iterable, List, Union
+from typing import Union
 
 import sklearn
 import torch
@@ -39,7 +40,7 @@ class TransformersTokenCounter:
         """Do post init."""
         self.tokenizer = AutoTokenizer.from_pretrained(self.pretrained_model_name_or_path)
 
-    def __call__(self, text: Union[str, Iterable]) -> Union[int, List[int]]:
+    def __call__(self, text: Union[str, Iterable]) -> Union[int, list[int]]:
         """Count tokens for text.
 
         Args:

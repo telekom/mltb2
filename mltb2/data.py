@@ -24,7 +24,7 @@ Hint:
 import os
 from hashlib import sha256
 from io import StringIO
-from typing import Optional, Tuple
+from typing import Optional
 
 import joblib
 import numpy as np
@@ -101,7 +101,7 @@ def _load_colon_label() -> pd.Series:
     return label_series
 
 
-def load_colon(mltb2_base_data_dir: Optional[str] = None) -> Tuple[pd.Series, pd.DataFrame]:
+def load_colon(mltb2_base_data_dir: Optional[str] = None) -> tuple[pd.Series, pd.DataFrame]:
     """Load colon data.
 
     The data is loaded and parsed from the internet.
@@ -128,7 +128,7 @@ def load_colon(mltb2_base_data_dir: Optional[str] = None) -> Tuple[pd.Series, pd
     return result
 
 
-def load_prostate(mltb2_base_data_dir: Optional[str] = None) -> Tuple[pd.Series, pd.DataFrame]:
+def load_prostate(mltb2_base_data_dir: Optional[str] = None) -> tuple[pd.Series, pd.DataFrame]:
     """Load prostate data.
 
     The data is loaded and parsed from `<https://web.stanford.edu/~hastie/CASI_files/DATA/prostate.html>`_.
@@ -177,7 +177,7 @@ def load_prostate(mltb2_base_data_dir: Optional[str] = None) -> Tuple[pd.Series,
     return result
 
 
-def load_leukemia_big(mltb2_base_data_dir: Optional[str] = None) -> Tuple[pd.Series, pd.DataFrame]:
+def load_leukemia_big(mltb2_base_data_dir: Optional[str] = None) -> tuple[pd.Series, pd.DataFrame]:
     """Load leukemia (big) data.
 
     The data is loaded and parsed from the internet.

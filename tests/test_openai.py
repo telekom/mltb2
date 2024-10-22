@@ -5,7 +5,6 @@
 
 import os
 from pathlib import Path
-from typing import List
 
 import pytest
 import yaml
@@ -36,7 +35,7 @@ def test_OpenAiTokenCounter_call_string():
 
 @settings(max_examples=1000)
 @given(texts=lists(text()))
-def test_OpenAiTokenCounter_list_hypothesis(texts: List[str], gpt_4_open_ai_token_counter: OpenAiTokenCounter):
+def test_OpenAiTokenCounter_list_hypothesis(texts: list[str], gpt_4_open_ai_token_counter: OpenAiTokenCounter):
     token_count = gpt_4_open_ai_token_counter(texts)
     assert len(token_count) == len(texts)  # type: ignore[arg-type]
     assert all(count >= 0 for count in token_count)  # type: ignore[union-attr]

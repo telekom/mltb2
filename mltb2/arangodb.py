@@ -12,9 +12,10 @@ Hint:
 
 import gzip
 from argparse import ArgumentParser
+from collections.abc import Sequence
 from contextlib import closing
 from dataclasses import dataclass
-from typing import Any, Dict, Optional, Sequence, Union
+from typing import Any, Optional, Union
 
 import jsonlines
 from arango import ArangoClient
@@ -26,7 +27,7 @@ from tqdm import tqdm
 from mltb2.db import AbstractBatchDataManager
 
 
-def _check_config_keys(config: Dict[str, Optional[str]], expected_config_keys: Sequence[str]) -> None:
+def _check_config_keys(config: dict[str, Optional[str]], expected_config_keys: Sequence[str]) -> None:
     """Check if all expected keys are in config.
 
     This is useful to check if a config file contains all necessary keys.
@@ -289,7 +290,7 @@ class ArangoImportDataManager(ArangoConnectionManager):
         )
 
     def import_dicts(
-        self, dicts: Sequence[Dict[str, Any]], collection_name: str, create_collection: bool = False
+        self, dicts: Sequence[dict[str, Any]], collection_name: str, create_collection: bool = False
     ) -> None:
         """Import data to ArangoDB.
 

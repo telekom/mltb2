@@ -11,7 +11,7 @@ Hint:
 
 import os
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import Optional
 
 import fasttext
 from fasttext.FastText import _FastText
@@ -52,7 +52,7 @@ class FastTextLanguageIdentification:
 
         return model_full_path
 
-    def __call__(self, text: str, num_lang: int = 10, always_detect_lang: Optional[List[str]] = None):
+    def __call__(self, text: str, num_lang: int = 10, always_detect_lang: Optional[list[str]] = None):
         """Identify languages of a given text.
 
         Args:

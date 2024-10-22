@@ -14,13 +14,14 @@ It offers the following functionality:
 
 import re
 from collections import Counter, defaultdict
+from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Dict, Final, Iterable, Optional, Pattern, Set, Tuple, Union
+from typing import Final, Optional, Union
 
 from scipy.spatial.distance import cityblock
 from tqdm import tqdm
 
-INVISIBLE_CHARACTERS: Final[Tuple[str, ...]] = (
+INVISIBLE_CHARACTERS: Final[tuple[str, ...]] = (
     "\u200b",  # Zero Width Space (ZWSP) https://www.compart.com/en/unicode/U+200b
     "\u00ad",  # Soft Hyphen (SHY) https://www.compart.com/en/unicode/U+00ad
     # TODO: what about:
@@ -28,9 +29,9 @@ INVISIBLE_CHARACTERS: Final[Tuple[str, ...]] = (
     # https://www.compart.com/en/unicode/U+2029
 )
 
-INVISIBLE_CHARACTERS_TRANS: Final[Dict[int, None]] = str.maketrans({char: None for char in INVISIBLE_CHARACTERS})
+INVISIBLE_CHARACTERS_TRANS: Final[dict[int, None]] = str.maketrans({char: None for char in INVISIBLE_CHARACTERS})
 
-SPECIAL_WHITESPACES: Final[Tuple[str, ...]] = (
+SPECIAL_WHITESPACES: Final[tuple[str, ...]] = (
     # unicode block "General Punctuation": https://www.compart.com/en/unicode/block/U+2000
     "\u2000",  # En Quad
     "\u2001",  # Em Quad
@@ -48,13 +49,13 @@ SPECIAL_WHITESPACES: Final[Tuple[str, ...]] = (
     "\u00a0",  # No-Break Space (NBSP) https://www.compart.com/en/unicode/U+00a0
 )
 
-SPECIAL_WHITESPACES_TRANS: Final[Dict[int, str]] = str.maketrans({char: " " for char in SPECIAL_WHITESPACES})
+SPECIAL_WHITESPACES_TRANS: Final[dict[int, str]] = str.maketrans({char: " " for char in SPECIAL_WHITESPACES})
 
 INVISIBLE_CHARACTERS_AND_SPECIAL_WHITESPACES_TRANS = {**SPECIAL_WHITESPACES_TRANS, **INVISIBLE_CHARACTERS_TRANS}
 
-MULTI_SPACE_PATTERN: Pattern = re.compile(r" {2,}")
+MULTI_SPACE_PATTERN: re.Pattern = re.compile(r" {2,}")
 
-XML_TAG_PATTERN: Pattern = re.compile(r"<\/?[\w:]+( \/|\/|)>")
+XML_TAG_PATTERN: re.Pattern = re.compile(r"<\/?[\w:]+( \/|\/|)>")
 
 
 def has_xml_tag(text: str) -> bool:
@@ -241,7 +242,7 @@ class TextDistance:
     _normalized_char_counts: Optional[defaultdict] = field(default=None, init=False)
 
     # set of all counted characters - see _normalize_char_counter
-    _counted_char_set: Optional[Set[str]] = field(default=None, init=False)
+    _counted_char_set: Optional[set[str]] = field(default=None, init=False)
 
     # flag if fit was called
     _fit_called: bool = field(default=False, init=False)

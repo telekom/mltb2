@@ -9,7 +9,7 @@ Hint:
     ``pip install mltb2[bs]``
 """
 
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 import mdformat
 from bs4 import BeautifulSoup
@@ -35,7 +35,7 @@ def extract_text(soup: BeautifulSoup, join_str: Optional[str] = None) -> str:
     return result
 
 
-def extract_one(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: Dict[str, Any]) -> Any:
+def extract_one(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: dict[str, Any]) -> Any:
     """Extract exactly one specified element from a BeautifulSoup object.
 
     This function expacts that exactly only one result is found.
@@ -60,7 +60,7 @@ def extract_one(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **
     return result
 
 
-def extract_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: Dict[str, Any]) -> Any:
+def extract_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: dict[str, Any]) -> Any:
     """Extract all specified elements from a BeautifulSoup object.
 
     Args:
@@ -77,7 +77,7 @@ def extract_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **
     return result
 
 
-def remove_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: Dict[str, Any]) -> None:
+def remove_all(soup: BeautifulSoup, name=None, attrs: Optional[dict] = None, **kwargs: dict[str, Any]) -> None:
     """Remove all specified elements from a BeautifulSoup object.
 
     The removal is done in place. Nothing is returned.

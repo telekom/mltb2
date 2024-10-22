@@ -11,8 +11,9 @@ Hint:
 
 
 from abc import ABC
+from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Dict, Iterable, List, Literal, Optional, Set, Tuple, Union
+from typing import Literal, Optional, Union
 
 from somajo import SoMaJo
 from tqdm import tqdm
@@ -62,7 +63,7 @@ def detokenize(tokens) -> str:
     return result
 
 
-def extract_token_class_set(sentences: Iterable, keep_token_classes: Optional[str] = None) -> Set[str]:
+def extract_token_class_set(sentences: Iterable, keep_token_classes: Optional[str] = None) -> set[str]:
     """Extract token from sentences by token class.
 
     Args:
@@ -91,7 +92,7 @@ class SoMaJoSentenceSplitter(SoMaJoBaseClass):
 
     show_progress_bar: bool = False
 
-    def __call__(self, text: str) -> List[str]:
+    def __call__(self, text: str) -> list[str]:
         """Split the text into a list of sentences.
 
         Args:
@@ -118,7 +119,7 @@ class JaccardSimilarity(SoMaJoBaseClass):
         language: The language. ``de_CMC`` for German or ``en_PTB`` for English.
     """
 
-    def get_token_set(self, text: str) -> Set[str]:
+    def get_token_set(self, text: str) -> set[str]:
         """Get token set for text.
 
         Args:
@@ -157,7 +158,7 @@ class TokenExtractor(SoMaJoBaseClass):
         language: The language. ``de_CMC`` for German or ``en_PTB`` for English.
     """
 
-    def extract_url_set(self, text: Union[Iterable, str]) -> Set[str]:
+    def extract_url_set(self, text: Union[Iterable, str]) -> set[str]:
         """Extract URLs from text.
 
         An example:
@@ -187,7 +188,7 @@ class TokenExtractor(SoMaJoBaseClass):
         result = extract_token_class_set(sentences, keep_token_classes="URL")
         return result
 
-    def extract_token_set(self, text: Union[Iterable, str], keep_token_classes: Optional[str] = None) -> Set[str]:
+    def extract_token_set(self, text: Union[Iterable, str], keep_token_classes: Optional[str] = None) -> set[str]:
         """Extract tokens from text.
 
         Args:
@@ -214,7 +215,7 @@ class UrlSwapper:
 
     token_extractor: TokenExtractor
     url_pattern: str = "https://link-{}.com"
-    _url_map: Dict[str, str] = field(init=False, repr=False)  # map from real url to swapped url
+    _url_map: dict[str, str] = field(init=False, repr=False)  # map from real url to swapped url
 
     def __post_init__(self):
         """Do post init."""
@@ -229,7 +230,7 @@ class UrlSwapper:
             text = text.replace(url, self._url_map[url])  # replace
         return text
 
-    def reverse_swap_urls(self, text: str) -> Tuple[str, Set[str]]:
+    def reverse_swap_urls(self, text: str) -> tuple[str, set[str]]:
         """Revert the url swap.
 
         Returns:
