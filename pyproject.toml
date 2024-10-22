@@ -127,7 +127,7 @@ target-version = ["py39", "py310", "py311", "py312"]
 
 [tool.ruff]
 line-length = 119
-target-version = "py38"
+target-version = "py39"
 
 
 [tool.ruff.lint]
