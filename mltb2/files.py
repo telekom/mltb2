@@ -16,9 +16,10 @@ Hint:
 import contextlib
 import os
 import random
+from collections.abc import Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence, Set
+from typing import Any, Optional
 from uuid import uuid4
 
 import joblib
@@ -83,12 +84,12 @@ class FileBasedRestartableBatchDataProcessor:
         result_dir: The directory where the results are stored.
     """
 
-    data: List[Dict[str, Any]]
+    data: list[dict[str, Any]]
     batch_size: int
     uuid_name: str
     result_dir: str
     _result_dir_path: Path = field(init=False, repr=False)
-    _own_lock_uuids: Set[str] = field(init=False, repr=False, default_factory=set)
+    _own_lock_uuids: set[str] = field(init=False, repr=False, default_factory=set)
 
     def __post_init__(self) -> None:
         """Do post init."""
@@ -99,7 +100,7 @@ class FileBasedRestartableBatchDataProcessor:
         if not len(self.data) > 0:
             raise ValueError("data must not be empty!")
 
-        uuids: Set[str] = set()
+        uuids: set[str] = set()
 
         # check uuid_name
         for idx, d in enumerate(self.data):
@@ -134,8 +135,8 @@ class FileBasedRestartableBatchDataProcessor:
             uuid = filename[: filename.rindex("_")]
         return uuid
 
-    def _get_locked_or_done_uuids(self) -> Set[str]:
-        locked_or_done_uuids: Set[str] = set()
+    def _get_locked_or_done_uuids(self) -> set[str]:
+        locked_or_done_uuids: set[str] = set()
         for child_path in self._result_dir_path.iterdir():
             if child_path.is_file():
                 filename = child_path.name
@@ -144,20 +145,20 @@ class FileBasedRestartableBatchDataProcessor:
                     locked_or_done_uuids.add(uuid)
         return locked_or_done_uuids
 
-    def _write_lock_files(self, batch: Sequence[Dict[str, Any]]) -> None:
+    def _write_lock_files(self, batch: Sequence[dict[str, Any]]) -> None:
         for d in batch:
             uuid = d[self.uuid_name]
             (self._result_dir_path / f"{uuid}.lock").touch()
             self._own_lock_uuids.add(uuid)
 
-    def _get_remaining_data(self) -> List[Dict[str, Any]]:
-        locked_or_done_uuids: Set[str] = self._get_locked_or_done_uuids()
+    def _get_remaining_data(self) -> list[dict[str, Any]]:
+        locked_or_done_uuids: set[str] = self._get_locked_or_done_uuids()
         remaining_data = [d for d in self.data if d[self.uuid_name] not in locked_or_done_uuids]
         return remaining_data
 
-    def read_batch(self) -> Sequence[Dict[str, Any]]:
+    def read_batch(self) -> Sequence[dict[str, Any]]:
         """Read the next batch of data."""
-        remaining_data: List[Dict[str, Any]] = self._get_remaining_data()
+        remaining_data: list[dict[str, Any]] = self._get_remaining_data()
 
         # if we think we are done, delete all lock files and check again
         # this is because lock files might be orphaned
@@ -172,7 +173,7 @@ class FileBasedRestartableBatchDataProcessor:
         self._write_lock_files(next_batch)
         return next_batch
 
-    def _save_batch_data(self, batch: Sequence[Dict[str, Any]]) -> None:
+    def _save_batch_data(self, batch: Sequence[dict[str, Any]]) -> None:
         for d in batch:
             uuid = d[self.uuid_name]
             if uuid not in self._own_lock_uuids:
@@ -180,19 +181,19 @@ class FileBasedRestartableBatchDataProcessor:
             filename = self._result_dir_path / f"{uuid}_{str(uuid4())}.pkl.gz"  # noqa: RUF010
             joblib.dump(d, filename, compress=("gzip", 3))
 
-    def _remove_lock_files(self, batch: Sequence[Dict[str, Any]]) -> None:
+    def _remove_lock_files(self, batch: Sequence[dict[str, Any]]) -> None:
         for d in batch:
             uuid = d[self.uuid_name]
             (self._result_dir_path / f"{uuid}.lock").unlink(missing_ok=True)
             self._own_lock_uuids.discard(uuid)
 
-    def save_batch(self, batch: Sequence[Dict[str, Any]]) -> None:
+    def save_batch(self, batch: Sequence[dict[str, Any]]) -> None:
         """Save the batch of data."""
         self._save_batch_data(batch)
         self._remove_lock_files(batch)
 
     @staticmethod
-    def load_data(result_dir: str, ignore_load_error: bool = False) -> List[Dict[str, Any]]:
+    def load_data(result_dir: str, ignore_load_error: bool = False) -> list[dict[str, Any]]:
         """Load all data.
 
         After all data is processed, this method can be used to load all data.

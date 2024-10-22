@@ -12,7 +12,7 @@ Hint:
 
 import re
 from dataclasses import dataclass
-from typing import Final, List
+from typing import Final
 
 from tqdm import tqdm
 
@@ -21,7 +21,7 @@ from mltb2.transformers import TransformersTokenCounter
 _HEADLINE_REGEX: Final = re.compile(r"^#+ .*", flags=re.MULTILINE)
 
 
-def _chunk_md_by_headline(md_text: str) -> List[str]:
+def _chunk_md_by_headline(md_text: str) -> list[str]:
     """Chunk Markdown by headlines.
 
     Args:
@@ -30,7 +30,7 @@ def _chunk_md_by_headline(md_text: str) -> List[str]:
     Returns:
         The list of Markdown chunks.
     """
-    positions: List[int] = [m.start() for m in re.finditer(_HEADLINE_REGEX, md_text)]
+    positions: list[int] = [m.start() for m in re.finditer(_HEADLINE_REGEX, md_text)]
 
     # extend positions
     if 0 not in positions:
@@ -41,7 +41,7 @@ def _chunk_md_by_headline(md_text: str) -> List[str]:
     return result
 
 
-def chunk_md(md_text: str) -> List[str]:
+def chunk_md(md_text: str) -> list[str]:
     """Chunk Markdown by headlines and merge isolated headlines.
 
     Merges isolated headlines with their corresponding subsequent paragraphs.
@@ -85,7 +85,7 @@ class MdTextSplitter:
     transformers_token_counter: TransformersTokenCounter
     show_progress_bar: bool = False
 
-    def __call__(self, md_text: str) -> List[str]:
+    def __call__(self, md_text: str) -> list[str]:
         """Split the Markdown text into sections.
 
         Args:
@@ -98,8 +98,8 @@ class MdTextSplitter:
 
         assert len(md_chunks) == len(counts)  # type: ignore[arg-type]
 
-        result_merges: List[str] = []
-        temp_merges: List[str] = []
+        result_merges: list[str] = []
+        temp_merges: list[str] = []
         current_count: int = 0
 
         for md_chunk, count in zip(

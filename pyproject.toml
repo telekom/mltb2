@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mltb2"
-version = "1.0.1rc4"
+version = "1.0.1rc5"
 description = "Machine Learning Toolbox 2"
 authors = ["PhilipMay <philip@may.la>"]
 readme = "README.md"
@@ -33,10 +33,11 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Natural Language :: German",
   "Natural Language :: English",
-  "Programming Language :: Python :: 3.8",
+  # "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3 :: Only",
   "Topic :: Scientific/Engineering :: Mathematics",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
@@ -55,8 +56,8 @@ arango-col-backup = 'mltb2.arangodb:arango_collection_backup'
 "Bug Tracker" = "https://github.com/telekom/mltb2/issues"
 
 [tool.poetry.dependencies]
-python = "^3.8"
-numpy = "*"
+python = "^3.9"
+numpy = "^1"  # restriction by fasttext
 scipy = "*"
 tqdm = "*"
 platformdirs = {version = "*", optional = true}
@@ -122,11 +123,11 @@ addopts = "--random-order-bucket=global"
 
 [tool.black]
 line-length = 119
-target-version = ["py38", "py39", "py310", "py311"]
+target-version = ["py39", "py310", "py311", "py312"]
 
 [tool.ruff]
 line-length = 119
-target-version = "py38"
+target-version = "py39"
 
 
 [tool.ruff.lint]

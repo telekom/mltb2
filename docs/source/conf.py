@@ -21,7 +21,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-from typing import List
+
 
 # -- Project information -----------------------------------------------------
 
@@ -54,7 +54,7 @@ templates_path = ["_templates"]
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns: List[str] = []
+exclude_patterns: list[str] = []
 
 
 # -- Options for HTML output -------------------------------------------------

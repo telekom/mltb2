@@ -16,7 +16,6 @@ Hint:
 
 
 from dataclasses import dataclass
-from typing import List
 
 from tqdm import tqdm
 
@@ -46,7 +45,7 @@ class TextSplitter:
     show_progress_bar: bool = False
     ignore_overly_long_sentences: bool = False
 
-    def __call__(self, text: str) -> List[str]:
+    def __call__(self, text: str) -> list[str]:
         """Split the text into sections.
 
         Args:
@@ -59,8 +58,8 @@ class TextSplitter:
 
         assert len(sentences) == len(counts)  # type: ignore[arg-type]
 
-        result_splits: List[str] = []
-        current_sentences: List[str] = []
+        result_splits: list[str] = []
+        current_sentences: list[str] = []
         current_count: int = 0
         for sentence, count in zip(tqdm(sentences, disable=not self.show_progress_bar), counts):  # type: ignore[arg-type]
             if count > self.max_token:

@@ -5,8 +5,9 @@
 """Database utils module."""
 
 from abc import ABC, abstractmethod
+from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Callable, Sequence
+from typing import Callable
 
 
 class AbstractBatchDataManager(ABC):

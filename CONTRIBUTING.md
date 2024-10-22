@@ -177,16 +177,16 @@ First [install pyenv](https://github.com/pyenv/pyenv#installation) if you do not
 Next install the appropriate Python version.
 We recommend the development on the oldest still permitted Python version of the project.
 This version number can be found in the `pyproject.toml` file in the setting called
-`tool.poetry.dependencies.python`. If this is set like `python = "^3.8"`
-we use pyenv to install Python 3.8:
-`pyenv install 3.8`
-This installs the latest 3.8 Python version.
+`tool.poetry.dependencies.python`. If this is set like `python = "^3.9"`
+we use pyenv to install Python 3.9:
+`pyenv install 3.9`
+This installs the latest 3.9 Python version.
 
 If the Python installation was successful we use `pyenv versions` to see which exact Version is installed.
 Then we activate this version with `pyenv local <version>`.
 This command will create a `.python-version` file in the project directory.
 Make sure that you are still in the project directory.
-For example execute: `pyenv local 3.8.17`
+For example execute: `pyenv local 3.9`
 
 ### 5. Install the Project with Poetry
 
