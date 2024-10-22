@@ -57,7 +57,7 @@ arango-col-backup = 'mltb2.arangodb:arango_collection_backup'
 
 [tool.poetry.dependencies]
 python = "^3.9"
-numpy = "*"
+numpy = "^1"  # restriction by fasttext
 scipy = "*"
 tqdm = "*"
 platformdirs = {version = "*", optional = true}
