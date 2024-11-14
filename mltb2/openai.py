@@ -171,17 +171,19 @@ class OpenAiChat:
     Args:
         api_key: The OpenAI API key.
         model: The OpenAI model name.
+        base_url: change the base url - this is useful for Perplexity
     """
 
     model: str
     client: Union[OpenAI, AzureOpenAI] = field(init=False, repr=False)
     async_client: Union[AsyncOpenAI, AsyncAzureOpenAI] = field(init=False, repr=False)
     api_key: Optional[str] = None
+    base_url: Optional[str] = None
 
     def __post_init__(self) -> None:
         """Do post init."""
-        self.client = OpenAI(api_key=self.api_key)
-        self.async_client = AsyncOpenAI(api_key=self.api_key)
+        self.client = OpenAI(api_key=self.api_key, base_url=self.base_url)
+        self.async_client = AsyncOpenAI(api_key=self.api_key, base_url=self.base_url)
 
     @classmethod
     def from_yaml(cls, yaml_file, api_key: Optional[str] = None, **kwargs):
