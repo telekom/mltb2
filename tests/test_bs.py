@@ -71,7 +71,7 @@ def test_soup_to_md(my_soup: BeautifulSoup):
     result = soup_to_md(my_soup)
     assert result is not None
     assert (
-        result == "The Dormouse's story **The Dormouse's story**\n\n"
+        result == "The Dormouse's story\n\n**The Dormouse's story**\n\n"
         "Once upon a time there were three little sisters; "
         "and their names were [Elsie](http://example.com/elsie), "
         "[Lacie](http://example.com/lacie) and [Tillie](http://example.com/tillie); "
@@ -83,7 +83,7 @@ def test_html_to_md():
     result = html_to_md(html_doc)
     assert result is not None
     assert (
-        result == "The Dormouse's story **The Dormouse's story**\n\n"
+        result == "The Dormouse's story\n\n**The Dormouse's story**\n\n"
         "Once upon a time there were three little sisters; "
         "and their names were [Elsie](http://example.com/elsie), "
         "[Lacie](http://example.com/lacie) and [Tillie](http://example.com/tillie); "
