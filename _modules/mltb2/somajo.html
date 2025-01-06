@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>mltb2.somajo &mdash; MLTB2  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=de248184" />
@@ -88,19 +88,19 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">from</span> <span class="nn">somajo</span> <span class="kn">import</span> <span class="n">SoMaJo</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">somajo</span><span class="w"> </span><span class="kn">import</span> <span class="n">SoMaJo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
 
 
 <div class="viewcode-block" id="SoMaJoBaseClass">
 <a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.SoMaJoBaseClass">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">SoMaJoBaseClass</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SoMaJoBaseClass</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base Class for SoMaJo tools.</span>
 
 <span class="sd">    Args:</span>
@@ -113,7 +113,7 @@
     <span class="n">language</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;de_CMC&quot;</span><span class="p">,</span> <span class="s2">&quot;en_PTB&quot;</span><span class="p">]</span>
     <span class="n">somajo</span><span class="p">:</span> <span class="n">SoMaJo</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">somajo</span> <span class="o">=</span> <span class="n">SoMaJo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">language</span><span class="p">)</span></div>
 
@@ -121,7 +121,7 @@
 
 <div class="viewcode-block" id="detokenize">
 <a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.detokenize">[docs]</a>
-<span class="k">def</span> <span class="nf">detokenize</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">detokenize</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert SoMaJo tokens to sentence (string).</span>
 
 <span class="sd">    Args:</span>
@@ -149,7 +149,7 @@
 
 <div class="viewcode-block" id="extract_token_class_set">
 <a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.extract_token_class_set">[docs]</a>
-<span class="k">def</span> <span class="nf">extract_token_class_set</span><span class="p">(</span><span class="n">sentences</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">keep_token_classes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_token_class_set</span><span class="p">(</span><span class="n">sentences</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">keep_token_classes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract token from sentences by token class.</span>
 
 <span class="sd">    Args:</span>
@@ -171,7 +171,7 @@
 <div class="viewcode-block" id="SoMaJoSentenceSplitter">
 <a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">SoMaJoSentenceSplitter</span><span class="p">(</span><span class="n">SoMaJoBaseClass</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SoMaJoSentenceSplitter</span><span class="p">(</span><span class="n">SoMaJoBaseClass</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Use SoMaJo to split text into sentences.</span>
 
 <span class="sd">    Args:</span>
@@ -183,7 +183,7 @@
 
 <div class="viewcode-block" id="SoMaJoSentenceSplitter.__call__">
 <a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.SoMaJoSentenceSplitter.__call__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Split the text into a list of sentences.</span>
 
 <span class="sd">        Args:</span>
@@ -207,7 +207,7 @@
 <div class="viewcode-block" id="JaccardSimilarity">
 <a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.JaccardSimilarity">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">JaccardSimilarity</span><span class="p">(</span><span class="n">SoMaJoBaseClass</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">JaccardSimilarity</span><span class="p">(</span><span class="n">SoMaJoBaseClass</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the `jaccard similarity &lt;https://en.wikipedia.org/wiki/Jaccard_index&gt;`_.</span>
 
 <span class="sd">    Args:</span>
@@ -216,7 +216,7 @@
 
 <div class="viewcode-block" id="JaccardSimilarity.get_token_set">
 <a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.JaccardSimilarity.get_token_set">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_token_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_token_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get token set for text.</span>
 
 <span class="sd">        Args:</span>
@@ -233,7 +233,7 @@
 
 <div class="viewcode-block" id="JaccardSimilarity.__call__">
 <a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.JaccardSimilarity.__call__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the jaccard similarity for two texts.</span>
 
 <span class="sd">        Args:</span>
@@ -255,7 +255,7 @@
 <div class="viewcode-block" id="TokenExtractor">
 <a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.TokenExtractor">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">TokenExtractor</span><span class="p">(</span><span class="n">SoMaJoBaseClass</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TokenExtractor</span><span class="p">(</span><span class="n">SoMaJoBaseClass</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract tokens from text.</span>
 
 <span class="sd">    Args:</span>
@@ -264,7 +264,7 @@
 
 <div class="viewcode-block" id="TokenExtractor.extract_url_set">
 <a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.TokenExtractor.extract_url_set">[docs]</a>
-    <span class="k">def</span> <span class="nf">extract_url_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Iterable</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">extract_url_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Iterable</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract URLs from text.</span>
 
 <span class="sd">        An example:</span>
@@ -297,7 +297,7 @@
 
 <div class="viewcode-block" id="TokenExtractor.extract_token_set">
 <a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.TokenExtractor.extract_token_set">[docs]</a>
-    <span class="k">def</span> <span class="nf">extract_token_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Iterable</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">keep_token_classes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">extract_token_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Iterable</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">keep_token_classes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract tokens from text.</span>
 
 <span class="sd">        Args:</span>
@@ -318,7 +318,7 @@
 <div class="viewcode-block" id="UrlSwapper">
 <a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.UrlSwapper">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">UrlSwapper</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">UrlSwapper</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Tool to swap (and reverse swap) links with a numbered replacement link.</span>
 
 <span class="sd">    Args:</span>
@@ -330,13 +330,13 @@
     <span class="n">url_pattern</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;https://link-</span><span class="si">{}</span><span class="s2">.com&quot;</span>
     <span class="n">_url_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># map from real url to swapped url</span>
 
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_url_map</span> <span class="o">=</span> <span class="p">{}</span>
 
 <div class="viewcode-block" id="UrlSwapper.swap_urls">
 <a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.UrlSwapper.swap_urls">[docs]</a>
-    <span class="k">def</span> <span class="nf">swap_urls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">swap_urls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Swap the urls of the text.&quot;&quot;&quot;</span>
         <span class="n">url_set</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_extractor</span><span class="o">.</span><span class="n">extract_url_set</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">url_set</span><span class="p">:</span>
@@ -348,7 +348,7 @@
 
 <div class="viewcode-block" id="UrlSwapper.reverse_swap_urls">
 <a class="viewcode-back" href="../../api-reference/somajo.html#mltb2.somajo.UrlSwapper.reverse_swap_urls">[docs]</a>
-    <span class="k">def</span> <span class="nf">reverse_swap_urls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reverse_swap_urls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Revert the url swap.</span>
 
 <span class="sd">        Returns:</span>

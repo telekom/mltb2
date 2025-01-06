@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>mltb2.somajo_transformers &mdash; MLTB2  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=de248184" />
@@ -93,18 +93,18 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
 
-<span class="kn">from</span> <span class="nn">mltb2.somajo</span> <span class="kn">import</span> <span class="n">SoMaJoSentenceSplitter</span>
-<span class="kn">from</span> <span class="nn">mltb2.transformers</span> <span class="kn">import</span> <span class="n">TransformersTokenCounter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mltb2.somajo</span><span class="w"> </span><span class="kn">import</span> <span class="n">SoMaJoSentenceSplitter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mltb2.transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">TransformersTokenCounter</span>
 
 
 <div class="viewcode-block" id="TextSplitter">
 <a class="viewcode-back" href="../../api-reference/somajo_transformers.html#mltb2.somajo_transformers.TextSplitter">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">TextSplitter</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TextSplitter</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Split the text into sections with a specified maximum token number.</span>
 
 <span class="sd">    Does not divide words, but always whole sentences.</span>
@@ -127,7 +127,7 @@
 
 <div class="viewcode-block" id="TextSplitter.__call__">
 <a class="viewcode-back" href="../../api-reference/somajo_transformers.html#mltb2.somajo_transformers.TextSplitter.__call__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Split the text into sections.</span>
 
 <span class="sd">        Args:</span>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>mltb2.plot &mdash; MLTB2  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=de248184" />
@@ -89,15 +89,15 @@
 <span class="sd">    ``pip install mltb2[plot]``</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 
 <span class="c1"># see https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.twinx.html</span>
 <div class="viewcode-block" id="twin_axes_timeseries_plot">
 <a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.twin_axes_timeseries_plot">[docs]</a>
-<span class="k">def</span> <span class="nf">twin_axes_timeseries_plot</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">twin_axes_timeseries_plot</span><span class="p">(</span>
     <span class="n">values_1</span><span class="p">,</span>
     <span class="n">label_1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">values_2</span><span class="p">,</span>
@@ -165,7 +165,7 @@
 
 <div class="viewcode-block" id="boxplot">
 <a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.boxplot">[docs]</a>
-<span class="k">def</span> <span class="nf">boxplot</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">boxplot</span><span class="p">(</span>
     <span class="n">values</span><span class="p">,</span>
     <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -207,7 +207,7 @@
 
 <div class="viewcode-block" id="boxplot_dict">
 <a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.boxplot_dict">[docs]</a>
-<span class="k">def</span> <span class="nf">boxplot_dict</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">boxplot_dict</span><span class="p">(</span>
     <span class="n">values_dict</span><span class="p">,</span>
     <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">xlabel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -240,7 +240,7 @@
 
 <div class="viewcode-block" id="save_last_figure">
 <a class="viewcode-back" href="../../api-reference/plot.html#mltb2.plot.save_last_figure">[docs]</a>
-<span class="k">def</span> <span class="nf">save_last_figure</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">save_last_figure</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Saves the last plot made by Matplotlib.</span>
 
 <span class="sd">    For jupyter notebooks this has to be called in the same cell that created the plot.</span>

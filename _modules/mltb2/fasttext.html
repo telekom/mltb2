@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>mltb2.fasttext &mdash; MLTB2  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=de248184" />
@@ -87,32 +87,32 @@
 <span class="sd">    ``pip install mltb2[fasttext]``</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
 
-<span class="kn">import</span> <span class="nn">fasttext</span>
-<span class="kn">from</span> <span class="nn">fasttext.FastText</span> <span class="kn">import</span> <span class="n">_FastText</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">fasttext</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fasttext.FastText</span><span class="w"> </span><span class="kn">import</span> <span class="n">_FastText</span>
 
-<span class="kn">from</span> <span class="nn">mltb2.files</span> <span class="kn">import</span> <span class="n">fetch_remote_file</span><span class="p">,</span> <span class="n">get_and_create_mltb2_data_dir</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mltb2.files</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_remote_file</span><span class="p">,</span> <span class="n">get_and_create_mltb2_data_dir</span>
 
 
 <div class="viewcode-block" id="FastTextLanguageIdentification">
 <a class="viewcode-back" href="../../api-reference/fasttext.html#mltb2.fasttext.FastTextLanguageIdentification">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">FastTextLanguageIdentification</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FastTextLanguageIdentification</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Identify languages of a text.&quot;&quot;&quot;</span>
 
     <span class="n">model</span><span class="p">:</span> <span class="n">_FastText</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">fasttext</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_model_path_and_download</span><span class="p">())</span>
 
 <div class="viewcode-block" id="FastTextLanguageIdentification.get_model_path_and_download">
 <a class="viewcode-back" href="../../api-reference/fasttext.html#mltb2.fasttext.FastTextLanguageIdentification.get_model_path_and_download">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_model_path_and_download</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_model_path_and_download</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the model path and download it if needed.</span>
 
 <span class="sd">        Returns:</span>
@@ -137,7 +137,7 @@
 
 <div class="viewcode-block" id="FastTextLanguageIdentification.__call__">
 <a class="viewcode-back" href="../../api-reference/fasttext.html#mltb2.fasttext.FastTextLanguageIdentification.__call__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num_lang</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">always_detect_lang</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num_lang</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">always_detect_lang</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Identify languages of a given text.</span>
 
 <span class="sd">        Args:</span>

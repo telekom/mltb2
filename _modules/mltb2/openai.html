@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>mltb2.openai &mdash; MLTB2  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=de248184" />
@@ -90,23 +90,23 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">import</span> <span class="nn">tiktoken</span>
-<span class="kn">import</span> <span class="nn">yaml</span>
-<span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">AsyncAzureOpenAI</span><span class="p">,</span> <span class="n">AsyncOpenAI</span><span class="p">,</span> <span class="n">AzureOpenAI</span><span class="p">,</span> <span class="n">OpenAI</span>
-<span class="kn">from</span> <span class="nn">openai.types.chat</span> <span class="kn">import</span> <span class="n">ChatCompletion</span>
-<span class="kn">from</span> <span class="nn">tiktoken.core</span> <span class="kn">import</span> <span class="n">Encoding</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tiktoken</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncAzureOpenAI</span><span class="p">,</span> <span class="n">AsyncOpenAI</span><span class="p">,</span> <span class="n">AzureOpenAI</span><span class="p">,</span> <span class="n">OpenAI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openai.types.chat</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatCompletion</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tiktoken.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">Encoding</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
 
 
 <div class="viewcode-block" id="OpenAiTokenCounter">
 <a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiTokenCounter">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">OpenAiTokenCounter</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">OpenAiTokenCounter</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Count OpenAI tokens.</span>
 
 <span class="sd">    Args:</span>
@@ -125,13 +125,13 @@
     <span class="n">encoding</span><span class="p">:</span> <span class="n">Encoding</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">show_progress_bar</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">encoding_for_model</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="p">)</span>
 
 <div class="viewcode-block" id="OpenAiTokenCounter.__call__">
 <a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiTokenCounter.__call__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Count tokens for text.</span>
 
 <span class="sd">        Args:</span>
@@ -156,7 +156,7 @@
 <div class="viewcode-block" id="OpenAiChatResult">
 <a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChatResult">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">OpenAiChatResult</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">OpenAiChatResult</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Result of an OpenAI chat completion.</span>
 
 <span class="sd">    If you want to convert this to a ``dict`` use ``asdict(open_ai_chat_result)``</span>
@@ -198,7 +198,7 @@
 <div class="viewcode-block" id="OpenAiChatResult.from_chat_completion">
 <a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChatResult.from_chat_completion">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_chat_completion</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_chat_completion</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">chat_completion</span><span class="p">:</span> <span class="n">ChatCompletion</span><span class="p">,</span>
         <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -234,7 +234,7 @@
 
 <div class="viewcode-block" id="remove_openai_tokens">
 <a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.remove_openai_tokens">[docs]</a>
-<span class="k">def</span> <span class="nf">remove_openai_tokens</span><span class="p">(</span><span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">remove_openai_tokens</span><span class="p">(</span><span class="n">messages</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove OpenAI special tokens from the messages.</span>
 
 <span class="sd">    These tokens are ``&lt;|im_start|&gt;`` and ``&lt;|im_end|&gt;`` and they can cause problems when passed to the OpenAI API.</span>
@@ -255,7 +255,7 @@
 <div class="viewcode-block" id="OpenAiChat">
 <a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">OpenAiChat</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">OpenAiChat</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Tool to interact with OpenAI chat models.</span>
 
 <span class="sd">    This also be constructed with :meth:`~OpenAiChat.from_yaml`.</span>
@@ -275,7 +275,7 @@
     <span class="n">api_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">base_url</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_url</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">async_client</span> <span class="o">=</span> <span class="n">AsyncOpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_url</span><span class="p">)</span>
@@ -283,7 +283,7 @@
 <div class="viewcode-block" id="OpenAiChat.from_yaml">
 <a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat.from_yaml">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">yaml_file</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">yaml_file</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct this class from a yaml file.</span>
 
 <span class="sd">        If the ``api_key`` is not set in the yaml file,</span>
@@ -311,7 +311,7 @@
 
 <div class="viewcode-block" id="OpenAiChat.create_completions">
 <a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat.create_completions">[docs]</a>
-    <span class="k">def</span> <span class="nf">create_completions</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_completions</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span>
         <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -373,7 +373,7 @@
 
 <div class="viewcode-block" id="OpenAiChat.create_completions_async">
 <a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiChat.create_completions_async">[docs]</a>
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">create_completions_async</span><span class="p">(</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">create_completions_async</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span>
         <span class="n">completion_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -441,7 +441,7 @@
 <div class="viewcode-block" id="_OpenAiAzureChatBase">
 <a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai._OpenAiAzureChatBase">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">_OpenAiAzureChatBase</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">_OpenAiAzureChatBase</span><span class="p">:</span>
     <span class="n">azure_endpoint</span><span class="p">:</span> <span class="nb">str</span></div>
 
 
@@ -449,7 +449,7 @@
 <div class="viewcode-block" id="OpenAiAzureChat">
 <a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiAzureChat">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">OpenAiAzureChat</span><span class="p">(</span><span class="n">OpenAiChat</span><span class="p">,</span> <span class="n">_OpenAiAzureChatBase</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">OpenAiAzureChat</span><span class="p">(</span><span class="n">OpenAiChat</span><span class="p">,</span> <span class="n">_OpenAiAzureChatBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Tool to interact with Azure OpenAI chat models.</span>
 
 <span class="sd">    This can also be constructed with :meth:`~OpenAiChat.from_yaml`.</span>
@@ -470,7 +470,7 @@
     <span class="n">api_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">azure_ad_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">AzureOpenAI</span><span class="p">(</span>
             <span class="n">api_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span>
@@ -488,7 +488,7 @@
 <div class="viewcode-block" id="OpenAiAzureChat.from_yaml">
 <a class="viewcode-back" href="../../api-reference/openai.html#mltb2.openai.OpenAiAzureChat.from_yaml">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">yaml_file</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">azure_ad_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_yaml</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">yaml_file</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">azure_ad_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct this class from a yaml file.</span>
 
 <span class="sd">        If the ``api_key`` is not set in the yaml file,</span>
