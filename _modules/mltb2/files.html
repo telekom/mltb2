@@ -149,6 +149,10 @@
     <span class="n">remote</span> <span class="o">=</span> <span class="n">RemoteFileMetadata</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="n">sha256_checksum</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">fetch_remote_file_path</span> <span class="o">=</span> <span class="n">_fetch_remote</span><span class="p">(</span><span class="n">remote</span><span class="p">,</span> <span class="n">dirname</span><span class="o">=</span><span class="n">dirname</span><span class="p">)</span>
+
+        <span class="c1"># new scikit-learn version return a Path object instead of a string</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fetch_remote_file_path</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+            <span class="n">fetch_remote_file_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">fetch_remote_file_path</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">FileNotFoundError</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
