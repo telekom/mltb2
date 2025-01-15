@@ -66,6 +66,10 @@ def fetch_remote_file(dirname, filename, url: str, sha256_checksum: str) -> str:
     remote = RemoteFileMetadata(filename=filename, url=url, checksum=sha256_checksum)
     try:
         fetch_remote_file_path = _fetch_remote(remote, dirname=dirname)
+
+        # new scikit-learn version return a Path object instead of a string
+        if isinstance(fetch_remote_file_path, Path):
+            fetch_remote_file_path = str(fetch_remote_file_path)
     except Exception:
         with contextlib.suppress(FileNotFoundError):
             os.remove(os.path.join(dirname, filename))
