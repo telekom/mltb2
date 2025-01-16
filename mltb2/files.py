@@ -65,7 +65,7 @@ def fetch_remote_file(dirname, filename, url: str, sha256_checksum: str) -> str:
     """
     remote = RemoteFileMetadata(filename=filename, url=url, checksum=sha256_checksum)
     try:
-        fetch_remote_file_path = _fetch_remote(remote, dirname=dirname)
+        fetch_remote_file_path = _fetch_remote(remote, dirname=dirname, n_retries=5, delay=2)
 
         # new scikit-learn version return a Path object instead of a string
         if isinstance(fetch_remote_file_path, Path):
