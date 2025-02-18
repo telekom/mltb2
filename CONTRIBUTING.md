@@ -144,18 +144,7 @@ But it does not matter. It's your choice.
 
 ### 3. Configure Poetry
 
-We suggest the following two config options. These are not mandatory but useful.
-
-Set [`virtualenvs.prefer-active-python`](https://python-poetry.org/docs/configuration/#virtualenvsprefer-active-python-experimental)
-to `true`.
-With this setting Poetry uses the currently activated Python version to create a new virtual environment.
-If set to false, the Python version used during Poetry installation is used.
-This makes it possible to determine the exact Python version for development.
-This can be done [global or locale](https://python-poetry.org/docs/configuration/#local-configuration).
-We suggest to do this setting as global.
-
-- global setting: `poetry config virtualenvs.prefer-active-python true`
-- locale setting: `poetry config virtualenvs.prefer-active-python true --local` - this will create or change the `poetry.toml` file
+We suggest the following config option. This is not mandatory but useful.
 
 Set [`virtualenvs.options.always-copy`](https://python-poetry.org/docs/configuration/#virtualenvsoptionsalways-copy)
 to `true`.
