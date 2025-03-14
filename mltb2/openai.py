@@ -19,8 +19,9 @@ from typing import Any, Optional, Union
 
 import tiktoken
 import yaml
-from openai import AsyncAzureOpenAI, AsyncOpenAI, AzureOpenAI, OpenAI
+from openai import AsyncAzureOpenAI, AsyncOpenAI, AzureOpenAI, OpenAI 
 from openai.types.chat import ChatCompletion
+from openai.lib.azure import AzureADTokenProvider, AsyncAzureADTokenProvider
 from tiktoken.core import Encoding
 from tqdm import tqdm
 
@@ -359,6 +360,7 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
     api_version: Optional[str] = None
     api_key: Optional[str] = None
     azure_ad_token: Optional[str] = None
+    azure_ad_token_provider: Optional[AzureADTokenProvider] = None
 
     def __post_init__(self) -> None:
         """Do post init."""
@@ -367,12 +369,14 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
             api_version=self.api_version,
             azure_endpoint=self.azure_endpoint,
             azure_ad_token=self.azure_ad_token,
+            azure_ad_token_provider = self.azure_ad_token_provider
         )
         self.async_client = AsyncAzureOpenAI(
             api_key=self.api_key,
             api_version=self.api_version,
             azure_endpoint=self.azure_endpoint,
             azure_ad_token=self.azure_ad_token,
+            azure_ad_token_provider = self.azure_ad_token_provider
         )
 
     @classmethod
