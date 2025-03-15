@@ -107,7 +107,9 @@
     <span class="c1"># https://www.compart.com/en/unicode/U+2029</span>
 <span class="p">)</span>
 
-<span class="n">INVISIBLE_CHARACTERS_TRANS</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">({</span><span class="n">char</span><span class="p">:</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">INVISIBLE_CHARACTERS</span><span class="p">})</span>
+<span class="n">INVISIBLE_CHARACTERS_TRANS</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span>
+    <span class="p">{</span><span class="n">char</span><span class="p">:</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">INVISIBLE_CHARACTERS</span><span class="p">}</span>  <span class="c1"># noqa: C420</span>
+<span class="p">)</span>
 
 <span class="n">SPECIAL_WHITESPACES</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span>
     <span class="c1"># unicode block &quot;General Punctuation&quot;: https://www.compart.com/en/unicode/block/U+2000</span>
@@ -127,7 +129,9 @@
     <span class="s2">&quot;</span><span class="se">\u00a0</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># No-Break Space (NBSP) https://www.compart.com/en/unicode/U+00a0</span>
 <span class="p">)</span>
 
-<span class="n">SPECIAL_WHITESPACES_TRANS</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">({</span><span class="n">char</span><span class="p">:</span> <span class="s2">&quot; &quot;</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">SPECIAL_WHITESPACES</span><span class="p">})</span>
+<span class="n">SPECIAL_WHITESPACES_TRANS</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span>
+    <span class="p">{</span><span class="n">char</span><span class="p">:</span> <span class="s2">&quot; &quot;</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">SPECIAL_WHITESPACES</span><span class="p">}</span>  <span class="c1"># noqa: C420</span>
+<span class="p">)</span>
 
 <span class="n">INVISIBLE_CHARACTERS_AND_SPECIAL_WHITESPACES_TRANS</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">SPECIAL_WHITESPACES_TRANS</span><span class="p">,</span> <span class="o">**</span><span class="n">INVISIBLE_CHARACTERS_TRANS</span><span class="p">}</span>
 
