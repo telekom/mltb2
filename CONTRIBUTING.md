@@ -186,7 +186,7 @@ needed linting, testing and documentation dependencies.
 With this method, the sources are also implicitly installed in
 [editable mode](https://pip.pypa.io/en/latest/cli/pip_install/#cmdoption-e).
 
-## Sync your Branch with the Priginal Repository
+## Sync your Branch with the Original Repository
 
 Sometimes the main repository made changes that you want to have in your development branch of your fork.
 To do this you can use the GitHub web interface of your forked repository.
