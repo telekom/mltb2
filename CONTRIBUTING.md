@@ -189,14 +189,15 @@ With this method, the sources are also implicitly installed in
 ## Sync your Branch with the Original Repository
 
 Sometimes the main repository made changes that you want to have in your development branch of your fork.
-To do this you can use the GitHub web interface of your forked repository.
-Just click the "Sync fork" button and then "Update branch".
+To do this go to the GitHub web interface of your forked repository.
+Make sure you are in the main branch.
+Then just click the "Sync fork" button and then "Update branch".
 
 Then run these GIT commands:
 
 ```bash
-git checkout main
-git pull
-git checkout <your_dev_branch>
-git rebase main
+git fetch origin main
+git rebase origin/main
+# resolve possible conflicts
+git push -f
 ```
