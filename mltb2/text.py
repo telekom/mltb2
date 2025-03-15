@@ -29,7 +29,9 @@ INVISIBLE_CHARACTERS: Final[tuple[str, ...]] = (
     # https://www.compart.com/en/unicode/U+2029
 )
 
-INVISIBLE_CHARACTERS_TRANS: Final[dict[int, None]] = str.maketrans({char: None for char in INVISIBLE_CHARACTERS})
+INVISIBLE_CHARACTERS_TRANS: Final[dict[int, None]] = str.maketrans(
+    {char: None for char in INVISIBLE_CHARACTERS}  # noqa: C420
+)
 
 SPECIAL_WHITESPACES: Final[tuple[str, ...]] = (
     # unicode block "General Punctuation": https://www.compart.com/en/unicode/block/U+2000
@@ -49,7 +51,9 @@ SPECIAL_WHITESPACES: Final[tuple[str, ...]] = (
     "\u00a0",  # No-Break Space (NBSP) https://www.compart.com/en/unicode/U+00a0
 )
 
-SPECIAL_WHITESPACES_TRANS: Final[dict[int, str]] = str.maketrans({char: " " for char in SPECIAL_WHITESPACES})
+SPECIAL_WHITESPACES_TRANS: Final[dict[int, str]] = str.maketrans(
+    {char: " " for char in SPECIAL_WHITESPACES}  # noqa: C420
+)
 
 INVISIBLE_CHARACTERS_AND_SPECIAL_WHITESPACES_TRANS = {**SPECIAL_WHITESPACES_TRANS, **INVISIBLE_CHARACTERS_TRANS}
 
