@@ -9,6 +9,7 @@ This guide explains how you can contribute to this project. This can be in the f
 - [Testing, Linting and Formatting](#testing-linting-and-formatting)
 - [Code Style Guidelines](#code-style-guidelines)
 - [Project Setup](#project-setup)
+- [Sync your Branch with the Original Repository](#sync-your-branch-with-the-original-repository)
 
 ## Report a Bug or Issue
 
@@ -184,3 +185,18 @@ This installs all dependencies, optional (extra) dependencies and
 needed linting, testing and documentation dependencies.
 With this method, the sources are also implicitly installed in
 [editable mode](https://pip.pypa.io/en/latest/cli/pip_install/#cmdoption-e).
+
+## Sync your Branch with the Priginal Repository
+
+Sometimes the main repository made changes that you want to have in your development branch of your fork.
+To do this you can use the GitHub web interface of your forked repository.
+Just click the "Sync fork" button and then "Update branch".
+
+Then run these GIT commands:
+
+```bash
+git checkout main
+git pull
+git checkout <your_dev_branch>
+git rebase main
+```
