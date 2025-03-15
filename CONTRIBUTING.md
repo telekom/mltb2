@@ -193,7 +193,7 @@ To do this go to the GitHub web interface of your forked repository.
 Make sure you are in the main branch.
 Then just click the "Sync fork" button and then "Update branch".
 
-Then run these GIT commands:
+Then run these GIT commands in your dev branch:
 
 ```bash
 git fetch origin main
