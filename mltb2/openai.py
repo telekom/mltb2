@@ -1,6 +1,7 @@
 # Copyright (c) 2023-2024 Philip May
 # Copyright (c) 2024 Philip May, Deutsche Telekom AG
 # Copyright (c) 2024 Alaeddine Abdessalem, Deutsche Telekom AG
+# Copyright (c) 2024 Sijun John Tu, Deutsche Telekom AG
 # This software is distributed under the terms of the MIT license
 # which is available at https://opensource.org/licenses/MIT
 
@@ -19,7 +20,7 @@ from typing import Any, Optional, Union
 
 import tiktoken
 import yaml
-from openai import AsyncAzureOpenAI, AsyncOpenAI, AzureOpenAI, OpenAI 
+from openai import AsyncAzureOpenAI, AsyncOpenAI, AzureOpenAI, OpenAI
 from openai.types.chat import ChatCompletion
 from openai.lib.azure import AzureADTokenProvider, AsyncAzureADTokenProvider
 from tiktoken.core import Encoding
