@@ -23,6 +23,7 @@ import yaml
 from openai import AsyncAzureOpenAI, AsyncOpenAI, AzureOpenAI, OpenAI
 from openai.types.chat import ChatCompletion
 from openai.lib.azure import AzureADTokenProvider, AsyncAzureADTokenProvider
+from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from tiktoken.core import Encoding
 from tqdm import tqdm
 
@@ -355,33 +356,48 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
         model: The OpenAI model name.
         api_version: The OpenAI API version.
             A common value for this is ``2023-05-15``.
+        azure_ad_token_provider: either a token provider or set to "auto" to use default credentials taken from azure CLI
         azure_endpoint: The Azure endpoint.
     """
 
     api_version: Optional[str] = None
     api_key: Optional[str] = None
     azure_ad_token: Optional[str] = None
-    azure_ad_token_provider: Optional[AzureADTokenProvider] = None
+    azure_ad_token_provider: Optional[Union[AzureADTokenProvider, str]] = None
 
     def __post_init__(self) -> None:
         """Do post init."""
+
+        # init default token provider if azure_ad_token_provider=="auto"
+        if self.azure_ad_token_provider == "auto":
+            self.azure_ad_token_provider = get_bearer_token_provider(
+                DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
+            )
+
         self.client = AzureOpenAI(
             api_key=self.api_key,
             api_version=self.api_version,
             azure_endpoint=self.azure_endpoint,
             azure_ad_token=self.azure_ad_token,
-            azure_ad_token_provider = self.azure_ad_token_provider
+            azure_ad_token_provider=self.azure_ad_token_provider,
         )
         self.async_client = AsyncAzureOpenAI(
             api_key=self.api_key,
             api_version=self.api_version,
             azure_endpoint=self.azure_endpoint,
             azure_ad_token=self.azure_ad_token,
-            azure_ad_token_provider = self.azure_ad_token_provider
+            azure_ad_token_provider=self.azure_ad_token_provider,
         )
 
     @classmethod
-    def from_yaml(cls, yaml_file, api_key: Optional[str] = None, azure_ad_token: Optional[str] = None, **kwargs):
+    def from_yaml(
+        cls,
+        yaml_file,
+        api_key: Optional[str] = None,
+        azure_ad_token: Optional[str] = None,
+        azure_ad_token_provider: Optional[Union[AzureADTokenProvider, str]] = None,
+        **kwargs,
+    ):
         """Construct this class from a yaml file.
 
         If the ``api_key`` is not set in the yaml file,
@@ -391,6 +407,7 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
             yaml_file: The yaml file.
             api_key: The OpenAI API key.
             azure_ad_token: Azure AD token
+            azure_ad_token_provider: token provider
             kwargs: extra kwargs to override parameters
         Returns:
             The constructed class.
@@ -401,4 +418,20 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
         # set azure_ad_token according to this priority:
         # method parameter > yaml > environment variable
         azure_ad_token = azure_ad_token or completion_kwargs.get("AZURE_AD_TOKEN") or os.getenv("AZURE_AD_TOKEN")
-        return super().from_yaml(yaml_file, api_key=api_key, azure_ad_token=azure_ad_token, **kwargs)
+
+        # init the token provider
+        ## method parameter > yaml
+        azure_ad_token_provider = azure_ad_token_provider or completion_kwargs.get("azure_ad_token_provider")
+        ## if token_provider==auto use default settings
+        if azure_ad_token_provider == "auto":
+            azure_ad_token_provider = get_bearer_token_provider(
+                DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
+            )
+
+        return super().from_yaml(
+            yaml_file,
+            api_key=api_key,
+            azure_ad_token=azure_ad_token,
+            azure_ad_token_provider=azure_ad_token_provider,
+            **kwargs,
+        )
