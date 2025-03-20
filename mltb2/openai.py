@@ -363,7 +363,7 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
     api_version: Optional[str] = None
     api_key: Optional[str] = None
     azure_ad_token: Optional[str] = None
-    azure_ad_token_provider: Optional[Union[AzureADTokenProvider, str]] = None
+    azure_ad_token_provider: Optional[Union[AzureADTokenProvider, str]] = "auto" # default value
 
     def __post_init__(self) -> None:
         """Do post init."""
@@ -395,7 +395,7 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
         yaml_file,
         api_key: Optional[str] = None,
         azure_ad_token: Optional[str] = None,
-        azure_ad_token_provider: Optional[Union[AzureADTokenProvider, str]] = None,
+        azure_ad_token_provider: Optional[Union[AzureADTokenProvider, str]] = "auto",
         **kwargs,
     ):
         """Construct this class from a yaml file.
