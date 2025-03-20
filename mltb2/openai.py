@@ -16,14 +16,14 @@ Hint:
 import os
 from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Any, Optional, Union
+from typing import Any, Optional, Union, cast
 
 import tiktoken
 import yaml
-from openai import AsyncAzureOpenAI, AsyncOpenAI, AzureOpenAI, OpenAI
-from openai.types.chat import ChatCompletion
-from openai.lib.azure import AzureADTokenProvider, AsyncAzureADTokenProvider
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
+from openai import AsyncAzureOpenAI, AsyncOpenAI, AzureOpenAI, OpenAI
+from openai.lib.azure import AzureADTokenProvider  # TODO: what about AsyncAzureADTokenProvider ?
+from openai.types.chat import ChatCompletion
 from tiktoken.core import Encoding
 from tqdm import tqdm
 
@@ -356,7 +356,8 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
         model: The OpenAI model name.
         api_version: The OpenAI API version.
             A common value for this is ``2023-05-15``.
-        azure_ad_token_provider: either a token provider or set to "auto" to use default credentials taken from azure CLI
+        azure_ad_token_provider: either a token provider or
+            set to "auto" to use default credentials taken from azure CLI
         azure_endpoint: The Azure endpoint.
     """
 
@@ -367,12 +368,13 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
 
     def __post_init__(self) -> None:
         """Do post init."""
-
         # init default token provider if azure_ad_token_provider=="auto"
-        if self.azure_ad_token_provider == "auto":
+        if self.azure_ad_token_provider == "auto":  # NOQA: S105
             self.azure_ad_token_provider = get_bearer_token_provider(
                 DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
             )
+
+        self.azure_ad_token_provider = cast("Optional[AzureADTokenProvider]", self.azure_ad_token_provider)
 
         self.client = AzureOpenAI(
             api_key=self.api_key,
@@ -423,7 +425,7 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
         ## method parameter > yaml
         azure_ad_token_provider = azure_ad_token_provider or completion_kwargs.get("azure_ad_token_provider")
         ## if token_provider==auto use default settings
-        if azure_ad_token_provider == "auto":
+        if azure_ad_token_provider == "auto":  # NOQA: S105
             azure_ad_token_provider = get_bearer_token_provider(
                 DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
             )
