@@ -22,7 +22,7 @@ import tiktoken
 import yaml
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from openai import AsyncAzureOpenAI, AsyncOpenAI, AzureOpenAI, OpenAI
-from openai.lib.azure import AzureADTokenProvider  # TODO: what about AsyncAzureADTokenProvider ?
+from openai.lib.azure import AzureADTokenProvider
 from openai.types.chat import ChatCompletion
 from tiktoken.core import Encoding
 from tqdm import tqdm
