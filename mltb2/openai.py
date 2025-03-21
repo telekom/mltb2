@@ -1,5 +1,5 @@
-# Copyright (c) 2023-2024 Philip May
-# Copyright (c) 2024 Philip May, Deutsche Telekom AG
+# Copyright (c) 2023-2025 Philip May
+# Copyright (c) 2024-2025 Philip May, Deutsche Telekom AG
 # Copyright (c) 2024 Alaeddine Abdessalem, Deutsche Telekom AG
 # Copyright (c) 2024 Sijun John Tu, Deutsche Telekom AG
 # This software is distributed under the terms of the MIT license
