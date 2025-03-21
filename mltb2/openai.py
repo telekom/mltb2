@@ -357,8 +357,10 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
         model: The OpenAI model name.
         api_version: The OpenAI API version.
             A common value for this is ``2023-05-15``.
-        azure_ad_token_provider: either a token provider or
-            set to "auto" to use default credentials taken from azure CLI
+        azure_ad_token: The Azure Active Directory token.
+        azure_ad_token_provider: A function that returns an Azure Active Directory token,
+            which will be invoked on every request.
+            Or set to "auto" to use default credentials.
         azure_endpoint: The Azure endpoint.
     """
 
@@ -409,8 +411,10 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
         Args:
             yaml_file: The yaml file.
             api_key: The OpenAI API key.
-            azure_ad_token: Azure AD token
-            azure_ad_token_provider: token provider
+            azure_ad_token: The Azure Active Directory token.
+            azure_ad_token_provider: A function that returns an Azure Active Directory token,
+                which will be invoked on every request.
+                Or set to "auto" to use default credentials.
             kwargs: extra kwargs to override parameters
         Returns:
             The constructed class.
