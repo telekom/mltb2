@@ -18,7 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12"]
+        # only test high and low version numbers
+        python-version: ["3.9", "3.12"]
+        # python-version: ["3.9", "3.10", "3.11", "3.12"]
 
     steps:
     # https://github.com/actions/checkout
