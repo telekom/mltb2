@@ -350,6 +350,7 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
     See Also:
         * OpenAI API reference: `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
         * `Quickstart: Get started generating text using Azure OpenAI Service <https://learn.microsoft.com/en-us/azure/ai-services/openai/quickstart?tabs=command-line&pivots=programming-language-python>`_
+        * ```AzureADTokenProvider`` example <https://github.com/openai/openai-python/blob/main/examples/azure_ad.py>`_
 
     Args:
         api_key: The OpenAI API key.
