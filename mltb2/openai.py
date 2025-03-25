@@ -16,10 +16,11 @@ Hint:
 import os
 from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Any, Optional, Union, cast
+from typing import Any, Literal, Optional, Union, cast
 
 import tiktoken
 import yaml
+from azure.ai.ml.identity import AzureMLOnBehalfOfCredential
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 from openai import AsyncAzureOpenAI, AsyncOpenAI, AzureOpenAI, OpenAI
 from openai.lib.azure import AzureADTokenProvider
@@ -351,6 +352,7 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
         * OpenAI API reference: `Create chat completion <https://platform.openai.com/docs/api-reference/chat/create>`_
         * `Quickstart: Get started generating text using Azure OpenAI Service <https://learn.microsoft.com/en-us/azure/ai-services/openai/quickstart?tabs=command-line&pivots=programming-language-python>`_
         * ``AzureADTokenProvider`` `example <https://github.com/openai/openai-python/blob/main/examples/azure_ad.py>`_
+        * ``AzureMLOnBehalfOfCredential`` `doc <https://learn.microsoft.com/en-us/azure/machine-learning/how-to-use-secrets-in-runs?view=azureml-api-2&tabs=user#get-secrets>`_
 
     Args:
         api_key: The OpenAI API key.
@@ -360,21 +362,25 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
         azure_ad_token: The Azure Active Directory token.
         azure_ad_token_provider: A function that returns an Azure Active Directory token,
             which will be invoked on every request.
-            Or set to "auto" to use default credentials.
+            Or set to ``"auto"`` to use default Azure credentials or
+            ``"auto_on_behalf_of"`` to use Azure on behalf of credentials.
         azure_endpoint: The Azure endpoint.
     """
 
     api_version: Optional[str] = None
     api_key: Optional[str] = None
     azure_ad_token: Optional[str] = None
-    azure_ad_token_provider: Union[AzureADTokenProvider, str, None] = None
+    azure_ad_token_provider: Union[AzureADTokenProvider, Literal["auto", "auto_on_behalf_of"], None] = None
 
     def __post_init__(self) -> None:
         """Do post init."""
-        # init default token provider if azure_ad_token_provider=="auto"
         if self.azure_ad_token_provider == "auto":  # NOQA: S105
             self.azure_ad_token_provider = get_bearer_token_provider(
                 DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
+            )
+        elif self.azure_ad_token_provider == "auto_on_behalf_of":  # NOQA: S105
+            self.azure_ad_token_provider = get_bearer_token_provider(
+                AzureMLOnBehalfOfCredential(), "https://cognitiveservices.azure.com/.default"
             )
 
         self.azure_ad_token_provider = cast("Optional[AzureADTokenProvider]", self.azure_ad_token_provider)
@@ -400,7 +406,7 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
         yaml_file,
         api_key: Optional[str] = None,
         azure_ad_token: Optional[str] = None,
-        azure_ad_token_provider: Union[AzureADTokenProvider, str, None] = None,
+        azure_ad_token_provider: Union[AzureADTokenProvider, Literal["auto", "auto_on_behalf_of"], None] = None,
         **kwargs,
     ):
         """Construct this class from a yaml file.
@@ -414,7 +420,8 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
             azure_ad_token: The Azure Active Directory token.
             azure_ad_token_provider: A function that returns an Azure Active Directory token,
                 which will be invoked on every request.
-                Or set to "auto" to use default credentials.
+                Or set to ``"auto"`` to use default Azure credentials or
+                ``"auto_on_behalf_of"`` to use Azure on behalf of credentials.
             kwargs: extra kwargs to override parameters
         Returns:
             The constructed class.
@@ -426,14 +433,13 @@ class OpenAiAzureChat(OpenAiChat, _OpenAiAzureChatBase):
         # method parameter > yaml > environment variable
         azure_ad_token = azure_ad_token or completion_kwargs.get("AZURE_AD_TOKEN") or os.getenv("AZURE_AD_TOKEN")
 
-        # init the token provider
-        ## method parameter > yaml
-        azure_ad_token_provider = azure_ad_token_provider or completion_kwargs.get("azure_ad_token_provider")
-        ## if token_provider==auto use default settings
-        if azure_ad_token_provider == "auto":  # NOQA: S105
-            azure_ad_token_provider = get_bearer_token_provider(
-                DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
-            )
+        # set azure_ad_token_provider according to this priority:
+        # method parameter > yaml > environment variable
+        azure_ad_token_provider = (
+            azure_ad_token_provider  # type: ignore[assignment]
+            or completion_kwargs.get("AZURE_AD_TOKEN_PROVIDER")
+            or os.getenv("AZURE_AD_TOKEN_PROVIDER")
+        )
 
         return super().from_yaml(
             yaml_file,
