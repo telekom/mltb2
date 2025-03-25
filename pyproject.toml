@@ -85,6 +85,7 @@ jsonlines = {version = "*", optional = true}
 markdownify = {version = "*", optional = true}
 mdformat = {version = "*", optional = true}
 azure-identity = {version = "*", optional = true}
+azure-ai-ml = {version = "*", optional = true}
 
 [tool.poetry.extras]
 files = ["platformdirs", "scikit-learn", "joblib"]
@@ -96,7 +97,7 @@ somajo = ["SoMaJo"]
 transformers = ["scikit-learn", "torch", "transformers", "safetensors"]
 md = ["scikit-learn", "torch", "transformers", "safetensors"]
 somajo_transformers = ["SoMaJo", "scikit-learn", "torch", "transformers", "safetensors"]
-openai = ["tiktoken", "openai", "pyyaml", "azure-identity"]
+openai = ["tiktoken", "openai", "pyyaml", "azure-identity", "azure-ai-ml"]
 arangodb = ["python-dotenv", "python-arango", "jsonlines"]
 bs = ["beautifulsoup4", "markdownify", "mdformat"]
 
