@@ -94,10 +94,11 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">tiktoken</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">azure.ai.ml.identity</span><span class="w"> </span><span class="kn">import</span> <span class="n">AzureMLOnBehalfOfCredential</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">azure.identity</span><span class="w"> </span><span class="kn">import</span> <span class="n">DefaultAzureCredential</span><span class="p">,</span> <span class="n">get_bearer_token_provider</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncAzureOpenAI</span><span class="p">,</span> <span class="n">AsyncOpenAI</span><span class="p">,</span> <span class="n">AzureOpenAI</span><span class="p">,</span> <span class="n">OpenAI</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">openai.lib.azure</span><span class="w"> </span><span class="kn">import</span> <span class="n">AzureADTokenProvider</span>
@@ -461,6 +462,7 @@
 <span class="sd">        * OpenAI API reference: `Create chat completion &lt;https://platform.openai.com/docs/api-reference/chat/create&gt;`_</span>
 <span class="sd">        * `Quickstart: Get started generating text using Azure OpenAI Service &lt;https://learn.microsoft.com/en-us/azure/ai-services/openai/quickstart?tabs=command-line&amp;pivots=programming-language-python&gt;`_</span>
 <span class="sd">        * ``AzureADTokenProvider`` `example &lt;https://github.com/openai/openai-python/blob/main/examples/azure_ad.py&gt;`_</span>
+<span class="sd">        * ``AzureMLOnBehalfOfCredential`` `doc &lt;https://learn.microsoft.com/en-us/azure/machine-learning/how-to-use-secrets-in-runs?view=azureml-api-2&amp;tabs=user#get-secrets&gt;`_</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        api_key: The OpenAI API key.</span>
@@ -470,21 +472,25 @@
 <span class="sd">        azure_ad_token: The Azure Active Directory token.</span>
 <span class="sd">        azure_ad_token_provider: A function that returns an Azure Active Directory token,</span>
 <span class="sd">            which will be invoked on every request.</span>
-<span class="sd">            Or set to &quot;auto&quot; to use default credentials.</span>
+<span class="sd">            Or set to ``&quot;auto&quot;`` to use default Azure credentials or</span>
+<span class="sd">            ``&quot;auto_on_behalf_of&quot;`` to use Azure on behalf of credentials.</span>
 <span class="sd">        azure_endpoint: The Azure endpoint.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">api_version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">api_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">azure_ad_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">azure_ad_token_provider</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">AzureADTokenProvider</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">azure_ad_token_provider</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">AzureADTokenProvider</span><span class="p">,</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;auto_on_behalf_of&quot;</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Do post init.&quot;&quot;&quot;</span>
-        <span class="c1"># init default token provider if azure_ad_token_provider==&quot;auto&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">azure_ad_token_provider</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span>  <span class="c1"># NOQA: S105</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">azure_ad_token_provider</span> <span class="o">=</span> <span class="n">get_bearer_token_provider</span><span class="p">(</span>
                 <span class="n">DefaultAzureCredential</span><span class="p">(),</span> <span class="s2">&quot;https://cognitiveservices.azure.com/.default&quot;</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">azure_ad_token_provider</span> <span class="o">==</span> <span class="s2">&quot;auto_on_behalf_of&quot;</span><span class="p">:</span>  <span class="c1"># NOQA: S105</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">azure_ad_token_provider</span> <span class="o">=</span> <span class="n">get_bearer_token_provider</span><span class="p">(</span>
+                <span class="n">AzureMLOnBehalfOfCredential</span><span class="p">(),</span> <span class="s2">&quot;https://cognitiveservices.azure.com/.default&quot;</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">azure_ad_token_provider</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="s2">&quot;Optional[AzureADTokenProvider]&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">azure_ad_token_provider</span><span class="p">)</span>
@@ -512,7 +518,7 @@
         <span class="n">yaml_file</span><span class="p">,</span>
         <span class="n">api_key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">azure_ad_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">azure_ad_token_provider</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">AzureADTokenProvider</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">azure_ad_token_provider</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">AzureADTokenProvider</span><span class="p">,</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;auto_on_behalf_of&quot;</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct this class from a yaml file.</span>
@@ -526,7 +532,8 @@
 <span class="sd">            azure_ad_token: The Azure Active Directory token.</span>
 <span class="sd">            azure_ad_token_provider: A function that returns an Azure Active Directory token,</span>
 <span class="sd">                which will be invoked on every request.</span>
-<span class="sd">                Or set to &quot;auto&quot; to use default credentials.</span>
+<span class="sd">                Or set to ``&quot;auto&quot;`` to use default Azure credentials or</span>
+<span class="sd">                ``&quot;auto_on_behalf_of&quot;`` to use Azure on behalf of credentials.</span>
 <span class="sd">            kwargs: extra kwargs to override parameters</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            The constructed class.</span>
@@ -538,14 +545,13 @@
         <span class="c1"># method parameter &gt; yaml &gt; environment variable</span>
         <span class="n">azure_ad_token</span> <span class="o">=</span> <span class="n">azure_ad_token</span> <span class="ow">or</span> <span class="n">completion_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;AZURE_AD_TOKEN&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;AZURE_AD_TOKEN&quot;</span><span class="p">)</span>
 
-        <span class="c1"># init the token provider</span>
-        <span class="c1">## method parameter &gt; yaml</span>
-        <span class="n">azure_ad_token_provider</span> <span class="o">=</span> <span class="n">azure_ad_token_provider</span> <span class="ow">or</span> <span class="n">completion_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;azure_ad_token_provider&quot;</span><span class="p">)</span>
-        <span class="c1">## if token_provider==auto use default settings</span>
-        <span class="k">if</span> <span class="n">azure_ad_token_provider</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span>  <span class="c1"># NOQA: S105</span>
-            <span class="n">azure_ad_token_provider</span> <span class="o">=</span> <span class="n">get_bearer_token_provider</span><span class="p">(</span>
-                <span class="n">DefaultAzureCredential</span><span class="p">(),</span> <span class="s2">&quot;https://cognitiveservices.azure.com/.default&quot;</span>
-            <span class="p">)</span>
+        <span class="c1"># set azure_ad_token_provider according to this priority:</span>
+        <span class="c1"># method parameter &gt; yaml &gt; environment variable</span>
+        <span class="n">azure_ad_token_provider</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">azure_ad_token_provider</span>  <span class="c1"># type: ignore[assignment]</span>
+            <span class="ow">or</span> <span class="n">completion_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;AZURE_AD_TOKEN_PROVIDER&quot;</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;AZURE_AD_TOKEN_PROVIDER&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">from_yaml</span><span class="p">(</span>
             <span class="n">yaml_file</span><span class="p">,</span>
