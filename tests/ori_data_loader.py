@@ -78,7 +78,7 @@ def load_prostate_data() -> tuple[pd.Series, pd.DataFrame]:
     Returns:
         Tuple containing labels and data.
     """
-    df = pd.read_csv("https://web.stanford.edu/~hastie/CASI_files/DATA/prostmat.csv")  # noqa: PD901
+    df = pd.read_csv("https://web.stanford.edu/~hastie/CASI_files/DATA/prostmat.csv")
     data = df.T
 
     # labels
@@ -106,7 +106,7 @@ def load_leukemia_data() -> tuple[pd.Series, pd.DataFrame]:
     Returns:
         Tuple containing labels and data.
     """
-    df = pd.read_csv("https://web.stanford.edu/~hastie/CASI_files/DATA/leukemia_big.csv")  # noqa: PD901
+    df = pd.read_csv("https://web.stanford.edu/~hastie/CASI_files/DATA/leukemia_big.csv")
     data = df.T
 
     # labels
