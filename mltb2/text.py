@@ -301,6 +301,10 @@ class TextDistance:
         Args:
             text: The text to calculate the Manhattan distance to.
                 The higher this value is, the more the text differs from the fitted text.
+
+        Returns:
+            The Manhattan distance as a float. ``0.0`` means identical character distribution
+            (within the top ``max_dimensions``), larger values indicate greater divergence.
         """
         if not self._fit_called:
             raise ValueError("fit must not be called before distance!")

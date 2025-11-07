@@ -179,7 +179,7 @@ def test_UrlSwapper__no_reverse_swap_urls():
     swapped_url_text = url_swapper.swap_urls(text_with_url)
     additional_url = "http://other-url.org"
     swapped_url_text = f"{swapped_url_text} {additional_url}"
-    text_with_reverse_swapped_url, no_reverse_swap_urls = url_swapper.reverse_swap_urls(swapped_url_text)
+    _, no_reverse_swap_urls = url_swapper.reverse_swap_urls(swapped_url_text)
     assert len(no_reverse_swap_urls) == 1
     assert additional_url in no_reverse_swap_urls
 
