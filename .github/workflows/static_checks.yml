@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  checks:
+  static-check:
     env:
       src: "mltb2"
       other-src: "tests docs"

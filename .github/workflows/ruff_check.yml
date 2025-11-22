@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  checks:
+  ruff-check:
     env:
       src: "mltb2"
       other_src: "tests"
